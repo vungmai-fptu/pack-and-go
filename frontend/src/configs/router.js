@@ -7,3 +7,4 @@ export const mainRouter = [
     Component: Home,
   },
 ];
+

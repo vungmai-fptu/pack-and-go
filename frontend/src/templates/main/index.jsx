@@ -24,3 +24,4 @@ const RouterMainTemplate = ({ path, exact, Component }) => {
 };
 
 export default RouterMainTemplate;
+
