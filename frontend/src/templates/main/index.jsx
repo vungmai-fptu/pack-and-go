@@ -1,14 +1,15 @@
 import React from "react";
-import { Route } from "react-router-dom";
+import { Route, useRouteMatch } from "react-router-dom";
 import Header from "../../components/Header";
 import Footer from "../../components/Footer";
 
 function MainTemplate(props) {
+  const routeMatch = useRouteMatch("/sign");
   return (
     <>
-      <Header />
+      {!routeMatch && <Header />}
       <main>{props.children}</main>
-      <Footer />
+      {!routeMatch && <Footer />}
     </>
   );
 }
