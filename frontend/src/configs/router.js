@@ -1,7 +1,9 @@
+import LandingPage from "../pages/landing";
 import Err from "../pages/main/err";
 import Home from "../pages/main/home";
 import Login from "../pages/main/login";
 import Register from "../pages/main/register";
+
 
 export const mainRouter = [
   {
@@ -18,6 +20,11 @@ export const mainRouter = [
     path: "/sign/up",
     exact: true,
     Component: Register,
+  },
+  {
+    path: "/landing",
+    exact: true,
+    Component: LandingPage,
   },
   {
     Component: Err,

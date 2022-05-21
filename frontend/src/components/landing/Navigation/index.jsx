@@ -1,22 +1,22 @@
 import React from 'react'
 import logo from '../../../assets/images/logos/logo-3.png';
 import styles from './Navigator.module.css';
-
+import { Link } from 'react-router-dom';
 const Navigation = () => {
   return (
     <nav className={styles.navigation}>
       <div>
-        <a href="/" className={styles.logo}>
+        <Link to="/" className={styles.logo}>
           <img src={logo} alt="" />
-        </a>
+        </Link>
       </div>
       <div className={styles["nav-list"]}>
-        <a href="/login" className={styles.login}>
+        <Link to="/sign/in" className={styles.login}>
           Login
-        </a>
-        <a href="/sign-up" className={styles.register}>
+        </Link>
+        <Link to="/sign/up" className={styles.register}>
           Join Pack&Go
-        </a>
+        </Link>
       </div>
     </nav>
   )

@@ -1,5 +1,6 @@
 import styles from "./HeroSection.module.css";
 import React from 'react'
+import { Link } from "react-router-dom";
 
 const HeroSection = () => {
   return (
@@ -10,11 +11,11 @@ const HeroSection = () => {
           Planning trips - Save trips - Edit trips
         </p>
 
-        <a href="/" className={styles.button}>
+        <Link to="/sign/up" className={styles.button}>
           <div>
             Join us now
           </div>
-        </a>
+        </Link>
       </div>
     </div>
   )

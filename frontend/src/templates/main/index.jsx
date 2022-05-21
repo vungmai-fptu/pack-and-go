@@ -2,14 +2,17 @@ import React from "react";
 import { Route, useRouteMatch } from "react-router-dom";
 import Header from "../../components/Header";
 import Footer from "../../components/Footer";
+import Login from "../../pages/main/login";
 
 function MainTemplate(props) {
-  const routeMatch = useRouteMatch("/sign");
+  const routeMatchAuth = useRouteMatch("/sign");
+  const routeMatchLanding = useRouteMatch("/landing");
+
   return (
     <>
-      {!routeMatch && <Header />}
+      {!routeMatchAuth && !routeMatchLanding && <Header />}
       <main>{props.children}</main>
-      {!routeMatch && <Footer />}
+      {!routeMatchAuth && <Footer />}
     </>
   );
 }

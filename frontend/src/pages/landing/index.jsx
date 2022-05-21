@@ -1,4 +1,5 @@
 import React from 'react'
+import Footer from '../../components/Footer';
 import CallToAction from '../../components/landing/CallToAction';
 import Features from '../../components/landing/Features';
 import Header from '../../components/landing/Header';
@@ -10,6 +11,7 @@ const LandingPage = () => {
       <Features />
       <Popular />
       <CallToAction />
+      <Footer />
     </>
   )
 }
