@@ -1,7 +1,7 @@
 import React from 'react'
 import SectionContainer from '../SectionContainer';
 import styles from "./CallToAction.module.css";
-import actionImage from '../../../asset/images/mountain-with-man.jpg';
+import actionImage from '../../../assets/images/mountain-with-man.jpg';
 import { ImGoogle } from "react-icons/im";
 import { SiGmail } from 'react-icons/si';
 

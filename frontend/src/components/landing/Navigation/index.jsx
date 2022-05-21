@@ -1,5 +1,5 @@
 import React from 'react'
-import logo from '../../../asset/images/logos/logo-3.png';
+import logo from '../../../assets/images/logos/logo-3.png';
 import styles from './Navigator.module.css';
 
 const Navigation = () => {
