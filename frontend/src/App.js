@@ -1,8 +1,12 @@
 import { BrowserRouter, Switch } from "react-router-dom";
 import { mainRouter } from "./configs/router";
+import LandingPage from "./pages/landing";
 import RouterMainTemplate from "./templates/main";
 
 function App() {
+
+  const loggedIn = false;
+
   const renderMainRouter = () => {
     return mainRouter.map(({ path, exact, Component }) => {
       return (
@@ -17,7 +21,11 @@ function App() {
   return (
     <div className="App">
       <BrowserRouter>
-        <Switch>{renderMainRouter()}</Switch>
+        {
+          loggedIn ?
+            <Switch>{renderMainRouter()}</Switch> :
+            <LandingPage />
+        }
       </BrowserRouter>
     </div>
   );

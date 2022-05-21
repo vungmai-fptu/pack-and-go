@@ -1,0 +1,10 @@
+.trip-container {
+  padding: 0 30px;
+}
+
+.trip-items {
+  display: grid;
+  justify-content: center;
+  gap: 20px;
+  grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+}
