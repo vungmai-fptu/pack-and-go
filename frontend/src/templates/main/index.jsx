@@ -1,33 +1,40 @@
 import React from "react";
-import { Route, useRouteMatch } from "react-router-dom";
+import { Redirect, Route } from "react-router-dom";
 import Header from "../../components/Header";
 import Footer from "../../components/Footer";
-import Login from "../../pages/main/login";
+import { useIsLogin } from "../../hooks/useIsLogin";
 
 function MainTemplate(props) {
-  const routeMatchAuth = useRouteMatch("/sign");
-  const routeMatchLanding = useRouteMatch("/landing");
-
   return (
     <>
-      {!routeMatchAuth && !routeMatchLanding && <Header />}
+      <Header />
       <main>{props.children}</main>
-      {!routeMatchAuth && <Footer />}
+      <Footer />
     </>
   );
 }
 
 const RouterMainTemplate = ({ path, exact, Component }) => {
+  const { isLogin } = useIsLogin();
   return (
-    <Route path={path} exact={exact}>
-      <MainTemplate>
-        <Component />
-      </MainTemplate>
-    </Route>
+    <Route
+      path={path}
+      exact={exact}
+      render={() =>
+        isLogin ? (
+          <MainTemplate>
+            <Component />
+          </MainTemplate>
+        ) : (
+          <Redirect
+            to={{
+              pathname: "/landing",
+            }}
+          />
+        )
+      }
+    />
   );
 };
 
-
-
 export default RouterMainTemplate;
-

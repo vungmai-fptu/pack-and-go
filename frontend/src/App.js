@@ -1,13 +1,9 @@
-import { Route } from "react-router-dom";
 import { BrowserRouter, Switch } from "react-router-dom";
-import { mainRouter } from "./configs/router";
-import LandingPage from "./pages/landing";
+import { mainRouter, signRouter } from "./configs/router";
 import RouterMainTemplate from "./templates/main";
-
-const loggedIn = false;
+import RouterSignTemplate from "./templates/login";
 
 function App() {
-
   const renderMainRouter = () => {
     return mainRouter.map(({ path, exact, Component }) => {
       return (
@@ -19,11 +15,24 @@ function App() {
       );
     });
   };
-
+  const renderSignRouter = () => {
+    return signRouter.map(({ path, exact, Component }) => {
+      return (
+        <RouterSignTemplate
+          path={path}
+          exact={exact}
+          Component={Component}
+        ></RouterSignTemplate>
+      );
+    });
+  };
   return (
     <div className="App">
       <BrowserRouter>
-        <Switch>{renderMainRouter()}</Switch>
+        <Switch>
+          {renderSignRouter()}
+          {renderMainRouter()}
+        </Switch>
       </BrowserRouter>
     </div>
   );

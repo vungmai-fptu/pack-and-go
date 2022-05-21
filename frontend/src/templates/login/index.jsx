@@ -5,7 +5,7 @@ function LoginTemplate(props) {
   return <main>{props.children}</main>;
 }
 
-const RouterLoginTemplate = ({ path, exact, Component }) => {
+const RouterSignTemplate = ({ path, exact, Component }) => {
   const { isLogin } = useIsLogin();
   return (
     <Route
@@ -28,4 +28,4 @@ const RouterLoginTemplate = ({ path, exact, Component }) => {
   );
 };
 
-export default RouterLoginTemplate;
+export default RouterSignTemplate;

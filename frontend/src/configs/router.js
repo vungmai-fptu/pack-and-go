@@ -4,7 +4,6 @@ import Home from "../pages/main/home";
 import Login from "../pages/main/login";
 import Register from "../pages/main/register";
 
-
 export const mainRouter = [
   {
     path: "/",
@@ -12,22 +11,24 @@ export const mainRouter = [
     Component: Home,
   },
   {
+    Component: Err,
+  },
+];
+
+export const signRouter = [
+  {
     path: "/sign/in",
     exact: false,
     Component: Login,
   },
   {
     path: "/sign/up",
-    exact: true,
+    exact: false,
     Component: Register,
   },
   {
     path: "/landing",
-    exact: true,
+    exact: false,
     Component: LandingPage,
   },
-  {
-    Component: Err,
-  },
 ];
-
