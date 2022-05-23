@@ -10,16 +10,27 @@ import javax.persistence.*;
 @Entity
 @Table(name = "UserInfo")
 public class UserInfo {
+    @Column(name = "firstName")
     private String firstName;
+    @Column(name = "lastName")
     private String lastName;
+    @Column(name = "city")
     private String city;
+    @Column(name = "country")
     private String country;
+    @Column(name = "profileImage")
     private String profileImage;
+    @Column(name = "coverImage")
     private String coverImage;
+    @Column(name = "nickName")
     private String nickName;
+    @Column(name = "phoneNumber")
     private String phoneNumber;
+    @Column(name = "gender")
     private String gender;
+    @Column(name = "dateOfBirth")
     private Calendar dateOfBirth;
+    @Column(name = "aboutMe")
     private String aboutMe;
     @OneToOne
     @MapsId

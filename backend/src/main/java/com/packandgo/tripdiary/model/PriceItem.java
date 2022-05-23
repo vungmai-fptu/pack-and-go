@@ -6,8 +6,11 @@ import javax.persistence.*;
 public class PriceItem {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "id")
     private Long ID;
+    @Column()
     private float price;
+    @Column()
     private String name;
 
     @ManyToOne

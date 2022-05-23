@@ -8,10 +8,15 @@ import java.util.List;
 
 @Entity
 public class Trip {
+    @Column(name = "beginDate")
     private Calendar beginDate;
+    @Column(name = "endDate")
     private Calendar endDate;
-    private String prepardList;
+    @Column(name = "preparedList")
+    private String preparedList;
+    @Column()
     private boolean status;
+    @Column()
     private String note;
     @ManyToOne
     @JoinColumn(name="user_id", nullable=false)
@@ -29,7 +34,7 @@ public class Trip {
     public Trip(Calendar beginDate, Calendar endDate, String prepardList, boolean status, String note) {
         this.beginDate = beginDate;
         this.endDate = endDate;
-        this.prepardList = prepardList;
+        this.preparedList = prepardList;
         this.status = status;
         this.note = note;
     }
@@ -63,11 +68,11 @@ public class Trip {
     }
 
     public String getPrepardList() {
-        return prepardList;
+        return preparedList;
     }
 
     public void setPrepardList(String prepardList) {
-        this.prepardList = prepardList;
+        this.preparedList = prepardList;
     }
 
     public boolean isStatus() {

@@ -6,8 +6,11 @@ import javax.persistence.*;
 public class Images {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column()
     private Long ID;
+    @Column()
     private String Url;
+    @Column(name = "description")
     private String description;
 
     @ManyToOne

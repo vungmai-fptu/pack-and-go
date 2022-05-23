@@ -11,7 +11,9 @@ public class User {
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id")
     private Long id;
+    @Column(name = "email")
     private String email;
+    @Column(name = "password")
     private String password;
     @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
     @PrimaryKeyJoinColumn

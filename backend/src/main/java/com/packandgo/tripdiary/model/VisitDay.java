@@ -9,8 +9,11 @@ public class VisitDay {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "id")
     private Long ID;
+    @Column(name = "dayNumber")
     private int dayNumber;
+    @Column(name = "description")
     private String description;
 
     @ManyToOne

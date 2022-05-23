@@ -6,8 +6,11 @@ import javax.persistence.*;
 public class Destination {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column()
     private Long ID;
+    @Column(name = "longtitude")
     private float longtitude;
+    @Column(name = "latitude")
     private float latitude;
 
     @ManyToOne
