@@ -1,7 +1,7 @@
 export default function Header() {
   return (
     <header>
-      <div className="w_I">
+      <div className="w_I" style={{top: "0", left:"0"}}>
         <div className="w_V w_X">
           <div className="w_i-" style={{ alignItems: "center" }}>
             <div className="w_ja w_af w_aj w_ai">
