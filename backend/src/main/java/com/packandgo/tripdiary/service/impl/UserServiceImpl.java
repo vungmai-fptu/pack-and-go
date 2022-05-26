@@ -5,6 +5,7 @@ import com.packandgo.tripdiary.model.PasswordResetToken;
 import com.packandgo.tripdiary.model.User;
 import com.packandgo.tripdiary.repository.PasswordResetRepository;
 import com.packandgo.tripdiary.repository.UserRepository;
+import com.packandgo.tripdiary.service.EmailSenderService;
 import com.packandgo.tripdiary.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -21,14 +22,16 @@ public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
     private final PasswordResetRepository passwordResetRepository;
     private final PasswordEncoder passwordEncoder;
+    private final EmailSenderService emailSenderService;
 
     @Autowired
     public UserServiceImpl(UserRepository userRepository,
                            PasswordResetRepository passwordResetRepository,
-                           PasswordEncoder passwordEncoder) {
+                           PasswordEncoder passwordEncoder, EmailSenderService emailSenderService) {
         this.userRepository = userRepository;
         this.passwordResetRepository = passwordResetRepository;
         this.passwordEncoder = passwordEncoder;
+        this.emailSenderService = emailSenderService;
     }
 
     @Override
@@ -69,13 +72,14 @@ public class UserServiceImpl implements UserService {
         passwordResetToken.setExpiryDate(new Date(new Date().getTime() + PasswordResetToken.EXPIRE_DURATION));
 
         passwordResetRepository.save(passwordResetToken);
+
         return token;
 
     }
 
     @Override
     @Transactional
-    public void save(User user) throws Exception {
+    public void register(User user, String siteURL) throws Exception {
         if (user != null) {
             if (userRepository.existsByUsername(user.getUsername())) {
                 throw new Exception("Username has already exist");
@@ -83,6 +87,7 @@ public class UserServiceImpl implements UserService {
             if (userRepository.existsByEmail(user.getEmail())) {
                 throw new Exception("Email has already exist");
             }
+            emailSenderService.sendVerificationEmail(user, siteURL);
             userRepository.save(user);
         }
     }

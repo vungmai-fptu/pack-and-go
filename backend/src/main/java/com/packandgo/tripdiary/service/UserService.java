@@ -9,7 +9,7 @@ public interface UserService {
     public boolean existsByUsername(String username);
     public boolean existsByEmail(String email);
     public String createPasswordResetTokenForUser(User user);
-    public void save(User user) throws Exception;
+    public void register(User user, String siteURL) throws Exception;
     public void changePassword(User user, String newPassword);
     public boolean verify(String verifyToken);
 }

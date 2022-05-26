@@ -3,12 +3,9 @@ package com.packandgo.tripdiary.controller;
 import com.packandgo.tripdiary.auth.UserDetailsImpl;
 import com.packandgo.tripdiary.model.Role;
 import com.packandgo.tripdiary.model.User;
-import com.packandgo.tripdiary.payload.request.NewPasswordRequest;
-import com.packandgo.tripdiary.payload.request.PasswordResetRequest;
+import com.packandgo.tripdiary.payload.request.*;
 import com.packandgo.tripdiary.payload.response.JwtResponse;
-import com.packandgo.tripdiary.payload.request.LoginRequest;
 import com.packandgo.tripdiary.payload.response.MessageResponse;
-import com.packandgo.tripdiary.payload.request.RegisterRequest;
 import com.packandgo.tripdiary.repository.RoleRepository;
 import com.packandgo.tripdiary.service.EmailSenderService;
 import com.packandgo.tripdiary.service.PasswordResetService;
@@ -21,6 +18,7 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
@@ -109,10 +107,7 @@ public class AuthController {
 
         user.setRoles(roles);
 
-        userService.save(user);
-
-        //send email
-        emailSenderService.sendVerificationEmail(user, getSiteURL(request));
+        userService.register(user, getSiteURL(request));
 
         return ResponseEntity
                 .ok()
@@ -143,9 +138,10 @@ public class AuthController {
         return ResponseEntity.ok(new MessageResponse("Email send"));
     }
 
-    @PostMapping("/change-password")
+    @PostMapping("/reset-password")
     public ResponseEntity<?> resetPassword(@RequestBody NewPasswordRequest newPasswordRequest) {
         //validate token;
+
         String passwordResetToken = newPasswordRequest.getToken();
 
         boolean isValidToken = passwordResetService.validatePasswordResetToken(passwordResetToken);
@@ -155,6 +151,7 @@ public class AuthController {
         }
 
         User user = passwordResetService.findUserFromToken(passwordResetToken);
+
         if (user == null) {
             throw new UsernameNotFoundException("User not found with token");
         }
@@ -164,6 +161,7 @@ public class AuthController {
 
         return ResponseEntity.ok(new MessageResponse("Change password successfully"));
     }
+
 
     @GetMapping("/verify")
     public ResponseEntity<?> verify(@PathParam("token") String token) {
