@@ -19,7 +19,6 @@ function Login() {
 
   const handleChange = (event) => {
     const { value, name } = event.target;
-    console.log({ value, name });
     setUser({
       ...user,
       [name]: value,
@@ -125,7 +124,7 @@ function Login() {
                     />
                   </div>
                   <div>
-                    <span className="w_ic">Back</span>
+                    <span>Back</span>
                   </div>
                 </button>
                 <h1>Login</h1>

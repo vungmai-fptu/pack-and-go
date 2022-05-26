@@ -2,6 +2,7 @@ import { useIsLogin } from "../../hooks/useIsLogin";
 import styles from "./header.module.css";
 export default function Header() {
   const { isLogin, user } = useIsLogin();
+  console.log("🚀 ~ file: index.jsx ~ line 5 ~ Header ~ isLogin", isLogin);
   return (
     <header>
       <div className={styles.header}>

@@ -1,5 +1,6 @@
 import LandingPage from "../pages/landing";
 import Err from "../pages/main/err";
+import ForgotPassword from "../pages/main/forgotPassword";
 import Home from "../pages/main/home";
 import Login from "../pages/main/login";
 import Profile from "../pages/main/profile";
@@ -33,9 +34,13 @@ export const signRouter = [
     Component: Register,
   },
   {
+    path: "/sign/forgotten-password",
+    exact: false,
+    Component: ForgotPassword,
+  },
+  {
     path: "/landing",
     exact: false,
     Component: LandingPage,
   },
-  
 ];
