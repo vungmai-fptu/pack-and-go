@@ -3,33 +3,40 @@ package com.packandgo.tripdiary.model;
 import javax.persistence.*;
 
 @Entity
+@Table(name = "price_item")
 public class PriceItem {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id")
-    private Long ID;
-    @Column()
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+    private String item;
     private float price;
-    @Column()
-    private String name;
 
     @ManyToOne
-    @JoinColumn(name="user_id", nullable=false)
+    @JoinColumn(name = "trip_id", nullable = false)
     private Trip trip;
 
-    public  PriceItem(){};
+    public PriceItem() {
+    }
 
     public PriceItem(float price, String name) {
         this.price = price;
-        this.name = name;
+        this.item = item;
     }
 
-    public Long getItemID() {
-        return ID;
+    public Long getId() {
+        return id;
     }
 
-    public void setID(Long ID) {
-        this.ID = ID;
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Trip getTrip() {
+        return trip;
+    }
+
+    public void setTrip(Trip trip) {
+        this.trip = trip;
     }
 
     public float getPrice() {
@@ -41,10 +48,10 @@ public class PriceItem {
     }
 
     public String getName() {
-        return name;
+        return item;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setName(String item) {
+        this.item = item;
     }
 }

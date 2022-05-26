@@ -3,48 +3,43 @@ package com.packandgo.tripdiary.model;
 import javax.persistence.*;
 
 @Entity
+@Table(name = "destination")
 public class Destination {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column()
-    private Long ID;
-    @Column(name = "longtitude")
-    private float longtitude;
-    @Column(name = "latitude")
-    private float latitude;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
-    @ManyToOne
-    @JoinColumn(name="visitDay_id", nullable=false)
-    private VisitDay visitDay ;
+    private double longitude;
+    private double latitude;
 
     public Destination(){};
 
-    public Destination(float longtitude, float latitude) {
-        this.longtitude = longtitude;
+    public Destination(float longitude, float latitude) {
+        this.longitude = longitude;
         this.latitude = latitude;
     }
 
-    public Long getDestionationID() {
-        return ID;
+    public Long getId() {
+        return id;
     }
 
-    public void setDestionationID(Long destionationID) {
-        this.ID = ID;
+    public void setId(Long id) {
+        this.id = id;
     }
 
-    public float getLongtitude() {
-        return longtitude;
+    public double getLongitude() {
+        return longitude;
     }
 
-    public void setLongtitude(float longtitude) {
-        this.longtitude = longtitude;
+    public void setLongitude(double longitude) {
+        this.longitude = longitude;
     }
 
-    public float getLatitude() {
+    public double getLatitude() {
         return latitude;
     }
 
-    public void setLatitude(float latitude) {
+    public void setLatitude(double latitude) {
         this.latitude = latitude;
     }
 }
