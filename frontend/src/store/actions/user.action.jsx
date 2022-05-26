@@ -6,7 +6,7 @@ import {
   REGISTRATION_SUCCESS,
 } from "../constants/user.const";
 import { startLoading, stopLoading } from "../actions/common.action";
-export const postLogin = (taiKhoan, matKhau, history) => {
+export const postLogin = (taiKhoan, matKhau) => {
   return (dispatch) => {
     dispatch(startLoading());
     axios({
@@ -22,15 +22,12 @@ export const postLogin = (taiKhoan, matKhau, history) => {
         console.log(res.data);
         localStorage.setItem("userLogin", JSON.stringify(res.data));
         dispatch(postLoginSuccess(res.data));
-        history.goBack();
+        alert("Account or password is ok!");
       })
       .catch((err) => {
         dispatch(stopLoading());
         dispatch(postLoginFailed(err));
-        alert.error({
-          message: "Oops!",
-          description: "Account or password is not wrong!",
-        });
+        alert("Account or password is wrong!");
       });
   };
 };
@@ -48,37 +45,26 @@ const postLoginFailed = (err) => {
     payload: err,
   };
 };
-export const postRegistration = (values, history) => {
+export const postRegistration = (taiKhoan, matKhau) => {
   return (dispatch) => {
     dispatch(startLoading());
     axios({
       method: "POST",
-      url: "https://movie0706.cybersoft.edu.vn/api/QuanLyNguoiDung/DangKy",
+      url: "",
       data: {
-        taiKhoan: values.taiKhoan,
-        matKhau: values.matKhau,
-        email: values.email,
-        soDt: values.soDt,
-        maNhom: "GP01",
-        maLoaiNguoiDung: "KhachHang",
-        hoTen: values.hoTen,
+        taiKhoan,
+        matKhau,
       },
     })
       .then((res) => {
         dispatch(stopLoading());
-        if (res.data) {
-          return history.push("/");
-        }
         dispatch(postRegistrationSuccess(res.data));
-        history.goBack();
+        alert("Account or password is ok!");
       })
       .catch((err) => {
         dispatch(stopLoading());
         dispatch(postRegistrationFailed(err));
-        alert.error({
-          message: "Oops!",
-          description: "Account already exists !",
-        });
+        alert("Account or password is wrong!");
       });
   };
 };

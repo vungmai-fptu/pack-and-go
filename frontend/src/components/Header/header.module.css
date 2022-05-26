@@ -242,11 +242,11 @@ a {
 
 .dropdown {
     transform: rotate(90deg);
-    margin-top: 5px;
 }
 
 .dropdown img {
     filter: invert(77%) sepia(12%) saturate(374%) hue-rotate(184deg) brightness(94%) contrast(87%);
     height: 20px;
     width: 20px;
+    border: none;
 }

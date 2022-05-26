@@ -5,34 +5,8 @@ export default function Footer() {
         <div className="w_cW w_cX  w_o">
           <div className="w_p w_q">
             <a href="/" className="w_AP w_hV w_hX">
-              <img alt="Worldee logo" src="fonts/a83c533ff7417b8d1092.svg" />
+              <img alt="Worldee logo" src="images/3bl.png" />
             </a>
-            <div className="w_r">
-              <a
-                className="w_s ga_app-gp-footer"
-                rel="noopener"
-                target="_blank"
-                href="/"
-              >
-                <img
-                  src="fonts/src_app_components_components_svgIcon_icons_customsprite-70fd46.svg#app-gp-eniU-usage"
-                  alt="custom/app-gp-en"
-                  className="w_fu w_fB"
-                />
-              </a>
-              <a
-                className="w_s ga_app-as-footer"
-                rel="noopener"
-                target="_blank"
-                href="/"
-              >
-                <img
-                  src="fonts/src_app_components_components_svgIcon_icons_customsprite-70fd46.svg#app-as-eniP-usage"
-                  alt="custom/app-as-en"
-                  className="w_fu w_fB"
-                />
-              </a>
-            </div>
           </div>
           <div className="w_p">
             <h2 className="w_jf w_jk w_jB w_jq w_t">Company</h2>

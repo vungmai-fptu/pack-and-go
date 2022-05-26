@@ -1,7 +1,40 @@
-import React from "react";
+import React, { useState } from "react";
+import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
+import classNames from "classnames";
+import { useIsHidden } from "../../../hooks/useIsHidden";
+import { postLogin } from "./../../../store/actions/user.action";
 import styles from "./login.module.css";
 function Login() {
+  const { hidden, handleClick } = useIsHidden();
+  const result = useState(0);
+  console.log("result : ", result);
+
+  const dispatch = useDispatch();
+
+  const [user, setUser] = useState({
+    taiKhoan: "",
+    matKhau: "",
+  });
+
+  const handleChange = (event) => {
+    const { value, name } = event.target;
+    setUser({
+      ...user,
+      [name]: value,
+    });
+  };
+  const [validated, setValidated] = useState(false);
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    dispatch(postLogin(user.taiKhoan, user.matKhau));
+    const form = e.currentTarget;
+    if (form.checkValidity() === false) {
+      e.preventDefault();
+      e.stopPropagation();
+    }
+    setValidated(true);
+  };
   return (
     <div>
       <div>
@@ -28,9 +61,14 @@ function Login() {
           </div>
           <div />
           <div className={styles.login}>
-            <div className={styles.formLogin}>
+            <div
+              className={classNames(
+                `${styles.formLogin}`,
+                hidden && `${styles.formLoginHidden}`
+              )}
+            >
               <div className={styles.title}>
-                <h1 className="w_jf w_jk w_jC w_jq w_lh">Login</h1>
+                <h1>Login</h1>
               </div>
               <Link to="/sign/fb-login" style={{ background: "#4359ac" }}>
                 <div className={styles.icons}>
@@ -58,6 +96,7 @@ function Login() {
                 style={{
                   background: "linear-gradient(114deg,#00e1d6,#66ede7)",
                 }}
+                onClick={handleClick}
               >
                 <div className={styles.icons}>
                   <img
@@ -70,12 +109,66 @@ function Login() {
                 </div>
               </button>
             </div>
+            <div
+              className={classNames(
+                `${styles.formLoginHidden}`,
+                hidden && `${styles.formLoginEmail}`
+              )}
+            >
+              <div className={styles.title}>
+                <button className={styles.back} onClick={handleClick}>
+                  <div className={styles.icons}>
+                    <img
+                      src="fonts/src_app_components_components_svgIcon_icons_commonsprite-8ddb95.svg#arrowb-usage"
+                      alt="common/arrow"
+                    />
+                  </div>
+                  <div>
+                    <span>Back</span>
+                  </div>
+                </button>
+                <h1>Login</h1>
+              </div>
+              <form
+                className={styles.loginEmail}
+                onSubmit={handleSubmit}
+                validated={validated}
+              >
+                <div className={styles.input}>
+                  <div className={styles.inputEmail}>
+                    <input
+                      type="text"
+                      id="taiKhoan"
+                      name="taiKhoan"
+                      placeholder="Fill your email address"
+                      onChange={handleChange}
+                    />
+                  </div>
+                </div>
+                <div className={styles.input}>
+                  <div className={styles.inputEmail}>
+                    <input
+                      type="password"
+                      name="matKhau"
+                      placeholder="Password"
+                      onChange={handleChange}
+                    />
+                  </div>
+                </div>
+                <button>
+                  <span>Log in</span>
+                </button>
+              </form>
+              <div className={styles.register} style={{ background: "none" }}>
+                <Link to="/sign/forgotten-password">
+                  <span>Forgot your password?</span>
+                </Link>
+              </div>
+            </div>
             <div className={styles.register}>
               <span>Are you new to Worldee?</span>
               <Link to="/sign/up">
-                <div>
-                  <span>Register</span>
-                </div>
+                <span>Register</span>
               </Link>
             </div>
           </div>

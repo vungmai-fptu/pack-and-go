@@ -1,7 +1,36 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import classNames from "classnames";
+import { useIsHidden } from "../../../hooks/useIsHidden";
 import styles from "./register.module.css";
+import { postRegistration } from "../../../store/actions/user.action";
+import { useDispatch } from "react-redux";
 function Register() {
+  const { hidden, handleClick } = useIsHidden();
+  const dispatch = useDispatch();
+  const [user, setUser] = useState({
+    taiKhoan: "",
+    matKhau: "",
+  });
+
+  const handleChange = (event) => {
+    const { value, name } = event.target;
+    setUser({
+      ...user,
+      [name]: value,
+    });
+  };
+  const [validated, setValidated] = useState(false);
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    dispatch(postRegistration(user));
+    const form = e.currentTarget;
+    if (form.checkValidity() === false) {
+      e.preventDefault();
+      e.stopPropagation();
+    }
+    setValidated(true);
+  };
   return (
     <div>
       <div>
@@ -28,9 +57,14 @@ function Register() {
           </div>
           <div></div>
           <div className={styles.register}>
-            <div className={styles.formRegister}>
+            <div
+              className={classNames(
+                `${styles.formRegister}`,
+                hidden && `${styles.formRegisterHidden}`
+              )}
+            >
               <div className={styles.title}>
-                <h1 className="w_jf w_jk w_jC w_jq w_lh">Registration</h1>
+                <h1>Registration</h1>
               </div>
               <div>
                 <Link to="/sign/fb-login" style={{ background: "#4359ac" }}>
@@ -59,6 +93,7 @@ function Register() {
                   style={{
                     background: "linear-gradient(114deg,#00e1d6,#66ede7)",
                   }}
+                  onClick={handleClick}
                 >
                   <div className={styles.icons}>
                     <img
@@ -86,6 +121,83 @@ function Register() {
                   of the app.
                 </span>
               </div>
+            </div>
+            <div
+              className={classNames(
+                `${styles.formRegisterHidden}`,
+                hidden && `${styles.formRegisterEmail}`
+              )}
+            >
+              <div className={styles.title}>
+                <button className={styles.back} onClick={handleClick}>
+                  <div className={styles.icons}>
+                    <img
+                      src="/client/sprites/src_app_components_components_svgIcon_icons_commonsprite-8ddb95.svg#arrowb-usage"
+                      alt="common/arrow"
+                    />
+                  </div>
+                  <div>
+                    <span>Back</span>
+                  </div>
+                </button>
+                <h1>Registration</h1>
+              </div>
+              <form
+                className={styles.loginEmail}
+                onSubmit={handleSubmit}
+                validated={validated}
+              >
+                <div className={styles.input}>
+                  <div className={styles.inputEmail}>
+                    <input
+                      type="email"
+                      name="taiKhoan"
+                      placeholder="Fill your email adress"
+                      onChange={handleChange}
+                    />
+                  </div>
+                </div>
+                <div className={styles.input}>
+                  <div className={styles.inputEmail}>
+                    <input
+                      type="password"
+                      name="matKhau"
+                      placeholder="Password"
+                      onChange={handleChange}
+                    />
+                  </div>
+                </div>
+                <div className={styles.input}>
+                  <div className={styles.inputEmail}>
+                    <input type="password" placeholder="Confirm Password" />
+                  </div>
+                </div>
+                <div className={styles.recap}>
+                  <span>
+                    By registering I agree to the
+                    <Link to="/doc/privacy-policy">
+                      <span>processing of personal data</span>
+                    </Link>
+                    and
+                    <Link to="/doc/terms">
+                      <span>Terms of Use</span>
+                    </Link>
+                    of the app. This site is protected by reCAPTCHA and the
+                    Google
+                    <Link to="https://policies.google.com/privacy">
+                      <span>Privacy Policy</span>
+                    </Link>
+                    and
+                    <Link to="https://policies.google.com/terms">
+                      <span>Terms of Service</span>
+                    </Link>
+                    apply.
+                  </span>
+                </div>
+                <button>
+                  <span>Register</span>
+                </button>
+              </form>
             </div>
             <div className={styles.login}>
               <span>Do you already have an account?</span>
