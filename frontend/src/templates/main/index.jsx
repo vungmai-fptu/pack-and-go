@@ -21,7 +21,7 @@ const RouterMainTemplate = ({ path, exact, Component }) => {
       path={path}
       exact={exact}
       render={() =>
-        isLogin ? (
+        true ? (
           <MainTemplate>
             <Component />
           </MainTemplate>
