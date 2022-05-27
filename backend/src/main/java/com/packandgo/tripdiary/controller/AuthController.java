@@ -3,6 +3,8 @@ package com.packandgo.tripdiary.controller;
 import com.packandgo.tripdiary.auth.UserDetailsImpl;
 import com.packandgo.tripdiary.model.Role;
 import com.packandgo.tripdiary.model.User;
+import com.packandgo.tripdiary.model.mail.MailContent;
+import com.packandgo.tripdiary.model.mail.ResetPasswordMailContent;
 import com.packandgo.tripdiary.payload.request.*;
 import com.packandgo.tripdiary.payload.response.JwtResponse;
 import com.packandgo.tripdiary.payload.response.MessageResponse;
@@ -37,7 +39,7 @@ import java.util.stream.Collectors;
 @RequestMapping("/api/auth")
 public class AuthController {
 
-    private final String BASE_URL = "lhttp://localhost:3000";
+    private final String BASE_URL = "http://localhost:3000";
     private final String LOGIN_UI_PAGE = "http://localhost:3000/login";
     private final String INVALID_VERIFY_TOKEN_PAGE = "http://localhost:3000/invalid-verify-token";
 
@@ -77,6 +79,7 @@ public class AuthController {
 
         UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
         User user = userService.findUserByUsername(userDetails.getUsername());
+
         if (!user.isEnabled()) {
             return ResponseEntity.badRequest().body(new MessageResponse("Account hasn't been verified"));
         }
@@ -133,9 +136,11 @@ public class AuthController {
         String token = userService.createPasswordResetTokenForUser(user);
 
         //sendEmail
-        emailSenderService.sendResetPasswordEmail(user, token, BASE_URL);
+        //create reset password email;
+        MailContent mailContent = new ResetPasswordMailContent(user.getEmail(),token,BASE_URL);
+        emailSenderService.sendEmail(mailContent);
 
-        return ResponseEntity.ok(new MessageResponse("Email send"));
+        return ResponseEntity.ok(new MessageResponse("Email sent"));
     }
 
     @PostMapping("/reset-password")

@@ -3,6 +3,8 @@ package com.packandgo.tripdiary.service.impl;
 import com.packandgo.tripdiary.enums.UserStatus;
 import com.packandgo.tripdiary.model.PasswordResetToken;
 import com.packandgo.tripdiary.model.User;
+import com.packandgo.tripdiary.model.mail.MailContent;
+import com.packandgo.tripdiary.model.mail.VerifyEmailMailContent;
 import com.packandgo.tripdiary.repository.PasswordResetRepository;
 import com.packandgo.tripdiary.repository.UserRepository;
 import com.packandgo.tripdiary.service.EmailSenderService;
@@ -87,7 +89,10 @@ public class UserServiceImpl implements UserService {
             if (userRepository.existsByEmail(user.getEmail())) {
                 throw new Exception("Email has already exist");
             }
-            emailSenderService.sendVerificationEmail(user, siteURL);
+
+            //create verify email
+            MailContent mailContent = new VerifyEmailMailContent(user.getEmail(), user.getVerifyToken(), siteURL);
+            emailSenderService.sendEmail(mailContent);
             userRepository.save(user);
         }
     }
