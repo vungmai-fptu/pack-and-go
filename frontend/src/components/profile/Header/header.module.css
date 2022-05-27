@@ -160,6 +160,11 @@
     text-shadow: unset;
 }
 
+.user-repo-item span {
+    font-weight: 700;
+    color: #000;
+}
+
 .user-description {
     font-size: 1rem;
     color: #787c94;

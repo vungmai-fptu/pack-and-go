@@ -2,34 +2,35 @@ import React from 'react'
 import styles from './map.module.css'
 import SectionHeader from '../SectionHeader'
 import SectionContainer from '../SectionContainer'
+import { MapContainer } from 'react-leaflet/MapContainer'
+import { TileLayer } from 'react-leaflet/TileLayer'
+import "leaflet/dist/leaflet.css";
+import { Marker, Popup } from 'react-leaflet'
+import {GrLocation} from 'react-icons/gr'
+
+import L from 'leaflet';
+import MapMarker from './Marker'
+
+
 
 const Map = () => {
     return (
         <div>
             <SectionContainer>
-                <SectionHeader>Map</SectionHeader>
-                <div className={styles.map}></div>
-                <div className={styles["map-buttons-side"]}>
-                    <div className={styles["map-buttons"]}>
-                        <button className={styles["map-btn"]}>
-                            <div className={styles["map-img-box"]}></div>
-                            <img className={styles["map-btn-img"]} alt="" src="/client/sprites/src_app_components_components_svgIcon_icons_commonsprite-8ddb95.svg#plusbq-usage"></img>
-                            <span></span>
-                            </button>
-                        <div className={styles.line}></div>
-                        <button className={styles["map-btn"]}>
-                            <div className={styles["map-img-box"]}></div>
-                            <img className={styles["map-btn-img"]} alt="" src="/client/sprites/src_app_components_components_svgIcon_icons_commonsprite-8ddb95.svg#minusaV-usage"></img>
-                            <span></span>
-                            </button>
-                    </div>
-                    <div className={styles["map-single-button"]}>
-                        <button className={styles["map-btn"]}>
-                            <div className={styles["map-img-box"]}></div>
-                            <img className={styles["map-btn-img"]} alt="" src="/client/sprites/src_app_components_components_svgIcon_icons_commonsprite-8ddb95.svg#info_fullap-usage"></img>
-                            <span></span>
-                            </button>
-                    </div>
+                <div className={styles["map-title"]}>Travel Map</div>
+                <div className={styles.map}>
+                    <MapContainer className={styles.map} center={[51.505, -0.09]} zoom={13} scrollWheelZoom={true}>
+                        <TileLayer
+                            attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+                            url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                        />
+                        <MapMarker 
+                            type="minor"
+                            coordinates={[51.505, -0.09]}
+                            order={1}
+                            message="here"
+                        />
+                    </MapContainer>
                 </div>
             </SectionContainer>
         </div>
