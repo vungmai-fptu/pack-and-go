@@ -1,7 +1,12 @@
 import { LOGIN_FAILED, LOGIN_SUCCESS } from "../constants/user.const";
 
 const initialState = {
-  user: {},
+  user:
+    JSON.parse(localStorage.getItem("jwtToken")) ||
+    JSON.parse(localStorage.getItem("userLogin"))
+      ? JSON.parse(localStorage.getItem("jwtToken")) ||
+        JSON.parse(localStorage.getItem("userLogin"))
+      : {},
   errors: {},
 };
 

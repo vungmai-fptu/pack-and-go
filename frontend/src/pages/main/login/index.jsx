@@ -1,15 +1,17 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import classNames from "classnames";
+import { gapi } from "gapi-script";
+import { IoArrowBack } from "react-icons/io5";
 import { useIsHidden } from "../../../hooks/useIsHidden";
 import { postLogin } from "./../../../store/actions/user.action";
 import styles from "./login.module.css";
+import LoginGoogle from "./loginGoogle";
+const clientId =
+  "299402568375-ih3in50qahdomql32v7c864vc3c78kh5.apps.googleusercontent.com";
 function Login() {
   const { hidden, handleClick } = useIsHidden();
-  const result = useState(0);
-  console.log("result : ", result);
-
   const dispatch = useDispatch();
 
   const [user, setUser] = useState({
@@ -24,17 +26,20 @@ function Login() {
       [name]: value,
     });
   };
-  const [validated, setValidated] = useState(false);
+
   const handleSubmit = (e) => {
     e.preventDefault();
     dispatch(postLogin(user.taiKhoan, user.matKhau));
-    const form = e.currentTarget;
-    if (form.checkValidity() === false) {
-      e.preventDefault();
-      e.stopPropagation();
-    }
-    setValidated(true);
   };
+  useEffect(() => {
+    function start() {
+      gapi.client.init({
+        clientId: clientId,
+        scope: "",
+      });
+      gapi.load("client.auth2", start);
+    }
+  });
   return (
     <div>
       <div>
@@ -53,10 +58,7 @@ function Login() {
           />
           <div className={styles.logo}>
             <Link to="/">
-              <img
-                alt="Worldee logo"
-                src="https://wrld-se-prod.b-cdn.net/client/images/src/app/components/components/logo/imgs/a83c533ff7417b8d1092.svg"
-              />
+              <img alt="Worldee logo" src="images/3bl.png" />
             </Link>
           </div>
           <div />
@@ -81,20 +83,12 @@ function Login() {
                   <span>With Facebook</span>
                 </div>
               </Link>
-              <Link to="/sign/google-login" style={{ background: "#c73534" }}>
-                <div className={styles.icons}>
-                  <img
-                    src="fonts/src_app_components_components_svgIcon_icons_commonsprite-afce76.svg#socials-googlebS-usage"
-                    alt="common/socials-google"
-                  />
-                </div>
-                <div>
-                  <span>With Google</span>
-                </div>
-              </Link>
+              <LoginGoogle />
               <button
                 style={{
                   background: "linear-gradient(114deg,#00e1d6,#66ede7)",
+                  marginBottom: "16px",
+                  color: "#fff",
                 }}
                 onClick={handleClick}
               >
@@ -118,22 +112,15 @@ function Login() {
               <div className={styles.title}>
                 <button className={styles.back} onClick={handleClick}>
                   <div className={styles.icons}>
-                    <img
-                      src="fonts/src_app_components_components_svgIcon_icons_commonsprite-8ddb95.svg#arrowb-usage"
-                      alt="common/arrow"
-                    />
-                  </div>
-                  <div>
-                    <span>Back</span>
+                    <IoArrowBack />
+                    <div>
+                      <span>Back</span>
+                    </div>
                   </div>
                 </button>
                 <h1>Login</h1>
               </div>
-              <form
-                className={styles.loginEmail}
-                onSubmit={handleSubmit}
-                validated={validated}
-              >
+              <form className={styles.loginEmail} onSubmit={handleSubmit}>
                 <div className={styles.input}>
                   <div className={styles.inputEmail}>
                     <input

@@ -60,17 +60,6 @@ a {
 .footerLogo {
     display: inline-block;
     cursor: pointer;
-    height: 45px;
-    width: 192.6px;
-}
-
-.downloadApp {
-    margin-top: 24px;
-}
-
-.downloadApp a {
-    display: inline-block;
-    height: 46px;
-    margin: 0 16px 16px 0;
-    width: 170px;
+    height: 120px;
+    width: 200px;
 }

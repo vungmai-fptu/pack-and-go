@@ -1,16 +1,18 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import classNames from "classnames";
+import { useDispatch } from "react-redux";
+import { IoArrowBack } from "react-icons/io5";
 import { useIsHidden } from "../../../hooks/useIsHidden";
 import styles from "./register.module.css";
 import { postRegistration } from "../../../store/actions/user.action";
-import { useDispatch } from "react-redux";
 function Register() {
   const { hidden, handleClick } = useIsHidden();
   const dispatch = useDispatch();
   const [user, setUser] = useState({
-    taiKhoan: "",
-    matKhau: "",
+    email: "",
+    username: "",
+    password: "",
   });
 
   const handleChange = (event) => {
@@ -20,16 +22,9 @@ function Register() {
       [name]: value,
     });
   };
-  const [validated, setValidated] = useState(false);
   const handleSubmit = (e) => {
     e.preventDefault();
     dispatch(postRegistration(user));
-    const form = e.currentTarget;
-    if (form.checkValidity() === false) {
-      e.preventDefault();
-      e.stopPropagation();
-    }
-    setValidated(true);
   };
   return (
     <div>
@@ -49,10 +44,7 @@ function Register() {
           />
           <div className={styles.logo}>
             <Link to="/">
-              <img
-                alt="Worldee logo"
-                src="https://wrld-se-prod.b-cdn.net/client/images/src/app/components/components/logo/imgs/a83c533ff7417b8d1092.svg"
-              />
+              <img alt="Worldee logo" src="images/3bl.png" />
             </Link>
           </div>
           <div></div>
@@ -131,27 +123,20 @@ function Register() {
               <div className={styles.title}>
                 <button className={styles.back} onClick={handleClick}>
                   <div className={styles.icons}>
-                    <img
-                      src="/client/sprites/src_app_components_components_svgIcon_icons_commonsprite-8ddb95.svg#arrowb-usage"
-                      alt="common/arrow"
-                    />
-                  </div>
-                  <div>
-                    <span>Back</span>
+                    <IoArrowBack />
+                    <div>
+                      <span>Back</span>
+                    </div>
                   </div>
                 </button>
                 <h1>Registration</h1>
               </div>
-              <form
-                className={styles.loginEmail}
-                onSubmit={handleSubmit}
-                validated={validated}
-              >
+              <form className={styles.loginEmail} onSubmit={handleSubmit}>
                 <div className={styles.input}>
                   <div className={styles.inputEmail}>
                     <input
                       type="email"
-                      name="taiKhoan"
+                      name="email"
                       placeholder="Fill your email adress"
                       onChange={handleChange}
                     />
@@ -160,18 +145,28 @@ function Register() {
                 <div className={styles.input}>
                   <div className={styles.inputEmail}>
                     <input
-                      type="password"
-                      name="matKhau"
-                      placeholder="Password"
+                      type="text"
+                      name="username"
+                      placeholder="Fill your username adress"
                       onChange={handleChange}
                     />
                   </div>
                 </div>
                 <div className={styles.input}>
                   <div className={styles.inputEmail}>
-                    <input type="password" placeholder="Confirm Password" />
+                    <input
+                      type="password"
+                      name="password"
+                      placeholder="Password"
+                      onChange={handleChange}
+                    />
                   </div>
                 </div>
+                {/* <div className={styles.input}>
+                  <div className={styles.inputEmail}>
+                    <input type="password" placeholder="Confirm Password" />
+                  </div>
+                </div> */}
                 <div className={styles.recap}>
                   <span>
                     By registering I agree to the

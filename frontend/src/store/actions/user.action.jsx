@@ -6,33 +6,33 @@ import {
   REGISTRATION_SUCCESS,
 } from "../constants/user.const";
 import { startLoading, stopLoading } from "../actions/common.action";
-export const postLogin = (taiKhoan, matKhau) => {
+export const postLogin = (usernameOrEmail, password) => {
   return (dispatch) => {
     dispatch(startLoading());
     axios({
       method: "POST",
-      url: "https://movie0706.cybersoft.edu.vn/api/QuanLyNguoiDung/DangNhap",
+      url: "https://trip-diary-backend.herokuapp.com/api/auth/signin",
+      headers: {
+        "Content-Type": "application/json",
+      },
       data: {
-        taiKhoan,
-        matKhau,
+        usernameOrEmail,
+        password,
       },
     })
       .then((res) => {
         dispatch(stopLoading());
-        console.log(res.data);
         localStorage.setItem("userLogin", JSON.stringify(res.data));
         dispatch(postLoginSuccess(res.data));
-        alert("Account or password is ok!");
       })
       .catch((err) => {
         dispatch(stopLoading());
         dispatch(postLoginFailed(err));
-        alert("Account or password is wrong!");
       });
   };
 };
 
-const postLoginSuccess = (user) => {
+export const postLoginSuccess = (user) => {
   return {
     type: LOGIN_SUCCESS,
     payload: user,
@@ -45,26 +45,25 @@ const postLoginFailed = (err) => {
     payload: err,
   };
 };
-export const postRegistration = (taiKhoan, matKhau) => {
+export const postRegistration = (values) => {
   return (dispatch) => {
     dispatch(startLoading());
     axios({
       method: "POST",
-      url: "",
+      url: "https://trip-diary-backend.herokuapp.com/api/auth/signup",
       data: {
-        taiKhoan,
-        matKhau,
+        email: values.email,
+        username: values.username,
+        password: values.password,
       },
     })
       .then((res) => {
         dispatch(stopLoading());
         dispatch(postRegistrationSuccess(res.data));
-        alert("Account or password is ok!");
       })
       .catch((err) => {
         dispatch(stopLoading());
         dispatch(postRegistrationFailed(err));
-        alert("Account or password is wrong!");
       });
   };
 };
