@@ -1,6 +1,8 @@
 package com.packandgo.tripdiary.model;
 
 import com.packandgo.tripdiary.enums.Gender;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -47,6 +49,11 @@ public class UserInfo {
     @Column(name = "about_me")
     private String aboutMe;
 
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    @JoinColumn(name = "user_id", referencedColumnName = "id")
+    private User user;
+
     public UserInfo() {
     }
 
@@ -70,6 +77,14 @@ public class UserInfo {
         this.gender = gender;
         this.dateOfBirth = dateOfBirth;
         this.aboutMe = aboutMe;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 
     public Long getId() {

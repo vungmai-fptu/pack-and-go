@@ -14,6 +14,7 @@ import com.packandgo.tripdiary.service.PasswordResetService;
 import com.packandgo.tripdiary.service.UserService;
 import com.packandgo.tripdiary.util.JwtUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -39,9 +40,8 @@ import java.util.stream.Collectors;
 @RequestMapping("/api/auth")
 public class AuthController {
 
-    private final String BASE_URL = "http://localhost:3000";
-    private final String LOGIN_UI_PAGE = "http://localhost:3000/login";
-    private final String INVALID_VERIFY_TOKEN_PAGE = "http://localhost:3000/invalid-verify-token";
+    @Value("${tripdiary.baseurl}")
+    private String BASE_URL;
 
     private final AuthenticationManager authenticationManager;
     private final UserService userService;
@@ -172,9 +172,9 @@ public class AuthController {
     public ResponseEntity<?> verify(@PathParam("token") String token) {
         boolean isValidToken = userService.verify(token);
         if (isValidToken) {
-            return ResponseEntity.status(HttpStatus.FOUND).location(URI.create(LOGIN_UI_PAGE)).build();
+            return ResponseEntity.status(HttpStatus.FOUND).location(URI.create(BASE_URL + "/login")).build();
         } else {
-            return ResponseEntity.status(HttpStatus.FOUND).location(URI.create(INVALID_VERIFY_TOKEN_PAGE)).build();
+            return ResponseEntity.status(HttpStatus.FOUND).location(URI.create(BASE_URL + "/invalid-verify-code")).build();
         }
     }
 }

@@ -3,9 +3,11 @@ package com.packandgo.tripdiary.service.impl;
 import com.packandgo.tripdiary.enums.UserStatus;
 import com.packandgo.tripdiary.model.PasswordResetToken;
 import com.packandgo.tripdiary.model.User;
+import com.packandgo.tripdiary.model.UserInfo;
 import com.packandgo.tripdiary.model.mail.MailContent;
 import com.packandgo.tripdiary.model.mail.VerifyEmailMailContent;
 import com.packandgo.tripdiary.repository.PasswordResetRepository;
+import com.packandgo.tripdiary.repository.UserInfoRepository;
 import com.packandgo.tripdiary.repository.UserRepository;
 import com.packandgo.tripdiary.service.EmailSenderService;
 import com.packandgo.tripdiary.service.UserService;
@@ -22,15 +24,19 @@ import java.util.UUID;
 public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
+    private final UserInfoRepository userInfoRepository;
     private final PasswordResetRepository passwordResetRepository;
     private final PasswordEncoder passwordEncoder;
     private final EmailSenderService emailSenderService;
 
     @Autowired
     public UserServiceImpl(UserRepository userRepository,
+                           UserInfoRepository userInfoRepository,
                            PasswordResetRepository passwordResetRepository,
-                           PasswordEncoder passwordEncoder, EmailSenderService emailSenderService) {
+                           PasswordEncoder passwordEncoder,
+                           EmailSenderService emailSenderService) {
         this.userRepository = userRepository;
+        this.userInfoRepository = userInfoRepository;
         this.passwordResetRepository = passwordResetRepository;
         this.passwordEncoder = passwordEncoder;
         this.emailSenderService = emailSenderService;
@@ -63,6 +69,7 @@ public class UserServiceImpl implements UserService {
     public boolean existsByEmail(String email) {
         return userRepository.existsByEmail(email);
     }
+
 
     @Override
     @Transactional
@@ -117,4 +124,23 @@ public class UserServiceImpl implements UserService {
         }
 
     }
+
+    @Override
+    @Transactional
+    public void removeUser(String username) {
+        boolean isExist = userRepository.existsByUsername(username);
+        if (!isExist) {
+            throw new UsernameNotFoundException("User with username \"" + username + "\" doesn't exist");
+        }
+
+        userRepository.removeUserByUsername(username);
+    }
+
+
+    @Override
+    @Transactional
+    public void saveUserInfo(UserInfo info) {
+        userInfoRepository.save(info);
+    }
+
 }

@@ -31,7 +31,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             "/webjars/**",
             "/api/auth/**",
             "/oauth2/**",
-            "/**/*swagger*/**"
+            "/**/*swagger*/**",
+            "/admin/api/**"
     };
 
     private final UserDetailsServiceImpl userDetailsService;

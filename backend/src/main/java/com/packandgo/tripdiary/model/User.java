@@ -1,6 +1,8 @@
 package com.packandgo.tripdiary.model;
 
 import com.packandgo.tripdiary.enums.UserStatus;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
@@ -32,10 +34,6 @@ public class User {
     @Enumerated(EnumType.STRING)
     private UserStatus status;
 
-    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "user_info_id", referencedColumnName = "id")
-    private UserInfo userInfo;
-
     @OneToMany(cascade = CascadeType.ALL,
             fetch = FetchType.LAZY,
             mappedBy = "user")
@@ -49,6 +47,7 @@ public class User {
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<Role> roles = new HashSet<>();
+
 
     public User() {
     }
@@ -93,22 +92,6 @@ public class User {
         this.password = password;
     }
 
-    public UserInfo getUserinfo() {
-        return userInfo;
-    }
-
-    public void setUserinfo(UserInfo userinfo) {
-        this.userInfo = userinfo;
-    }
-
-    public UserInfo getUserInfo() {
-        return userInfo;
-    }
-
-    public void setUserInfo(UserInfo userInfo) {
-        this.userInfo = userInfo;
-    }
-
     public List<Trip> getTrips() {
         return trips;
     }
@@ -146,6 +129,7 @@ public class User {
         this.roles = roles;
     }
 
+
     @Override
     public String toString() {
         return "User{" +
@@ -155,10 +139,10 @@ public class User {
                 ", password='" + password + '\'' +
                 ", verifyToken='" + verifyToken + '\'' +
                 ", status=" + status +
-                ", userInfo=" + userInfo +
                 ", roles=" + roles +
                 '}';
     }
+
 
     public boolean isEnabled() {
         return this.status == UserStatus.ACTIVE;

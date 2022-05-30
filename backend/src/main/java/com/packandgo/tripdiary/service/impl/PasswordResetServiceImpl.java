@@ -52,6 +52,7 @@ public class PasswordResetServiceImpl implements PasswordResetService {
         return pToken.getUser();
     }
 
+
     private boolean isTokenFound(PasswordResetToken passToken) {
         return passToken != null;
     }
@@ -59,4 +60,6 @@ public class PasswordResetServiceImpl implements PasswordResetService {
         final Calendar cal = Calendar.getInstance();
         return passToken.getExpiryDate().before(cal.getTime());
     }
+
+
 }
