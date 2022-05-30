@@ -1,4 +1,5 @@
 import axios from "axios";
+import { NotificationManager } from "react-notifications";
 import {
   LOGIN_FAILED,
   LOGIN_SUCCESS,
@@ -22,12 +23,14 @@ export const postLogin = (usernameOrEmail, password) => {
     })
       .then((res) => {
         dispatch(stopLoading());
-        localStorage.setItem("userLogin", JSON.stringify(res.data));
         dispatch(postLoginSuccess(res.data));
+        localStorage.setItem("userLogin", JSON.stringify(res.data));
       })
       .catch((err) => {
         dispatch(stopLoading());
         dispatch(postLoginFailed(err));
+        console.log(err.response.data.message);
+        NotificationManager.error(err.response.data.message);
       });
   };
 };
@@ -45,12 +48,15 @@ const postLoginFailed = (err) => {
     payload: err,
   };
 };
-export const postRegistration = (values) => {
+export const postRegistration = (values, history) => {
   return (dispatch) => {
     dispatch(startLoading());
     axios({
       method: "POST",
       url: "https://trip-diary-backend.herokuapp.com/api/auth/signup",
+      headers: {
+        "Content-Type": "application/json",
+      },
       data: {
         email: values.email,
         username: values.username,
@@ -60,10 +66,12 @@ export const postRegistration = (values) => {
       .then((res) => {
         dispatch(stopLoading());
         dispatch(postRegistrationSuccess(res.data));
+        history.goBack();
       })
       .catch((err) => {
         dispatch(stopLoading());
         dispatch(postRegistrationFailed(err));
+        NotificationManager.error(err.response.data.message);
       });
   };
 };

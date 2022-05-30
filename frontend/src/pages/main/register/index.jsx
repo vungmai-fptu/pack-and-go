@@ -6,6 +6,8 @@ import { IoArrowBack } from "react-icons/io5";
 import { useIsHidden } from "../../../hooks/useIsHidden";
 import styles from "./register.module.css";
 import { postRegistration } from "../../../store/actions/user.action";
+import "react-notifications/lib/notifications.css";
+import { NotificationContainer } from "react-notifications";
 function Register() {
   const { hidden, handleClick } = useIsHidden();
   const dispatch = useDispatch();
@@ -13,6 +15,13 @@ function Register() {
     email: "",
     username: "",
     password: "",
+    confirmPassword: "",
+  });
+  const [error, setError] = useState({
+    email: "",
+    username: "",
+    password: "",
+    confirmPassword: "",
   });
 
   const handleChange = (event) => {
@@ -21,7 +30,55 @@ function Register() {
       ...user,
       [name]: value,
     });
+    validateInput(event);
   };
+  const validateInput = (e) => {
+    let { name, value } = e.target;
+    setError((prev) => {
+      const stateObj = { ...prev, [name]: "" };
+
+      switch (name) {
+        case "email":
+          if (!value) {
+            stateObj[name] = "Please enter Email.";
+          }
+          break;
+
+        case "username":
+          if (!value) {
+            stateObj[name] = "Please enter Username.";
+          }
+          break;
+
+        case "password":
+          if (!value) {
+            stateObj[name] = "Please enter Password.";
+          } else if (user.confirmPassword && value !== user.confirmPassword) {
+            stateObj["confirmPassword"] =
+              "Password and Confirm Password does not match.";
+          } else {
+            stateObj["confirmPassword"] = user.confirmPassword
+              ? ""
+              : error.confirmPassword;
+          }
+          break;
+
+        case "confirmPassword":
+          if (!value) {
+            stateObj[name] = "Please enter Confirm Password.";
+          } else if (user.password && value !== user.password) {
+            stateObj[name] = "Password and Confirm Password does not match.";
+          }
+          break;
+
+        default:
+          break;
+      }
+
+      return stateObj;
+    });
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
     dispatch(postRegistration(user));
@@ -139,7 +196,11 @@ function Register() {
                       name="email"
                       placeholder="Fill your email adress"
                       onChange={handleChange}
+                      onBlur={validateInput}
                     />
+                    {error.email && (
+                      <span style={{ color: "#e64646" }}>{error.email}</span>
+                    )}
                   </div>
                 </div>
                 <div className={styles.input}>
@@ -149,7 +210,11 @@ function Register() {
                       name="username"
                       placeholder="Fill your username adress"
                       onChange={handleChange}
+                      onBlur={validateInput}
                     />
+                    {error.username && (
+                      <span style={{ color: "#e64646" }}>{error.username}</span>
+                    )}
                   </div>
                 </div>
                 <div className={styles.input}>
@@ -159,14 +224,29 @@ function Register() {
                       name="password"
                       placeholder="Password"
                       onChange={handleChange}
+                      onBlur={validateInput}
                     />
+                    {error.password && (
+                      <span style={{ color: "#e64646" }}>{error.password}</span>
+                    )}
                   </div>
                 </div>
-                {/* <div className={styles.input}>
+                <div className={styles.input}>
                   <div className={styles.inputEmail}>
-                    <input type="password" placeholder="Confirm Password" />
+                    <input
+                      type="password"
+                      name="confirmPassword"
+                      placeholder="confirmPassword"
+                      onChange={handleChange}
+                      onBlur={validateInput}
+                    />
+                    {error.confirmPassword && (
+                      <span style={{ color: "#e64646" }}>
+                        {error.confirmPassword}
+                      </span>
+                    )}
                   </div>
-                </div> */}
+                </div>
                 <div className={styles.recap}>
                   <span>
                     By registering I agree to the
@@ -196,7 +276,7 @@ function Register() {
             </div>
             <div className={styles.login}>
               <span>Do you already have an account?</span>
-              <Link to="/sign/in">
+              <Link to="/login">
                 <div>
                   <span>Log in</span>
                 </div>
@@ -205,6 +285,7 @@ function Register() {
           </div>
         </div>
       </div>
+      <NotificationContainer />
     </div>
   );
 }
