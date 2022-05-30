@@ -1,16 +1,19 @@
+import { useIsHidden } from "../../hooks/useIsHidden";
 import { useIsLogin } from "../../hooks/useIsLogin";
+import FormLogout from "./formLogout";
 import styles from "./header.module.css";
+import { Link } from "react-router-dom";
 export default function Header() {
-  const { isLogin, user } = useIsLogin();
-  console.log("🚀 ~ file: index.jsx ~ line 5 ~ Header ~ isLogin", isLogin);
+  const { user } = useIsLogin();
+  const { hidden, handleClick } = useIsHidden();
   return (
     <header>
       <div className={styles.header}>
         <div className={styles.headerLogo}>
           <div>
-            <a href="/">
+            <Link to="/">
               <img alt="Worldee logo" src="images/3bl.png" />
-            </a>
+            </Link>
           </div>
         </div>
         <div className={styles.menu}>
@@ -74,7 +77,7 @@ export default function Header() {
         <div className={styles.profile}>
           <div className={styles.profileList}>
             <div style={{ display: "flex", alignItems: "center" }}>
-              <a href="/longpc">
+              <Link to="/profile">
                 <div className={styles.profileIcon}>
                   <img
                     className="w_km"
@@ -83,11 +86,11 @@ export default function Header() {
                   />
                 </div>
                 <div>
-                  <span>{user.taiKhoan}</span>
+                  <span>{user.username}</span>
                 </div>
-              </a>
+              </Link>
               <div aria-describedby="popup-4">
-                <button>
+                <button onClick={handleClick}>
                   <div className={styles.profileIcon}>
                     <div className={styles.dropdown}>
                       <img
@@ -103,6 +106,7 @@ export default function Header() {
           </div>
         </div>
       </div>
+      <FormLogout hidden={hidden} />
     </header>
   );
 }
