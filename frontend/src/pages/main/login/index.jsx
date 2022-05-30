@@ -8,9 +8,12 @@ import { useIsHidden } from "../../../hooks/useIsHidden";
 import { postLogin } from "./../../../store/actions/user.action";
 import styles from "./login.module.css";
 import LoginGoogle from "./loginGoogle";
+import "react-notifications/lib/notifications.css";
+import { NotificationContainer } from "react-notifications";
 const clientId =
   "299402568375-ih3in50qahdomql32v7c864vc3c78kh5.apps.googleusercontent.com";
 function Login() {
+  // const errors = useIsLogin();
   const { hidden, handleClick } = useIsHidden();
   const dispatch = useDispatch();
 
@@ -18,7 +21,6 @@ function Login() {
     taiKhoan: "",
     matKhau: "",
   });
-
   const handleChange = (event) => {
     const { value, name } = event.target;
     setUser({
@@ -26,7 +28,6 @@ function Login() {
       [name]: value,
     });
   };
-
   const handleSubmit = (e) => {
     e.preventDefault();
     dispatch(postLogin(user.taiKhoan, user.matKhau));
@@ -60,6 +61,7 @@ function Login() {
             <Link to="/">
               <img alt="Worldee logo" src="images/3bl.png" />
             </Link>
+            {/* <div style={{ display: errors ? "" : "none" }}>{errors}</div> */}
           </div>
           <div />
           <div className={styles.login}>
@@ -161,6 +163,7 @@ function Login() {
           </div>
         </div>
       </div>
+      <NotificationContainer />
     </div>
   );
 }

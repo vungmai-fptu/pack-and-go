@@ -11,7 +11,7 @@ const Navigation = () => {
         </Link>
       </div>
       <div className={styles["nav-list"]}>
-        <Link to="/sign/in" className={styles.login}>
+        <Link to="/login" className={styles.login}>
           Login
         </Link>
         <Link to="/sign/up" className={styles.register}>
