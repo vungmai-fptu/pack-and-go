@@ -44,7 +44,7 @@ function Register() {
           />
           <div className={styles.logo}>
             <Link to="/">
-              <img alt="Worldee logo" src="images/3bl.png" />
+              <img alt="Trip diary logo" src="images/3bl.png" />
             </Link>
           </div>
           <div></div>
