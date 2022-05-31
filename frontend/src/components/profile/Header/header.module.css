@@ -80,6 +80,7 @@
   flex-flow: column;
   max-width: 100%;
   min-width: 0;
+
 }
 
 .avatar-inner-cover {
@@ -183,3 +184,4 @@
     width: 100%;
   }
 }
+
