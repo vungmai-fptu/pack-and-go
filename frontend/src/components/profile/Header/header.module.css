@@ -1,10 +1,10 @@
 .header {
     width: 1600px;
     box-sizing: border-box;
-    float: none!important;
+    float: none !important;
     margin: 0 auto;
     max-width: calc(100% - 48px);
-    margin-top: 80px;
+    padding-top: 80px;
 }
 
 .header-cover {
@@ -28,7 +28,7 @@
     height: 100%;
     position: absolute;
     width: 100%;
-    background: linear-gradient(180deg,hsla(0,0%,100%,0) 50%,rgba(0,0,0,.44));
+    background: linear-gradient(180deg, hsla(0, 0%, 100%, 0) 50%, rgba(0, 0, 0, .44));
     border-radius: 8px;
 }
 
@@ -67,7 +67,7 @@
 }
 
 .avatar-cover {
-    filter: drop-shadow(0 16px 15px rgba(10,10,10,.15));
+    filter: drop-shadow(0 16px 15px rgba(10, 10, 10, .15));
     flex-shrink: 0;
     margin-bottom: -108px;
     margin-right: 40px;
@@ -106,10 +106,10 @@
     text-shadow: 1px 1px 2px #00000033;
     font-size: 2rem;
     padding-bottom: 2.5px;
-    border: 1px solid hsla(0,0%,100%,0);
+    border: 1px solid hsla(0, 0%, 100%, 0);
     border-radius: 8px;
     display: block;
-    font-family: Open Sans,sans-serif;
+    font-family: Open Sans, sans-serif;
     line-height: 1.5;
     text-decoration: none;
     vertical-align: middle;
@@ -179,4 +179,3 @@
         width: 100%;
     }
 }
-
