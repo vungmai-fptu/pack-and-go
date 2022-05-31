@@ -6,6 +6,7 @@ import Home from "../pages/main/home";
 import Login from "../pages/main/login";
 import Profile from "../pages/main/profile";
 import Register from "../pages/main/register";
+import SettingProfile from "../pages/main/settingProfile";
 
 export const mainRouter = [
   {
@@ -17,6 +18,11 @@ export const mainRouter = [
     path: "/profile",
     exact: false,
     Component: Profile,
+  },
+  {
+    path: "/setting",
+    exact: false,
+    Component: SettingProfile,
   },
   {
     Component: Err,

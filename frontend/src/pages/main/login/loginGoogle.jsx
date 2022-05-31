@@ -2,9 +2,14 @@ import React from "react";
 import GoogleLogin from "react-google-login";
 import axios from "axios";
 import styles from "./login.module.css";
+import { useDispatch } from "react-redux";
+import { postLoginSuccess } from "../../../store/actions/user.action";
+
 const clientId =
   "299402568375-ih3in50qahdomql32v7c864vc3c78kh5.apps.googleusercontent.com";
 export default function LoginGoogle() {
+  const dispatch = useDispatch();
+
   const config = {
     headers: {
       "Content-Type": "application/json; charset=utf-8",
@@ -16,9 +21,11 @@ export default function LoginGoogle() {
       JSON.stringify(res),
       config
     );
+    console.log(res);
     if (jwtToken.status === 200) {
       localStorage.setItem("jwtToken", JSON.stringify(jwtToken.data));
     }
+    dispatch(postLoginSuccess(jwtToken.data));
   };
   const onFailure = (res) => {
     console.log("onFailure", res);
@@ -47,7 +54,7 @@ export default function LoginGoogle() {
       onSuccess={onSuccess}
       onFailure={onFailure}
       cookiePolicy={"single_host_origin"}
-      isSignedIn={true}
+      // isSignedIn={true}
     />
   );
 }

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import classNames from "classnames";
 import { useDispatch } from "react-redux";
 import { IoArrowBack } from "react-icons/io5";
@@ -8,8 +8,10 @@ import styles from "./register.module.css";
 import { postRegistration } from "../../../store/actions/user.action";
 import "react-notifications/lib/notifications.css";
 import { NotificationContainer } from "react-notifications";
+import validateInput from "../../../components/validateInput/validateInput";
 function Register() {
   const { hidden, handleClick } = useIsHidden();
+  const history = useHistory();
   const dispatch = useDispatch();
   const [user, setUser] = useState({
     email: "",
@@ -30,58 +32,12 @@ function Register() {
       ...user,
       [name]: value,
     });
-    validateInput(event);
-  };
-  const validateInput = (e) => {
-    let { name, value } = e.target;
-    setError((prev) => {
-      const stateObj = { ...prev, [name]: "" };
-
-      switch (name) {
-        case "email":
-          if (!value) {
-            stateObj[name] = "Please enter Email.";
-          }
-          break;
-
-        case "username":
-          if (!value) {
-            stateObj[name] = "Please enter Username.";
-          }
-          break;
-
-        case "password":
-          if (!value) {
-            stateObj[name] = "Please enter Password.";
-          } else if (user.confirmPassword && value !== user.confirmPassword) {
-            stateObj["confirmPassword"] =
-              "Password and Confirm Password does not match.";
-          } else {
-            stateObj["confirmPassword"] = user.confirmPassword
-              ? ""
-              : error.confirmPassword;
-          }
-          break;
-
-        case "confirmPassword":
-          if (!value) {
-            stateObj[name] = "Please enter Confirm Password.";
-          } else if (user.password && value !== user.password) {
-            stateObj[name] = "Password and Confirm Password does not match.";
-          }
-          break;
-
-        default:
-          break;
-      }
-
-      return stateObj;
-    });
+    validateInput(event, user, error, setError);
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    dispatch(postRegistration(user));
+    dispatch(postRegistration(user, history));
   };
   return (
     <div>
@@ -124,7 +80,7 @@ function Register() {
                     />
                   </div>
                   <div>
-                    <span>With Facebook</span>
+                    <span>With Facebook (update soon)</span>
                   </div>
                 </Link>
                 <Link to="/sign/google-login" style={{ background: "#c73534" }}>
@@ -197,6 +153,7 @@ function Register() {
                       placeholder="Fill your email adress"
                       onChange={handleChange}
                       onBlur={validateInput}
+                      required
                     />
                     {error.email && (
                       <span style={{ color: "#e64646" }}>{error.email}</span>
@@ -211,6 +168,7 @@ function Register() {
                       placeholder="Fill your username adress"
                       onChange={handleChange}
                       onBlur={validateInput}
+                      required
                     />
                     {error.username && (
                       <span style={{ color: "#e64646" }}>{error.username}</span>
@@ -225,6 +183,7 @@ function Register() {
                       placeholder="Password"
                       onChange={handleChange}
                       onBlur={validateInput}
+                      required
                     />
                     {error.password && (
                       <span style={{ color: "#e64646" }}>{error.password}</span>
@@ -239,6 +198,7 @@ function Register() {
                       placeholder="confirmPassword"
                       onChange={handleChange}
                       onBlur={validateInput}
+                      required
                     />
                     {error.confirmPassword && (
                       <span style={{ color: "#e64646" }}>

@@ -1,7 +1,26 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import validateInput from "../../../components/validateInput/validateInput";
 import styles from "./forgotPassword.module.css";
 function ForgotPassword() {
+  const [forgotPassword, setForgotPassword] = useState({
+    forgotPassword: "",
+  });
+  const [error, setError] = useState({
+    forgotPassword: "",
+  });
+
+  const handleChange = (event) => {
+    const { value, name } = event.target;
+    setForgotPassword({
+      ...forgotPassword,
+      [name]: value,
+    });
+    validateInput(event, forgotPassword, error, setError);
+  };
+  const handleSubmit = (e) => {
+    e.preventDefault();
+  };
   return (
     <div>
       <div>
@@ -34,10 +53,20 @@ function ForgotPassword() {
                 Please enter your registration email and we will send you a link
                 to reset your password right away.
               </span>
-              <form className={styles.loginEmail}>
+              <form className={styles.loginEmail} onSubmit={handleSubmit}>
                 <div className={styles.input}>
                   <div className={styles.inputEmail}>
-                    <input type="email" placeholder="Fill your email address" />
+                    <input
+                      type="email"
+                      name="forgotPassword"
+                      placeholder="Fill your email address"
+                      onChange={handleChange}
+                    />
+                    {error.forgotPassword && (
+                      <span style={{ color: "#e64646" }}>
+                        {error.forgotPassword}
+                      </span>
+                    )}
                   </div>
                 </div>
                 <button>
@@ -46,7 +75,7 @@ function ForgotPassword() {
               </form>
             </div>
             <div className={styles.register}>
-              <Link href="/sign/in">
+              <Link to="/login">
                 <span>Back to Login</span>
               </Link>
             </div>
