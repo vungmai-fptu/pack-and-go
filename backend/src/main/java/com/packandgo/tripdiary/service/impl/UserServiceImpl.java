@@ -164,8 +164,7 @@ public class UserServiceImpl implements UserService {
 
         userRepository.removeUserByUsername(username);
     }
-
-
+    
     @Override
     @Transactional
     public void saveUserInfo(UserInfo info) {
