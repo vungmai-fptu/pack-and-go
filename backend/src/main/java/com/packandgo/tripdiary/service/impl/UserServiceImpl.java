@@ -1,15 +1,21 @@
 package com.packandgo.tripdiary.service.impl;
 
+import com.packandgo.tripdiary.enums.Gender;
 import com.packandgo.tripdiary.enums.UserStatus;
 import com.packandgo.tripdiary.model.PasswordResetToken;
+import com.packandgo.tripdiary.model.Role;
 import com.packandgo.tripdiary.model.User;
 import com.packandgo.tripdiary.model.UserInfo;
 import com.packandgo.tripdiary.model.mail.MailContent;
 import com.packandgo.tripdiary.model.mail.VerifyEmailMailContent;
+import com.packandgo.tripdiary.payload.request.auth.NewPasswordRequest;
+import com.packandgo.tripdiary.payload.request.auth.RegisterRequest;
 import com.packandgo.tripdiary.repository.PasswordResetRepository;
+import com.packandgo.tripdiary.repository.RoleRepository;
 import com.packandgo.tripdiary.repository.UserInfoRepository;
 import com.packandgo.tripdiary.repository.UserRepository;
 import com.packandgo.tripdiary.service.EmailSenderService;
+import com.packandgo.tripdiary.service.PasswordResetService;
 import com.packandgo.tripdiary.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -18,6 +24,8 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.UUID;
 
 @Service
@@ -25,21 +33,25 @@ public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
     private final UserInfoRepository userInfoRepository;
+    private final RoleRepository roleRepository;
     private final PasswordResetRepository passwordResetRepository;
     private final PasswordEncoder passwordEncoder;
     private final EmailSenderService emailSenderService;
+    private final PasswordResetService passwordResetService;
 
     @Autowired
     public UserServiceImpl(UserRepository userRepository,
                            UserInfoRepository userInfoRepository,
-                           PasswordResetRepository passwordResetRepository,
+                           RoleRepository roleRepository, PasswordResetRepository passwordResetRepository,
                            PasswordEncoder passwordEncoder,
-                           EmailSenderService emailSenderService) {
+                           EmailSenderService emailSenderService, PasswordResetService passwordResetService) {
         this.userRepository = userRepository;
         this.userInfoRepository = userInfoRepository;
+        this.roleRepository = roleRepository;
         this.passwordResetRepository = passwordResetRepository;
         this.passwordEncoder = passwordEncoder;
         this.emailSenderService = emailSenderService;
+        this.passwordResetService = passwordResetService;
     }
 
     @Override
@@ -88,20 +100,37 @@ public class UserServiceImpl implements UserService {
 
     @Override
     @Transactional
-    public void register(User user, String siteURL) throws Exception {
-        if (user != null) {
-            if (userRepository.existsByUsername(user.getUsername())) {
-                throw new Exception("Username has already exist");
-            }
-            if (userRepository.existsByEmail(user.getEmail())) {
-                throw new Exception("Email has already exist");
-            }
+    public void register(RegisterRequest registerRequest, String siteURL) throws Exception {
 
-            //create verify email
-            MailContent mailContent = new VerifyEmailMailContent(user.getEmail(), user.getVerifyToken(), siteURL);
-            emailSenderService.sendEmail(mailContent);
-            userRepository.save(user);
+        if (userRepository.existsByUsername(registerRequest.getUsername())) {
+            throw new IllegalArgumentException("Username has already exist");
         }
+        if (userRepository.existsByEmail(registerRequest.getEmail())) {
+            throw new IllegalArgumentException("Email has already exist");
+        }
+
+        User user = new User(
+                registerRequest.getUsername(),
+                registerRequest.getEmail(),
+                passwordEncoder.encode(registerRequest.getPassword())
+        );
+
+        Role role = roleRepository.findByName("USER").orElseGet(() -> new Role("USER"));
+        Set<Role> roles = new HashSet<>();
+        roles.add(role);
+
+        user.setRoles(roles);
+
+        //create user info
+        UserInfo userInfo = new UserInfo();
+        userInfo.setUser(user);
+        userInfo.setGender(Gender.UNDEFINED);
+
+        //create verify email
+        MailContent mailContent = new VerifyEmailMailContent(user.getEmail(), user.getVerifyToken(), siteURL);
+        emailSenderService.sendEmail(mailContent);
+        userRepository.save(user);
+        userInfoRepository.save(userInfo);
     }
 
     @Override
@@ -135,12 +164,31 @@ public class UserServiceImpl implements UserService {
 
         userRepository.removeUserByUsername(username);
     }
-
-
+    
     @Override
     @Transactional
     public void saveUserInfo(UserInfo info) {
         userInfoRepository.save(info);
+    }
+
+    @Override
+    public void resetPassword(NewPasswordRequest request) {
+        String passwordResetToken = request.getToken();
+
+        boolean isValidToken = passwordResetService.validatePasswordResetToken(passwordResetToken);
+
+        if (!isValidToken) {
+            throw new IllegalArgumentException("Reset password token is expired");
+        }
+
+        User user = passwordResetService.findUserFromToken(passwordResetToken);
+
+        if (user == null) {
+            throw new UsernameNotFoundException("User not found with token");
+        }
+
+        this.changePassword(user, request.getNewPassword());
+        passwordResetService.invalidateToken(passwordResetToken);
     }
 
 }

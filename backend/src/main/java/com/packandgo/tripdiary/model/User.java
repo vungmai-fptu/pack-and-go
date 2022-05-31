@@ -34,7 +34,8 @@ public class User {
     @Enumerated(EnumType.STRING)
     private UserStatus status;
 
-    @OneToMany(cascade = CascadeType.ALL,
+    @OneToMany(
+            cascade = CascadeType.ALL,
             fetch = FetchType.LAZY,
             mappedBy = "user")
     private List<Trip> trips = new ArrayList<>();
@@ -128,6 +129,7 @@ public class User {
     public void setRoles(Set<Role> roles) {
         this.roles = roles;
     }
+
 
 
     @Override

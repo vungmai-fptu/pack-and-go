@@ -3,6 +3,7 @@ import { useIsLogin } from "../../hooks/useIsLogin";
 import FormLogout from "./formLogout";
 import styles from "./header.module.css";
 import { Link } from "react-router-dom";
+import logoHeader from "../../assets/images/logos/logo-black-3.png";
 export default function Header() {
   const { user } = useIsLogin();
   const { hidden, handleClick } = useIsHidden();
