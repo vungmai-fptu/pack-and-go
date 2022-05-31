@@ -44,6 +44,17 @@
       To begin the development, run `npm start` or `yarn start`.
       To create a production bundle, use `npm run build` or `yarn build`.
     -->
+
+  <script>
+    window.gapi.load('client:auth2', () => {
+      window.gapi.client.init({
+        clientId: '299402568375-ih3in50qahdomql32v7c864vc3c78kh5.apps.googleusercontent.com',
+        scope: 'email',
+        plugin_name: "chat"
+      });
+    });
+  </script>
 </body>
+
 
 </html>

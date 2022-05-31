@@ -1,4 +1,5 @@
 import axios from "axios";
+import { NotificationManager } from "react-notifications";
 import {
   LOGIN_FAILED,
   LOGIN_SUCCESS,
@@ -6,36 +7,35 @@ import {
   REGISTRATION_SUCCESS,
 } from "../constants/user.const";
 import { startLoading, stopLoading } from "../actions/common.action";
-export const postLogin = (taiKhoan, matKhau, history) => {
+export const postLogin = (usernameOrEmail, password) => {
   return (dispatch) => {
     dispatch(startLoading());
     axios({
       method: "POST",
-      url: "https://movie0706.cybersoft.edu.vn/api/QuanLyNguoiDung/DangNhap",
+      url: "https://trip-diary-backend.herokuapp.com/api/auth/signin",
+      headers: {
+        "Content-Type": "application/json",
+      },
       data: {
-        taiKhoan,
-        matKhau,
+        usernameOrEmail,
+        password,
       },
     })
       .then((res) => {
         dispatch(stopLoading());
-        console.log(res.data);
-        localStorage.setItem("userLogin", JSON.stringify(res.data));
         dispatch(postLoginSuccess(res.data));
-        history.goBack();
+        localStorage.setItem("userLogin", JSON.stringify(res.data));
       })
       .catch((err) => {
         dispatch(stopLoading());
         dispatch(postLoginFailed(err));
-        alert.error({
-          message: "Oops!",
-          description: "Account or password is not wrong!",
-        });
+        console.log(err.response.data);
+        NotificationManager.error(err.response.data.message);
       });
   };
 };
 
-const postLoginSuccess = (user) => {
+export const postLoginSuccess = (user) => {
   return {
     type: LOGIN_SUCCESS,
     payload: user,
@@ -48,37 +48,31 @@ const postLoginFailed = (err) => {
     payload: err,
   };
 };
-export const postRegistration = (values, history) => {
+export const postRegistration = (values, goBack) => {
   return (dispatch) => {
     dispatch(startLoading());
     axios({
       method: "POST",
-      url: "https://movie0706.cybersoft.edu.vn/api/QuanLyNguoiDung/DangKy",
+      url: "https://trip-diary-backend.herokuapp.com/api/auth/signup",
+      headers: {
+        "Content-Type": "application/json",
+      },
       data: {
-        taiKhoan: values.taiKhoan,
-        matKhau: values.matKhau,
         email: values.email,
-        soDt: values.soDt,
-        maNhom: "GP01",
-        maLoaiNguoiDung: "KhachHang",
-        hoTen: values.hoTen,
+        username: values.username,
+        password: values.password,
       },
     })
       .then((res) => {
         dispatch(stopLoading());
-        if (res.data) {
-          return history.push("/");
-        }
         dispatch(postRegistrationSuccess(res.data));
-        history.goBack();
+        goBack.push("/login");
+        NotificationManager.success(res.data.message);
       })
       .catch((err) => {
         dispatch(stopLoading());
         dispatch(postRegistrationFailed(err));
-        alert.error({
-          message: "Oops!",
-          description: "Account already exists !",
-        });
+        NotificationManager.error(err.response.data.message);
       });
   };
 };
