@@ -14,7 +14,6 @@ public class PriceItem {
     @ManyToOne
     @JoinColumn(name = "trip_id", nullable = false)
     private Trip trip;
-
     public PriceItem() {
     }
 
