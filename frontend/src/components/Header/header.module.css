@@ -16,13 +16,11 @@ a {
   box-shadow: 0 6px 5px rgb(136 148 170 / 16%);
   display: flex;
   flex-direction: row;
-  height: 70px;
+  height: 80px;
   padding: 0 16px;
   position: absolute;
   width: 100%;
   z-index: 1;
-  top: 0;
-  left: 0;
 }
 
 .headerLogo {
@@ -58,7 +56,7 @@ a {
 
 .headerLogo a {
   height: auto;
-  width: 150px;
+  width: 140px;
   display: inline-block;
   cursor: pointer;
 }

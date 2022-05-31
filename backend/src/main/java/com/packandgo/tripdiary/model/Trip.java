@@ -1,6 +1,7 @@
 package com.packandgo.tripdiary.model;
 
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.packandgo.tripdiary.enums.TripStatus;
 import com.packandgo.tripdiary.util.ListStringConverter;
 import org.hibernate.annotations.OnDelete;
@@ -17,6 +18,7 @@ public class Trip {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(name = "thumbnail_url")
     private String thumbnailUrl;
 
     @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
@@ -27,9 +29,11 @@ public class Trip {
     private Destination destination;
 
     @Column(name = "begin_date")
+    @JsonFormat(pattern = "yyyy/MM/dd")
     private Date beginDate;
 
     @Column(name = "end_date")
+    @JsonFormat(pattern = "yyyy/MM/dd")
     private Date endDate;
 
     @Column(name = "prepared_list")
@@ -54,29 +58,7 @@ public class Trip {
     @OneToMany(mappedBy = "trip", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<PriceItem> priceList = new ArrayList<>();
 
-    public Trip(
-            Date beginDate,
-            Date endDate,
-            List<String> preparedList,
-            TripStatus status,
-            String note,
-            User user,
-            List<VisitDay> visitDays,
-            List<PriceItem> priceList,
-            int notifyBefore) {
-        this.beginDate = beginDate;
-        this.endDate = endDate;
-        this.preparedList = preparedList;
-        this.status = status;
-        this.note = note;
-        this.user = user;
-        this.visitDays = visitDays;
-        this.priceList = priceList;
-        this.notifyBefore = notifyBefore;
-    }
-
-    public Trip() {
-    }
+    public  Trip() {}
 
     public void addVisitDay(VisitDay visitDay) {
         this.visitDays.add(visitDay);
@@ -170,5 +152,21 @@ public class Trip {
 
     public void setPriceList(List<PriceItem> priceList) {
         this.priceList = priceList;
+    }
+
+    public String getThumbnailUrl() {
+        return thumbnailUrl;
+    }
+
+    public void setThumbnailUrl(String thumbnailUrl) {
+        this.thumbnailUrl = thumbnailUrl;
+    }
+
+    public Destination getDestination() {
+        return destination;
+    }
+
+    public void setDestination(Destination destination) {
+        this.destination = destination;
     }
 }

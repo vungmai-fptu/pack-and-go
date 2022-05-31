@@ -1,5 +1,5 @@
 import classNames from "classnames";
-import { Redirect } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
 import styles from "./header.module.css";
 import { IoSettingsOutline, IoLogOutOutline } from "react-icons/io5";
 export default function FormLogout(props) {
@@ -38,20 +38,11 @@ export default function FormLogout(props) {
             <div className={styles.logoutIcon}>
               <IoSettingsOutline />
             </div>
-            <div className={styles.logoutTitle}>
-              <div
-                width="51.921875"
-                height={19}
-                style={{
-                  width: "100%",
-                  textOverflow: "ellipsis",
-                  whiteSpace: "nowrap",
-                  overflow: "hidden",
-                }}
-              >
+            <Link to="/setting">
+              <div className={styles.logoutTitle}>
                 <span>Settings</span>
               </div>
-            </div>
+            </Link>
           </div>
         </div>
         <div className={styles.logout}>
