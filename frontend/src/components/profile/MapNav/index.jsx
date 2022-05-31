@@ -11,17 +11,17 @@ const MapNav = () => {
                 <div className={styles["nav-wrapper"]}>
                     <div className={styles["map-nav"]}>
                         <div className={styles["btn-selected"]}>
-                            All trips
+                            <span className={styles["nav-title"]}>All trips</span>
                         </div>
                         <div className={styles.btn}>
-                            Global trips
+                            <span className={styles["nav-title"]}>Global trips</span>
                         </div>
                         <div className={styles.btn}>
                             <div className={styles["btn-icon"]}><img src="https://www.worldometers.info/img/flags/vm-flag.gif" alt="country flag" className={styles["btn-circle-img"]}/></div>
-                            Local Trips
+                            <span className={styles["nav-title"]}>Local Trips</span>
                         </div>
                         <div className={styles.btn}>
-                            <div className={styles["btn-icon"]}><BiFilter /></div>Filter countries <BsChevronDown />
+                            <div className={styles["btn-icon"]}><BiFilter /></div><span className={styles["nav-title"]}>Filter countries <BsChevronDown /></span>
                         </div>
                     </div>
                 </div>

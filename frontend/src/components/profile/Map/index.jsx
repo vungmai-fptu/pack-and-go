@@ -7,9 +7,8 @@ import { TileLayer } from 'react-leaflet/TileLayer'
 import "leaflet/dist/leaflet.css";
 import { Marker, Popup } from 'react-leaflet'
 import {GrLocation} from 'react-icons/gr'
-
 import L from 'leaflet';
-import MapMarker from './Marker'
+import MapMarker from './MapMarker.jsx'
 
 
 

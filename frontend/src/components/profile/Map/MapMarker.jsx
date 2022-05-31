@@ -1,13 +1,16 @@
 import React from 'react'
 import { Marker, Popup } from 'react-leaflet'
+import { iconMarker } from './MapMarker.js'
+import styles from './MapMarker.module.css'
 
 const MapMarker = ({coordinates, order, message}) => {
     return (
         <div>
-            <Marker
+            <Marker className={styles.marker}
                 position={coordinates}
-                order={order}
+                icon={iconMarker}
             >
+                <p>{order}</p>
                 <Popup>
                     {message}
                 </Popup>

@@ -40,6 +40,12 @@
     white-space: nowrap;
 }
 
+.nav-title {
+    flex-shrink: 1;
+    max-width: 100%;
+    min-width: 0;
+}
+
 .btn-selected {
     border-radius: 0;
     margin-top: -1px;
@@ -75,10 +81,18 @@
     border-radius: 50%;
 }
 
-@media (max-width: 480px) {
+@media (max-width: 740px) {
     .nav-wrapper {
         width: 100%;
-        margin: 0 auto;
+        max-width: 100%;
+        padding: 0;
+        display: initial;
+    }
+
+    .btn, .btn-selected {
+        height: 56px;
+        padding: 0 20px;
+        min-width: 200px;
     }
 }
 
