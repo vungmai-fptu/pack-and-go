@@ -3,6 +3,7 @@ package com.packandgo.tripdiary.model;
 
 import com.packandgo.tripdiary.enums.TripStatus;
 import com.packandgo.tripdiary.util.ListStringConverter;
+import org.hibernate.annotations.OnDelete;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -18,10 +19,17 @@ public class Trip {
 
     private String thumbnailUrl;
 
-    @Column(name = "beginDate")
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinColumn(
+            name = "destination_id",
+            referencedColumnName = "id"
+    )
+    private Destination destination;
+
+    @Column(name = "begin_date")
     private Date beginDate;
 
-    @Column(name = "endDate")
+    @Column(name = "end_date")
     private Date endDate;
 
     @Column(name = "prepared_list")
@@ -36,7 +44,7 @@ public class Trip {
     @Column(name = "notify_before")
     private int notifyBefore;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
@@ -70,10 +78,15 @@ public class Trip {
     public Trip() {
     }
 
-//    public void addVisitDay(VisitDay visitDay) {
-//        this.visitDays.add(visitDay);
-//        visitDay.setTrip(this);
-//    }
+    public void addVisitDay(VisitDay visitDay) {
+        this.visitDays.add(visitDay);
+        visitDay.setTrip(this);
+    }
+
+    public void addPriceItem(PriceItem item) {
+        this.priceList.add(item);
+        item.setTrip(this);
+    }
 
     public User getUser() {
         return user;

@@ -2,9 +2,13 @@ import React from "react";
 import GoogleLogin from "react-google-login";
 import axios from "axios";
 import styles from "./login.module.css";
+import { useHistory } from "react-router-dom";
 const clientId =
   "299402568375-ih3in50qahdomql32v7c864vc3c78kh5.apps.googleusercontent.com";
 export default function LoginGoogle() {
+
+  const history = useHistory();
+
   const config = {
     headers: {
       "Content-Type": "application/json; charset=utf-8",
@@ -19,6 +23,7 @@ export default function LoginGoogle() {
     if (jwtToken.status === 200) {
       localStorage.setItem("jwtToken", JSON.stringify(jwtToken.data));
     }
+    history.push("/");
   };
   const onFailure = (res) => {
     console.log("onFailure", res);

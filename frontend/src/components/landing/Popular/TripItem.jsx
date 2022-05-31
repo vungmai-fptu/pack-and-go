@@ -23,7 +23,7 @@ const TripItem = () => {
           </div>
           <div title="Sơn Lê" className={styles["profile-image"]}>
             <a href="/son" className="w_AP w_kj w_kq">
-              <img className="w_km" alt="profile" src="https://wrld-wa-ec1-prod.b-cdn.net/accounts/26b82d3a4f4fca22b1ef4a3e1aaac37a/profile/56284ea742762a1.77627864.jpg?width=640&amp;height=640" />
+              <img alt="profile" src="https://wrld-wa-ec1-prod.b-cdn.net/accounts/26b82d3a4f4fca22b1ef4a3e1aaac37a/profile/56284ea742762a1.77627864.jpg?width=640&amp;height=640" />
             </a>
           </div>
         </div>

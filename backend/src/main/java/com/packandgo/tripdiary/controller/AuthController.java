@@ -98,7 +98,9 @@ public class AuthController {
     }
 
     @PostMapping("/signup")
-    public ResponseEntity<?> registerUser(@RequestBody RegisterRequest registerRequest, HttpServletRequest request) throws Exception {
+    public ResponseEntity<?> registerUser(
+            @RequestBody RegisterRequest registerRequest,
+            HttpServletRequest request) throws Exception {
         User user = new User(
                 registerRequest.getUsername(),
                 registerRequest.getEmail(),

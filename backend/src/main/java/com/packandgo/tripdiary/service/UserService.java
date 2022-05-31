@@ -25,4 +25,5 @@ public interface UserService {
     public void removeUser(String username);
 
     public void saveUserInfo(UserInfo info);
+
 }
