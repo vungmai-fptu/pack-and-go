@@ -1,8 +1,10 @@
 package com.packandgo.tripdiary.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.packandgo.tripdiary.enums.Gender;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
+import org.hibernate.annotations.Type;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -47,11 +49,13 @@ public class UserInfo {
     private Date dateOfBirth;
 
     @Column(name = "about_me")
+    @Type(type = "text")
     private String aboutMe;
 
     @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @OnDelete(action = OnDeleteAction.CASCADE)
     @JoinColumn(name = "user_id", referencedColumnName = "id")
+    @JsonIgnore
     private User user;
 
     public UserInfo() {

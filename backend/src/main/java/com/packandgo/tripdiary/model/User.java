@@ -98,6 +98,10 @@ public class User {
     }
 
     public void setTrips(List<Trip> trips) {
+        if(this.trips == null) {
+            trips = new ArrayList<>();
+        }
+        trips.stream().forEach(trip -> trip.setUser(this));
         this.trips = trips;
     }
 
@@ -118,6 +122,9 @@ public class User {
     }
 
     public void addTrip(Trip trip) {
+        if(this.trips == null) {
+            trips = new ArrayList<>();
+        }
         this.trips.add(trip);
         trip.setUser(this);
     }

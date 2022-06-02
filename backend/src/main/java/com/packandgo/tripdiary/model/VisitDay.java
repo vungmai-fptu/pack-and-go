@@ -1,5 +1,7 @@
 package com.packandgo.tripdiary.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -11,20 +13,26 @@ public class VisitDay {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
+    @JsonIgnore
     private Long id;
+
     @Column(name = "day_number")
     private int dayNumber;
+
     @Column(name = "description")
     private String description;
 
     @ManyToOne
     @JoinColumn(name = "trip_id", nullable = false)
+    @JsonIgnore
     private Trip trip;
 
     @OneToMany(mappedBy = "visitDay",
             fetch = FetchType.LAZY,
-            cascade = CascadeType.ALL)
-    private List<Destination> destinations = new ArrayList<>();
+            cascade = CascadeType.ALL,
+            orphanRemoval = true
+    )
+    private List<VisitPlace> visitPlaces = new ArrayList<>();
 
     public VisitDay() {
     }
@@ -34,9 +42,12 @@ public class VisitDay {
         this.description = description;
     }
 
-    public void addDestination(Destination destination) {
-        this.destinations.add(destination);
-        destination.setVisitDay(this);
+    public void addVisitPlace(VisitPlace place) {
+        if(this.visitPlaces == null) {
+            this.visitPlaces = new ArrayList<>();
+        }
+        this.visitPlaces.add(place);
+        place.setVisitDay(this);
     }
 
     public Long getId() {
@@ -71,14 +82,15 @@ public class VisitDay {
         this.trip = trip;
     }
 
-    public List<Destination> getDestinations() {
-        return destinations;
+    public List<VisitPlace> getVisitPlaces() {
+        return visitPlaces;
     }
 
-    public void setDestinations(List<Destination> destinations) {
-        this.destinations = destinations;
+    public void setVisitPlaces(List<VisitPlace> visitPlaces) {
+        visitPlaces.forEach(place -> place.setVisitDay(this));
+        if(this.visitPlaces == null) {
+            visitPlaces = new ArrayList<>();
+        }
+        this.visitPlaces = visitPlaces;
     }
-
-
-
 }

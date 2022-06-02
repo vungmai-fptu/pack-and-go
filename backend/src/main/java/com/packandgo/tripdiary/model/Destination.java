@@ -1,44 +1,22 @@
 package com.packandgo.tripdiary.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
-import javax.persistence.criteria.Fetch;
-import java.util.ArrayList;
-import java.util.List;
 
 @Entity
 @Table(name = "destination")
 public class Destination {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @JsonIgnore
     private Long id;
 
     private double longitude;
     private double latitude;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "visitday_id", referencedColumnName = "id")
-    private VisitDay visitDay;
-
-    @OneToMany(
-            mappedBy = "destination",
-            fetch = FetchType.LAZY,
-            cascade = CascadeType.ALL)
-    private List<Image> images = new ArrayList<>();
-
-
     public Destination() {
-    }
 
-    ;
-
-    public Destination(float longitude, float latitude) {
-        this.longitude = longitude;
-        this.latitude = latitude;
-    }
-
-    public void addImage(Image image) {
-        this.images.add(image);
-        image.setDestination(this);
     }
 
     public Long getId() {
@@ -63,21 +41,5 @@ public class Destination {
 
     public void setLatitude(double latitude) {
         this.latitude = latitude;
-    }
-
-    public VisitDay getVisitDay() {
-        return visitDay;
-    }
-
-    public void setVisitDay(VisitDay visitDay) {
-        this.visitDay = visitDay;
-    }
-
-    public List<Image> getImages() {
-        return images;
-    }
-
-    public void setImages(List<Image> images) {
-        this.images = images;
     }
 }
