@@ -1,8 +1,9 @@
 import React from 'react';
 import styles from './nav.module.css'
 import SectionContainer from '../SectionContainer';
-import {BiFilter} from 'react-icons/bi'
-import {BsChevronDown} from 'react-icons/bs'
+import { BiFilter } from 'react-icons/bi'
+import { BsChevronDown } from 'react-icons/bs'
+import CountrySelector from './CountrySelector';
 
 const MapNav = () => {
     return (
@@ -10,20 +11,22 @@ const MapNav = () => {
             <SectionContainer>
                 <div className={styles["nav-wrapper"]}>
                     <div className={styles["map-nav"]}>
-                        <div className={styles["btn-selected"]}>
+                        <button className={styles["btn-selected"]}>
                             <span className={styles["nav-title"]}>All trips</span>
-                        </div>
-                        <div className={styles.btn}>
+                        </button>
+                        <button className={styles.btn}>
                             <span className={styles["nav-title"]}>Global trips</span>
-                        </div>
-                        <div className={styles.btn}>
-                            <div className={styles["btn-icon"]}><img src="https://www.worldometers.info/img/flags/vm-flag.gif" alt="country flag" className={styles["btn-circle-img"]}/></div>
+                        </button>
+                        <button className={styles.btn}>
+                            <div className={styles["btn-icon"]}><img src="https://www.worldometers.info/img/flags/vm-flag.gif" alt="country flag" className={styles["btn-circle-img"]} /></div>
                             <span className={styles["nav-title"]}>Local Trips</span>
-                        </div>
-                        <div className={styles.btn}>
-                            <div className={styles["btn-icon"]}><BiFilter /></div><span className={styles["nav-title"]}>Filter countries <BsChevronDown /></span>
-                        </div>
+                        </button>
+                        <button className={styles.btn}>
+                            <div className={styles["btn-icon"]}><BiFilter /></div>
+                            <div className={styles["country-selector"]}><CountrySelector /></div>
+                        </button>
                     </div>
+
                 </div>
             </SectionContainer>
         </div>

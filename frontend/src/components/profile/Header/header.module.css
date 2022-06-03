@@ -64,9 +64,11 @@
     flex-flow: row;
     max-width: 100%;
     min-width: 0;
+    align-items: center;
 }
 
 .avatar-cover {
+    align-items: center;
     filter: drop-shadow(0 16px 15px rgba(10, 10, 10, .15));
     flex-shrink: 0;
     margin-bottom: -108px;
@@ -106,10 +108,10 @@
     text-shadow: 1px 1px 2px #00000033;
     font-size: 2rem;
     padding-bottom: 2.5px;
-    border: 1px solid hsla(0, 0%, 100%, 0);
+    border: 1px solid hsla(0,0%,100%,0);
     border-radius: 8px;
     display: block;
-    font-family: Open Sans, sans-serif;
+    font-family: Open Sans,sans-serif;
     line-height: 1.5;
     text-decoration: none;
     vertical-align: middle;
@@ -122,6 +124,7 @@
     font-size: 1rem;
     text-shadow: 1px 1px 2px #00000033;
     font-weight: 600;
+    vertical-align: middle;
 }
 
 .header-second-section {
@@ -175,12 +178,100 @@
 
 @media (max-width: 740px) {
     .header {
+        max-width: 100%;
         width: 100%;
     }
 
+    .header-cover {
+        padding: 0;
+        height: 200px;
+    }
+
+    .header-cover-content {
+        padding: 0;
+    }
+
+    .header-cover-photo {
+        height: 100%;
+        position: absolute;
+    }
+
     .avatar-cover {
-        margin-bottom: -96px;
+        filter: drop-shadow(0 16px 15px rgba(10, 10, 10, .15));
+        flex-shrink: 0;
+        position: absolute;
+        display: flex;
+        flex-flow: column;
+        max-width: 100%;
+        min-width: 0;
         margin-right: unset;
+        width: 100%;
+        justify-content: center;
+        padding: 0;
+    }
+
+    .avatar-inner-cover {}
+
+    .avatar-img {
+        height: 192px;
+        object-fit: cover;
+        width: 192px;
+        display: block;
+        vertical-align: middle;
+        font-size: 0;
+    }
+
+    .header-second-section {
+        display: flex;
+        align-items: center;
+        margin-bottom: 32px;
+        margin-left: unset;
+        margin-right: unset;
+        margin-top: 96px;
+        row-gap: 24px;
+        min-height: 64px;
+        width: 100%;
+    }
+
+    .name {
+        align-items: center;
+        position: relative;
+        width: 100%;
+        display: block;
+        flex-flow: column;
+        flex-shrink: 1;
+        max-width: 100%;
+        text-align: center;
+    }
+
+    .user-name {
+        width: 100%;
+        color: #202d3d;
+        text-shadow: unset;
+        font-weight: 700;
+        font-size: 1.5rem;
+        text-align: center;
+    }
+
+    .user-url {
+        padding: 0 24px;
+        column-gap: 16px;
+        align-items: center;
+        display: flex;
+        flex-flow: row;
+        max-width: 100%;
+        min-width: 0;
+        font-size: .875rem;
+        font-weight: 400;
+        margin-bottom: 24px;
+        color: #202d3d;
+        text-shadow: unset;
+        text-align: center;
+    }
+
+    .user-repository {
+        padding: 0 24px;
+        width: 100%;
     }
 }
 

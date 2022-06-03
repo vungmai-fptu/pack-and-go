@@ -1,20 +1,22 @@
 import React from 'react'
-import { Marker, Popup } from 'react-leaflet'
+import { Marker } from 'react-leaflet'
 import { iconMarker } from './MapMarker.js'
-import styles from './MapMarker.module.css'
-
-const MapMarker = ({coordinates, order, message}) => {
+import Popup from 'reactjs-popup'
+import './MapMarker.css'
+const MapMarker = ({ coordinates, order, message }) => {
     return (
         <div>
-            <Marker className={styles.marker}
+            <Marker
                 position={coordinates}
                 icon={iconMarker}
             >
-                <p>{order}</p>
-                <Popup>
-                    {message}
-                </Popup>
             </Marker>
+            <Popup trigger={<Marker
+                position={coordinates}
+                icon={iconMarker}
+            ></Marker>} position="right center">
+                <div>{message}</div>
+            </Popup>
         </div>
     )
 }

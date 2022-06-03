@@ -9,7 +9,7 @@ const iconMarker = new L.Icon({
     shadowSize: null,
     shadowAnchor: null,
     iconSize: new L.Point(60, 75),
-    className: 'leaflet-div-icon'
+    className: 'marker-icon'
 });
 
 export { iconMarker };

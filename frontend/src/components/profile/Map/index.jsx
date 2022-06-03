@@ -1,13 +1,9 @@
 import React from 'react'
 import styles from './map.module.css'
-import SectionHeader from '../SectionHeader'
 import SectionContainer from '../SectionContainer'
 import { MapContainer } from 'react-leaflet/MapContainer'
 import { TileLayer } from 'react-leaflet/TileLayer'
 import "leaflet/dist/leaflet.css";
-import { Marker, Popup } from 'react-leaflet'
-import {GrLocation} from 'react-icons/gr'
-import L from 'leaflet';
 import MapMarker from './MapMarker.jsx'
 
 

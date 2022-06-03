@@ -1,9 +1,11 @@
 .nav-wrapper {
+    position: relative;
     padding: 0 5.5rem;
     box-sizing: border-box;
     float: none!important;
     margin: 0 auto;
     max-width: calc(100% - 3rem);
+    z-index: 0;
 }
 
 .map-nav {
@@ -14,6 +16,7 @@
     height: 100%;
     width: 100%;
     overflow: auto;
+    z-index: 1;
 }
 
 .btn {
@@ -94,6 +97,13 @@
         padding: 0 20px;
         min-width: 200px;
     }
+}
+
+.country-selector {
+    position: relative;
+    width: 7.5rem;
+    float: right;
+    z-index: 100;
 }
 
 
