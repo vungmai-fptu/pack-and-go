@@ -1,42 +1,100 @@
 package com.packandgo.tripdiary.model;
 
+import com.packandgo.tripdiary.enums.Gender;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.Table;
-import java.util.Calendar;
+import java.util.Date;
 import javax.persistence.*;
 
 @Entity
 @Table(name = "UserInfo")
 public class UserInfo {
-    @Column(name = "firstName")
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @Column(name = "first_name")
     private String firstName;
-    @Column(name = "lastName")
+
+    @Column(name = "last_name")
     private String lastName;
+
     @Column(name = "city")
     private String city;
+
     @Column(name = "country")
     private String country;
-    @Column(name = "profileImage")
-    private String profileImage;
-    @Column(name = "coverImage")
-    private String coverImage;
-    @Column(name = "nickName")
-    private String nickName;
-    @Column(name = "phoneNumber")
+
+
+    private String profileImageUrl;
+
+    private String coverImageUrl;
+
+    @Column(name = "phone_number")
     private String phoneNumber;
+
     @Column(name = "gender")
-    private String gender;
+    @Enumerated(EnumType.STRING)
+
+    private Gender gender;
     @Column(name = "dateOfBirth")
-    private Calendar dateOfBirth;
-    @Column(name = "aboutMe")
+
+    private Date dateOfBirth;
+
+    @Column(name = "about_me")
     private String aboutMe;
-    @OneToOne
-    @MapsId
-    @JoinColumn(name = "user_id")
+
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    @JoinColumn(name = "user_id", referencedColumnName = "id")
     private User user;
-    @Id
+
+    public UserInfo() {
+    }
+
+    public UserInfo(String firstName,
+                    String lastName,
+                    String city,
+                    String country,
+                    String profileImageUrl,
+                    String coverImageUrl,
+                    String phoneNumber,
+                    Gender gender,
+                    Date dateOfBirth,
+                    String aboutMe) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.city = city;
+        this.country = country;
+        this.profileImageUrl = profileImageUrl;
+        this.coverImageUrl = coverImageUrl;
+        this.phoneNumber = phoneNumber;
+        this.gender = gender;
+        this.dateOfBirth = dateOfBirth;
+        this.aboutMe = aboutMe;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
     public String getFirstName() {
         return firstName;
     }
@@ -69,29 +127,7 @@ public class UserInfo {
         this.country = country;
     }
 
-    public String getProfileImage() {
-        return profileImage;
-    }
 
-    public void setProfileImage(String profileImage) {
-        this.profileImage = profileImage;
-    }
-
-    public String getCoverImage() {
-        return coverImage;
-    }
-
-    public void setCoverImage(String coverImage) {
-        this.coverImage = coverImage;
-    }
-
-    public String getNickName() {
-        return nickName;
-    }
-
-    public void setNickName(String nickName) {
-        this.nickName = nickName;
-    }
 
     public String getPhoneNumber() {
         return phoneNumber;
@@ -101,19 +137,19 @@ public class UserInfo {
         this.phoneNumber = phoneNumber;
     }
 
-    public String getGender() {
+    public Gender getGender() {
         return gender;
     }
 
-    public void setGender(String gender) {
+    public void setGender(Gender gender) {
         this.gender = gender;
     }
 
-    public Calendar getDateOfBirth() {
+    public Date getDateOfBirth() {
         return dateOfBirth;
     }
 
-    public void setDateOfBirth(Calendar dateOfBirth) {
+    public void setDateOfBirth(Date dateOfBirth) {
         this.dateOfBirth = dateOfBirth;
     }
 
@@ -125,28 +161,19 @@ public class UserInfo {
         this.aboutMe = aboutMe;
     }
 
-    public User getUser() {
-        return user;
+    public String getProfileImageUrl() {
+        return profileImageUrl;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setProfileImageUrl(String profileImageUrl) {
+        this.profileImageUrl = profileImageUrl;
     }
 
-
-
-    public UserInfo(String firstName, String lastName, String city, String country, String profileImage, String coverImage, String nickName, String phoneNumber, String gender, Calendar dateOfBirth, String aboutMe) {
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.city = city;
-        this.country = country;
-        this.profileImage = profileImage;
-        this.coverImage = coverImage;
-        this.nickName = nickName;
-        this.phoneNumber = phoneNumber;
-        this.gender = gender;
-        this.dateOfBirth = dateOfBirth;
-        this.aboutMe = aboutMe;
+    public String getCoverImageUrl() {
+        return coverImageUrl;
     }
-    public UserInfo(){}
+
+    public void setCoverImageUrl(String coverImageUrl) {
+        this.coverImageUrl = coverImageUrl;
+    }
 }

@@ -28,7 +28,9 @@
     height: 100%;
     position: absolute;
     width: 100%;
-    background: linear-gradient(180deg, hsla(0, 0%, 100%, 0) 50%, rgba(0, 0, 0, .44));
+    background: linear-gradient(180deg,
+            hsla(0, 0%, 100%, 0) 50%,
+            rgba(0, 0, 0, 0.44));
     border-radius: 8px;
 }
 
@@ -78,6 +80,27 @@
     flex-flow: column;
     max-width: 100%;
     min-width: 0;
+    pointer-events: all;
+    width: 100%;
+    align-items: center;
+    display: flex;
+    flex-flow: row;
+    max-width: 100%;
+    min-width: 0;
+}
+
+.avatar-cover {
+    filter: drop-shadow(0 16px 15px rgba(10, 10, 10, 0.15));
+    flex-shrink: 0;
+    margin-bottom: -108px;
+    margin-right: 40px;
+    position: relative;
+    display: flex;
+    flex-flow: column;
+    max-width: 100%;
+    min-width: 0;
+
+
 }
 
 .avatar-inner-cover {
@@ -108,10 +131,10 @@
     text-shadow: 1px 1px 2px #00000033;
     font-size: 2rem;
     padding-bottom: 2.5px;
-    border: 1px solid hsla(0,0%,100%,0);
+    border: 1px solid hsla(0, 0%, 100%, 0);
     border-radius: 8px;
     display: block;
-    font-family: Open Sans,sans-serif;
+    font-family: Open Sans, sans-serif;
     line-height: 1.5;
     text-decoration: none;
     vertical-align: middle;
@@ -125,6 +148,27 @@
     text-shadow: 1px 1px 2px #00000033;
     font-weight: 600;
     vertical-align: middle;
+    color: #fff;
+    font-weight: 700;
+    text-shadow: 1px 1px 2px #00000033;
+    font-size: 2rem;
+    padding-bottom: 2.5px;
+    border: 1px solid hsla(0, 0%, 100%, 0);
+    border-radius: 8px;
+    display: block;
+    font-family: Open Sans, sans-serif;
+    line-height: 1.5;
+    text-decoration: none;
+    vertical-align: middle;
+    text-align: left;
+    cursor: text;
+}
+
+.user-url {
+    color: #fff;
+    font-size: 1rem;
+    text-shadow: 1px 1px 2px #00000033;
+    font-weight: 600;
 }
 
 .header-second-section {
@@ -273,10 +317,17 @@
         padding: 0 24px;
         width: 100%;
     }
+
+    @media (max-width: 1200px) {
+        .header {
+            width: 100%;
+        }
+    }
 }
 
 @media (max-width: 1400px) {
     .header {
         width: 100%;
     }
+
 }

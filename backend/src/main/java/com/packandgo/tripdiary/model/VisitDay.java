@@ -5,42 +5,46 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
+@Table(name = "visitday")
 public class VisitDay {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
-    private Long ID;
-    @Column(name = "dayNumber")
+    private Long id;
+    @Column(name = "day_number")
     private int dayNumber;
     @Column(name = "description")
     private String description;
 
     @ManyToOne
-    @JoinColumn(name="trip_id", nullable=false)
+    @JoinColumn(name = "trip_id", nullable = false)
     private Trip trip;
 
-    @OneToMany(mappedBy="visitDay")
-    private List<Images> images = new ArrayList<>();
+    @OneToMany(mappedBy = "visitDay",
+            fetch = FetchType.LAZY,
+            cascade = CascadeType.ALL)
+    private List<Destination> destinations = new ArrayList<>();
 
-    @OneToMany(mappedBy="visitDay")
-    private List<Destination> destination = new ArrayList<>();
+    public VisitDay() {
+    }
 
-    public VisitDay( int dayNumber, String description) {
+    public VisitDay(int dayNumber, String description) {
         this.dayNumber = dayNumber;
         this.description = description;
     }
 
-    public VisitDay() {
-
+    public void addDestination(Destination destination) {
+        this.destinations.add(destination);
+        destination.setVisitDay(this);
     }
 
-    public Long getID() {
-        return ID;
+    public Long getId() {
+        return id;
     }
 
-    public void setVisitID(Long visitID) {
-        this.ID = ID;
+    public void setId(Long ID) {
+        this.id = id;
     }
 
     public int getDayNumber() {
@@ -58,4 +62,23 @@ public class VisitDay {
     public void setDescription(String description) {
         this.description = description;
     }
+
+    public Trip getTrip() {
+        return trip;
+    }
+
+    public void setTrip(Trip trip) {
+        this.trip = trip;
+    }
+
+    public List<Destination> getDestinations() {
+        return destinations;
+    }
+
+    public void setDestinations(List<Destination> destinations) {
+        this.destinations = destinations;
+    }
+
+
+
 }
