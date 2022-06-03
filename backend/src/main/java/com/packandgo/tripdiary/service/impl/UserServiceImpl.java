@@ -10,6 +10,7 @@ import com.packandgo.tripdiary.model.mail.MailContent;
 import com.packandgo.tripdiary.model.mail.VerifyEmailMailContent;
 import com.packandgo.tripdiary.payload.request.auth.NewPasswordRequest;
 import com.packandgo.tripdiary.payload.request.auth.RegisterRequest;
+import com.packandgo.tripdiary.payload.request.user.InfoUpdateRequest;
 import com.packandgo.tripdiary.repository.PasswordResetRepository;
 import com.packandgo.tripdiary.repository.RoleRepository;
 import com.packandgo.tripdiary.repository.UserInfoRepository;
@@ -190,5 +191,22 @@ public class UserServiceImpl implements UserService {
         this.changePassword(user, request.getNewPassword());
         passwordResetService.invalidateToken(passwordResetToken);
     }
+
+    public void updateUserInfo(UserInfo userInfo, InfoUpdateRequest infoUpdateRequest){
+        userInfo.setFirstName(infoUpdateRequest.getFirstName());
+        userInfo.setLastName(infoUpdateRequest.getLastName());
+        userInfo.setPhoneNumber(infoUpdateRequest.getPhoneNumber());
+        userInfo.setCity(infoUpdateRequest.getCity());
+        userInfo.setCountry(infoUpdateRequest.getCountry());
+        userInfo.setGender(infoUpdateRequest.getGender());
+        userInfo.setDateOfBirth(infoUpdateRequest.getDateOfBirth());
+        userInfo.setAboutMe(infoUpdateRequest.getAboutMe());
+        userInfoRepository.save(userInfo);
+    }
+    public UserInfo findUserInfoByUserId(Long id){
+        return userInfoRepository.findInfoByUserId(id)
+                .orElseThrow(() -> new UsernameNotFoundException("User not found"));
+    }
+
 
 }

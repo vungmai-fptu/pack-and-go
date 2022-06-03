@@ -4,11 +4,13 @@ import com.packandgo.tripdiary.model.User;
 import com.packandgo.tripdiary.model.UserInfo;
 import com.packandgo.tripdiary.payload.request.auth.NewPasswordRequest;
 import com.packandgo.tripdiary.payload.request.auth.RegisterRequest;
+import com.packandgo.tripdiary.payload.request.user.InfoUpdateRequest;
 
 public interface UserService {
     public User findUserByEmail(String email);
     public User findUserByUsername(String username);
     public User findUserByUsernameOrEmail(String usernameOrEmail);
+    public UserInfo findUserInfoByUserId(Long id);
     public boolean existsByUsername(String username);
     public boolean existsByEmail(String email);
     public String createPasswordResetTokenForUser(User user);
@@ -19,7 +21,6 @@ public interface UserService {
     public void saveUserInfo(UserInfo info);
     public void resetPassword(NewPasswordRequest request);
 
-
-
+    public void updateUserInfo(UserInfo userInfo, InfoUpdateRequest infoUpdateRequest);
 
 }

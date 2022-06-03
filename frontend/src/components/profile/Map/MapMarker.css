@@ -1,0 +1,12 @@
+.marker-icon {
+    border: none !important;
+    background: none !important;
+    width: 2rem !important;
+    height: 2rem !important;
+    z-index: -1;
+}
+
+.marker-content {
+    align-items: center !important;
+    vertical-align: middle !important;
+}
