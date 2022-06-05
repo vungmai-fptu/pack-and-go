@@ -5,15 +5,17 @@ import Footer from "../../components/Footer";
 import { useIsLogin } from "../../hooks/useIsLogin";
 
 function MainTemplate(props) {
-  const useRouteNewTriple = useRouteMatch("/newTrip");
+  const useRouteNewTrip = useRouteMatch("/newTrip");
+  const useRoutePastTrip = useRouteMatch("/pastTrip");
   return (
     <>
-      {!useRouteNewTriple && <Header />}
+      {!useRouteNewTrip && !useRoutePastTrip && <Header />}
       <main>{props.children}</main>
-      {!useRouteNewTriple && <Footer />}
+      {!useRouteNewTrip && !useRoutePastTrip && <Footer />}
     </>
   );
 }
+
 
 const RouterMainTemplate = ({ path, exact, Component }) => {
   const { isLogin } = useIsLogin();
