@@ -1,5 +1,6 @@
 package com.packandgo.tripdiary.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.Cascade;
 
 import javax.persistence.*;
@@ -9,13 +10,15 @@ import javax.persistence.*;
 public class Image {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @JsonIgnore
     private Long id;
     private String url;
     private String description;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "destination_id", referencedColumnName = "id", nullable = false)
-    private Destination destination;
+    @JoinColumn(name = "visit_place_id", referencedColumnName = "id")
+    @JsonIgnore
+    private VisitPlace visitPlace;
 
 
     public Image(){};
@@ -49,11 +52,11 @@ public class Image {
         this.description = description;
     }
 
-    public Destination getDestination() {
-        return destination;
+    public VisitPlace getVisitPlace() {
+        return visitPlace;
     }
 
-    public void setDestination(Destination destination) {
-        this.destination = destination;
+    public void setVisitPlace(VisitPlace visitPlace) {
+        this.visitPlace = visitPlace;
     }
 }

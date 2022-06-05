@@ -10,7 +10,6 @@ public interface UserService {
     public User findUserByEmail(String email);
     public User findUserByUsername(String username);
     public User findUserByUsernameOrEmail(String usernameOrEmail);
-    public UserInfo findUserInfoByUserId(Long id);
     public boolean existsByUsername(String username);
     public boolean existsByEmail(String email);
     public String createPasswordResetTokenForUser(User user);
@@ -20,7 +19,9 @@ public interface UserService {
     public void removeUser(String username);
     public void saveUserInfo(UserInfo info);
     public void resetPassword(NewPasswordRequest request);
+    public UserInfo getInfo(User user);
 
-    public void updateUserInfo(UserInfo userInfo, InfoUpdateRequest infoUpdateRequest);
+
+    public void updateUserInfo(User user, InfoUpdateRequest infoUpdateRequest);
 
 }

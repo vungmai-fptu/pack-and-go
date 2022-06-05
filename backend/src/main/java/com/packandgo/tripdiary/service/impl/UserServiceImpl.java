@@ -2,6 +2,7 @@ package com.packandgo.tripdiary.service.impl;
 
 import com.packandgo.tripdiary.enums.Gender;
 import com.packandgo.tripdiary.enums.UserStatus;
+import com.packandgo.tripdiary.exception.UserNotFoundException;
 import com.packandgo.tripdiary.model.PasswordResetToken;
 import com.packandgo.tripdiary.model.Role;
 import com.packandgo.tripdiary.model.User;
@@ -58,19 +59,19 @@ public class UserServiceImpl implements UserService {
     @Override
     public User findUserByEmail(String email) {
         return userRepository.findByEmail(email)
-                .orElseThrow(() -> new UsernameNotFoundException("User not found"));
+                .orElseThrow(() -> new UserNotFoundException("User with email \"" + email+ "\" doesn't exist"));
     }
 
     @Override
     public User findUserByUsername(String username) {
         return userRepository.findByUsername(username)
-                .orElseThrow(() -> new UsernameNotFoundException("User not found"));
+                .orElseThrow(() -> new UserNotFoundException("User with username \"" + username+ "\" doesn't exist"));
     }
 
     @Override
     public User findUserByUsernameOrEmail(String usernameOrEmail) {
         return userRepository.findByUsernameOrEmail(usernameOrEmail, usernameOrEmail)
-                .orElseThrow(() -> new UsernameNotFoundException("User not found"));
+                .orElseThrow(() -> new UserNotFoundException("User not found"));
     }
 
     @Override
@@ -165,7 +166,7 @@ public class UserServiceImpl implements UserService {
 
         userRepository.removeUserByUsername(username);
     }
-    
+
     @Override
     @Transactional
     public void saveUserInfo(UserInfo info) {
@@ -192,21 +193,54 @@ public class UserServiceImpl implements UserService {
         passwordResetService.invalidateToken(passwordResetToken);
     }
 
-    public void updateUserInfo(UserInfo userInfo, InfoUpdateRequest infoUpdateRequest){
+
+    @Override
+    @Transactional
+    public void updateUserInfo(User user, InfoUpdateRequest infoUpdateRequest) {
+
+        UserInfo userInfo = userInfoRepository.findByUserId(user.getId()).orElseGet(() -> null);
+
+        if (userInfo == null) {
+            userInfo = new UserInfo();
+            userInfo.setGender(Gender.UNDEFINED);
+            userInfo.setUser(user);
+        }
+
         userInfo.setFirstName(infoUpdateRequest.getFirstName());
         userInfo.setLastName(infoUpdateRequest.getLastName());
         userInfo.setPhoneNumber(infoUpdateRequest.getPhoneNumber());
         userInfo.setCity(infoUpdateRequest.getCity());
         userInfo.setCountry(infoUpdateRequest.getCountry());
-        userInfo.setGender(infoUpdateRequest.getGender());
+        userInfo.setProfileImageUrl(infoUpdateRequest.getProfileImageUrl());
+        userInfo.setCoverImageUrl(infoUpdateRequest.getCoverImageUrl());
+
+        if(infoUpdateRequest.getGender() == null) {
+            userInfo.setGender(Gender.UNDEFINED);
+        } else {
+            switch(infoUpdateRequest.getGender()) {
+                case "male": {
+                    userInfo.setGender(Gender.MALE);
+                    break;
+                }
+                case "female": {
+                    userInfo.setGender(Gender.FEMALE);
+                    break;
+                }
+                default: {
+                    userInfo.setGender(Gender.UNDEFINED);
+                    break;
+                }
+            }
+        }
+
         userInfo.setDateOfBirth(infoUpdateRequest.getDateOfBirth());
         userInfo.setAboutMe(infoUpdateRequest.getAboutMe());
         userInfoRepository.save(userInfo);
     }
-    public UserInfo findUserInfoByUserId(Long id){
-        return userInfoRepository.findInfoByUserId(id)
-                .orElseThrow(() -> new UsernameNotFoundException("User not found"));
-    }
 
+    @Override
+    public UserInfo getInfo(User user) {
+        return userInfoRepository.findByUserId(user.getId()).orElseGet(() -> null);
+    }
 
 }

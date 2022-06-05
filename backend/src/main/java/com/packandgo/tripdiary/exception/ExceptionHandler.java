@@ -2,24 +2,48 @@ package com.packandgo.tripdiary.exception;
 
 import com.packandgo.tripdiary.payload.response.ErrorResponse;
 import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.context.request.ServletWebRequest;
 import org.springframework.web.context.request.WebRequest;
+import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 
 import java.util.Date;
 
+@ControllerAdvice
 @RestControllerAdvice
 public class ExceptionHandler {
 
-    @org.springframework.web.bind.annotation.ExceptionHandler(value = ResourceNotFoundException.class)
-    @ResponseStatus(HttpStatus.NOT_FOUND)
-    public ErrorResponse handleResourceNotFound(ResourceNotFoundException ex, WebRequest request) {
+    @org.springframework.web.bind.annotation.ExceptionHandler(TripNotFoundException.class)
+    public ErrorResponse handleTripNotFoundException(Exception ex, WebRequest request) {
         return new ErrorResponse(
                 HttpStatus.NOT_FOUND.value(),
                 ex.getMessage(),
                 new Date(),
-                ((ServletWebRequest)request).getRequest().getRequestURI().toString()
+                ((ServletWebRequest) request).getRequest().getRequestURI().toString()
+        );
+    }
+
+    @org.springframework.web.bind.annotation.ExceptionHandler(MethodArgumentTypeMismatchException.class)
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    public ErrorResponse handleWrongType(Exception ex, WebRequest request) {
+        return new ErrorResponse(
+                HttpStatus.NOT_FOUND.value(),
+                "Object not with given Id found",
+                new Date(),
+                ((ServletWebRequest) request).getRequest().getRequestURI().toString()
+        );
+    }
+
+    @org.springframework.web.bind.annotation.ExceptionHandler(value = UserNotFoundException.class)
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    public ErrorResponse handleResourceNotFound(Exception ex, WebRequest request) {
+        return new ErrorResponse(
+                HttpStatus.NOT_FOUND.value(),
+                ex.getMessage(),
+                new Date(),
+                ((ServletWebRequest) request).getRequest().getRequestURI().toString()
         );
     }
 
@@ -30,8 +54,7 @@ public class ExceptionHandler {
                 HttpStatus.INTERNAL_SERVER_ERROR.value(),
                 ex.getMessage(),
                 new Date(),
-                ((ServletWebRequest)request).getRequest().getRequestURI().toString()
+                ((ServletWebRequest) request).getRequest().getRequestURI().toString()
         );
     }
-
 }
