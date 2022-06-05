@@ -36,7 +36,7 @@ public class ExceptionHandler {
         );
     }
 
-    @org.springframework.web.bind.annotation.ExceptionHandler(value = ResourceNotFoundException.class)
+    @org.springframework.web.bind.annotation.ExceptionHandler(value = UserNotFoundException.class)
     @ResponseStatus(HttpStatus.NOT_FOUND)
     public ErrorResponse handleResourceNotFound(Exception ex, WebRequest request) {
         return new ErrorResponse(

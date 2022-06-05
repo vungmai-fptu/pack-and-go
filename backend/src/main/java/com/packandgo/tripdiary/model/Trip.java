@@ -35,11 +35,11 @@ public class Trip {
     private Destination destination;
 
     @Column(name = "begin_date")
-    @JsonFormat(pattern = "yyyy/MM/dd")
+    @JsonFormat(pattern = "yyyy-MM-dd")
     private Date beginDate;
 
     @Column(name = "end_date")
-    @JsonFormat(pattern = "yyyy/MM/dd")
+    @JsonFormat(pattern = "yyyy-MM-dd")
     private Date endDate;
 
     @Enumerated(EnumType.STRING)

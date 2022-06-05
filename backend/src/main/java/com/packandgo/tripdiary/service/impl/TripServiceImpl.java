@@ -260,4 +260,10 @@ public class TripServiceImpl implements TripService {
         return trip;
     }
 
+    @Override
+    public List<Trip> getTripsForUser(User user) {
+        List<Trip> trips = tripRepository.findByUserId(user.getId());
+        return trips;
+    }
+
 }
