@@ -6,6 +6,7 @@
     margin: 0 auto;
     max-width: calc(100% - 3rem);
     z-index: 0;
+    overflow: visible;
 }
 
 .map-nav {
@@ -13,7 +14,6 @@
     border-top: 1px solid #d0d8e6;
     column-gap: 1rem;
     display: flex;
-    height: 100%;
     width: 100%;
     overflow: auto;
     z-index: 1;
@@ -100,7 +100,7 @@
 }
 
 .country-selector {
-    position: relative;
+    position: absolute;
     width: 7.5rem;
     float: right;
     z-index: 100;
