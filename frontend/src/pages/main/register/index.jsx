@@ -9,6 +9,8 @@ import { postRegistration } from "../../../store/actions/user.action";
 import "react-notifications/lib/notifications.css";
 import { NotificationContainer } from "react-notifications";
 import validateInput from "../../../components/validateInput/validateInput";
+import LoginGoogle from "../login/loginGoogle";
+import Validate from "../../../components/validateInput";
 function Register() {
   const { hidden, handleClick } = useIsHidden();
   const history = useHistory();
@@ -37,7 +39,13 @@ function Register() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    dispatch(postRegistration(user, history));
+    user.email === "" || user.username === "" || user.password === ""
+      ? setError({
+          email: "Enter Email ",
+          username: "Enter  UserName",
+          password: "Enter Password",
+        })
+      : dispatch(postRegistration(user, history));
   };
   return (
     <div>
@@ -83,17 +91,7 @@ function Register() {
                     <span>With Facebook (update soon)</span>
                   </div>
                 </Link>
-                <Link to="/sign/google-login" style={{ background: "#c73534" }}>
-                  <div className={styles.icons}>
-                    <img
-                      src="fonts/src_app_components_components_svgIcon_icons_commonsprite-afce76.svg#socials-googlebS-usage"
-                      alt="common/socials-google"
-                    />
-                  </div>
-                  <div>
-                    <span>With Google</span>
-                  </div>
-                </Link>
+                <LoginGoogle />
                 <button
                   style={{
                     background: "linear-gradient(114deg,#00e1d6,#66ede7)",
@@ -153,11 +151,8 @@ function Register() {
                       placeholder="Fill your email adress"
                       onChange={handleChange}
                       onBlur={validateInput}
-                      required
                     />
-                    {error.email && (
-                      <span style={{ color: "#e64646" }}>{error.email}</span>
-                    )}
+                    <Validate error={error.email} />
                   </div>
                 </div>
                 <div className={styles.input}>
@@ -168,11 +163,8 @@ function Register() {
                       placeholder="Fill your username adress"
                       onChange={handleChange}
                       onBlur={validateInput}
-                      required
                     />
-                    {error.username && (
-                      <span style={{ color: "#e64646" }}>{error.username}</span>
-                    )}
+                    <Validate error={error.username} />
                   </div>
                 </div>
                 <div className={styles.input}>
@@ -183,11 +175,8 @@ function Register() {
                       placeholder="Password"
                       onChange={handleChange}
                       onBlur={validateInput}
-                      required
                     />
-                    {error.password && (
-                      <span style={{ color: "#e64646" }}>{error.password}</span>
-                    )}
+                    <Validate error={error.password} />
                   </div>
                 </div>
                 <div className={styles.input}>
@@ -198,13 +187,8 @@ function Register() {
                       placeholder="confirmPassword"
                       onChange={handleChange}
                       onBlur={validateInput}
-                      required
                     />
-                    {error.confirmPassword && (
-                      <span style={{ color: "#e64646" }}>
-                        {error.confirmPassword}
-                      </span>
-                    )}
+                    <Validate error={error.confirmPassword} />
                   </div>
                 </div>
                 <div className={styles.recap}>

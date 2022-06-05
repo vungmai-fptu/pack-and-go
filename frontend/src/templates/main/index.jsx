@@ -1,15 +1,16 @@
 import React from "react";
-import { Redirect, Route } from "react-router-dom";
+import { Redirect, Route, useRouteMatch } from "react-router-dom";
 import Header from "../../components/Header";
 import Footer from "../../components/Footer";
 import { useIsLogin } from "../../hooks/useIsLogin";
 
 function MainTemplate(props) {
+  const useRouteNewTriple = useRouteMatch("/newTrip");
   return (
     <>
-      <Header />
+      {!useRouteNewTriple && <Header />}
       <main>{props.children}</main>
-      <Footer />
+      {!useRouteNewTriple && <Footer />}
     </>
   );
 }

@@ -1,16 +1,21 @@
 const validateInput = (e, user, error, setError) => {
   let { name, value } = e.target;
+  let mailFormat = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/;
   setError((prev) => {
     const stateObj = { ...prev, [name]: "" };
     switch (name) {
       case "email":
         if (!value) {
           stateObj[name] = "Please enter Email.";
+        } else if (!user.email.match(mailFormat)) {
+          stateObj[name] = "Invalid email address (@).";
         }
         break;
       case "username":
         if (!value) {
           stateObj[name] = "Please enter Username.";
+        } else if (user.username.length < 4) {
+          stateObj[name] = "Username must contain at least 5 characters.";
         }
         break;
       case "usernameOrEmail":
@@ -26,6 +31,8 @@ const validateInput = (e, user, error, setError) => {
       case "password":
         if (!value) {
           stateObj[name] = "Please enter Password.";
+        } else if (user.password.length < 7) {
+          stateObj[name] = "Password must contain at least 8 characters.";
         } else if (user.confirmPassword && value !== user.confirmPassword) {
           stateObj["confirmPassword"] =
             "Password and Confirm Password does not match.";

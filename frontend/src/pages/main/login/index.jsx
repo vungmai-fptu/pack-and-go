@@ -1,8 +1,7 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import classNames from "classnames";
-import { gapi } from "gapi-script";
 import { IoArrowBack } from "react-icons/io5";
 import { useIsHidden } from "../../../hooks/useIsHidden";
 import { postLogin } from "./../../../store/actions/user.action";
@@ -11,8 +10,7 @@ import LoginGoogle from "./loginGoogle";
 import "react-notifications/lib/notifications.css";
 import { NotificationContainer } from "react-notifications";
 import validateInput from "../../../components/validateInput/validateInput";
-const clientId =
-  "299402568375-ih3in50qahdomql32v7c864vc3c78kh5.apps.googleusercontent.com";
+import Validate from "../../../components/validateInput";
 function Login() {
   const { hidden, handleClick } = useIsHidden();
   const dispatch = useDispatch();
@@ -36,19 +34,14 @@ function Login() {
   };
   const handleSubmit = (e) => {
     e.preventDefault();
-    dispatch(postLogin(user.usernameOrEmail, user.password));
+
+    user.usernameOrEmail === "" || user.password === ""
+      ? setError({
+          usernameOrEmail: "Enter Email Or UserName",
+          password: "Enter Password",
+        })
+      : dispatch(postLogin(user.usernameOrEmail, user.password));
   };
-  // useEffect(() => {
-  //   function start() {
-  //     gapi.load("client.auth2", () => {
-  //       gapi.client.init({
-  //         clientId: clientId,
-  //         scope: "",
-  //       });
-  //     });
-  //   }
-  //   start();
-  // });
 
   return (
     <div>
@@ -70,7 +63,6 @@ function Login() {
             <Link to="/">
               <img alt="Worldee logo" src="images/3bl.png" />
             </Link>
-            {/* <div style={{ display: errors ? "" : "none" }}>{errors}</div> */}
           </div>
           <div />
           <div className={styles.login}>
@@ -135,16 +127,13 @@ function Login() {
                 <div className={styles.input}>
                   <div className={styles.inputEmail}>
                     <input
+                      id="email"
                       type="text"
                       name="usernameOrEmail"
                       placeholder="Fill your email Or UserName address"
                       onChange={handleChange}
                     />
-                    {error.usernameOrEmail && (
-                      <span style={{ color: "#e64646" }}>
-                        {error.usernameOrEmail}
-                      </span>
-                    )}
+                    <Validate error={error.usernameOrEmail} />
                   </div>
                 </div>
                 <div className={styles.input}>
@@ -155,9 +144,7 @@ function Login() {
                       placeholder="Password"
                       onChange={handleChange}
                     />
-                    {error.password && (
-                      <span style={{ color: "#e64646" }}>{error.password}</span>
-                    )}
+                    <Validate error={error.password} />
                   </div>
                 </div>
                 <button>
