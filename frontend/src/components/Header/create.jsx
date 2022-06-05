@@ -1,34 +1,32 @@
 import { useRef } from "react";
-import { Link, Redirect } from "react-router-dom";
+import { Link } from "react-router-dom";
 import styles from "./header.module.css";
-import { IoSettingsOutline, IoLogOutOutline } from "react-icons/io5";
+import { IoTodayOutline, IoLocationOutline } from "react-icons/io5";
 import { useDetectOutsideClick } from "../useDetectOutsideClick";
 
-export default function FormLogout() {
+export default function Create() {
   const dropdownRef = useRef(null);
   const [isActive, setIsActive] = useDetectOutsideClick(dropdownRef, false);
   const onClick = () => setIsActive(!isActive);
   return (
-    <div>
+    <div className={styles.menuButton}>
       <button onClick={onClick}>
-        <div className={styles.profileIcon}>
-          <div className={styles.dropdown}>
-            <img
-              src="fonts/src_app_components_components_svgIcon_icons_commonsprite-afce76.svg#arrowa-usage"
-              alt="common/arrow"
-            />
-          </div>
+        <div className={styles.menuIcon}>
+          <img
+            src="fonts/src_app_components_components_svgIcon_icons_commonsprite-afce76.svg#place-add-bold_emptybd-usage"
+            alt="common/place-add-bold_empty"
+          />
         </div>
-        <span />
+        <span>Create</span>
       </button>
       <div
         ref={dropdownRef}
         className={`${styles.popupContent} ${
           isActive ? `${styles.active}` : "inactive"
         }`}
-        style={{ right: "24px" }}
+        style={{ right: "270px" }}
       >
-        <div className={styles.dropdownTop} style={{ left: "90% " }}>
+        <div className={styles.dropdownTop} style={{ left: "50% " }}>
           <svg
             data-testid="arrow"
             className={styles.popupArrow}
@@ -42,11 +40,11 @@ export default function FormLogout() {
           <div className={styles.logout}>
             <div className={styles.logoutContent}>
               <div className={styles.logoutIcon}>
-                <IoSettingsOutline />
+                <IoTodayOutline />
               </div>
-              <Link to="/setting">
+              <Link to="/newTrip">
                 <div className={styles.logoutTitle}>
-                  <span>Settings</span>
+                  <span>Visible To All</span>
                 </div>
               </Link>
             </div>
@@ -54,22 +52,13 @@ export default function FormLogout() {
           <div className={styles.logout}>
             <div className={styles.logoutContent}>
               <div className={styles.logoutIcon}>
-                <IoLogOutOutline />
+                <IoLocationOutline />
               </div>
-              <a
-                href="/landing"
-                className={styles.logoutTitle}
-                onClick={async () => {
-                  localStorage.removeItem("userLogin");
-                  localStorage.removeItem("jwtToken");
-                  localStorage.removeItem("accessToken");
-                  return <Redirect to="/landing" />;
-                }}
-              >
+              <Link to="/pastTrip">
                 <div className={styles.logoutTitle}>
-                  <span>Log out</span>
+                  <span>Visible To Me</span>
                 </div>
-              </a>
+              </Link>
             </div>
           </div>
         </div>

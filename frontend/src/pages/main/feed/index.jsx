@@ -1,5 +1,6 @@
 import React from "react";
-
+import Tabs from "../../../components/tab/tabs";
+import "./css.css";
 function Feed() {
   return (
     <div className="w_mS w_mT">
@@ -1210,6 +1211,17 @@ function Feed() {
                 </div>
               </button>
             </div>
+            <Tabs>
+              <div label="Gator">
+                See ya later, <em>Alligator</em>!
+              </div>
+              <div label="Croc">
+                After 'while, <em>Crocodile</em>!
+              </div>
+              <div label="Sarcosuchus">
+                Nothing to see here, this tab is <em>extinct</em>!
+              </div>
+            </Tabs>
           </div>
         </div>
       </div>

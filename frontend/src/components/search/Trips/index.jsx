@@ -1,7 +1,6 @@
-import React from 'react'
-import TripCardSlider from './slider';
-import styles from './Trips.module.css';
-
+import React from "react";
+import TripCardSlider from "./slider";
+import styles from "./Trips.module.css";
 
 const Trips = () => {
   return (
@@ -20,7 +19,7 @@ const Trips = () => {
         <TripCardSlider />
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default Trips
+export default Trips;

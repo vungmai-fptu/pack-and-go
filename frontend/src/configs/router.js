@@ -4,6 +4,7 @@ import Feed from "../pages/main/feed";
 import ForgotPassword from "../pages/main/forgotPassword";
 import Home from "../pages/main/home";
 import Login from "../pages/main/login";
+import NewTrip from "../pages/main/newTrip";
 import Profile from "../pages/main/profile";
 import Register from "../pages/main/register";
 import SearchPage from "../pages/main/search";
@@ -29,6 +30,16 @@ export const mainRouter = [
     path: "/setting",
     exact: false,
     Component: SettingProfile,
+  },
+  {
+    path: "/newTrip",
+    exact: false,
+    Component: NewTrip,
+  },
+  {
+    path: "/pastTrip",
+    exact: false,
+    Component: NewTrip,
   },
   {
     Component: Err,

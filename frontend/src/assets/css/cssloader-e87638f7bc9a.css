@@ -9114,7 +9114,7 @@ aside.nejnastevovanejsi-zeme ol li p span {
 }
 
 .tab-content {
-  display: none;
+  /* display: none; */
   margin-top: 40px;
 }
 

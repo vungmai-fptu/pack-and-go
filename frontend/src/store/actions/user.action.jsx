@@ -29,7 +29,6 @@ export const postLogin = (usernameOrEmail, password) => {
       .catch((err) => {
         dispatch(stopLoading());
         dispatch(postLoginFailed(err));
-        console.log(err.response.data);
         NotificationManager.error(err.response.data.message);
       });
   };
