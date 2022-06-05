@@ -11,7 +11,6 @@ const Profile = () => {
     <>
       <Header />
       <MapNav />
-      {/* <Map /> */}
       <FutureTrips />
       <Trips />
       <CountryList />

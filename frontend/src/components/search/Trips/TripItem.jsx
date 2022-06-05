@@ -12,7 +12,7 @@ const TripItem = (props) => {
           src="https://wrld-wa-ec1-prod.b-cdn.net/accounts/26b82d3a4f4fca22b1ef4a3e1aaac37a/trips/2022-05-18/348410/ino5yeehlhpf-0aamiat.jpg?width=640&amp;height=640"
         />
       </div>
-      <Link to="/trip/draft?id=348410" className={styles.inner}>
+      <div className={styles.inner}>
         <div className={styles.top}>
           <div className={styles["list-flag"]} width="144" height="32">
             <div className={styles.flag}>
@@ -25,29 +25,29 @@ const TripItem = (props) => {
             </div>
           </div>
           <div title={props.tripName} className={styles["profile-image"]}>
-            <Link to="/" className="w_AP w_kj w_kq">
+            <Link to="/user" className="w_AP w_kj w_kq">
               <img
                 className=""
                 alt="profile"
                 //src="https://wrld-wa-ec1-prod.b-cdn.net/accounts/26b82d3a4f4fca22b1ef4a3e1aaac37a/profile/56284ea742762a1.77627864.jpg?width=640&amp;height=640"
                 src={props.profilePhoto}
-                />
+              />
             </Link>
           </div>
         </div>
         <div className={styles.bottom}>
-          <div className={styles["destination-name"]}>
+          <Link to="/trip/draft?id=348410" className={styles["destination-name"]}>
             <div className="">
-              <span>{props.place}</span>
+              <span>{props.tripName}</span>
             </div>
-          </div>
+          </Link>
           <div className={styles["destination-info"]}>
             <span>{props.numOfDates} days</span>
             <span>{props.numOfPlaces} Place</span>
             <span>{props.numOfPhotos} Photos</span>
           </div>
         </div>
-      </Link>
+      </div>
     </div>
   );
 };

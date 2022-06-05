@@ -8,10 +8,9 @@ import Trips from '../../../components/search/Trips'
 const SearchPage = () => {
     return (
         <>
-            <Header/>
-            <Trips/>
-            <Travelers/>
-            <ProfileCardSlider/>
+            <Header />
+            <Trips />
+            <Travelers />
         </>
     )
 }

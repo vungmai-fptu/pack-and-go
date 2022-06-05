@@ -1,6 +1,6 @@
 const validateInput = (e, user, error, setError) => {
   let { name, value } = e.target;
-  let mailFormat = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/;
+  let mailFormat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
   setError((prev) => {
     const stateObj = { ...prev, [name]: "" };
     switch (name) {

@@ -21,7 +21,6 @@ a {
 .inner {
   position: relative;
   width: 100%;
-  cursor: pointer;
   display: flex;
   height: 260px;
   flex-direction: column;
@@ -89,7 +88,9 @@ a {
   display: -webkit-box;
   hyphens: auto;
 }
-
+.destination-name:hover {
+  text-decoration: underline;
+}
 .destination-name span {
   display: inline-block;
   width: 100%;

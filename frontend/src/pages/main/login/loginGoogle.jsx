@@ -6,7 +6,7 @@ import { useDispatch } from "react-redux";
 import { postLoginSuccess } from "../../../store/actions/user.action";
 
 const clientId =
-  "299402568375-ih3in50qahdomql32v7c864vc3c78kh5.apps.googleusercontent.com";
+  "1001499568602-adf8ir612cr5fcmmsb0u7kq5j0cp1rbh.apps.googleusercontent.com";
 export default function LoginGoogle() {
   const dispatch = useDispatch();
 

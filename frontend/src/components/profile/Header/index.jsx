@@ -6,9 +6,9 @@ import { useIsLogin } from "./../../../hooks/useIsLogin";
 const Header = () => {
   const { user } = useIsLogin();
   return (
-    <div>
+    <div style={{}}>
       <SectionContainer>
-        <div className={styles.header}>
+        <div className={styles.header_search}>
           <div className={styles["header-cover"]}>
             <div className={styles["header-cover-photo"]}>
               <div className={styles["header-cover-photo-bg"]}></div>

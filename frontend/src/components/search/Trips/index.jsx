@@ -1,10 +1,11 @@
 import React from "react";
+import SectionContainer from "../../landing/SectionContainer";
 import TripCardSlider from "./slider";
 import styles from "./Trips.module.css";
 
 const Trips = () => {
   return (
-    <div>
+    <SectionContainer>
       <div className={styles["trips-title"]}>
         <div className={styles["title-wrapper"]}>
           <label className={styles.title}>Trips</label>
@@ -18,7 +19,7 @@ const Trips = () => {
       <div className={styles["trip-container"]}>
         <TripCardSlider />
       </div>
-    </div>
+    </SectionContainer>
   );
 };
 

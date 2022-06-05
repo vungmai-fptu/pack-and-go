@@ -1,27 +1,27 @@
 import React from 'react'
 import styles from './traveler.module.css'
-import {BiWorld} from 'react-icons/bi'
-import {FaSuitcase} from 'react-icons/fa'
-import {BsFillCameraFill} from 'react-icons/bs'
+import { BiWorld } from 'react-icons/bi'
+import { FaSuitcase } from 'react-icons/fa'
+import { BsFillCameraFill } from 'react-icons/bs'
 
 const Traveler = (props) => {
     return (
         <div>
             <div className={styles["container"]}>
                 <div className={styles["inner-container"]}>
-                    <a href="/" className={styles["card"]}>
+                    <div className={styles["card"]}>
                         <div className={styles["cover-photo"]}>
-                            <img src={props.coverPhoto} alt="" className={styles["cover-photo-img"]}/>
+                            <img src={props.coverPhoto} alt="" className={styles["cover-photo-img"]} />
                         </div>
-                        <div className={styles["content"]}> 
+                        <div className={styles["content"]}>
                             <div className={styles["avt-container"]}>
                                 <div className={styles["avt-inner-container"]}>
-                                    <img className={styles["avt"]} alt="profile" src={props.profilePhoto}/>
+                                    <img className={styles["avt"]} alt="profile" src={props.profilePhoto} />
                                 </div>
                             </div>
-                            <div className={styles["name-container"]}>
+                            <a href='/profile/mai' className={styles["name-container"]}>
                                 <span className={styles["name"]}>{props.username}</span>
-                            </div>
+                            </a>
                             <div className={styles["description-container"]}>
                                 <span className={styles["description"]}>{props.country}</span>
                             </div>
@@ -49,7 +49,7 @@ const Traveler = (props) => {
                                 </div>
                             </div>
                         </div>
-                    </a>
+                    </div>
                 </div>
             </div>
         </div>

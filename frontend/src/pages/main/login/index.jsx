@@ -35,13 +35,15 @@ function Login() {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    user.usernameOrEmail === "" || user.password === ""
+    user.usernameOrEmail === "" ? setError({
+      usernameOrEmail: "Enter Email Or UserName",
+    }) : user.password === ""
       ? setError({
-          usernameOrEmail: "Enter Email Or UserName",
-          password: "Enter Password",
-        })
-      : dispatch(postLogin(user.usernameOrEmail, user.password));
-  };
+        password: "Enter Password",
+      }) : dispatch(postLogin(user.usernameOrEmail, user.password));
+
+  }
+
 
   return (
     <div>
