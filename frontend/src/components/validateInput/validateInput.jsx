@@ -48,3 +48,12 @@ export function validateRegister(values) {
   }
   return errors;
 }
+export function validateResetPassword(values) {
+  let errors = {};
+  if (!values.email) {
+    errors.email = "Email address is required";
+  } else if (!/\S+@\S+\.\S+/.test(values.email)) {
+    errors.email = "Email address is invalid";
+  }
+  return errors;
+}

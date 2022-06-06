@@ -12,9 +12,11 @@ import { NotificationContainer } from "react-notifications";
 import { validateLogin } from "../../../components/validateInput/validateInput";
 import Validate from "../../../components/validateInput";
 import useForm from "./../../../components/useForm/useForm";
+import { useIsLogin } from "../../../hooks/useIsLogin";
 function Login() {
   const { hidden, handleClick } = useIsHidden();
   const dispatch = useDispatch();
+  const { loading } = useIsLogin();
   const { values, errors, handleChange, handleSubmit } = useForm(
     login,
     validateLogin
@@ -133,9 +135,21 @@ function Login() {
                     <Validate errors={errors.password} />
                   </div>
                 </div>
-                <button>
-                  <span>Log in</span>
-                </button>
+                {loading ? (
+                  <button disabled style={{ opacity: ".4" }}>
+                    <span>Log in</span>
+                    <div className="loadingio-spinner-ripple-ormwzc5m72e">
+                      <div className="ldio-gw2gg1659v">
+                        <div />
+                        <div />
+                      </div>
+                    </div>
+                  </button>
+                ) : (
+                  <button>
+                    <span>Log in </span>
+                  </button>
+                )}
               </form>
               <div className={styles.register} style={{ background: "none" }}>
                 <Link to="/sign/forgotten-password">

@@ -1,26 +1,23 @@
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
-import { validateLogin } from "../../../components/validateInput/validateInput";
+import React from "react";
+import { useDispatch } from "react-redux";
+import { Link, useHistory } from "react-router-dom";
+import useForm from "../../../components/useForm/useForm";
+import Validate from "../../../components/validateInput";
+import { validateResetPassword } from "../../../components/validateInput/validateInput";
+import { useIsLogin } from "../../../hooks/useIsLogin";
+import { postResetPassword } from "../../../store/actions/user.action";
 import styles from "./forgotPassword.module.css";
 function ForgotPassword() {
-  const [forgotPassword, setForgotPassword] = useState({
-    forgotPassword: "",
-  });
-  const [error, setError] = useState({
-    forgotPassword: "",
-  });
-
-  const handleChange = (event) => {
-    const { value, name } = event.target;
-    setForgotPassword({
-      ...forgotPassword,
-      [name]: value,
-    });
-    validateLogin(event, forgotPassword, error, setError);
-  };
-  const handleSubmit = (e) => {
-    e.preventDefault();
-  };
+  const dispatch = useDispatch();
+  const history = useHistory();
+  const { loading } = useIsLogin();
+  const { values, errors, handleChange, handleSubmit } = useForm(
+    handleSubmits,
+    validateResetPassword
+  );
+  function handleSubmits() {
+    dispatch(postResetPassword(values.forgotPassword, history));
+  }
   return (
     <div>
       <div>
@@ -53,7 +50,11 @@ function ForgotPassword() {
                 Please enter your registration email and we will send you a link
                 to reset your password right away.
               </span>
-              <form className={styles.loginEmail} onSubmit={handleSubmit}>
+              <form
+                className={styles.loginEmail}
+                onSubmit={handleSubmit}
+                noValidate
+              >
                 <div className={styles.input}>
                   <div className={styles.inputEmail}>
                     <input
@@ -61,17 +62,27 @@ function ForgotPassword() {
                       name="forgotPassword"
                       placeholder="Fill your email address"
                       onChange={handleChange}
+                      value={values.forgotPassword || ""}
+                      required
                     />
-                    {error.forgotPassword && (
-                      <span style={{ color: "#e64646" }}>
-                        {error.forgotPassword}
-                      </span>
-                    )}
+                    <Validate errors={errors.forgotPassword} />
                   </div>
                 </div>
-                <button>
-                  <span> Renew password</span>
-                </button>
+                {loading ? (
+                  <button disabled style={{ opacity: ".4" }}>
+                    <span>Renew password</span>
+                    <div className="loadingio-spinner-ripple-ormwzc5m72e">
+                      <div className="ldio-gw2gg1659v">
+                        <div />
+                        <div />
+                      </div>
+                    </div>
+                  </button>
+                ) : (
+                  <button>
+                    <span>Renew password </span>
+                  </button>
+                )}
               </form>
             </div>
             <div className={styles.register}>
