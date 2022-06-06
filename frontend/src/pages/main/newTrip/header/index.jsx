@@ -69,7 +69,7 @@ export default function Header() {
                   </div>
                   <Link to="/newTrip">
                     <div className={styles.logoutTitle}>
-                      <span>New Plan</span>
+                      <span>Visible To All</span>
                     </div>
                   </Link>
                 </div>
@@ -81,7 +81,7 @@ export default function Header() {
                   </div>
                   <Link to="/pastTrip">
                     <div className={styles.logoutTitle}>
-                      <span>Past Trip</span>
+                      <span>Visible To Me</span>
                     </div>
                   </Link>
                 </div>

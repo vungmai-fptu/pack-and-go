@@ -1,4 +1,5 @@
 import React from "react";
+import Tabs from "../../../components/tab/tabs";
 import Header from "./header";
 import styles from "./trip.module.css";
 function NewTrip() {
@@ -8,19 +9,26 @@ function NewTrip() {
       <div className="w_i- w_hM">
         <div className="w_hN w_hO TRIP_INFO">
           <div className="w_CS">
+            {/* <Tabs>
+              <div label="long">
+                See ya later, <em>Alligator</em>!
+              </div>
+              <div label="do">
+                See ya later, <em>long</em>!
+              </div>
+            </Tabs> */}
             <div className="w_O2 TRIP_TABS">
-              <div className="w_O4">
-                <button className="w_O6 w_O7">
-                  <span>
-                    <img
-                      src="fonts/src_app_components_components_svgIcon_icons_commonsprite-afce76.svg#suit-case-fullci-usage"
-                      alt="common/suit-case-full"
-                      className="w_fu w_fy w_fM"
-                    />
-                  </span>
-                  <span className="w_O8">Overview</span>
-                </button>
-                <button className="w_O6">
+              <Tabs className="w_O4">
+                <span label="long" className="w_O8">
+                  Overview
+                </span>
+                <span label="lo" className="w_O8">
+                  sa
+                </span>
+                <span label="log" className="w_O8">
+                  hgf
+                </span>
+                {/* <button label="longhai" className="w_O6">
                   <span>
                     <img
                       src="fonts/src_app_components_components_svgIcon_icons_commonsprite-afce76.svg#path_emptya5-usage"
@@ -30,7 +38,7 @@ function NewTrip() {
                   </span>
                   <span className="w_O8">Itinerary</span>
                 </button>
-                <button className="w_O6">
+                <button label="longba" className="w_O6">
                   <span>
                     <img
                       src="fonts/src_app_components_components_svgIcon_icons_commonsprite-afce76.svg#checkmark_square_emptyq-usage"
@@ -40,7 +48,7 @@ function NewTrip() {
                   </span>
                   <span className="w_O8">Checklist</span>
                 </button>
-                <button className="w_O6">
+                <button label="longbon" className="w_O6">
                   <span>
                     <img
                       src="fonts/src_app_components_components_svgIcon_icons_commonsprite-afce76.svg#note_emptyaW-usage"
@@ -49,8 +57,8 @@ function NewTrip() {
                     />
                   </span>
                   <span className="w_O8">Notes</span>
-                </button>
-              </div>
+                </button> */}
+              </Tabs>
               <div className="w_O3" />
               <div className="w_O4">
                 <button disabled className="w_O6">

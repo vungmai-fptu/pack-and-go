@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { Link, useHistory } from "react-router-dom";
 import classNames from "classnames";
 import { useDispatch } from "react-redux";
@@ -8,45 +8,22 @@ import styles from "./register.module.css";
 import { postRegistration } from "../../../store/actions/user.action";
 import "react-notifications/lib/notifications.css";
 import { NotificationContainer } from "react-notifications";
-import validateInput from "../../../components/validateInput/validateInput";
+import { validateRegister } from "../../../components/validateInput/validateInput";
 import LoginGoogle from "../login/loginGoogle";
 import Validate from "../../../components/validateInput";
+import useForm from "../../../components/useForm/useForm";
 function Register() {
   const { hidden, handleClick } = useIsHidden();
   const history = useHistory();
   const dispatch = useDispatch();
-  const [user, setUser] = useState({
-    email: "",
-    username: "",
-    password: "",
-    confirmPassword: "",
-  });
-  const [error, setError] = useState({
-    email: "",
-    username: "",
-    password: "",
-    confirmPassword: "",
-  });
+  const { values, errors, handleChange, handleSubmit } = useForm(
+    handleSubmits,
+    validateRegister
+  );
+  function handleSubmits() {
+    dispatch(postRegistration(values, history));
+  }
 
-  const handleChange = (event) => {
-    const { value, name } = event.target;
-    setUser({
-      ...user,
-      [name]: value,
-    });
-    validateInput(event, user, error, setError);
-  };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    user.email === "" || user.username === "" || user.password === ""
-      ? setError({
-          email: "Enter Email ",
-          username: "Enter  UserName",
-          password: "Enter Password",
-        })
-      : dispatch(postRegistration(user, history));
-  };
   return (
     <div>
       <div>
@@ -142,7 +119,11 @@ function Register() {
                 </button>
                 <h1>Registration</h1>
               </div>
-              <form className={styles.loginEmail} onSubmit={handleSubmit}>
+              <form
+                className={styles.loginEmail}
+                onSubmit={handleSubmit}
+                noValidate
+              >
                 <div className={styles.input}>
                   <div className={styles.inputEmail}>
                     <input
@@ -150,9 +131,10 @@ function Register() {
                       name="email"
                       placeholder="Fill your email adress"
                       onChange={handleChange}
-                      onBlur={validateInput}
+                      value={values.email || ""}
+                      required
                     />
-                    <Validate error={error.email} />
+                    <Validate errors={errors.email} />
                   </div>
                 </div>
                 <div className={styles.input}>
@@ -162,9 +144,10 @@ function Register() {
                       name="username"
                       placeholder="Fill your username adress"
                       onChange={handleChange}
-                      onBlur={validateInput}
+                      value={values.username || ""}
+                      required
                     />
-                    <Validate error={error.username} />
+                    <Validate errors={errors.username} />
                   </div>
                 </div>
                 <div className={styles.input}>
@@ -174,9 +157,10 @@ function Register() {
                       name="password"
                       placeholder="Password"
                       onChange={handleChange}
-                      onBlur={validateInput}
+                      value={values.password || ""}
+                      required
                     />
-                    <Validate error={error.password} />
+                    <Validate errors={errors.password} />
                   </div>
                 </div>
                 <div className={styles.input}>
@@ -186,9 +170,10 @@ function Register() {
                       name="confirmPassword"
                       placeholder="confirmPassword"
                       onChange={handleChange}
-                      onBlur={validateInput}
+                      value={values.confirmPassword || ""}
+                      required
                     />
-                    <Validate error={error.confirmPassword} />
+                    <Validate errors={errors.confirmPassword} />
                   </div>
                 </div>
                 <div className={styles.recap}>

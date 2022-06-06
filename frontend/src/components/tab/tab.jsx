@@ -26,9 +26,16 @@ class Tab extends Component {
     }
 
     return (
-      <li className={className} onClick={onClick}>
+      <button className={className} onClick={onClick}>
+        <span>
+          <img
+            src="fonts/src_app_components_components_svgIcon_icons_commonsprite-afce76.svg#suit-case-fullci-usage"
+            alt="common/suit-case-full"
+            className="w_fu w_fy w_fM"
+          />
+        </span>
         {label}
-      </li>
+      </button>
     );
   }
 }
