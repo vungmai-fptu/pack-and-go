@@ -7,7 +7,7 @@ import { postLoginSuccess } from "../../../store/actions/user.action";
 import { gapi } from "gapi-script";
 
 const clientId =
-  "1001499568602-adf8ir612cr5fcmmsb0u7kq5j0cp1rbh.apps.googleusercontent.com";
+  "874015971178-0461l5tlksvspu487u08779128bn5rn7.apps.googleusercontent.com";
 export default function LoginGoogle() {
   const dispatch = useDispatch();
 

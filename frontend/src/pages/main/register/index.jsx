@@ -12,10 +12,12 @@ import { validateRegister } from "../../../components/validateInput/validateInpu
 import LoginGoogle from "../login/loginGoogle";
 import Validate from "../../../components/validateInput";
 import useForm from "../../../components/useForm/useForm";
+import { useIsLogin } from "../../../hooks/useIsLogin";
 function Register() {
   const { hidden, handleClick } = useIsHidden();
   const history = useHistory();
   const dispatch = useDispatch();
+  const { loading } = useIsLogin();
   const { values, errors, handleChange, handleSubmit } = useForm(
     handleSubmits,
     validateRegister
@@ -198,9 +200,21 @@ function Register() {
                     apply.
                   </span>
                 </div>
-                <button>
-                  <span>Register</span>
-                </button>
+                {loading ? (
+                  <button disabled style={{ opacity: ".4" }}>
+                    <span>Register </span>
+                    <div className="loadingio-spinner-ripple-ormwzc5m72e">
+                      <div className="ldio-gw2gg1659v">
+                        <div />
+                        <div />
+                      </div>
+                    </div>
+                  </button>
+                ) : (
+                  <button>
+                    <span>Register</span>
+                  </button>
+                )}
               </form>
             </div>
             <div className={styles.login}>

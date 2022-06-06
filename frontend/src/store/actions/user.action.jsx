@@ -5,6 +5,8 @@ import {
   LOGIN_SUCCESS,
   REGISTRATION_FAILED,
   REGISTRATION_SUCCESS,
+  RESETPASSWORD_FAILED,
+  RESETPASSWORD_SUCCESS,
 } from "../constants/user.const";
 import { startLoading, stopLoading } from "../actions/common.action";
 export const postLogin = (usernameOrEmail, password) => {
@@ -86,6 +88,46 @@ const postRegistrationSuccess = (user) => {
 const postRegistrationFailed = (err) => {
   return {
     type: REGISTRATION_FAILED,
+    payload: err,
+  };
+};
+export const postResetPassword = (forgotPassword, goBack) => {
+  return (dispatch) => {
+    dispatch(startLoading());
+    axios({
+      method: "POST",
+      url: "https://trip-diary-backend.herokuapp.com/api/auth/reset-password-request",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      data: {
+        email: forgotPassword,
+      },
+    })
+      .then((res) => {
+        dispatch(stopLoading());
+        dispatch(postResetPasswordSuccess(res.data));
+        goBack.push("/login");
+        NotificationManager.success(res.data.message);
+      })
+      .catch((err) => {
+        dispatch(stopLoading());
+        dispatch(postResetPasswordFailed(err));
+        NotificationManager.error(err.response.data.message);
+      });
+  };
+};
+
+export const postResetPasswordSuccess = (user) => {
+  return {
+    type: RESETPASSWORD_SUCCESS,
+    payload: user,
+  };
+};
+
+const postResetPasswordFailed = (err) => {
+  return {
+    type: RESETPASSWORD_FAILED,
     payload: err,
   };
 };
