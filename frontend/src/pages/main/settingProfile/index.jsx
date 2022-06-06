@@ -27,7 +27,7 @@ class SettingProfile extends Component {
                   <div className={styles.bcg} />
                   <ul>
                     <li className={styles.active}>
-                      <a href="/account/account">
+                      <a href="/setting">
                         <span className={styles.barOfSpan}>
                           <img
                             src="https://www.worldee.com/images/asideucet.svg"
@@ -40,32 +40,7 @@ class SettingProfile extends Component {
                     <li>
                       <a
                         className={styles.barOfa}
-                        href="/account/social-networks"
-                      >
-                        <span className={styles.barOfSpan}>
-                          <img
-                            src="https://www.worldee.com/images/asidesocsite.svg"
-                            alt="Sociální sítě"
-                          />
-                        </span>{" "}
-                        <label>Social media </label>{" "}
-                      </a>
-                    </li>
-                    <li>
-                      <a className={styles.barOfa} href="/account/private">
-                        <span className={styles.barOfSpan}>
-                          <img
-                            src="https://www.worldee.com/images/asidesoukromi.svg"
-                            alt="Soukromí"
-                          />
-                        </span>{" "}
-                        <label>Privacy </label>{" "}
-                      </a>
-                    </li>
-                    <li>
-                      <a
-                        className={styles.barOfa}
-                        href="/account/change-password"
+                        href="/changePassword"
                       >
                         <span className={styles.barOfSpan}>
                           <img
@@ -74,56 +49,6 @@ class SettingProfile extends Component {
                           />
                         </span>
                         <label> Password change</label>{" "}
-                      </a>
-                    </li>
-                    <li>
-                      <a
-                        className={styles.barOfa}
-                        href="/account/notify-settings"
-                      >
-                        <span className={styles.barOfSpan}>
-                          <img
-                            src="https://www.worldee.com/images/asideupozorneni.svg"
-                            alt="Upozornění"
-                          />
-                        </span>{" "}
-                        <label>Notifications </label>{" "}
-                      </a>
-                    </li>
-                    <li>
-                      <a
-                        className={styles.barOfa}
-                        href="/account/premium-account"
-                      >
-                        <span className={styles.barOfSpan}>
-                          <img
-                            src="https://www.worldee.com/images/asidepremium.svg"
-                            alt="Premiová verze"
-                          />
-                        </span>{" "}
-                        <label>Premium version </label>{" "}
-                      </a>
-                    </li>
-                    <li>
-                      <a className={styles.barOfa} href="/account/payments">
-                        <span className={styles.barOfSpan}>
-                          <img
-                            src="https://www.worldee.com/images/wallet.svg"
-                            alt="Platby"
-                          />
-                        </span>
-                        <label>Payments </label>{" "}
-                      </a>
-                    </li>
-                    <li>
-                      <a className={styles.barOfa} href="/account/referral">
-                        <span className={styles.barOfSpan}>
-                          <img
-                            src="https://www.worldee.com/images/asidereferral.svg"
-                            alt="Referral"
-                          />
-                        </span>{" "}
-                        <label>Referral </label>{" "}
                       </a>
                     </li>
                     <li>
