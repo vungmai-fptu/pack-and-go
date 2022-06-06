@@ -6,18 +6,17 @@ import useForm from "../../../components/useForm/useForm";
 import Validate from "../../../components/validateInput";
 import { validateForgotPassword } from "../../../components/validateInput/validateInput";
 import { useIsLogin } from "../../../hooks/useIsLogin";
-import { postResetPassword } from "../../../store/actions/user.action";
+import { postResetPasswordRequest } from "../../../store/actions/user.action";
 import styles from "./forgotPassword.module.css";
 function ForgotPassword() {
   const dispatch = useDispatch();
-  const history = useHistory();
   const { loading } = useIsLogin();
   const { values, errors, handleChange, handleSubmit } = useForm(
     handleSubmits,
     validateForgotPassword
   );
   function handleSubmits() {
-    dispatch(postResetPassword(values.forgotPassword, history));
+    dispatch(postResetPasswordRequest(values.forgotPassword));
   }
   return (
     <div>
@@ -44,7 +43,7 @@ function ForgotPassword() {
           <div className={styles.login}>
             <div className={styles.formLogin}>
               <h1>Forgotten password</h1>
-              <span style={{ padding: " 20px 0;" }}>
+              <span style={{ padding: " 20px 0" }}>
                 Please enter your registration email and we will send you a link
                 to reset your password right away.
               </span>
@@ -68,7 +67,7 @@ function ForgotPassword() {
                 </div>
                 {loading ? (
                   <button disabled style={{ opacity: ".4" }}>
-                    <span>Renew password </span>
+                    <span>Reset password </span>
                     <div className="loadingio-spinner-ripple-ormwzc5m72e">
                       <div className="ldio-gw2gg1659v">
                         <div />
@@ -78,7 +77,7 @@ function ForgotPassword() {
                   </button>
                 ) : (
                   <button>
-                    <span>Renew password</span>
+                    <span>Reset password</span>
                   </button>
                 )}
               </form>

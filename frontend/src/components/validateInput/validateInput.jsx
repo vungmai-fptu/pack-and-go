@@ -26,7 +26,7 @@ export function validateRegister(values) {
   } else if (values.password.length < 8) {
     errors.password = "Password must be 8 or more characters";
   } else if (!/\d/.test(values.password) || !/[!@#$%&?.]/g.test(values.password) || !/[A-Z]/g.test(values.password)) {
-    errors.password = "Password must contain at least 1 number, contains: Capital character, special character";
+    errors.password = "Password must contains at least 1 number, at least 1 capital character, 1 special character";
   }
   if (!values.confirmPassword) {
     errors.confirmPassword = "Confirm password is required";
@@ -50,15 +50,11 @@ export function validateResetPassword(values) {
     errors.password = "Password is required";
   } else if (values.password.length < 8) {
     errors.password = "Password must be 8 or more characters";
-  } else if (!/\d/.test(values.password)) {
-    errors.password = "Password must contain atleast 1 number";
-  } else if (!/[!@#$%&?]/g.test(values.password)) {
-    errors.password = "Password must contain atleast 1 special character";
-  } else if (!/[A-Z]/g.test(values.password)) {
-    errors.password = "Password must contain atleast 1 capitol letter";
+  } else if (!/\d/.test(values.password) || !/[!@#$%&?.]/g.test(values.password) || !/[A-Z]/g.test(values.password)) {
+    errors.password = "Password must contains at least 1 number, at least 1 capital character, 1 special character";
   }
   if (!values.confirmPassword) {
-    errors.confirmPassword = "Password is required";
+    errors.confirmPassword = "Confirm password is required";
   } else if (values.confirmPassword !== values.password) {
     errors.confirmPassword = "Password and Confirm Password does not match.";
   }

@@ -1,6 +1,7 @@
 import React from "react";
 import NotificationContainer from "react-notifications/lib/NotificationContainer";
 import { useDispatch } from "react-redux";
+import { useLocation } from "react-router-dom";
 import { Link, useHistory, useParams } from "react-router-dom";
 import useForm from "../../../components/useForm/useForm";
 import Validate from "../../../components/validateInput";
@@ -8,22 +9,29 @@ import { validateResetPassword } from "../../../components/validateInput/validat
 import { useIsLogin } from "../../../hooks/useIsLogin";
 import { postResetPassword } from "../../../store/actions/user.action";
 import styles from "../forgotPassword/forgotPassword.module.css";
+
+
+function useQuery() {
+  const { search } = useLocation();
+
+  return React.useMemo(() => new URLSearchParams(search), [search]);
+}
 function ResetPassword() {
   const dispatch = useDispatch();
   const history = useHistory();
   const { loading } = useIsLogin();
-  let params = useParams();
-  console.log(
-    "🚀 ~ file: index.jsx ~ line 16 ~ ResetPassword ~ params",
-    params
-  );
+  const query = useQuery();
+
+  const token = query.get("token") || "token";
+
   const { values, errors, handleChange, handleSubmit } = useForm(
     handleSubmits,
     validateResetPassword
   );
   function handleSubmits() {
-    dispatch(postResetPassword(values.forgotPassword, history));
+    dispatch(postResetPassword(token, values.password, history));
   }
+
   return (
     <div>
       <div>
@@ -59,7 +67,7 @@ function ResetPassword() {
                     <input
                       type="password"
                       name="password"
-                      placeholder="Fill your email address"
+                      placeholder="Fill your new password"
                       onChange={handleChange}
                       value={values.password || ""}
                       required
@@ -72,7 +80,7 @@ function ResetPassword() {
                     <input
                       type="password"
                       name="confirmPassword"
-                      placeholder="Fill your email address"
+                      placeholder="Fill your new password"
                       onChange={handleChange}
                       value={values.confirmPassword || ""}
                       required

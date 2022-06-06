@@ -6,6 +6,8 @@ import {
   REGISTRATION_FAILED,
   REGISTRATION_SUCCESS,
   RESETPASSWORD_FAILED,
+  RESETPASSWORD_REQUEST_FAILED,
+  RESETPASSWORD_REQUEST_SUCCESS,
   RESETPASSWORD_SUCCESS,
 } from "../constants/user.const";
 import { startLoading, stopLoading } from "../actions/common.action";
@@ -91,7 +93,8 @@ const postRegistrationFailed = (err) => {
     payload: err,
   };
 };
-export const postResetPassword = (forgotPassword, goBack) => {
+
+export const postResetPasswordRequest = (forgotPassword) => {
   return (dispatch) => {
     dispatch(startLoading());
     axios({
@@ -102,6 +105,48 @@ export const postResetPassword = (forgotPassword, goBack) => {
       },
       data: {
         email: forgotPassword,
+      },
+    })
+      .then((res) => {
+        dispatch(stopLoading());
+        dispatch(postResetPasswordRequestSuccess(res.data));
+        NotificationManager.success(res.data.message);
+      })
+      .catch((err) => {
+        dispatch(stopLoading());
+        dispatch(postResetPasswordRequestFailed(err));
+        NotificationManager.error(err.response.data.message);
+      });
+  };
+};
+
+const postResetPasswordRequestSuccess = (user) => {
+  return {
+    type: RESETPASSWORD_REQUEST_SUCCESS,
+    payload: user,
+  };
+};
+
+const postResetPasswordRequestFailed = (err) => {
+  return {
+    type: RESETPASSWORD_REQUEST_FAILED,
+    payload: err,
+  };
+};
+
+
+export const postResetPassword = (token, newPassword, goBack) => {
+  return (dispatch) => {
+    dispatch(startLoading());
+    axios({
+      method: "POST",
+      url: "https://trip-diary-backend.herokuapp.com/api/auth/reset-password",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      data: {
+        token: token,
+        newPassword: newPassword,
       },
     })
       .then((res) => {
@@ -118,7 +163,7 @@ export const postResetPassword = (forgotPassword, goBack) => {
   };
 };
 
-export const postResetPasswordSuccess = (user) => {
+const postResetPasswordSuccess = (user) => {
   return {
     type: RESETPASSWORD_SUCCESS,
     payload: user,
