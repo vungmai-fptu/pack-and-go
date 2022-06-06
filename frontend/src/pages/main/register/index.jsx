@@ -168,7 +168,7 @@ function Register() {
                     <input
                       type="password"
                       name="confirmPassword"
-                      placeholder="confirmPassword"
+                      placeholder="Confirm Password"
                       onChange={handleChange}
                       value={values.confirmPassword || ""}
                       required

@@ -21,7 +21,6 @@ a {
 .inner {
   position: relative;
   width: 100%;
-  cursor: pointer;
   display: flex;
   height: 260px;
   flex-direction: column;
@@ -84,16 +83,35 @@ a {
   text-align: left;
 }
 
-.destination-name {
+.trip-name {
+  display: inline-block;
+  position: relative;
   color: #fff;
   font-size: 1.5rem;
   font-weight: 700;
   text-shadow: 1px 1px 2px #00000033;
-  display: -webkit-box;
   hyphens: auto;
+  line-height: 25px;
+  margin-bottom: 10px;
+}
+.trip-name:after {
+  content: "";
+  position: absolute;
+  width: 100%;
+  transform: scaleX(0);
+  height: 1px;
+  bottom: 0;
+  left: 0;
+  background-color: #fff;
+  transform-origin: bottom right;
+  transition: transform 0.25s ease-out;
 }
 
-.destination-name span {
+.trip-name:hover:after {
+  transform: scaleX(1);
+  transform-origin: bottom left;
+}
+.trip-name span {
   display: inline-block;
   width: 100%;
   max-width: 250px;
@@ -104,6 +122,7 @@ a {
 .destination-info {
   align-items: center;
   display: flex;
+  gap: 5px;
   flex-flow: row;
   max-width: 100%;
   min-width: 0;

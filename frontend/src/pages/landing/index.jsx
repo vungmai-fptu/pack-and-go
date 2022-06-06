@@ -1,4 +1,5 @@
-import React from 'react'
+import React, { useEffect } from 'react'
+import { useState } from 'react';
 import Footer from '../../components/Footer';
 import CallToAction from '../../components/landing/CallToAction';
 import Features from '../../components/landing/Features';

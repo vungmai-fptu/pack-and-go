@@ -96,53 +96,6 @@ export default function Footer() {
               />
             </a>
           </div>
-          <div className={styles.col}>
-            <h2>Partners</h2>
-            <a
-              href="/"
-              rel="noopener"
-              className={styles.socialIcons}
-              target="_blank"
-            >
-              <img
-                src="fonts/src_app_components_components_svgIcon_icons_commonsprite-afce76.svg#logo_booking_smallax-usage"
-                alt="common/logo_booking_small"
-              />
-            </a>
-            <a
-              href="/"
-              rel="noopener"
-              className={styles.socialIcons}
-              target="_blank"
-            >
-              <img
-                src="fonts/src_app_components_components_svgIcon_icons_commonsprite-afce76.svg#logo_kiwi_smallaB-usage"
-                alt="common/logo_kiwi_small"
-              />
-            </a>
-            <a
-              href="/"
-              rel="noopener"
-              className={styles.socialIcons}
-              target="_blank"
-            >
-              <img
-                src="fonts/src_app_components_components_svgIcon_icons_commonsprite-afce76.svg#logo_rentalcars_smallaE-usage"
-                alt="common/logo_rentalcars_small"
-              />
-            </a>
-            <a
-              href="/"
-              rel="noopener"
-              className={styles.socialIcons}
-              target="_blank"
-            >
-              <img
-                src="fonts/src_app_components_components_svgIcon_icons_commonsprite-afce76.svg#logo_tripadvisor_smallaD-usage"
-                alt="common/logo_tripadvisor_small"
-              />
-            </a>
-          </div>
         </div>
       </div>
       ;
