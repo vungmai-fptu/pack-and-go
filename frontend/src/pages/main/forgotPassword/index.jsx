@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import validateInput from "../../../components/validateInput/validateInput";
+import { validateLogin } from "../../../components/validateInput/validateInput";
 import styles from "./forgotPassword.module.css";
 function ForgotPassword() {
   const [forgotPassword, setForgotPassword] = useState({
@@ -16,7 +16,7 @@ function ForgotPassword() {
       ...forgotPassword,
       [name]: value,
     });
-    validateInput(event, forgotPassword, error, setError);
+    validateLogin(event, forgotPassword, error, setError);
   };
   const handleSubmit = (e) => {
     e.preventDefault();

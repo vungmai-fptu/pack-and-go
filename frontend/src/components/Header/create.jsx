@@ -44,7 +44,7 @@ export default function Create() {
               </div>
               <Link to="/newTrip">
                 <div className={styles.logoutTitle}>
-                  <span>Visible To All</span>
+                  <span>New Trip</span>
                 </div>
               </Link>
             </div>
@@ -56,7 +56,7 @@ export default function Create() {
               </div>
               <Link to="/pastTrip">
                 <div className={styles.logoutTitle}>
-                  <span>Visible To Me</span>
+                  <span>Past Trip</span>
                 </div>
               </Link>
             </div>

@@ -1,11 +1,11 @@
 import styles from "./validate.module.css";
 function Validate(props) {
-  const error = props.error;
+  const errors = props.errors;
   return (
-    error && (
+    errors && (
       <div className={styles.MuiTooltipPopper}>
         <div className={styles.validation}>
-          {error}
+          {errors}
           <span className={styles.MuiTooltipArrow} />
         </div>
       </div>
