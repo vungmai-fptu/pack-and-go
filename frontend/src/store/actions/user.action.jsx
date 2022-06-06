@@ -96,12 +96,12 @@ export const postResetPassword = (forgotPassword, goBack) => {
     dispatch(startLoading());
     axios({
       method: "POST",
-      url: "https://trip-diary-backend.herokuapp.com/api/auth/reset-password",
+      url: "https://trip-diary-backend.herokuapp.com/api/auth/reset-password-request",
       headers: {
         "Content-Type": "application/json",
       },
       data: {
-        forgotPassword,
+        email: forgotPassword,
       },
     })
       .then((res) => {

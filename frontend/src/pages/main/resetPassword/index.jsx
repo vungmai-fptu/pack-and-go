@@ -1,20 +1,25 @@
 import React from "react";
 import NotificationContainer from "react-notifications/lib/NotificationContainer";
 import { useDispatch } from "react-redux";
-import { Link, useHistory } from "react-router-dom";
+import { Link, useHistory, useParams } from "react-router-dom";
 import useForm from "../../../components/useForm/useForm";
 import Validate from "../../../components/validateInput";
-import { validateForgotPassword } from "../../../components/validateInput/validateInput";
+import { validateResetPassword } from "../../../components/validateInput/validateInput";
 import { useIsLogin } from "../../../hooks/useIsLogin";
 import { postResetPassword } from "../../../store/actions/user.action";
-import styles from "./forgotPassword.module.css";
-function ForgotPassword() {
+import styles from "../forgotPassword/forgotPassword.module.css";
+function ResetPassword() {
   const dispatch = useDispatch();
   const history = useHistory();
   const { loading } = useIsLogin();
+  let params = useParams();
+  console.log(
+    "🚀 ~ file: index.jsx ~ line 16 ~ ResetPassword ~ params",
+    params
+  );
   const { values, errors, handleChange, handleSubmit } = useForm(
     handleSubmits,
-    validateForgotPassword
+    validateResetPassword
   );
   function handleSubmits() {
     dispatch(postResetPassword(values.forgotPassword, history));
@@ -43,11 +48,7 @@ function ForgotPassword() {
           <div />
           <div className={styles.login}>
             <div className={styles.formLogin}>
-              <h1>Forgotten password</h1>
-              <span style={{ padding: " 20px 0;" }}>
-                Please enter your registration email and we will send you a link
-                to reset your password right away.
-              </span>
+              <h1>Change password</h1>
               <form
                 className={styles.loginEmail}
                 onSubmit={handleSubmit}
@@ -56,19 +57,32 @@ function ForgotPassword() {
                 <div className={styles.input}>
                   <div className={styles.inputEmail}>
                     <input
-                      type="email"
-                      name="forgotPassword"
+                      type="password"
+                      name="password"
                       placeholder="Fill your email address"
                       onChange={handleChange}
-                      value={values.forgotPassword || ""}
+                      value={values.password || ""}
                       required
                     />
-                    <Validate errors={errors.forgotPassword} />
+                    <Validate errors={errors.password} />
+                  </div>
+                </div>
+                <div className={styles.input}>
+                  <div className={styles.inputEmail}>
+                    <input
+                      type="password"
+                      name="confirmPassword"
+                      placeholder="Fill your email address"
+                      onChange={handleChange}
+                      value={values.confirmPassword || ""}
+                      required
+                    />
+                    <Validate errors={errors.confirmPassword} />
                   </div>
                 </div>
                 {loading ? (
                   <button disabled style={{ opacity: ".4" }}>
-                    <span>Renew password </span>
+                    <span>Save password </span>
                     <div className="loadingio-spinner-ripple-ormwzc5m72e">
                       <div className="ldio-gw2gg1659v">
                         <div />
@@ -78,15 +92,10 @@ function ForgotPassword() {
                   </button>
                 ) : (
                   <button>
-                    <span>Renew password</span>
+                    <span>Save password</span>
                   </button>
                 )}
               </form>
-            </div>
-            <div className={styles.register}>
-              <Link to="/login">
-                <span>Back to Login</span>
-              </Link>
             </div>
           </div>
         </div>
@@ -96,4 +105,4 @@ function ForgotPassword() {
   );
 }
 
-export default ForgotPassword;
+export default ResetPassword;

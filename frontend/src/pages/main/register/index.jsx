@@ -202,7 +202,7 @@ function Register() {
                 </div>
                 {loading ? (
                   <button disabled style={{ opacity: ".4" }}>
-                    <span>Register</span>
+                    <span>Register </span>
                     <div className="loadingio-spinner-ripple-ormwzc5m72e">
                       <div className="ldio-gw2gg1659v">
                         <div />
@@ -212,7 +212,7 @@ function Register() {
                   </button>
                 ) : (
                   <button>
-                    <span>Register </span>
+                    <span>Register</span>
                   </button>
                 )}
               </form>
