@@ -247,14 +247,12 @@ a {
 }
 
 .dropdown {
-  transform: rotate(90deg);
+  /* transform: rotate(90deg); */
+  padding-top: 5px;
 }
 
-.dropdown img {
+.dropdown svg {
   filter: invert(77%) sepia(12%) saturate(374%) hue-rotate(184deg) brightness(94%) contrast(87%);
-  height: 20px;
-  width: 20px;
-  border: none;
 }
 
 .popupContent {
@@ -313,8 +311,8 @@ a {
   justify-content: center;
 }
 
-.logoutIcon svg {
-  font-size: 25px;
+svg {
+  font-size: 30px;
 }
 
 .logoutTitle {

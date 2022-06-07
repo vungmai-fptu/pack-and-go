@@ -1,7 +1,11 @@
 import { useRef } from "react";
 import { Link, Redirect } from "react-router-dom";
 import styles from "./header.module.css";
-import { IoSettingsOutline, IoLogOutOutline } from "react-icons/io5";
+import {
+  IoSettingsOutline,
+  IoLogOutOutline,
+  IoChevronDownOutline,
+} from "react-icons/io5";
 import { useDetectOutsideClick } from "../useDetectOutsideClick";
 
 export default function FormLogout() {
@@ -13,10 +17,7 @@ export default function FormLogout() {
       <button onClick={onClick}>
         <div className={styles.profileIcon}>
           <div className={styles.dropdown}>
-            <img
-              src="fonts/src_app_components_components_svgIcon_icons_commonsprite-afce76.svg#arrowa-usage"
-              alt="common/arrow"
-            />
+            <IoChevronDownOutline />
           </div>
         </div>
         <span />
