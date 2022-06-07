@@ -468,3 +468,7 @@
     visibility: visible;
     transform: translateY(0);
 }
+
+.transportation {
+    padding: 10px;
+}

@@ -3,7 +3,17 @@ import {
   IoLocationSharp,
   IoLocationOutline,
   IoNotificationsOutline,
+  IoCarSport,
 } from "react-icons/io5";
+import {
+  FaPlane,
+  FaMotorcycle,
+  FaBicycle,
+  FaBusAlt,
+  FaTrain,
+  FaWalking,
+  FaShippingFast,
+} from "react-icons/fa";
 export default function Overview() {
   return (
     <div className="w_CU">
@@ -100,13 +110,30 @@ export default function Overview() {
             <div className="w_i- w_UY">
               <div className="w_Za w_Zf w_Ze w_UZ">
                 <div
-                  style={{ background: "hsla(0, 0%, 4%, .15)", height: "34px" }}
-                ></div>
+                  className="log"
+                  style={{
+                    background: "hsla(0, 0%, 4%, .15)",
+                    height: "34px",
+                    margin: "0 100px",
+                    alignItems: "center",
+                    borderRadius: "10px",
+                  }}
+                >
+                  <FaPlane />
+                  <IoCarSport />
+                  <FaBusAlt />
+                  <FaTrain />
+                  <FaShippingFast />
+                  <FaMotorcycle />
+                  <FaBicycle />
+                  <FaWalking />
+                </div>
               </div>
             </div>
           </div>
           <div className="w_ja w_UU" style={{ flex: "1 1 0%" }}>
             <img
+              style={{ width: "auto", height: "auto" }}
               src="fonts/src_app_components_components_svgIcon_icons_customsprite-70fd46.svg#toVisitEmptyj6-usage"
               alt="custom/toVisitEmpty"
               className="w_fu w_fB w_UV"
