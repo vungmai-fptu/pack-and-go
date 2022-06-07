@@ -10,6 +10,8 @@ import Register from "../pages/main/register";
 import ResetPassword from "../pages/main/resetPassword";
 import SearchPage from "../pages/main/search";
 import SettingProfile from "../pages/main/settingProfile";
+import changePassword from "../pages/main/changePassword";
+
 
 export const mainRouter = [
   {
@@ -41,6 +43,11 @@ export const mainRouter = [
     path: "/pastTrip",
     exact: false,
     Component: NewTrip,
+  },
+  {
+    path: "/changePassword",
+    exact: false,
+    Component: changePassword,
   },
   {
     Component: Err,
