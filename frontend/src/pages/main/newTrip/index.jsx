@@ -112,7 +112,7 @@ function NewTrip() {
                             <div className="w_My w_MD w_Z0">
                               <img
                                 src="fonts/src_app_components_components_svgIcon_icons_commonsprite-afce76.svg#photobb-usage"
-                                alt="common/photo"
+                                alt="photo"
                                 className="w_fu w_fx w_Mz w_MA w_fQ"
                               />
                               <div className="w_MB">

@@ -4,6 +4,7 @@ import { Editor } from "react-draft-wysiwyg";
 import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
 import styles from "./settingProfile.module.css";
 import { EditorState } from "draft-js";
+import { Link } from "react-router-dom";
 class SettingProfile extends Component {
   state = {
     editorState: EditorState.createEmpty(),
@@ -865,10 +866,9 @@ class SettingProfile extends Component {
                                 Worldee content (your profile, photos and
                                 trips). No user will be able to find you again.
                               </p>
-                              <a id="removeacc" href="#" data-has-password>
-                                {" "}
-                                Delete profile{" "}
-                              </a>
+                              <Link id="removeacc" to="/" data-has-password>
+                                Delete profile
+                              </Link>
                             </div>
                           </div>
                           <hr className={styles.noTopMargin} />
@@ -942,21 +942,20 @@ class SettingProfile extends Component {
           <div className={styles.modalHandler}>
             <div className={styles.modalContent}>
               <h4> Confirm </h4>
-              <a className={styles.zavritOkno} href="#">
+              <Link to="/" className={styles.zavritOkno}>
                 <img
                   src="https://www.worldee.com/images/close.svg"
                   alt="Close"
                 />
-              </a>
+              </Link>
               <hr />
               <p> Are you sure you want to delete your account? </p>
-              <a className={styles.smazat} href="#">
-                {" "}
-                Erase{" "}
-              </a>
-              <a className={styles.button} href="#">
-                Cancel{" "}
-              </a>
+              <Link to="/" className={styles.smazat}>
+                Erase
+              </Link>
+              <Link to="/" className={styles.button}>
+                Cancel
+              </Link>
             </div>
           </div>
           <div className={styles.containerEdWrap}>
