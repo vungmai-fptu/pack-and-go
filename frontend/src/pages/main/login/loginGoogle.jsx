@@ -15,11 +15,10 @@ export default function LoginGoogle() {
     function start() {
       gapi.client.init({
         clientId: clientId,
-        scope: 'email',
+        scope: "email",
       });
     }
-
-    gapi.load('client:auth2', start);
+    gapi.load("client:auth2", start);
   }, []);
 
   const config = {

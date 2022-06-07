@@ -6,7 +6,7 @@ import { useIsLogin } from "./../../../hooks/useIsLogin";
 const Header = () => {
   const { user } = useIsLogin();
   return (
-    <div style={{}}>
+    <div style={{ paddingTop: "95px" }}>
       <SectionContainer>
         <div className={styles.header_search}>
           <div className={styles["header-cover"]}>

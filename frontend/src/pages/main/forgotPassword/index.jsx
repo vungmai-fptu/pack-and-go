@@ -1,7 +1,7 @@
 import React from "react";
 import NotificationContainer from "react-notifications/lib/NotificationContainer";
 import { useDispatch } from "react-redux";
-import { Link, useHistory } from "react-router-dom";
+import { Link } from "react-router-dom";
 import useForm from "../../../components/useForm/useForm";
 import Validate from "../../../components/validateInput";
 import { validateForgotPassword } from "../../../components/validateInput/validateInput";

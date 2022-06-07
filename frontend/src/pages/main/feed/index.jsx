@@ -1,5 +1,4 @@
 import React from "react";
-import Tabs from "../../../components/tab/tabs";
 import "./css.css";
 function Feed() {
   return (

@@ -1,7 +1,5 @@
 import { useRef } from "react";
-import { Link } from "react-router-dom";
 import styles from "../trip.module.css";
-import { IoPeopleOutline, IoLockClosedOutline } from "react-icons/io5";
 import { useDetectOutsideClick } from "./../../../../components/useDetectOutsideClick";
 
 export default function Date(props) {

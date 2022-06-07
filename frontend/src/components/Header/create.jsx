@@ -1,7 +1,11 @@
 import { useRef } from "react";
 import { Link } from "react-router-dom";
 import styles from "./header.module.css";
-import { IoTodayOutline, IoLocationOutline } from "react-icons/io5";
+import {
+  IoTodayOutline,
+  IoLocationOutline,
+  IoLocationSharp,
+} from "react-icons/io5";
 import { useDetectOutsideClick } from "../useDetectOutsideClick";
 
 export default function Create() {
@@ -12,10 +16,7 @@ export default function Create() {
     <div className={styles.menuButton}>
       <button onClick={onClick}>
         <div className={styles.menuIcon}>
-          <img
-            src="fonts/src_app_components_components_svgIcon_icons_commonsprite-afce76.svg#place-add-bold_emptybd-usage"
-            alt="common/place-add-bold_empty"
-          />
+          <IoLocationSharp />
         </div>
         <span>Create</span>
       </button>

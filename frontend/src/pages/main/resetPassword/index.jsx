@@ -2,14 +2,13 @@ import React from "react";
 import NotificationContainer from "react-notifications/lib/NotificationContainer";
 import { useDispatch } from "react-redux";
 import { useLocation } from "react-router-dom";
-import { Link, useHistory, useParams } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import useForm from "../../../components/useForm/useForm";
 import Validate from "../../../components/validateInput";
 import { validateResetPassword } from "../../../components/validateInput/validateInput";
 import { useIsLogin } from "../../../hooks/useIsLogin";
 import { postResetPassword } from "../../../store/actions/user.action";
 import styles from "../forgotPassword/forgotPassword.module.css";
-
 
 function useQuery() {
   const { search } = useLocation();

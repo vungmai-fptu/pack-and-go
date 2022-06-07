@@ -1,4 +1,11 @@
 import styles from "./footer.module.css";
+import logo from "../../assets/images/logos/logo-black-3.png";
+import {
+  IoLogoFacebook,
+  IoLogoGoogle,
+  IoLogoGithub,
+  IoLogoFigma,
+} from "react-icons/io5";
 export default function Footer() {
   return (
     <footer>
@@ -6,7 +13,7 @@ export default function Footer() {
         <div className={styles.container}>
           <div className={styles.col}>
             <a href="/" className={styles.footerLogo}>
-              <img alt="Worldee logo" src="images/3bl.png" />
+              <img alt="Worldee logo" src={logo} />
             </a>
           </div>
           <div className={styles.col}>
@@ -68,10 +75,7 @@ export default function Footer() {
               target="_blank"
               className={styles.socialIcons}
             >
-              <img
-                src="fonts/src_app_components_components_svgIcon_icons_commonsprite-afce76.svg#socials-fb2bT-usage"
-                alt="common/socials-fb2"
-              />
+              <IoLogoFacebook />
             </a>
             <a
               href="/"
@@ -79,10 +83,7 @@ export default function Footer() {
               target="_blank"
               className={styles.socialIcons}
             >
-              <img
-                src="fonts/src_app_components_components_svgIcon_icons_commonsprite-afce76.svg#socials-instagrambV-usage"
-                alt="common/socials-instagram"
-              />
+              <IoLogoFigma />
             </a>
             <a
               href="/"
@@ -90,10 +91,15 @@ export default function Footer() {
               target="_blank"
               className={styles.socialIcons}
             >
-              <img
-                src="fonts/src_app_components_components_svgIcon_icons_commonsprite-afce76.svg#socials-pinterestbU-usage"
-                alt="common/socials-pinterest"
-              />
+              <IoLogoGithub />
+            </a>
+            <a
+              href="/"
+              rel="noopener"
+              target="_blank"
+              className={styles.socialIcons}
+            >
+              <IoLogoGoogle />
             </a>
           </div>
         </div>
