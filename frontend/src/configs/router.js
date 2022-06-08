@@ -2,7 +2,6 @@ import LandingPage from "../pages/landing";
 import Err from "../pages/main/err";
 import Feed from "../pages/main/feed";
 import ForgotPassword from "../pages/main/forgotPassword";
-// import Home from "../pages/main/home";
 import Login from "../pages/main/login";
 import NewTrip from "../pages/main/newTrip";
 import Profile from "../pages/main/profile";
@@ -11,7 +10,6 @@ import ResetPassword from "../pages/main/resetPassword";
 import SearchPage from "../pages/main/search";
 import SettingProfile from "../pages/main/settingProfile";
 import changePassword from "../pages/main/changePassword";
-
 
 export const mainRouter = [
   {

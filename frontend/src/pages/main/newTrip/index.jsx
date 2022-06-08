@@ -19,15 +19,14 @@ function NewTrip() {
             <div label="Itinerary">
               <Itinerary />
             </div>
-            {/* <div label="Preparedlist">
+            <div label="Preparedlist">
               <PrepareList />
             </div>
             <div label="PriceList">
               <PriceList />
-            </div> */}
+            </div>
           </Tabs>
-        </div >
-
+        </div>
 
         <div className="w_hN w_hP TRIP_MAP">
           <div className="w_iN">
@@ -45,7 +44,7 @@ function NewTrip() {
             </div>
           </div>
         </div>
-      </div >
+      </div>
       <div className="w_BG w_BK w_iw w_iS">
         <button className="w_ih w_in w_ic">
           <div className="w_ib">
@@ -58,7 +57,7 @@ function NewTrip() {
           <span className="w_ia" />
         </button>
       </div>
-    </div >
+    </div>
   );
 }
 
