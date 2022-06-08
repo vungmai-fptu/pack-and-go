@@ -7,7 +7,7 @@ import { BsFillCameraFill } from 'react-icons/bs'
 const Traveler = (props) => {
     return (
         <div>
-            <div className={styles["container"]}>
+            <div className={styles["container"]} >
                 <div className={styles["inner-container"]}>
                     <div className={styles["card"]}>
                         <div className={styles["cover-photo"]}>
@@ -51,9 +51,10 @@ const Traveler = (props) => {
                         </div>
                     </div>
                 </div>
-            </div>
+            </div >
         </div>
-    )
-}
+    );
+};
 
-export default Traveler
+
+export default Traveler;

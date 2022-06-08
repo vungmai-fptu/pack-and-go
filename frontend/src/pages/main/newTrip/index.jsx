@@ -1,6 +1,8 @@
 import React from "react";
 import Tabs from "../../../components/tab/tabs";
 import Header from "./header";
+import PrepareList from "./PrepareList";
+import PriceList from "./PriceList";
 import styles from "./trip.module.css";
 function NewTrip() {
   return (
@@ -95,6 +97,11 @@ function NewTrip() {
                 </button>
               </div>
             </div>
+
+            {/* <PrepareList />
+            <PriceList /> */}
+
+
             <div className="w_CU">
               <div className="w_oz w_CX">
                 <div className="w_aam w_iW">
