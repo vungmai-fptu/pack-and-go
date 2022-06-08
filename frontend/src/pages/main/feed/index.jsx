@@ -1,5 +1,4 @@
 import React from "react";
-import "./css.css";
 function Feed() {
   return (
     <div className="w_mS w_mT">

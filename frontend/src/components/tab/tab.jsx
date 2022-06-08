@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
-
+import styles from "./tab.module.css";
 class Tab extends Component {
   static propTypes = {
     activeTab: PropTypes.string.isRequired,
@@ -19,22 +19,22 @@ class Tab extends Component {
       props: { activeTab, label },
     } = this;
 
-    let className = "tab-list-item";
+    let className = styles["tab-list-item"];
 
     if (activeTab === label) {
-      className += " tab-list-active";
+      className += ` ${styles["tab-list-active"]}`;
     }
 
     return (
       <button className={className} onClick={onClick}>
         <span>
-          <img
+          {/* <img
             src="fonts/src_app_components_components_svgIcon_icons_commonsprite-afce76.svg#suit-case-fullci-usage"
             alt="common/suit-case-full"
             className="w_fu w_fy w_fM"
-          />
+          /> */}
         </span>
-        {label}
+        <span className="w_O8">{label}</span>
       </button>
     );
   }

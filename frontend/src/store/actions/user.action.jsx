@@ -6,9 +6,9 @@ import {
   REGISTRATION_FAILED,
   REGISTRATION_SUCCESS,
   RESETPASSWORD_FAILED,
+  RESETPASSWORD_SUCCESS,
   RESETPASSWORD_REQUEST_FAILED,
   RESETPASSWORD_REQUEST_SUCCESS,
-  RESETPASSWORD_SUCCESS,
 } from "../constants/user.const";
 import { startLoading, stopLoading } from "../actions/common.action";
 export const postLogin = (usernameOrEmail, password) => {
@@ -133,7 +133,6 @@ const postResetPasswordRequestFailed = (err) => {
     payload: err,
   };
 };
-
 
 export const postResetPassword = (token, newPassword, goBack) => {
   return (dispatch) => {

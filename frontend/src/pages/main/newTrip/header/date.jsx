@@ -1,11 +1,13 @@
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import styles from "../trip.module.css";
 import { useDetectOutsideClick } from "./../../../../components/useDetectOutsideClick";
 
 export default function Date(props) {
   const dropdownRef = useRef(null);
   const [isActive, setIsActive] = useDetectOutsideClick(dropdownRef, false);
+  const [isExact, setIsExact] = useState(false);
   const onClick = () => setIsActive(!isActive);
+  const onClickExact = () => setIsExact(!isExact);
   return (
     <div className={styles.tripDate}>
       <div className={styles.date}>
@@ -36,13 +38,23 @@ export default function Date(props) {
             <label>Date</label>
             <div className={styles.tripType}>
               <div className={styles.change}>
-                <div className={styles.transition} />
-                <label>
+                <div
+                  className={`${styles.transition} ${
+                    isExact ? "inactive" : `${styles.activeExact}`
+                  }`}
+                />
+                <label
+                  className={`${isExact && `${styles.cur}`}`}
+                  onClick={isExact && onClickExact}
+                >
                   <div className={styles.changeTitle}>
                     <span>Exact</span>
                   </div>
                 </label>
-                <label style={{ color: "#071125", cursor: "pointer" }}>
+                <label
+                  className={`${!isExact && `${styles.cur}`}`}
+                  onClick={!isExact && onClickExact}
+                >
                   <div className={styles.changeTitle}>
                     <span>Approximate</span>
                   </div>
@@ -62,18 +74,24 @@ export default function Date(props) {
                   </div>
                 </div>
               </div>
-              <label>End Date</label>
-              <div className={styles.inputContainer}>
-                <div className={styles.outside}>
-                  <input placeholder="Select a date" />
-                  <div className={styles.setDateIcon}>
-                    <img
-                      src="fonts/src_app_components_components_svgIcon_icons_commonsprite-afce76.svg#calendarl-usage"
-                      alt="common/calendar"
-                    />
+              {!isExact ? (
+                <div>
+                  <label>End Date</label>
+                  <div className={styles.inputContainer}>
+                    <div className={styles.outside}>
+                      <input placeholder="Select a date" />
+                      <div className={styles.setDateIcon}>
+                        <img
+                          src="fonts/src_app_components_components_svgIcon_icons_commonsprite-afce76.svg#calendarl-usage"
+                          alt="common/calendar"
+                        />
+                      </div>
+                    </div>
                   </div>
                 </div>
-              </div>
+              ) : (
+                ""
+              )}
             </div>
             <div className={styles.buttonSetDate}>
               <div style={{ flex: "1 1 0%", textAlign: "left" }}>
