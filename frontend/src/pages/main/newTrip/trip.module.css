@@ -635,25 +635,13 @@
     background: #d0d8e6;
     content: "";
     height: 1px;
+    margin-top: 3px;
     left: 0;
     position: absolute;
     right: 26px;
     top: 70%;
     transform: translateY(-50%);
     z-index: -1;
-}
-
-.nga {
-    flex: 1;
-    margin-bottom: -5px;
-
-}
-
-.ngaHai {
-    display: flex;
-    flex-wrap: wrap;
-    font-weight: 600;
-    margin-bottom: -4px;
 }
 
 .place {
@@ -749,4 +737,5 @@
     border-color: hsla(0, 0%, 100%, 0);
     font-size: .875rem;
     width: 100%;
+    padding-left: 10px;
 }

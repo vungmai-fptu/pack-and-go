@@ -1,4 +1,4 @@
-import { IoLocationSharp } from "react-icons/io5";
+import { IoLocationSharp, IoDocumentText } from "react-icons/io5";
 import styles from "../trip.module.css";
 const Place = () => {
   const place = [
@@ -9,6 +9,50 @@ const Place = () => {
     {
       place: "hạ long",
       description: "nhà giàu",
+    },
+  ];
+  const test = [
+    {
+      visitDays: [
+        {
+          dayNumber: 1,
+          description: "string",
+          visitPlaces: [
+            {
+              description: "string",
+              images: [
+                {
+                  description: "string",
+                  url: "string",
+                },
+              ],
+              latitude: 0,
+              longitude: 0,
+            },
+          ],
+        },
+      ],
+    },
+    {
+      visitDays: [
+        {
+          dayNumber: 2,
+          description: "string",
+          visitPlaces: [
+            {
+              description: "string",
+              images: [
+                {
+                  description: "string",
+                  url: "string",
+                },
+              ],
+              latitude: 0,
+              longitude: 0,
+            },
+          ],
+        },
+      ],
     },
   ];
   return place.map((place, index) => {
@@ -23,7 +67,10 @@ const Place = () => {
                   style={{ paddingLeft: "26px" }}
                 >
                   <div className={styles.leftPlace}>
-                    <div className={styles.leftImg}>
+                    <div
+                      className={styles.leftImg}
+                      style={{ color: "#00e1d6" }}
+                    >
                       <IoLocationSharp />
                     </div>
                     <div className={styles.rightContainer}>
@@ -35,7 +82,10 @@ const Place = () => {
                 </div>
               </div>
               <div className={styles.write}>
-                <div style={{ padding: "5.5px 10px 5.5px 80px" }}>
+                <div
+                  style={{ padding: "5.5px 10px 5.5px 80px", display: "flex" }}
+                >
+                  <IoDocumentText style={{ fontSize: "25px" }} />
                   <input
                     type="text"
                     placeholder="Write a decription to the trip"

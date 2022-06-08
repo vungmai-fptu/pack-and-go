@@ -117,6 +117,8 @@ export default function Overview() {
                     margin: "0 100px",
                     alignItems: "center",
                     borderRadius: "10px",
+                    display: "flex",
+                    justifyContent: "space-around",
                   }}
                 >
                   <FaPlane />

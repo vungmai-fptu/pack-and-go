@@ -20,11 +20,7 @@ const Day = () => {
               <IoChevronUpSharp />
             </div>
             <div className={styles.spanOne}>Day {day.day}</div>
-            <div className={styles.dayBa}>
-              <div className={styles.nga}>
-                <div className={styles.ngaHai} />
-              </div>
-            </div>
+            <div className={styles.dayBa}></div>
           </div>
           <Place />
           <div className={styles.enterPlace}>
