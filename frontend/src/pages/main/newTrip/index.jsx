@@ -6,6 +6,7 @@ import PriceList from "./PriceList";
 import Itinerary from "./itinerary";
 import Overview from "./overview";
 import styles from "./trip.module.css";
+import MapComponent from "../../../components/map";
 function NewTrip() {
   return (
     <div className={styles.newTrip}>
@@ -27,8 +28,8 @@ function NewTrip() {
             </div>
           </Tabs>
         </div>
-
-        <div className="w_hN w_hP TRIP_MAP">
+        <MapComponent />
+        {/* <div className="w_hN w_hP TRIP_MAP">
           <div className="w_iN">
             <div className="w_BN">
               <img
@@ -43,19 +44,7 @@ function NewTrip() {
               </div>
             </div>
           </div>
-        </div>
-      </div>
-      <div className="w_BG w_BK w_iw w_iS">
-        <button className="w_ih w_in w_ic">
-          <div className="w_ib">
-            <img
-              src="fonts/src_app_components_components_svgIcon_icons_commonsprite-afce76.svg#mapaF-usage"
-              alt="common/map"
-              className="w_fu w_fx w_fM"
-            />
-          </div>
-          <span className="w_ia" />
-        </button>
+        </div> */}
       </div>
     </div>
   );
