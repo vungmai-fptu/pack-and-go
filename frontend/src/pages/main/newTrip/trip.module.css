@@ -172,19 +172,20 @@
 }
 
 .transition {
+    transform: translateX(215px);
+    transition: opacity 0.4s ease, transform 0.4s ease, visibility 0.4s;
     background: #071125;
     border-radius: 8px;
     height: 100%;
     left: 0;
     position: absolute;
-    transition: all .25s ease;
     width: 50%;
 }
 
 .change label {
     color: #fff;
     flex: 1;
-    font-size: .875rem;
+    font-size: 1rem;
     font-weight: 600;
     height: 56px;
     outline: none;
@@ -192,7 +193,12 @@
     text-align: center;
     text-transform: capitalize;
     z-index: 1;
+    cursor: auto
+}
 
+.cur {
+    color: #071125 !important;
+    cursor: pointer !important;
 }
 
 .changeTitle {
@@ -469,6 +475,101 @@
     transform: translateY(0);
 }
 
+.activeExact {
+    transform: translateX(0);
+}
+
 .transportation {
     padding: 10px;
+}
+
+.allDay {
+    align-items: stretch;
+    display: flex;
+    margin-bottom: 8px;
+    position: relative;
+    z-index: 0;
+}
+
+.leftAdd {
+    border-left: 1px dashed #bdbdbd;
+    bottom: 0;
+    left: 42px;
+    position: absolute;
+    top: 0;
+}
+
+.leftAdd:before {
+    content: "";
+    left: -2px;
+    position: absolute;
+    width: 3px;
+    background: linear-gradient(#fff 25%, hsla(0, 0%, 100%, 0));
+    height: 15px;
+    top: 0;
+}
+
+.leftAdd:after {
+    background: linear-gradient(hsla(0, 0%, 100%, 0), #fff 75%);
+    bottom: 0;
+    height: 30px;
+    content: "";
+    left: -2px;
+    position: absolute;
+    width: 3px;
+}
+
+.day {
+    flex: 1 1 0;
+    min-width: 0;
+}
+
+.containerDay {
+    display: flex;
+    flex-flow: column;
+    padding-bottom: 8px;
+    position: relative;
+}
+
+.addADay {
+    align-items: center;
+    display: flex;
+    flex-flow: row;
+}
+
+.aDay {
+    margin: 5px 0;
+    padding-left: 26px;
+}
+
+.addDIcon {
+    width: 32px;
+    align-items: center;
+    display: flex;
+    flex-shrink: 0;
+    justify-content: center;
+}
+
+.iTin {
+    height: 100%;
+    min-width: 0;
+    width: 100%;
+    align-items: center;
+    display: flex;
+    flex-flow: row;
+    max-width: 100%;
+    min-width: 0;
+}
+
+.tripItin {
+    align-items: stretch;
+    background: #fff;
+    flex: 1 1 0;
+    flex-direction: column;
+    height: 100%;
+    overflow-anchor: none;
+    overflow-y: scroll;
+    padding-top: 8px;
+    display: flex;
+
 }
