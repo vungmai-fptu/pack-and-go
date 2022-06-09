@@ -47,6 +47,7 @@
   font-weight: 500;
   flex: 1;
   margin-right: 20px;
+  align-items: center;
 }
 .item_name > span {
   display: inline-block;

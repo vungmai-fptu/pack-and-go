@@ -20,9 +20,8 @@ export default function Date(props) {
         </button>
         <div
           ref={dropdownRef}
-          className={`${styles.formTripDate} ${
-            isActive ? `${styles.active}` : "inactive"
-          }`}
+          className={`${styles.formTripDate} ${isActive ? `${styles.active}` : "inactive"
+            }`}
         >
           <div className={styles.dropdownTop} style={{ left: "50% " }}>
             <svg
@@ -39,16 +38,15 @@ export default function Date(props) {
             <div className={styles.tripType}>
               <div className={styles.change}>
                 <div
-                  className={`${styles.transition} ${
-                    isExact ? "inactive" : `${styles.activeExact}`
-                  }`}
+                  className={`${styles.transition} ${isExact ? "inactive" : `${styles.activeExact}`
+                    }`}
                 />
                 <label
                   className={`${isExact && `${styles.cur}`}`}
                   onClick={isExact && onClickExact}
                 >
                   <div className={styles.changeTitle}>
-                    <span>Exact</span>
+                    <span>Round Trip</span>
                   </div>
                 </label>
                 <label
@@ -56,7 +54,7 @@ export default function Date(props) {
                   onClick={!isExact && onClickExact}
                 >
                   <div className={styles.changeTitle}>
-                    <span>Approximate</span>
+                    <span>Single Trip</span>
                   </div>
                 </label>
               </div>
