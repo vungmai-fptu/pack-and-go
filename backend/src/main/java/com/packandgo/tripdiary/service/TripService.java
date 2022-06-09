@@ -2,6 +2,7 @@ package com.packandgo.tripdiary.service;
 
 import com.packandgo.tripdiary.model.Trip;
 import com.packandgo.tripdiary.model.User;
+import com.packandgo.tripdiary.payload.request.trip.LikeRequest;
 import com.packandgo.tripdiary.payload.request.trip.TripRequest;
 
 import java.util.List;
@@ -13,4 +14,7 @@ public interface TripService {
     public void updateTrip(Long tripId, TripRequest request);
     public Trip get(Long id);
     public List<Trip> getTripsForUser(User user);
+    public void likeTrip(LikeRequest request);
+    public boolean existedTrip(Long tripId);
+    public boolean existedLike(LikeRequest request);
 }

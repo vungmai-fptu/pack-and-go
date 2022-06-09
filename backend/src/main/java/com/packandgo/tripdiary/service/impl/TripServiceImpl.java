@@ -2,10 +2,13 @@ package com.packandgo.tripdiary.service.impl;
 
 import com.packandgo.tripdiary.enums.Transportation;
 import com.packandgo.tripdiary.enums.TripStatus;
+import com.packandgo.tripdiary.model.Like;
 import com.packandgo.tripdiary.model.Trip;
 import com.packandgo.tripdiary.model.User;
+import com.packandgo.tripdiary.payload.request.trip.LikeRequest;
 import com.packandgo.tripdiary.payload.request.trip.TripRequest;
 import com.packandgo.tripdiary.repository.DestinationRepository;
+import com.packandgo.tripdiary.repository.LikeRepository;
 import com.packandgo.tripdiary.repository.TripRepository;
 import com.packandgo.tripdiary.repository.UserRepository;
 import com.packandgo.tripdiary.service.TripService;
@@ -29,12 +32,14 @@ public class TripServiceImpl implements TripService {
     private final TripRepository tripRepository;
     private final UserRepository userRepository;
     private final DestinationRepository destinationRepository;
+    private final LikeRepository likeRepository;
 
     @Autowired
-    public TripServiceImpl(TripRepository tripRepository, UserRepository userRepository, DestinationRepository destinationRepository) {
+    public TripServiceImpl(TripRepository tripRepository, UserRepository userRepository, DestinationRepository destinationRepository, LikeRepository likeRepository) {
         this.tripRepository = tripRepository;
         this.userRepository = userRepository;
         this.destinationRepository = destinationRepository;
+        this.likeRepository = likeRepository;
     }
 
     @Override
@@ -124,7 +129,7 @@ public class TripServiceImpl implements TripService {
         newTrip.setNote(request.getNote());
 
         if (request.getConcurrencyUnit() == null ||
-                request.getConcurrencyUnit().isBlank()) {
+                request.getConcurrencyUnit().trim().length() == 0) {
             newTrip.setConcurrencyUnit("$");
         }
 
@@ -242,7 +247,7 @@ public class TripServiceImpl implements TripService {
 
         trip.setNote(request.getNote());
         if (request.getConcurrencyUnit() == null ||
-                request.getConcurrencyUnit().isBlank()) {
+                request.getConcurrencyUnit().trim().length() == 0) {
             trip.setConcurrencyUnit("$");
         } else {
             trip.setConcurrencyUnit(request.getConcurrencyUnit());
@@ -265,5 +270,47 @@ public class TripServiceImpl implements TripService {
         List<Trip> trips = tripRepository.findByUserId(user.getId());
         return trips;
     }
+    @Override
+    public boolean existedTrip(Long tripId){
+        return tripRepository.existsById(tripId);
+    }
+    @Override
+    public void likeTrip(LikeRequest request){
+        UserDetails userDetails = (UserDetails) SecurityContextHolder
+                .getContext()
+                .getAuthentication()
+                .getPrincipal();
 
+        User user = userRepository.findByUsername(userDetails.getUsername()).orElseThrow(
+                () -> new UsernameNotFoundException("Unauthorized user")
+        );
+
+        Trip trip = tripRepository.findById(request.getTrip_id()).orElseThrow(
+                () ->  new IllegalArgumentException("Trip with ID \"" + id + "\" doesn't exist")
+        );
+        if(likeRepository.existsByTripIdAndUserId(trip.getId(), user.getId())==false) {
+            Like like = new Like();
+            like.setUser(user);
+            like.setTrip(trip);
+            likeRepository.save(like);
+        }else {
+            Like existedLike = likeRepository.findByTripIdAndUserId(trip.getId(), user.getId());
+            likeRepository.delete(existedLike);
+        }
+    }
+    @Override
+    public boolean existedLike(LikeRequest request){
+        UserDetails userDetails = (UserDetails) SecurityContextHolder
+                .getContext()
+                .getAuthentication()
+                .getPrincipal();
+
+        User user = userRepository.findByUsername(userDetails.getUsername()).orElseThrow(
+                () -> new UsernameNotFoundException("Unauthorized user")
+        );
+        Trip trip = tripRepository.findById(request.getTrip_id()).orElseThrow(
+                () ->  new IllegalArgumentException("Trip with ID \"" + id + "\" doesn't exist")
+        );
+        return likeRepository.existsByTripIdAndUserId(trip.getId(), user.getId());
+    }
 }
