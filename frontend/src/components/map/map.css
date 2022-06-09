@@ -1,9 +1,9 @@
-.App {
-    font-family: sans-serif;
-    text-align: center;
+.container {
+    border: 5px solid #000;
+    overflow: hidden;
 }
 
 .leaflet-container {
-    height: auto;
-    width: 800px;
+    height: 600px;
+    width: 100%;
 }

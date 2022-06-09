@@ -1,11 +1,15 @@
 import { useRef, useState } from "react";
+import "react-date-range/dist/styles.css";
+import "react-date-range/dist/theme/default.css";
+import GetDate from "../../../../components/date";
 import styles from "../trip.module.css";
 import { useDetectOutsideClick } from "./../../../../components/useDetectOutsideClick";
 
-export default function Date(props) {
+export default function Date() {
   const dropdownRef = useRef(null);
   const [isActive, setIsActive] = useDetectOutsideClick(dropdownRef, false);
   const [isExact, setIsExact] = useState(false);
+
   const onClick = () => setIsActive(!isActive);
   const onClickExact = () => setIsExact(!isExact);
   return (
@@ -19,7 +23,6 @@ export default function Date(props) {
           <span style={{ paddingLeft: "8px" }}>Enter date</span>
         </button>
         <div
-          ref={dropdownRef}
           className={`${styles.formTripDate} ${
             isActive ? `${styles.active}` : "inactive"
           }`}
@@ -92,6 +95,7 @@ export default function Date(props) {
               ) : (
                 ""
               )}
+              <GetDate />
             </div>
             <div className={styles.buttonSetDate}>
               <div style={{ flex: "1 1 0%", textAlign: "left" }}>
