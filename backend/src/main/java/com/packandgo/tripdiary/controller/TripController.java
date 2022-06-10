@@ -2,6 +2,7 @@ package com.packandgo.tripdiary.controller;
 
 import com.packandgo.tripdiary.exception.TripNotFoundException;
 import com.packandgo.tripdiary.model.Trip;
+import com.packandgo.tripdiary.payload.request.trip.LikeRequest;
 import com.packandgo.tripdiary.payload.request.trip.TripRequest;
 import com.packandgo.tripdiary.payload.response.ErrorResponse;
 import com.packandgo.tripdiary.payload.response.MessageResponse;
@@ -67,5 +68,15 @@ public class TripController {
         return ResponseEntity.ok(new MessageResponse("Trip was updated successfully"));
     }
 
+    @PostMapping("/like")
+    public ResponseEntity<?> likeTrip(@RequestBody LikeRequest request){
+        if(!tripService.existedLike(request)){
+            tripService.likeTrip(request);
+            return ResponseEntity.ok(new MessageResponse("Trip was liked successfully"));
+        }else {
+            tripService.likeTrip(request);
+            return ResponseEntity.ok(new MessageResponse("Trip was unliked successfully"));
+        }
+    }
 
 }

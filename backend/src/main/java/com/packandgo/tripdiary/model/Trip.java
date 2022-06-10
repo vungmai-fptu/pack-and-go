@@ -80,6 +80,12 @@ public class Trip {
             orphanRemoval = true)
     private List<PriceItem> priceList = new ArrayList<>();
 
+    @OneToMany(mappedBy = "trip",
+            fetch = FetchType.LAZY,
+            cascade = CascadeType.ALL,
+            orphanRemoval = true
+    )
+    private List<Like> likes = new ArrayList<>();
     public Trip() {
     }
 
