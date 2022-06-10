@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
+import { IconName } from "react-icons/fa";
 import styles from "./tab.module.css";
 class Tab extends Component {
   static propTypes = {

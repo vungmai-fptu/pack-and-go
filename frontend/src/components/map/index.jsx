@@ -1,9 +1,9 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef } from "react";
 import { MapContainer, TileLayer, Popup, Marker } from "react-leaflet";
 import { OpenStreetMapProvider } from "react-leaflet-geosearch";
 import L from "leaflet";
 import SearchControl from "./searchControl";
-import 'leaflet/dist/leaflet.css';
+import "leaflet/dist/leaflet.css";
 import "./map.css";
 import useLocation from "./../../hooks/useLocation";
 import mIcon from "./location-icon.png";
@@ -19,7 +19,7 @@ const makerIcon = new L.Icon({
 });
 const MapComponent = () => {
   const prov = OpenStreetMapProvider();
-  const [center, setCenter] = useState([13, 13]);
+  // const [center, setCenter] = useState([13, 13]);
   const location = useLocation();
   const mapRef = useRef();
 
@@ -42,7 +42,7 @@ const MapComponent = () => {
   }, [location]);
 
   return (
-    <div className="container">
+    <div className="container-map">
       <MapContainer
         center={[location.coordinates.lat, location.coordinates.lng]}
         zoom={ZOOM_LEVEL}
@@ -61,7 +61,7 @@ const MapComponent = () => {
             <Popup>Your location</Popup>
           </Marker>
         )}
-        {/* <SearchControl
+        <SearchControl
           provider={prov}
           showMarker={true}
           showPopup={false}
@@ -72,7 +72,7 @@ const MapComponent = () => {
           autoClose={true}
           searchLabel={"Enter address, please"}
           keepResult={true}
-        /> */}
+        />
       </MapContainer>
     </div>
   );

@@ -23,8 +23,9 @@ export default function Date() {
           <span style={{ paddingLeft: "8px" }}>Enter date</span>
         </button>
         <div
-          className={`${styles.formTripDate} ${isActive ? `${styles.active}` : "inactive"
-            }`}
+          className={`${styles.formTripDate} ${
+            isActive ? `${styles.active}` : "inactive"
+          }`}
         >
           <div className={styles.dropdownTop} style={{ left: "50% " }}>
             <svg
@@ -41,8 +42,9 @@ export default function Date() {
             <div className={styles.tripType}>
               <div className={styles.change}>
                 <div
-                  className={`${styles.transition} ${isExact ? "inactive" : `${styles.activeExact}`
-                    }`}
+                  className={`${styles.transition} ${
+                    isExact ? "inactive" : `${styles.activeExact}`
+                  }`}
                 />
                 <label
                   className={`${isExact && `${styles.cur}`}`}
@@ -64,7 +66,7 @@ export default function Date() {
             </div>
             <div className={styles.selectDate}>
               <label>Start Date</label>
-              <div className={styles.inputContainer}>
+              {/* <div className={styles.inputContainer}>
                 <div className={styles.outside}>
                   <input placeholder="Select a date" />
                   <div className={styles.setDateIcon}>
@@ -74,26 +76,26 @@ export default function Date() {
                     />
                   </div>
                 </div>
-              </div>
-              {!isExact ? (
-                <div>
-                  <label>End Date</label>
-                  <div className={styles.inputContainer}>
-                    <div className={styles.outside}>
-                      <input placeholder="Select a date" />
-                      <div className={styles.setDateIcon}>
-                        <img
-                          src="fonts/src_app_components_components_svgIcon_icons_commonsprite-afce76.svg#calendarl-usage"
-                          alt="common/calendar"
-                        />
-                      </div>
-                    </div>
-                  </div>
-                </div>
+              </div> */}
+              {isExact ? (
+                // <div>
+                //   <label>End Date</label>
+                //   <div className={styles.inputContainer}>
+                //     <div className={styles.outside}>
+                //       <input placeholder="Select a date" />
+                //       <div className={styles.setDateIcon}>
+                //         <img
+                //           src="fonts/src_app_components_components_svgIcon_icons_commonsprite-afce76.svg#calendarl-usage"
+                //           alt="common/calendar"
+                //         />
+                //       </div>
+                //     </div>
+                //   </div>
+                // </div>
+                <GetDate focusedRange={[0, 0]} showDateDisplay={false} />
               ) : (
-                ""
+                <GetDate editableDateInputs={true} />
               )}
-              <GetDate />
             </div>
             <div className={styles.buttonSetDate}>
               <div style={{ flex: "1 1 0%", textAlign: "left" }}>
