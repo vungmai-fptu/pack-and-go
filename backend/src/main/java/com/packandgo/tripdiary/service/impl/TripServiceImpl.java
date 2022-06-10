@@ -5,7 +5,6 @@ import com.packandgo.tripdiary.enums.TripStatus;
 import com.packandgo.tripdiary.model.Like;
 import com.packandgo.tripdiary.model.Trip;
 import com.packandgo.tripdiary.model.User;
-import com.packandgo.tripdiary.payload.request.trip.LikeRequest;
 import com.packandgo.tripdiary.payload.request.trip.TripRequest;
 import com.packandgo.tripdiary.repository.DestinationRepository;
 import com.packandgo.tripdiary.repository.LikeRepository;
@@ -24,6 +23,7 @@ import org.springframework.stereotype.Service;
 import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import static org.springframework.data.jpa.domain.AbstractPersistable_.id;
 
@@ -275,18 +275,16 @@ public class TripServiceImpl implements TripService {
         return tripRepository.existsById(tripId);
     }
     @Override
-    public void likeTrip(LikeRequest request){
+    public void likeTrip(Long tripId){
         UserDetails userDetails = (UserDetails) SecurityContextHolder
                 .getContext()
                 .getAuthentication()
                 .getPrincipal();
 
-        User user = userRepository.findByUsername(userDetails.getUsername()).orElseThrow(
-                () -> new UsernameNotFoundException("Unauthorized user")
-        );
+        User user = userRepository.findByUsername(userDetails.getUsername()).get();
 
-        Trip trip = tripRepository.findById(request.getTrip_id()).orElseThrow(
-                () ->  new IllegalArgumentException("Trip with ID \"" + id + "\" doesn't exist")
+        Trip trip = tripRepository.findById(tripId).orElseThrow(
+                () ->  new IllegalArgumentException("Trip with ID \"" + tripId + "\" doesn't exist")
         );
         if(likeRepository.existsByTripIdAndUserId(trip.getId(), user.getId())==false) {
             Like like = new Like();
@@ -299,16 +297,15 @@ public class TripServiceImpl implements TripService {
         }
     }
     @Override
-    public boolean existedLike(LikeRequest request){
+    public boolean existedLike(Long tripId){
         UserDetails userDetails = (UserDetails) SecurityContextHolder
                 .getContext()
                 .getAuthentication()
                 .getPrincipal();
 
-        User user = userRepository.findByUsername(userDetails.getUsername()).orElseThrow(
-                () -> new UsernameNotFoundException("Unauthorized user")
-        );
-        Trip trip = tripRepository.findById(request.getTrip_id()).orElseThrow(
+        User user = userRepository.findByUsername(userDetails.getUsername()).get();
+
+        Trip trip = tripRepository.findById(tripId).orElseThrow(
                 () ->  new IllegalArgumentException("Trip with ID \"" + id + "\" doesn't exist")
         );
         return likeRepository.existsByTripIdAndUserId(trip.getId(), user.getId());
