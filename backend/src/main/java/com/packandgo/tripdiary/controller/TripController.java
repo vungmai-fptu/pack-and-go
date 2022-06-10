@@ -2,22 +2,20 @@ package com.packandgo.tripdiary.controller;
 
 import com.packandgo.tripdiary.exception.TripNotFoundException;
 import com.packandgo.tripdiary.model.Trip;
+import com.packandgo.tripdiary.model.User;
+import com.packandgo.tripdiary.model.UserInfo;
 import com.packandgo.tripdiary.payload.request.trip.LikeRequest;
 import com.packandgo.tripdiary.payload.request.trip.TripRequest;
-import com.packandgo.tripdiary.payload.response.ErrorResponse;
 import com.packandgo.tripdiary.payload.response.MessageResponse;
-import com.packandgo.tripdiary.payload.response.TripListResponse;
+import com.packandgo.tripdiary.payload.response.UserResponse;
+import com.packandgo.tripdiary.payload.response.trip.TripListResponse;
+import com.packandgo.tripdiary.payload.response.trip.TripResponse;
 import com.packandgo.tripdiary.service.TripService;
 import com.packandgo.tripdiary.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.context.request.ServletWebRequest;
-import org.springframework.web.context.request.WebRequest;
 
-import java.util.Date;
 import java.util.List;
 
 @RestController
@@ -37,8 +35,11 @@ public class TripController {
     @ExceptionHandler(value = {TripNotFoundException.class})
     public ResponseEntity<?> getTrip(@PathVariable(name = "id", required = true) Long tripId) {
         Trip trip = tripService.get(tripId);
-        return ResponseEntity.ok(trip);
+        TripResponse tripResponse = trip.toResponse();
+        return ResponseEntity.ok(tripResponse);
     }
+
+
 
     @GetMapping("")
     public ResponseEntity<?> getAllTrips(@RequestParam(defaultValue = "0") int page,
@@ -49,27 +50,29 @@ public class TripController {
         return ResponseEntity.ok(response);
     }
 
-    @PostMapping("/insert")
+    @PostMapping("")
     public ResponseEntity<?> insertTrip(@RequestBody TripRequest tripRequest) {
         tripService.insertTrip(tripRequest);
         return ResponseEntity.ok(new MessageResponse("Trip was inserted successfully"));
     }
 
-    @DeleteMapping("/remove/{id}")
+    @DeleteMapping("/{id}")
     public ResponseEntity<?> deleteTrip(@PathVariable(name = "id", required = true) Long tripId) {
         tripService.removeTrip(tripId);
         return ResponseEntity.ok(new MessageResponse("Trip was removed successfully"));
     }
 
-    @PutMapping("/update/{id}")
+    @PutMapping("/{id}")
     public ResponseEntity<?> updateTrip(@PathVariable(name = "id", required = true) Long tripId,
                                         @RequestBody TripRequest request) {
         tripService.updateTrip(tripId, request);
         return ResponseEntity.ok(new MessageResponse("Trip was updated successfully"));
     }
 
-    @PostMapping("/like")
-    public ResponseEntity<?> likeTrip(@RequestBody LikeRequest request){
+    @PostMapping("/like/{id}")
+    public ResponseEntity<?> likeTrip(
+            @PathVariable(name = "id", required = true) Long tripId,
+            @RequestBody LikeRequest request){
         if(!tripService.existedLike(request)){
             tripService.likeTrip(request);
             return ResponseEntity.ok(new MessageResponse("Trip was liked successfully"));
@@ -78,5 +81,7 @@ public class TripController {
             return ResponseEntity.ok(new MessageResponse("Trip was unliked successfully"));
         }
     }
+
+
 
 }

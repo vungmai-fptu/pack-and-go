@@ -64,75 +64,13 @@ public class TripServiceImpl implements TripService {
         if (request.getDestination() == null) {
             throw new IllegalArgumentException("Trip's destination is required");
         }
+        if (request.getName() == null || request.getName().trim().length() == 0) {
+            throw new IllegalArgumentException("Trip's name is required");
+        }
+
 
         Trip newTrip = new Trip();
-        newTrip.setThumbnailUrl(request.getThumbnailUrl());
-
-        newTrip.setDestination(request.getDestination());
-        newTrip.setBeginDate(request.getBeginDate());
-        newTrip.setEndDate(request.getEndDate());
-        newTrip.setUser(user);
-
-        //set transportation
-        if (request.getTransportation() == null) {
-            newTrip.setTransportation(Transportation.UNDEFINED);
-        } else {
-            switch (request.getTransportation()) {
-                case "car": {
-                    newTrip.setTransportation(Transportation.CAR);
-                    break;
-                }
-                case "bus": {
-                    newTrip.setTransportation(Transportation.BUS);
-                    break;
-                }
-                case "train": {
-                    newTrip.setTransportation(Transportation.TRAIN);
-                    break;
-                }
-                case "plane": {
-                    newTrip.setTransportation(Transportation.PLANE);
-                    break;
-                }
-                case "motorbike": {
-                    newTrip.setTransportation(Transportation.MOTORBIKE);
-                    break;
-                }
-                case "bike": {
-                    newTrip.setTransportation(Transportation.BIKE);
-                    break;
-                }
-                case "ship": {
-                    newTrip.setTransportation(Transportation.SHIP);
-                    break;
-                }
-                case "on_walk": {
-                    newTrip.setTransportation(Transportation.ON_WALK);
-                    break;
-                }
-                default:
-                    newTrip.setTransportation(Transportation.UNDEFINED);
-                    break;
-            }
-        }
-
-        TripStatus status = request.getStatus().toLowerCase().equals("private") ?
-                TripStatus.PRIVATE : TripStatus.PUBLIC;
-
-        newTrip.setStatus(status);
-        newTrip.setNotifyBefore(request.getNotifyBefore());
-
-        newTrip.setVisitDays(request.getVisitDays());
-        newTrip.setPriceList(request.getPriceList());
-        newTrip.setPreparedList(request.getPreparedList());
-        newTrip.setNote(request.getNote());
-
-        if (request.getConcurrencyUnit() == null ||
-                request.getConcurrencyUnit().trim().length() == 0) {
-            newTrip.setConcurrencyUnit("$");
-        } else {
-            newTrip.setConcurrencyUnit(request.getConcurrencyUnit());
-        }
+        newTrip.mapping(request);
 
         tripRepository.save(newTrip);
     }
@@ -184,9 +122,8 @@ public class TripServiceImpl implements TripService {
         List<Trip> trips = getTripsForUser(user);
 
         Trip trip = trips.stream().filter(t -> t.getId() == tripId).findAny().orElseThrow(
-                () ->  new IllegalArgumentException("You have no permission to update this trip")
+                () -> new IllegalArgumentException("You have no permission to update this trip")
         );
-
 
         if (request.getNotifyBefore() < 1) {
             throw new IllegalArgumentException("Trip should be announced at least 1 day earlier than its starting");
@@ -194,83 +131,16 @@ public class TripServiceImpl implements TripService {
         if (request.getDestination() == null) {
             throw new IllegalArgumentException("Trip's destination is required");
         }
-
-
-        trip.setThumbnailUrl(request.getThumbnailUrl());
+        if (request.getName() == null || request.getName().trim().length() == 0) {
+            throw new IllegalArgumentException("Trip's name is required");
+        }
 
         //remove the old destination in database
         if (trip.getDestination() != null) {
             destinationRepository.delete(trip.getDestination());
         }
 
-        trip.setDestination(request.getDestination());
-        trip.setBeginDate(request.getBeginDate());
-        trip.setEndDate(request.getEndDate());
-
-        //set transportation
-        if (request.getTransportation() == null) {
-            trip.setTransportation(Transportation.UNDEFINED);
-        } else {
-            switch (request.getTransportation()) {
-                case "car": {
-                    trip.setTransportation(Transportation.CAR);
-                    break;
-                }
-                case "bus": {
-                    trip.setTransportation(Transportation.BUS);
-                    break;
-                }
-                case "train": {
-                    trip.setTransportation(Transportation.TRAIN);
-                    break;
-                }
-                case "plane": {
-                    trip.setTransportation(Transportation.PLANE);
-                    break;
-                }
-                case "motorbike": {
-                    trip.setTransportation(Transportation.MOTORBIKE);
-                    break;
-                }
-                case "bike": {
-                    trip.setTransportation(Transportation.BIKE);
-                    break;
-                }
-                case "ship": {
-                    trip.setTransportation(Transportation.SHIP);
-                    break;
-                }
-                case "on_walk": {
-                    trip.setTransportation(Transportation.ON_WALK);
-                    break;
-                }
-                default:
-                    trip.setTransportation(Transportation.UNDEFINED);
-                    break;
-            }
-        }
-
-        TripStatus status = request.getStatus().toLowerCase().equals("private") ?
-                TripStatus.PRIVATE : TripStatus.PUBLIC;
-
-        trip.setStatus(status);
-        trip.setNotifyBefore(request.getNotifyBefore());
-        if (request.getNotifyBefore() < 1) {
-            throw new IllegalArgumentException("Trip should be announced at least 1 day earlier than its starting");
-        }
-
-        trip.setVisitDays(request.getVisitDays());
-        trip.setPriceList(request.getPriceList());
-        trip.setPreparedList(request.getPreparedList());
-
-        trip.setNote(request.getNote());
-        if (request.getConcurrencyUnit() == null ||
-                request.getConcurrencyUnit().trim().length() == 0) {
-            trip.setConcurrencyUnit("$");
-        } else {
-            trip.setConcurrencyUnit(request.getConcurrencyUnit());
-        }
-
+        trip.mapping(request);
 
         tripRepository.save(trip);
     }
@@ -278,7 +148,7 @@ public class TripServiceImpl implements TripService {
     @Override
     public Trip get(Long id) {
         Trip trip = tripRepository.findById(id).orElseThrow(
-                () ->  new IllegalArgumentException("Trip with ID \"" + id + "\" doesn't exist")
+                () -> new IllegalArgumentException("Trip with ID \"" + id + "\" doesn't exist")
         );
         return trip;
     }
@@ -288,36 +158,37 @@ public class TripServiceImpl implements TripService {
         List<Trip> trips = tripRepository.findByUserId(user.getId());
         return trips;
     }
+
     @Override
-    public boolean existedTrip(Long tripId){
+    public boolean existedTrip(Long tripId) {
         return tripRepository.existsById(tripId);
     }
+
     @Override
-    public void likeTrip(LikeRequest request){
+    public void likeTrip(LikeRequest request) {
         UserDetails userDetails = (UserDetails) SecurityContextHolder
                 .getContext()
                 .getAuthentication()
                 .getPrincipal();
 
-        User user = userRepository.findByUsername(userDetails.getUsername()).orElseThrow(
-                () -> new UsernameNotFoundException("Unauthorized user")
-        );
+        User user = userRepository.findByUsername(userDetails.getUsername()).get();
 
-        Trip trip = tripRepository.findById(request.getTrip_id()).orElseThrow(
-                () ->  new IllegalArgumentException("Trip with ID \"" + id + "\" doesn't exist")
+        Trip trip = tripRepository.findById(request.getTripId()).orElseThrow(
+                () -> new IllegalArgumentException("Trip with ID \"" + request.getTripId() + "\" doesn't exist")
         );
-        if(likeRepository.existsByTripIdAndUserId(trip.getId(), user.getId())==false) {
+        if (likeRepository.existsByTripIdAndUserId(trip.getId(), user.getId()) == false) {
             Like like = new Like();
             like.setUser(user);
             like.setTrip(trip);
             likeRepository.save(like);
-        }else {
+        } else {
             Like existedLike = likeRepository.findByTripIdAndUserId(trip.getId(), user.getId());
             likeRepository.delete(existedLike);
         }
     }
+
     @Override
-    public boolean existedLike(LikeRequest request){
+    public boolean existedLike(LikeRequest request) {
         UserDetails userDetails = (UserDetails) SecurityContextHolder
                 .getContext()
                 .getAuthentication()
@@ -326,8 +197,8 @@ public class TripServiceImpl implements TripService {
         User user = userRepository.findByUsername(userDetails.getUsername()).orElseThrow(
                 () -> new UsernameNotFoundException("Unauthorized user")
         );
-        Trip trip = tripRepository.findById(request.getTrip_id()).orElseThrow(
-                () ->  new IllegalArgumentException("Trip with ID \"" + id + "\" doesn't exist")
+        Trip trip = tripRepository.findById(request.getTripId()).orElseThrow(
+                () -> new IllegalArgumentException("Trip with ID \"" + request.getTripId() + "\" doesn't exist")
         );
         return likeRepository.existsByTripIdAndUserId(trip.getId(), user.getId());
     }

@@ -30,6 +30,7 @@ public class ExceptionHandler {
     }
 
     @org.springframework.web.bind.annotation.ExceptionHandler(TripNotFoundException.class)
+    @ResponseStatus(HttpStatus.NOT_FOUND)
     public ErrorResponse handleTripNotFoundException(Exception ex, WebRequest request) {
         return new ErrorResponse(
                 HttpStatus.NOT_FOUND.value(),

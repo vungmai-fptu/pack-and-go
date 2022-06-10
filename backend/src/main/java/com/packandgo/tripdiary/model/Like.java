@@ -8,7 +8,7 @@ import javax.persistence.*;
 import java.util.ArrayList;
 
 @Entity
-@Table(name = "liketable")
+@Table(name = "like")
 public class Like {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
