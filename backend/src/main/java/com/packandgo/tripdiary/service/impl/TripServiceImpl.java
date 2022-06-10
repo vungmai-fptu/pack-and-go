@@ -22,7 +22,6 @@ import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.springframework.data.jpa.domain.AbstractPersistable_.id;
 
 @Service
 public class TripServiceImpl implements TripService {
@@ -124,8 +123,10 @@ public class TripServiceImpl implements TripService {
         newTrip.setNote(request.getNote());
 
         if (request.getConcurrencyUnit() == null ||
-                request.getConcurrencyUnit().isBlank()) {
+                request.getConcurrencyUnit().trim().length() == 0) {
             newTrip.setConcurrencyUnit("$");
+        } else {
+            newTrip.setConcurrencyUnit(request.getConcurrencyUnit());
         }
 
         tripRepository.save(newTrip);
@@ -150,17 +151,37 @@ public class TripServiceImpl implements TripService {
             throw new IllegalArgumentException("Removed trip's ID is required");
         }
 
-        Trip existedTrip = tripRepository.findById(id).orElseThrow(
-                () ->  new IllegalArgumentException("Trip with ID \"" + id + "\" doesn't exist")
+        UserDetails userDetails = (UserDetails) SecurityContextHolder
+                .getContext()
+                .getAuthentication()
+                .getPrincipal();
+
+        User user = userRepository.findByUsername(userDetails.getUsername()).get();
+        List<Trip> trips = getTripsForUser(user);
+
+        Trip existedTrip = trips.stream().filter(trip -> trip.getId() == id).findAny().orElseThrow(
+                () -> new IllegalArgumentException("You have no permission to delete this trip")
         );
 
         tripRepository.delete(existedTrip);
-
     }
 
     @Override
     @Transactional
     public void updateTrip(Long tripId, TripRequest request) {
+
+        UserDetails userDetails = (UserDetails) SecurityContextHolder
+                .getContext()
+                .getAuthentication()
+                .getPrincipal();
+
+        User user = userRepository.findByUsername(userDetails.getUsername()).get();
+        List<Trip> trips = getTripsForUser(user);
+
+        Trip trip = trips.stream().filter(t -> t.getId() == tripId).findAny().orElseThrow(
+                () ->  new IllegalArgumentException("You have no permission to update this trip")
+        );
+
 
         if (request.getNotifyBefore() < 1) {
             throw new IllegalArgumentException("Trip should be announced at least 1 day earlier than its starting");
@@ -169,9 +190,6 @@ public class TripServiceImpl implements TripService {
             throw new IllegalArgumentException("Trip's destination is required");
         }
 
-        Trip trip = tripRepository.findById(tripId).orElseThrow(
-                () ->  new IllegalArgumentException("Trip with ID \"" + id + "\" doesn't exist")
-        );
 
         trip.setThumbnailUrl(request.getThumbnailUrl());
 
@@ -242,7 +260,7 @@ public class TripServiceImpl implements TripService {
 
         trip.setNote(request.getNote());
         if (request.getConcurrencyUnit() == null ||
-                request.getConcurrencyUnit().isBlank()) {
+                request.getConcurrencyUnit().trim().length() == 0) {
             trip.setConcurrencyUnit("$");
         } else {
             trip.setConcurrencyUnit(request.getConcurrencyUnit());

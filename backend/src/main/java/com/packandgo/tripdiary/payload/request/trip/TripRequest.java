@@ -14,10 +14,10 @@ public class TripRequest {
     private String thumbnailUrl;
     private Destination destination;
 
-    @JsonFormat(pattern = "yyyy/MM/dd")
+    @JsonFormat(pattern = "yyyy-MM-dd")
     private Date beginDate;
 
-    @JsonFormat(pattern = "yyyy/MM/dd")
+    @JsonFormat(pattern = "yyyy-MM-dd")
     private Date endDate;
 
     private String transportation;

@@ -11,50 +11,50 @@ const Place = () => {
       description: "nhà giàu",
     },
   ];
-  const test = [
-    {
-      visitDays: [
-        {
-          dayNumber: 1,
-          description: "string",
-          visitPlaces: [
-            {
-              description: "string",
-              images: [
-                {
-                  description: "string",
-                  url: "string",
-                },
-              ],
-              latitude: 0,
-              longitude: 0,
-            },
-          ],
-        },
-      ],
-    },
-    {
-      visitDays: [
-        {
-          dayNumber: 2,
-          description: "string",
-          visitPlaces: [
-            {
-              description: "string",
-              images: [
-                {
-                  description: "string",
-                  url: "string",
-                },
-              ],
-              latitude: 0,
-              longitude: 0,
-            },
-          ],
-        },
-      ],
-    },
-  ];
+  // const test = [
+  //   {
+  //     visitDays: [
+  //       {
+  //         dayNumber: 1,
+  //         description: "string",
+  //         visitPlaces: [
+  //           {
+  //             description: "string",
+  //             images: [
+  //               {
+  //                 description: "string",
+  //                 url: "string",
+  //               },
+  //             ],
+  //             latitude: 0,
+  //             longitude: 0,
+  //           },
+  //         ],
+  //       },
+  //     ],
+  //   },
+  //   {
+  //     visitDays: [
+  //       {
+  //         dayNumber: 2,
+  //         description: "string",
+  //         visitPlaces: [
+  //           {
+  //             description: "string",
+  //             images: [
+  //               {
+  //                 description: "string",
+  //                 url: "string",
+  //               },
+  //             ],
+  //             latitude: 0,
+  //             longitude: 0,
+  //           },
+  //         ],
+  //       },
+  //     ],
+  //   },
+  // ];
   return place.map((place, index) => {
     return (
       <div className={styles.place} key={index}>

@@ -2,6 +2,8 @@ package com.packandgo.tripdiary.exception;
 
 import com.packandgo.tripdiary.payload.response.ErrorResponse;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
@@ -14,6 +16,18 @@ import java.util.Date;
 @ControllerAdvice
 @RestControllerAdvice
 public class ExceptionHandler {
+
+    @org.springframework.web.bind.annotation.ExceptionHandler(value = {HttpMessageNotReadableException.class})
+    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+    public ResponseEntity<ErrorResponse> handDateConvertException(Exception ex, WebRequest request) {
+        ErrorResponse error = new ErrorResponse(
+                HttpStatus.INTERNAL_SERVER_ERROR.value(),
+                "Invalid date format, correct format is yyyy-MM-dd",
+                new Date(),
+                ((ServletWebRequest) request).getRequest().getRequestURI().toString()
+        );
+        return ResponseEntity.internalServerError().body(error);
+    }
 
     @org.springframework.web.bind.annotation.ExceptionHandler(TripNotFoundException.class)
     public ErrorResponse handleTripNotFoundException(Exception ex, WebRequest request) {

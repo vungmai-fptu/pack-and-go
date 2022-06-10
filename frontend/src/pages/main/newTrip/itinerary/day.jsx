@@ -1,4 +1,4 @@
-import { IoChevronUpSharp, IoLocationSharp } from "react-icons/io5";
+import { IoChevronUpSharp } from "react-icons/io5";
 import { IoMdAddCircleOutline } from "react-icons/io";
 import styles from "../trip.module.css";
 import Place from "./place";

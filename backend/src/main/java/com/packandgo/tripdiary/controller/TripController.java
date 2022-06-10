@@ -3,14 +3,20 @@ package com.packandgo.tripdiary.controller;
 import com.packandgo.tripdiary.exception.TripNotFoundException;
 import com.packandgo.tripdiary.model.Trip;
 import com.packandgo.tripdiary.payload.request.trip.TripRequest;
+import com.packandgo.tripdiary.payload.response.ErrorResponse;
 import com.packandgo.tripdiary.payload.response.MessageResponse;
 import com.packandgo.tripdiary.payload.response.TripListResponse;
 import com.packandgo.tripdiary.service.TripService;
 import com.packandgo.tripdiary.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.context.request.ServletWebRequest;
+import org.springframework.web.context.request.WebRequest;
 
+import java.util.Date;
 import java.util.List;
 
 @RestController
@@ -58,7 +64,7 @@ public class TripController {
     public ResponseEntity<?> updateTrip(@PathVariable(name = "id", required = true) Long tripId,
                                         @RequestBody TripRequest request) {
         tripService.updateTrip(tripId, request);
-        return ResponseEntity.ok(new MessageResponse("Trip was update successfully"));
+        return ResponseEntity.ok(new MessageResponse("Trip was updated successfully"));
     }
 
 
