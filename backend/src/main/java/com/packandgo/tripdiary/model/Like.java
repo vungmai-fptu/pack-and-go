@@ -8,20 +8,20 @@ import javax.persistence.*;
 import java.util.ArrayList;
 
 @Entity
-@Table(name = "like")
+@Table(name = "like_table")
 public class Like {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id", nullable = false)
+    @JoinColumn(name = "user_id",referencedColumnName = "id", nullable = false)
     @JsonIgnore
     private User user;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @OnDelete(action = OnDeleteAction.CASCADE)
-    @JoinColumn(name = "trip_id", nullable = false)
+    @JoinColumn(name = "trip_id",referencedColumnName = "id", nullable = false)
     @JsonIgnore
     private Trip trip;
 

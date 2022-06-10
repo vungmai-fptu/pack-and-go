@@ -13,6 +13,5 @@ import java.util.Optional;
 @Repository
 public interface LikeRepository extends JpaRepository<Like, Long> {
     Boolean existsByTripIdAndUserId(Long TripId, Long UserId);
-
     Like findByTripIdAndUserId(Long TripId, Long UserId);
 }
