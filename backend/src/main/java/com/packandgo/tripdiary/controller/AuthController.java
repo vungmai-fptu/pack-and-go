@@ -23,6 +23,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.websocket.server.PathParam;
 import java.net.URI;
@@ -58,11 +59,16 @@ public class AuthController {
     @PostMapping(value = "/signin")
     public ResponseEntity<?> signin(@RequestBody LoginRequest loginRequest) {
 
-        Authentication authentication = authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(
-                        loginRequest.getUsernameOrEmail(),
-                        loginRequest.getPassword())
-        );
+        Authentication authentication = null;
+        try {
+            authentication = authenticationManager.authenticate(
+                    new UsernamePasswordAuthenticationToken(
+                            loginRequest.getUsernameOrEmail(),
+                            loginRequest.getPassword())
+            );
+        } catch (Exception exception) {
+            throw new IllegalArgumentException("Email(username) or password is not correct");
+        }
 
         UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
         User user = userService.findUserByUsername(userDetails.getUsername());
@@ -115,7 +121,7 @@ public class AuthController {
 
         //sendEmail
         //create reset password email;
-        MailContent mailContent = new ResetPasswordMailContent(user.getEmail(),token,BASE_URL);
+        MailContent mailContent = new ResetPasswordMailContent(user.getEmail(), token, BASE_URL);
         emailSenderService.sendEmail(mailContent);
 
         return ResponseEntity.ok(new MessageResponse("Email sent"));

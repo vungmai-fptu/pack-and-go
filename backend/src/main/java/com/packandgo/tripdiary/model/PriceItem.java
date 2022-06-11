@@ -1,5 +1,7 @@
 package com.packandgo.tripdiary.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 
 @Entity
@@ -7,12 +9,14 @@ import javax.persistence.*;
 public class PriceItem {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @JsonIgnore
     private Long id;
     private String item;
     private float price;
 
     @ManyToOne
     @JoinColumn(name = "trip_id", nullable = false)
+    @JsonIgnore
     private Trip trip;
 
     public PriceItem() {

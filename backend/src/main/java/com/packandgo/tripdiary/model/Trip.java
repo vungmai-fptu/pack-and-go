@@ -2,9 +2,12 @@ package com.packandgo.tripdiary.model;
 
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.packandgo.tripdiary.enums.Transportation;
 import com.packandgo.tripdiary.enums.TripStatus;
 import com.packandgo.tripdiary.util.ListStringConverter;
 import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -21,7 +24,10 @@ public class Trip {
     @Column(name = "thumbnail_url")
     private String thumbnailUrl;
 
-    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @OneToOne(
+            fetch = FetchType.EAGER,
+            cascade = CascadeType.ALL
+    )
     @JoinColumn(
             name = "destination_id",
             referencedColumnName = "id"
@@ -29,12 +35,15 @@ public class Trip {
     private Destination destination;
 
     @Column(name = "begin_date")
-    @JsonFormat(pattern = "yyyy/MM/dd")
+    @JsonFormat(pattern = "yyyy-MM-dd")
     private Date beginDate;
 
     @Column(name = "end_date")
-    @JsonFormat(pattern = "yyyy/MM/dd")
+    @JsonFormat(pattern = "yyyy-MM-dd")
     private Date endDate;
+
+    @Enumerated(EnumType.STRING)
+    private Transportation transportation;
 
     @Column(name = "prepared_list")
     @Convert(converter = ListStringConverter.class)
@@ -43,6 +52,9 @@ public class Trip {
     @Enumerated(EnumType.STRING)
     private TripStatus status;
 
+
+    @Column
+    @Type(type = "text")
     private String note;
 
     @Column(name = "notify_before")
@@ -50,22 +62,39 @@ public class Trip {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)
+    @JsonIgnore
     private User user;
 
-    @OneToMany(mappedBy = "trip", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "trip",
+            fetch = FetchType.LAZY,
+            cascade = CascadeType.ALL,
+            orphanRemoval = true
+    )
     private List<VisitDay> visitDays = new ArrayList<>();
 
-    @OneToMany(mappedBy = "trip", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    public String concurrencyUnit;
+
+    @OneToMany(mappedBy = "trip",
+            fetch = FetchType.LAZY,
+            cascade = CascadeType.ALL,
+            orphanRemoval = true)
     private List<PriceItem> priceList = new ArrayList<>();
 
-    public  Trip() {}
+    public Trip() {
+    }
 
     public void addVisitDay(VisitDay visitDay) {
+        if(this.visitDays == null) {
+            visitDays = new ArrayList<>();
+        }
         this.visitDays.add(visitDay);
         visitDay.setTrip(this);
     }
 
     public void addPriceItem(PriceItem item) {
+        if(this.priceList == null) {
+            priceList = new ArrayList<>();
+        }
         this.priceList.add(item);
         item.setTrip(this);
     }
@@ -143,7 +172,11 @@ public class Trip {
     }
 
     public void setVisitDays(List<VisitDay> visitDays) {
-        this.visitDays = visitDays;
+        visitDays.forEach(day -> day.setTrip(this));
+        if (this.visitDays != null) {
+            this.visitDays.clear();
+        }
+        this.visitDays.addAll(visitDays);
     }
 
     public List<PriceItem> getPriceList() {
@@ -151,7 +184,13 @@ public class Trip {
     }
 
     public void setPriceList(List<PriceItem> priceList) {
-        this.priceList = priceList;
+        priceList.forEach(item -> item.setTrip(this));
+        if (this.priceList == null) {
+            priceList = new ArrayList<>();
+        }
+
+        this.priceList.clear();
+        this.priceList.addAll(priceList);
     }
 
     public String getThumbnailUrl() {
@@ -168,5 +207,21 @@ public class Trip {
 
     public void setDestination(Destination destination) {
         this.destination = destination;
+    }
+
+    public Transportation getTransportation() {
+        return transportation;
+    }
+
+    public void setTransportation(Transportation transportation) {
+        this.transportation = transportation;
+    }
+
+    public String getConcurrencyUnit() {
+        return concurrencyUnit;
+    }
+
+    public void setConcurrencyUnit(String concurrencyUnit) {
+        this.concurrencyUnit = concurrencyUnit;
     }
 }

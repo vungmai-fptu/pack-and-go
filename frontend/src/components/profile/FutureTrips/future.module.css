@@ -100,7 +100,6 @@
 
 @media (max-width: 768px) {
 
-
     .trips-title {
         max-width: 90%;
         padding: 0;
@@ -109,4 +108,5 @@
     .add-btn {
         display: none;
     }
+
 }

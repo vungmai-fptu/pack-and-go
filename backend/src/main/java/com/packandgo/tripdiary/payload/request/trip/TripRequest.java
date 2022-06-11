@@ -1,5 +1,6 @@
 package com.packandgo.tripdiary.payload.request.trip;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.packandgo.tripdiary.enums.TripStatus;
 import com.packandgo.tripdiary.model.Destination;
 import com.packandgo.tripdiary.model.PriceItem;
@@ -12,13 +13,20 @@ import java.util.List;
 public class TripRequest {
     private String thumbnailUrl;
     private Destination destination;
+
+    @JsonFormat(pattern = "yyyy/MM/dd")
     private Date beginDate;
+
+    @JsonFormat(pattern = "yyyy/MM/dd")
     private Date endDate;
+
+    private String transportation;
     private List<String> preparedList;
     private String status;
     private String note;
     private int notifyBefore;
     private List<VisitDay> visitDays = new ArrayList<>();
+    private String concurrencyUnit;
     private List<PriceItem> priceList = new ArrayList<>();
 
     public TripRequest() {}
@@ -101,5 +109,21 @@ public class TripRequest {
 
     public void setPriceList(List<PriceItem> priceList) {
         this.priceList = priceList;
+    }
+
+    public String getTransportation() {
+        return transportation;
+    }
+
+    public void setTransportation(String transportation) {
+        this.transportation = transportation;
+    }
+
+    public String getConcurrencyUnit() {
+        return concurrencyUnit;
+    }
+
+    public void setConcurrencyUnit(String concurrencyUnit) {
+        this.concurrencyUnit = concurrencyUnit;
     }
 }
