@@ -216,10 +216,8 @@
     flex-flow: row;
     max-width: 100%;
     min-width: 0;
-    margin: 20px 0;
     max-width: 100%;
     padding: 0 1px;
-
 }
 
 .inputContainer {
@@ -250,12 +248,12 @@
     width: 100%;
 }
 
-.setDateIcon {
-    cursor: pointer;
-    pointer-events: none;
-    position: absolute;
-    right: 12px;
-    top: 16px;
+.setDateIcon1 {
+    transform: translate(40px, 48px);
+}
+
+.setDateIcon2 {
+    transform: translate(-190px, 48px);
 }
 
 .buttonSetDate {

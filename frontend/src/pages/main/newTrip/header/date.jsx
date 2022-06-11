@@ -65,36 +65,22 @@ export default function Date() {
               </div>
             </div>
             <div className={styles.selectDate}>
-              <label>Start Date</label>
-              {/* <div className={styles.inputContainer}>
-                <div className={styles.outside}>
-                  <input placeholder="Select a date" />
-                  <div className={styles.setDateIcon}>
-                    <img
-                      src="fonts/src_app_components_components_svgIcon_icons_commonsprite-afce76.svg#calendarl-usage"
-                      alt="common/calendar"
-                    />
-                  </div>
-                </div>
-              </div> */}
               {isExact ? (
-                // <div>
-                //   <label>End Date</label>
-                //   <div className={styles.inputContainer}>
-                //     <div className={styles.outside}>
-                //       <input placeholder="Select a date" />
-                //       <div className={styles.setDateIcon}>
-                //         <img
-                //           src="fonts/src_app_components_components_svgIcon_icons_commonsprite-afce76.svg#calendarl-usage"
-                //           alt="common/calendar"
-                //         />
-                //       </div>
-                //     </div>
-                //   </div>
-                // </div>
                 <GetDate focusedRange={[0, 0]} showDateDisplay={false} />
               ) : (
-                <GetDate editableDateInputs={true} />
+                <>
+                  <img
+                    className={styles.setDateIcon1}
+                    src="fonts/src_app_components_components_svgIcon_icons_commonsprite-afce76.svg#calendarl-usage"
+                    alt="common/calendar"
+                  />
+                  <img
+                    className={styles.setDateIcon2}
+                    src="fonts/src_app_components_components_svgIcon_icons_commonsprite-afce76.svg#calendarl-usage"
+                    alt="common/calendar"
+                  />
+                  <GetDate editableDateInputs={true} />
+                </>
               )}
             </div>
             <div className={styles.buttonSetDate}>

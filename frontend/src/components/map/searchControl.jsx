@@ -10,7 +10,6 @@ const SearchControl = (props) => {
     const searchControl = new GeoSearchControl({
       provider: props.provider,
       marker: {
-        // optional: L.Marker    - default L.Icon.Default
         icon: new L.Icon.Default(),
         draggable: true,
       },

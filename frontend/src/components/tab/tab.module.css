@@ -10,3 +10,10 @@
  .tab-list-active {
      color: #00e1d6;
  }
+
+ .tabSpan {
+     display: block;
+     font-size: .875rem;
+     hyphens: auto;
+     padding: 4px 4px 0;
+ }

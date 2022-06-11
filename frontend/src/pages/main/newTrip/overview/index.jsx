@@ -14,6 +14,7 @@ import {
   FaWalking,
   FaShippingFast,
 } from "react-icons/fa";
+import SearchControl from "../../../../components/map/searchControl";
 export default function Overview() {
   return (
     <div className="w_CU">
@@ -106,6 +107,7 @@ export default function Overview() {
             </div>
           </div>
           <label className="w_rI w_rS w_UW">Transportation</label>
+          {/* <SearchControl /> */}
           <div className="w_oz w_UX">
             <div className="w_i- w_UY">
               <div className="w_Za w_Zf w_Ze w_UZ">

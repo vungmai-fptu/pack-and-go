@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
-import { IconName } from "react-icons/fa";
+// import { IconName } from "react-icons/fa";
 import styles from "./tab.module.css";
 class Tab extends Component {
   static propTypes = {
@@ -35,7 +35,7 @@ class Tab extends Component {
             className="w_fu w_fy w_fM"
           /> */}
         </span>
-        <span className="w_O8">{label}</span>
+        <span className={styles.tabSpan}>{label}</span>
       </button>
     );
   }

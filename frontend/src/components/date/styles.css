@@ -116,6 +116,10 @@
     background: #00e1d6;
 }
 
+.rdrDateInput {
+    position: initial;
+}
+
 /* .rdrDayInPreview {
     border: none;
     background-color: #00e1d6;
