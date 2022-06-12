@@ -80,15 +80,11 @@ public class TripServiceImpl implements TripService {
     }
 
     @Override
-    public List<Trip> getTrips(int page, int size) {
-        if (page == 0) {
-            List<Trip> trips = new ArrayList<>();
-            tripRepository.findAll().forEach(trips::add);
-            return trips;
-        }
+    public Page<Trip> getTrips(int page, int size) {
         Pageable paging = PageRequest.of(page - 1, size);
         Page<Trip> trips = tripRepository.findAll(paging);
-        return trips.getContent();
+
+        return trips;
     }
 
     @Override

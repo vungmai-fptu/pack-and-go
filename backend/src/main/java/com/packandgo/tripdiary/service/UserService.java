@@ -5,6 +5,8 @@ import com.packandgo.tripdiary.model.UserInfo;
 import com.packandgo.tripdiary.payload.request.auth.NewPasswordRequest;
 import com.packandgo.tripdiary.payload.request.auth.RegisterRequest;
 import com.packandgo.tripdiary.payload.request.user.InfoUpdateRequest;
+import com.packandgo.tripdiary.payload.response.UserResponse;
+import org.springframework.data.domain.Page;
 
 public interface UserService {
     public User findUserByEmail(String email);
@@ -23,5 +25,5 @@ public interface UserService {
 
 
     public void updateUserInfo(User user, InfoUpdateRequest infoUpdateRequest);
-
+    public Page<UserResponse> getUsersAndAllTrips(int page, int size);
 }

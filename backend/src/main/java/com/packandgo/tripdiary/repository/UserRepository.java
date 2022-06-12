@@ -1,6 +1,8 @@
 package com.packandgo.tripdiary.repository;
 
 import com.packandgo.tripdiary.model.User;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -23,4 +25,8 @@ public interface UserRepository extends JpaRepository<User, Long> {
     @Modifying
     @Query("DELETE FROM User u where u.username = ?1")
     public void removeUserByUsername(String username);
+
+    @Query(value = "SELECT user FROM User user JOIN user.trips")
+    Page<User> findUsersAndAllTrips(Pageable pageable);
+
 }

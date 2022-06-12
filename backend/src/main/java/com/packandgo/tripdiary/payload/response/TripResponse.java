@@ -1,4 +1,4 @@
-package com.packandgo.tripdiary.payload.response.trip;
+package com.packandgo.tripdiary.payload.response;
 
 import com.packandgo.tripdiary.payload.TripPayload;
 

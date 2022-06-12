@@ -6,9 +6,8 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.packandgo.tripdiary.enums.Transportation;
 import com.packandgo.tripdiary.enums.TripStatus;
 import com.packandgo.tripdiary.payload.request.trip.TripRequest;
-import com.packandgo.tripdiary.payload.response.trip.TripResponse;
+import com.packandgo.tripdiary.payload.response.TripResponse;
 import com.packandgo.tripdiary.util.ListStringConverter;
-import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.Type;
 
 import javax.persistence.*;

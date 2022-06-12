@@ -3,14 +3,13 @@ package com.packandgo.tripdiary.controller;
 import com.packandgo.tripdiary.model.Trip;
 import com.packandgo.tripdiary.model.User;
 import com.packandgo.tripdiary.model.UserInfo;
+import com.packandgo.tripdiary.payload.response.PagingResponse;
 import com.packandgo.tripdiary.payload.response.UserResponse;
 import com.packandgo.tripdiary.service.TripService;
 import com.packandgo.tripdiary.service.UserService;
+import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -44,21 +43,13 @@ public class UserController {
     }
 
     @GetMapping("/trips")
-    public ResponseEntity<?> getTripsForAllUser(String username) {
-        User user = userService.findUserByUsername(username);
-        UserInfo userInfo = userService.getInfo(user);
-        List<Trip> trips = tripService.getTripsForUser(user);
+    public ResponseEntity<?> getTripsForAllUser(@RequestParam(defaultValue = "1", required = false) int page,
+                                                @RequestParam(defaultValue = "10", required = false) int size) {
 
-        UserResponse userResponse = new UserResponse();
-
-        userResponse.setUsername(username);
-        userResponse.setAboutMe(userInfo.getAboutMe());
-        userResponse.setCountry(userInfo.getCountry());
-        userResponse.setProfileImageUrl(userInfo.getProfileImageUrl());
-        userResponse.setCoverImageUrl(userInfo.getCoverImageUrl());
-        userResponse.setTrips(trips);
-
-        return ResponseEntity.ok(userResponse);
+        page = page <= 0 ? 1 : page;
+        Page<UserResponse> result =  userService.getUsersAndAllTrips(page, size);
+        PagingResponse<UserResponse> response = new PagingResponse<>(page, size, result.getTotalPages(), result.getContent());
+        return ResponseEntity.ok(response);
     }
 
 
