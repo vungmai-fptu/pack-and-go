@@ -15,6 +15,7 @@ import {
   FaShippingFast,
 } from "react-icons/fa";
 import SearchControl from "../../../../components/map/searchControl";
+import LocationSearchInput from "../../../../components/SearchBoxMap";
 export default function Overview() {
   return (
     <div className="w_CU">
@@ -54,6 +55,7 @@ export default function Overview() {
         <div className="w_oz w_iX">
           <label className="w_rI w_rS w_UW">Trip’s destination</label>
           <div className="w_oz w_UX">
+            <LocationSearchInput />
             <div
               data-rbd-droppable-id="STOPS-3333"
               data-rbd-droppable-context-id={0}

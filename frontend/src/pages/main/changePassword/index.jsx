@@ -1,6 +1,7 @@
 import classNames from "classnames";
 import { Component } from "react";
 import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
+import { Link } from "react-router-dom";
 import styles from "./changePassword.module.css";
 class changePassword extends Component {
 
@@ -16,7 +17,7 @@ class changePassword extends Component {
                                     <div className={styles.bcg} />
                                     <ul>
                                         <li>
-                                            <a href="/setting">
+                                            <Link to="/setting">
                                                 <span className={styles.barOfSpan}>
                                                     <img
                                                         src="https://www.worldee.com/images/asideucet.svg"
@@ -24,12 +25,12 @@ class changePassword extends Component {
                                                     />
                                                 </span>
                                                 <label> My account </label>{" "}
-                                            </a>
+                                            </Link>
                                         </li>
                                         <li i className={styles.active}>
-                                            <a
+                                            <Link
                                                 className={styles.barOfa}
-                                                href="/changePassword"
+                                                to="/changePassword"
                                             >
                                                 <span className={styles.barOfSpan}>
                                                     <img
@@ -38,7 +39,7 @@ class changePassword extends Component {
                                                     />
                                                 </span>
                                                 <label> Password change</label>{" "}
-                                            </a>
+                                            </Link>
                                         </li>
                                         <li>
                                             <a className={styles.barOfa} href="/sign/out">
@@ -68,25 +69,25 @@ class changePassword extends Component {
                                     <div className={styles.content}>
                                         <div className={styles.inputs}>
                                             <form action="/account/change-password" method="post" id={styles.frmChangePasswordForm}>
-                                            <div className={styles.row}>
+                                                <div className={styles.row}>
                                                     <div className={styles.boxInput}>
                                                         <label for="frm-changePasswordForm-heslo2">New password (8 characters minimum)</label>
                                                         <div className={styles.inputAnother}>
                                                             <span><img src="https://www.worldee.com/images/asideheslo.svg" alt="password" /></span>
-                                                            <input type="password" name="heslo2" placeholder="New password" id={styles.frmChangePasswordFormHeslo2}/>
+                                                            <input type="password" name="heslo2" placeholder="New password" id={styles.frmChangePasswordFormHeslo2} />
                                                         </div>
                                                     </div>
                                                     <div className={styles.boxInput}>
                                                         <label for="frm-changePasswordForm-heslo3">Password confirmation</label>
                                                         <div className={styles.inputAnother}>
-                                                            <span><img src="https://www.worldee.com/images/asideheslo.svg" alt="password"/></span>
+                                                            <span><img src="https://www.worldee.com/images/asideheslo.svg" alt="password" /></span>
                                                             <input type="password" name="heslo3" placeholder="Confirm your password" id={styles.frmChangePasswordFormHeslo3} />
                                                         </div>
                                                     </div>
                                                 </div>
 
                                                 <button className={styles.button} type="submit" name="button"><span>Save password</span></button>
-                                                <input type="hidden" name="_do" value="changePasswordForm-submit"/>
+                                                <input type="hidden" name="_do" value="changePasswordForm-submit" />
 
                                             </form>
 
