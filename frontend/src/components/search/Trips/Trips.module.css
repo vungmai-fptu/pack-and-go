@@ -4,13 +4,6 @@
   margin: 0 auto;
 }
 
-.trip-items {
-  display: grid;
-  justify-content: center;
-  gap: 20px;
-  grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
-}
-
 .trips-title {
   text-align: left;
   font-size: 1.5rem;

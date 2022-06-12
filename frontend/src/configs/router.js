@@ -10,6 +10,9 @@ import ResetPassword from "../pages/main/resetPassword";
 import SearchPage from "../pages/main/search";
 import SettingProfile from "../pages/main/settingProfile";
 import changePassword from "../pages/main/changePassword";
+import TripPage from "../pages/main/trippage";
+import AllTrips from "../pages/main/alltrips";
+import AllTravelers from "../pages/main/alltravelers";
 
 export const mainRouter = [
   {
@@ -26,6 +29,21 @@ export const mainRouter = [
     path: "/search",
     exact: false,
     Component: SearchPage,
+  },
+  {
+    path: "/alltrips",
+    exact: false,
+    Component: AllTrips,
+  },
+  {
+    path: "/alltravelers",
+    exact: false,
+    Component: AllTravelers,
+  },
+  {
+    path: "/trip",
+    exact: false,
+    Component: TripPage,
   },
   {
     path: "/setting",

@@ -1,0 +1,32 @@
+.container {
+    padding-top: 50%;
+    border-top: 1px solid #d0d8e6;
+    max-height: 45vh;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    white-space: normal;
+    width: 100%;
+    z-index: 0;
+}
+
+.show-comments {
+    overflow: hidden;
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+}
+
+.show-content {
+    margin-bottom: 56px;
+    height: 100%;
+    overflow: auto;
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+    position: relative;
+    z-index: 0;
+    width: 100%;
+    
+}

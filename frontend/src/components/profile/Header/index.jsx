@@ -26,7 +26,7 @@ const Header = () => {
                       alt="profile"
                       className={styles["avatar-img"]}
                       src="https://wrld-se-prod.b-cdn.net/images/user-empty.svg"
-                    ></img>
+                    />
                   </div>
                 </div>
                 <div className={styles.name}>

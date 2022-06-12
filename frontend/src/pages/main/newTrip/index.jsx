@@ -6,6 +6,7 @@ import PriceList from "./PriceList";
 import Itinerary from "./itinerary";
 import Overview from "./overview";
 import styles from "./trip.module.css";
+import MapComponent from "./../../../components/map/index";
 function NewTrip() {
   return (
     <div className={styles.newTrip}>
@@ -27,7 +28,7 @@ function NewTrip() {
             </div>
           </Tabs>
         </div>
-        {/* <MapComponent /> */}
+        <MapComponent />
         {/* <div className="w_hN w_hP TRIP_MAP">
           <div className="w_iN">
             <div className="w_BN">
