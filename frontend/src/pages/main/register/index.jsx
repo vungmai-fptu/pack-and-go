@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { Link, useHistory } from "react-router-dom";
 import classNames from "classnames";
 import { useDispatch } from "react-redux";
@@ -8,37 +8,24 @@ import styles from "./register.module.css";
 import { postRegistration } from "../../../store/actions/user.action";
 import "react-notifications/lib/notifications.css";
 import { NotificationContainer } from "react-notifications";
-import validateInput from "../../../components/validateInput/validateInput";
+import { validateRegister } from "../../../components/validateInput/validateInput";
+import LoginGoogle from "../login/loginGoogle";
+import Validate from "../../../components/validateInput";
+import useForm from "../../../components/useForm/useForm";
+import { useIsLogin } from "../../../hooks/useIsLogin";
 function Register() {
   const { hidden, handleClick } = useIsHidden();
   const history = useHistory();
   const dispatch = useDispatch();
-  const [user, setUser] = useState({
-    email: "",
-    username: "",
-    password: "",
-    confirmPassword: "",
-  });
-  const [error, setError] = useState({
-    email: "",
-    username: "",
-    password: "",
-    confirmPassword: "",
-  });
+  const { loading } = useIsLogin();
+  const { values, errors, handleChange, handleSubmit } = useForm(
+    handleSubmits,
+    validateRegister
+  );
+  function handleSubmits() {
+    dispatch(postRegistration(values, history));
+  }
 
-  const handleChange = (event) => {
-    const { value, name } = event.target;
-    setUser({
-      ...user,
-      [name]: value,
-    });
-    validateInput(event, user, error, setError);
-  };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    dispatch(postRegistration(user, history));
-  };
   return (
     <div>
       <div>
@@ -83,17 +70,7 @@ function Register() {
                     <span>With Facebook (update soon)</span>
                   </div>
                 </Link>
-                <Link to="/sign/google-login" style={{ background: "#c73534" }}>
-                  <div className={styles.icons}>
-                    <img
-                      src="fonts/src_app_components_components_svgIcon_icons_commonsprite-afce76.svg#socials-googlebS-usage"
-                      alt="common/socials-google"
-                    />
-                  </div>
-                  <div>
-                    <span>With Google</span>
-                  </div>
-                </Link>
+                <LoginGoogle />
                 <button
                   style={{
                     background: "linear-gradient(114deg,#00e1d6,#66ede7)",
@@ -144,7 +121,11 @@ function Register() {
                 </button>
                 <h1>Registration</h1>
               </div>
-              <form className={styles.loginEmail} onSubmit={handleSubmit}>
+              <form
+                className={styles.loginEmail}
+                onSubmit={handleSubmit}
+                noValidate
+              >
                 <div className={styles.input}>
                   <div className={styles.inputEmail}>
                     <input
@@ -152,12 +133,10 @@ function Register() {
                       name="email"
                       placeholder="Fill your email adress"
                       onChange={handleChange}
-                      onBlur={validateInput}
+                      value={values.email || ""}
                       required
                     />
-                    {error.email && (
-                      <span style={{ color: "#e64646" }}>{error.email}</span>
-                    )}
+                    <Validate errors={errors.email} />
                   </div>
                 </div>
                 <div className={styles.input}>
@@ -167,12 +146,10 @@ function Register() {
                       name="username"
                       placeholder="Fill your username adress"
                       onChange={handleChange}
-                      onBlur={validateInput}
+                      value={values.username || ""}
                       required
                     />
-                    {error.username && (
-                      <span style={{ color: "#e64646" }}>{error.username}</span>
-                    )}
+                    <Validate errors={errors.username} />
                   </div>
                 </div>
                 <div className={styles.input}>
@@ -182,12 +159,10 @@ function Register() {
                       name="password"
                       placeholder="Password"
                       onChange={handleChange}
-                      onBlur={validateInput}
+                      value={values.password || ""}
                       required
                     />
-                    {error.password && (
-                      <span style={{ color: "#e64646" }}>{error.password}</span>
-                    )}
+                    <Validate errors={errors.password} />
                   </div>
                 </div>
                 <div className={styles.input}>
@@ -195,16 +170,12 @@ function Register() {
                     <input
                       type="password"
                       name="confirmPassword"
-                      placeholder="confirmPassword"
+                      placeholder="Confirm Password"
                       onChange={handleChange}
-                      onBlur={validateInput}
+                      value={values.confirmPassword || ""}
                       required
                     />
-                    {error.confirmPassword && (
-                      <span style={{ color: "#e64646" }}>
-                        {error.confirmPassword}
-                      </span>
-                    )}
+                    <Validate errors={errors.confirmPassword} />
                   </div>
                 </div>
                 <div className={styles.recap}>
@@ -229,9 +200,21 @@ function Register() {
                     apply.
                   </span>
                 </div>
-                <button>
-                  <span>Register</span>
-                </button>
+                {loading ? (
+                  <button disabled style={{ opacity: ".4" }}>
+                    <span>Register </span>
+                    <div className="loadingio-spinner-ripple-ormwzc5m72e">
+                      <div className="ldio-gw2gg1659v">
+                        <div />
+                        <div />
+                      </div>
+                    </div>
+                  </button>
+                ) : (
+                  <button>
+                    <span>Register</span>
+                  </button>
+                )}
               </form>
             </div>
             <div className={styles.login}>

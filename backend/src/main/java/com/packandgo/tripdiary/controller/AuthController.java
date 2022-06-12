@@ -124,7 +124,7 @@ public class AuthController {
         MailContent mailContent = new ResetPasswordMailContent(user.getEmail(), token, BASE_URL);
         emailSenderService.sendEmail(mailContent);
 
-        return ResponseEntity.ok(new MessageResponse("Email sent"));
+        return ResponseEntity.ok(new MessageResponse("Request to reset password sent. Check your email for detail"));
     }
 
     @PostMapping("/reset-password")

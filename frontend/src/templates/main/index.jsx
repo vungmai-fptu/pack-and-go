@@ -1,18 +1,21 @@
 import React from "react";
-import { Redirect, Route } from "react-router-dom";
+import { Redirect, Route, useRouteMatch } from "react-router-dom";
 import Header from "../../components/Header";
 import Footer from "../../components/Footer";
 import { useIsLogin } from "../../hooks/useIsLogin";
 
 function MainTemplate(props) {
+  const useRouteNewTrip = useRouteMatch("/newTrip");
+  const useRoutePastTrip = useRouteMatch("/pastTrip");
   return (
     <>
-      <Header />
+      {!useRouteNewTrip && !useRoutePastTrip && <Header />}
       <main>{props.children}</main>
-      <Footer />
+      {!useRouteNewTrip && !useRoutePastTrip && <Footer />}
     </>
   );
 }
+
 
 const RouterMainTemplate = ({ path, exact, Component }) => {
   const { isLogin } = useIsLogin();

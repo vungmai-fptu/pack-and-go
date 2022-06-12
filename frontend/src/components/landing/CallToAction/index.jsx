@@ -4,6 +4,7 @@ import styles from "./CallToAction.module.css";
 import actionImage from '../../../assets/images/mountain-with-man.jpg';
 import { ImGoogle } from "react-icons/im";
 import { SiGmail } from 'react-icons/si';
+import { Link } from 'react-router-dom';
 
 const CallToAction = () => {
   return (
@@ -20,18 +21,18 @@ const CallToAction = () => {
                 <p>Create your FREE and secured account in seconds</p>
 
                 <div className={styles["action-btns"]}>
-                  <a href="/" >
+                  <Link to="/sign/up" >
                     <div className={`${styles["action-btn"]} ${styles.google}`} >
                       <ImGoogle />
                       <span>With Google</span>
                     </div>
-                  </a>
-                  <a href="/" >
+                  </Link>
+                  <Link to="/sign/up" >
                     <div className={`${styles["action-btn"]} ${styles.email}`}>
                       <SiGmail />
                       <span>With Email</span>
                     </div>
-                  </a>
+                  </Link>
                 </div>
 
                 <p className={styles["action-note"]}>

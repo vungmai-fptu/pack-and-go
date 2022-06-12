@@ -32,6 +32,7 @@ a {
   margin: 10px 8px;
   overflow: hidden;
 }
+
 .headerLogo img {
   width: 80%;
   height: auto;
@@ -144,8 +145,7 @@ a {
 }
 
 .searchIcon img {
-  filter: invert(12%) sepia(34%) saturate(824%) hue-rotate(173deg)
-    brightness(96%) contrast(86%);
+  filter: invert(12%) sepia(34%) saturate(824%) hue-rotate(173deg) brightness(96%) contrast(86%);
   height: 24px;
   width: 24px;
 }
@@ -156,8 +156,8 @@ a {
   color: #202d3d;
   display: flex;
   flex-direction: column;
-  font-size: 0.875rem;
-  font-weight: 400;
+  font-size: 1rem;
+  font-weight: 600;
   min-width: 100px;
   padding: 0 16px;
   position: relative;
@@ -170,8 +170,7 @@ a {
 }
 
 .menuIcon img {
-  filter: invert(12%) sepia(34%) saturate(824%) hue-rotate(173deg)
-    brightness(96%) contrast(86%);
+  filter: invert(12%) sepia(34%) saturate(824%) hue-rotate(173deg) brightness(96%) contrast(86%);
   height: 24px;
   width: 24px;
 }
@@ -195,8 +194,7 @@ a {
 }
 
 .menuButton img {
-  filter: invert(12%) sepia(34%) saturate(824%) hue-rotate(173deg)
-    brightness(96%) contrast(86%);
+  filter: invert(12%) sepia(34%) saturate(824%) hue-rotate(173deg) brightness(96%) contrast(86%);
   height: 24px;
   width: 26px;
 }
@@ -249,22 +247,22 @@ a {
 }
 
 .dropdown {
-  transform: rotate(90deg);
+  /* transform: rotate(90deg); */
+  padding-top: 5px;
 }
 
-.dropdown img {
-  filter: invert(77%) sepia(12%) saturate(374%) hue-rotate(184deg)
-    brightness(94%) contrast(87%);
-  height: 20px;
-  width: 20px;
-  border: none;
+.dropdown svg {
+  filter: invert(77%) sepia(12%) saturate(374%) hue-rotate(184deg) brightness(94%) contrast(87%);
 }
 
 .popupContent {
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-20px);
+  transition: opacity 0.4s ease, transform 0.4s ease, visibility 0.4s;
   position: absolute;
   pointer-events: auto;
-  top: 58px;
-  right: 24px;
+  top: 70px;
   z-index: 999;
   border-radius: 8px;
   background: #fff;
@@ -313,8 +311,8 @@ a {
   justify-content: center;
 }
 
-.logoutIcon svg {
-  font-size: 25px;
+svg {
+  font-size: 30px;
 }
 
 .logoutTitle {
@@ -328,4 +326,21 @@ a {
 
 .hidden {
   display: none;
+}
+
+.dropdownTop {
+  height: 8px;
+  width: 16px;
+  position: absolute;
+  background: transparent;
+  color: rgb(255, 255, 255);
+  z-index: 1;
+  transform: rotate(0deg) translateY(-100%) translateX(-50%);
+  top: 0%;
+}
+
+.active {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
 }

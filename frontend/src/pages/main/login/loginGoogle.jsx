@@ -1,14 +1,25 @@
-import React from "react";
+import React, { useEffect } from "react";
 import GoogleLogin from "react-google-login";
 import axios from "axios";
 import styles from "./login.module.css";
 import { useDispatch } from "react-redux";
 import { postLoginSuccess } from "../../../store/actions/user.action";
+import { gapi } from "gapi-script";
 
 const clientId =
-  "299402568375-ih3in50qahdomql32v7c864vc3c78kh5.apps.googleusercontent.com";
+  "874015971178-0461l5tlksvspu487u08779128bn5rn7.apps.googleusercontent.com";
 export default function LoginGoogle() {
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    function start() {
+      gapi.client.init({
+        clientId: clientId,
+        scope: "email",
+      });
+    }
+    gapi.load("client:auth2", start);
+  }, []);
 
   const config = {
     headers: {

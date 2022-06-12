@@ -1,26 +1,23 @@
-import React, { useState } from "react";
+import React from "react";
+import NotificationContainer from "react-notifications/lib/NotificationContainer";
+import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
-import validateInput from "../../../components/validateInput/validateInput";
+import useForm from "../../../components/useForm/useForm";
+import Validate from "../../../components/validateInput";
+import { validateForgotPassword } from "../../../components/validateInput/validateInput";
+import { useIsLogin } from "../../../hooks/useIsLogin";
+import { postResetPasswordRequest } from "../../../store/actions/user.action";
 import styles from "./forgotPassword.module.css";
 function ForgotPassword() {
-  const [forgotPassword, setForgotPassword] = useState({
-    forgotPassword: "",
-  });
-  const [error, setError] = useState({
-    forgotPassword: "",
-  });
-
-  const handleChange = (event) => {
-    const { value, name } = event.target;
-    setForgotPassword({
-      ...forgotPassword,
-      [name]: value,
-    });
-    validateInput(event, forgotPassword, error, setError);
-  };
-  const handleSubmit = (e) => {
-    e.preventDefault();
-  };
+  const dispatch = useDispatch();
+  const { loading } = useIsLogin();
+  const { values, errors, handleChange, handleSubmit } = useForm(
+    handleSubmits,
+    validateForgotPassword
+  );
+  function handleSubmits() {
+    dispatch(postResetPasswordRequest(values.forgotPassword));
+  }
   return (
     <div>
       <div>
@@ -39,21 +36,22 @@ function ForgotPassword() {
           />
           <div className={styles.logo}>
             <Link to="/">
-              <img
-                alt="Worldee logo"
-                src="https://wrld-se-prod.b-cdn.net/client/images/src/app/components/components/logo/imgs/a83c533ff7417b8d1092.svg"
-              />
+              <img alt="Worldee logo" src="images/3bl.png" />
             </Link>
           </div>
           <div />
           <div className={styles.login}>
             <div className={styles.formLogin}>
               <h1>Forgotten password</h1>
-              <span style={{ padding: " 20px 0;" }}>
+              <span style={{ padding: " 20px 0" }}>
                 Please enter your registration email and we will send you a link
                 to reset your password right away.
               </span>
-              <form className={styles.loginEmail} onSubmit={handleSubmit}>
+              <form
+                className={styles.loginEmail}
+                onSubmit={handleSubmit}
+                noValidate
+              >
                 <div className={styles.input}>
                   <div className={styles.inputEmail}>
                     <input
@@ -61,17 +59,27 @@ function ForgotPassword() {
                       name="forgotPassword"
                       placeholder="Fill your email address"
                       onChange={handleChange}
+                      value={values.forgotPassword || ""}
+                      required
                     />
-                    {error.forgotPassword && (
-                      <span style={{ color: "#e64646" }}>
-                        {error.forgotPassword}
-                      </span>
-                    )}
+                    <Validate errors={errors.forgotPassword} />
                   </div>
                 </div>
-                <button>
-                  <span> Renew password</span>
-                </button>
+                {loading ? (
+                  <button disabled style={{ opacity: ".4" }}>
+                    <span>Reset password </span>
+                    <div className="loadingio-spinner-ripple-ormwzc5m72e">
+                      <div className="ldio-gw2gg1659v">
+                        <div />
+                        <div />
+                      </div>
+                    </div>
+                  </button>
+                ) : (
+                  <button>
+                    <span>Reset password</span>
+                  </button>
+                )}
               </form>
             </div>
             <div className={styles.register}>
@@ -82,6 +90,7 @@ function ForgotPassword() {
           </div>
         </div>
       </div>
+      <NotificationContainer />
     </div>
   );
 }

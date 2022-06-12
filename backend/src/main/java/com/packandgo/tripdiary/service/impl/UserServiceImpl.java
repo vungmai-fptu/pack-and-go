@@ -138,6 +138,9 @@ public class UserServiceImpl implements UserService {
     @Override
     @Transactional
     public void changePassword(User user, String newPassword) {
+        if(newPassword == null || newPassword.trim().isEmpty()) {
+            throw  new IllegalArgumentException("New password is required");
+        }
         user.setPassword(passwordEncoder.encode(newPassword));
         userRepository.save(user);
     }

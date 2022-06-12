@@ -5,6 +5,10 @@ import {
   LOGIN_SUCCESS,
   REGISTRATION_FAILED,
   REGISTRATION_SUCCESS,
+  RESETPASSWORD_FAILED,
+  RESETPASSWORD_SUCCESS,
+  RESETPASSWORD_REQUEST_FAILED,
+  RESETPASSWORD_REQUEST_SUCCESS,
 } from "../constants/user.const";
 import { startLoading, stopLoading } from "../actions/common.action";
 export const postLogin = (usernameOrEmail, password) => {
@@ -29,7 +33,6 @@ export const postLogin = (usernameOrEmail, password) => {
       .catch((err) => {
         dispatch(stopLoading());
         dispatch(postLoginFailed(err));
-        console.log(err.response.data);
         NotificationManager.error(err.response.data.message);
       });
   };
@@ -87,6 +90,88 @@ const postRegistrationSuccess = (user) => {
 const postRegistrationFailed = (err) => {
   return {
     type: REGISTRATION_FAILED,
+    payload: err,
+  };
+};
+
+export const postResetPasswordRequest = (forgotPassword) => {
+  return (dispatch) => {
+    dispatch(startLoading());
+    axios({
+      method: "POST",
+      url: "https://trip-diary-backend.herokuapp.com/api/auth/reset-password-request",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      data: {
+        email: forgotPassword,
+      },
+    })
+      .then((res) => {
+        dispatch(stopLoading());
+        dispatch(postResetPasswordRequestSuccess(res.data));
+        NotificationManager.success(res.data.message);
+      })
+      .catch((err) => {
+        dispatch(stopLoading());
+        dispatch(postResetPasswordRequestFailed(err));
+        NotificationManager.error(err.response.data.message);
+      });
+  };
+};
+
+const postResetPasswordRequestSuccess = (user) => {
+  return {
+    type: RESETPASSWORD_REQUEST_SUCCESS,
+    payload: user,
+  };
+};
+
+const postResetPasswordRequestFailed = (err) => {
+  return {
+    type: RESETPASSWORD_REQUEST_FAILED,
+    payload: err,
+  };
+};
+
+export const postResetPassword = (token, newPassword, goBack) => {
+  return (dispatch) => {
+    dispatch(startLoading());
+    axios({
+      method: "POST",
+      url: "https://trip-diary-backend.herokuapp.com/api/auth/reset-password",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      data: {
+        token: token,
+        newPassword: newPassword,
+      },
+    })
+      .then((res) => {
+        dispatch(stopLoading());
+        dispatch(postResetPasswordSuccess(res.data));
+        goBack.push("/login");
+        NotificationManager.success(res.data.message);
+      })
+      .catch((err) => {
+        dispatch(stopLoading());
+        dispatch(postResetPasswordFailed(err));
+        NotificationManager.error(err.response.data.message);
+      });
+  };
+};
+
+const postResetPasswordSuccess = (user) => {
+  return {
+    type: RESETPASSWORD_SUCCESS,
+    payload: user,
+  };
+};
+
+const postResetPasswordFailed = (err) => {
+  return {
+    type: RESETPASSWORD_FAILED,
     payload: err,
   };
 };

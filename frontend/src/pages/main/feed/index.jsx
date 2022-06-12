@@ -1,5 +1,4 @@
 import React from "react";
-
 function Feed() {
   return (
     <div className="w_mS w_mT">
@@ -1140,19 +1139,7 @@ function Feed() {
                   >
                     <div className="w_oz w_yl">
                       <div className="w_i- w_ym">
-                        <div
-                          className="w_A9 w_A- w_yn"
-                          width="239.65625"
-                          height="32.796875"
-                          style={{
-                            width: "100%",
-                            textOverflow: "ellipsis",
-                            whiteSpace: "nowrap",
-                            overflow: "hidden",
-                          }}
-                        >
-                          <span>Christopher's Valley</span>
-                        </div>
+                        <span>Christopher's Valley</span>
                       </div>
                       <div className="w_i- w_yq">
                         <span className="w_ys">1 days</span>
@@ -1195,19 +1182,7 @@ function Feed() {
             </div>
             <div className="w_i-" style={{ justifyContent: "center" }}>
               <button className="w_ih w_ik w_cy">
-                <div
-                  className="w_A9 w_A-"
-                  width="84.609375"
-                  height="21.59375"
-                  style={{
-                    width: "100%",
-                    textOverflow: "ellipsis",
-                    whiteSpace: "nowrap",
-                    overflow: "hidden",
-                  }}
-                >
-                  <span className="w_ia">Load More</span>
-                </div>
+                <span className="w_ia">Load More</span>
               </button>
             </div>
           </div>

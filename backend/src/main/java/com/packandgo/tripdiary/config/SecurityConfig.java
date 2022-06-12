@@ -6,6 +6,7 @@ import com.packandgo.tripdiary.auth.jwt.AuthTokenFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
@@ -32,7 +33,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             "/api/auth/**",
             "/oauth2/**",
             "/**/*swagger*/**",
-            "/admin/api/**"
+            "/admin/api/**",
+
+
     };
 
     private final UserDetailsServiceImpl userDetailsService;
@@ -71,6 +74,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                 .authorizeRequests()
+                .antMatchers(HttpMethod.GET, "/api/trips", "/api/trips/{id}").permitAll()
+                .antMatchers( "/api/users/**").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .httpBasic();

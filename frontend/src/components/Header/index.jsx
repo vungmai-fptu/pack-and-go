@@ -1,19 +1,19 @@
-import { useIsHidden } from "../../hooks/useIsHidden";
+import { Link } from "react-router-dom";
 import { useIsLogin } from "../../hooks/useIsLogin";
+import { IoHeart, IoEarthSharp, IoSearch } from "react-icons/io5";
+import Create from "./create";
+import logo from "../../assets/images/logos/logo-black-3.png";
 import FormLogout from "./formLogout";
 import styles from "./header.module.css";
-import { Link } from "react-router-dom";
-import logoHeader from "../../assets/images/logos/logo-black-3.png";
 export default function Header() {
   const { user } = useIsLogin();
-  const { hidden, handleClick } = useIsHidden();
   return (
     <header>
       <div className={styles.header}>
         <div className={styles.headerLogo}>
           <div>
             <Link to="/">
-              <img alt="Worldee logo" src="images/logo/logo-black-3.png" />
+              <img alt="Worldee logo" src={logo} />
             </Link>
           </div>
         </div>
@@ -25,13 +25,12 @@ export default function Header() {
               </div>
               <div className={styles.searchIcon}>
                 <button>
-                  <div>
-                    <img
-                      src="fonts/src_app_components_components_svgIcon_icons_commonsprite-afce76.svg#search-inputbH-usage"
-                      alt="common/search-input"
-                    />
-                  </div>
-                  <span />
+                  <Link to="/search">
+                    <div>
+                      <IoSearch />
+                    </div>
+                    <span />
+                  </Link>
                 </button>
               </div>
             </div>
@@ -39,39 +38,17 @@ export default function Header() {
           <div className={styles.grow} />
           <Link to="/">
             <div className={styles.menuIcon}>
-              <img
-                src="fonts/src_app_components_components_svgIcon_icons_commonsprite-afce76.svg#earth_fullY-usage"
-                alt="common/earth_full"
-              />
+              <IoEarthSharp />
             </div>
-            <span>
-              <span>Home</span>
-            </span>
+            <span>Home</span>
           </Link>
-          <div className={styles.menuButton} aria-describedby="popup-2">
-            <button>
-              <div className={styles.menuIcon}>
-                <img
-                  src="fonts/src_app_components_components_svgIcon_icons_commonsprite-afce76.svg#place-add-bold_emptybd-usage"
-                  alt="common/place-add-bold_empty"
-                />
-              </div>
-              <span>
-                <span>Create</span>
-              </span>
-            </button>
-          </div>
+          <Create />
           <div className={styles.menuButton} aria-describedby="popup-3">
             <button>
               <div className={styles.menuIcon}>
-                <img
-                  src="fonts/src_app_components_components_svgIcon_icons_commonsprite-afce76.svg#heart-bold_emptyab-usage"
-                  alt="common/heart-bold_empty"
-                />
+                <IoHeart />
               </div>
-              <span>
-                <span>Notifications</span>
-              </span>
+              <span>Notifications</span>
             </button>
           </div>
         </div>
@@ -90,24 +67,11 @@ export default function Header() {
                   <span>{user.username}</span>
                 </div>
               </Link>
-              <div aria-describedby="popup-4">
-                <button onClick={handleClick}>
-                  <div className={styles.profileIcon}>
-                    <div className={styles.dropdown}>
-                      <img
-                        src="fonts/src_app_components_components_svgIcon_icons_commonsprite-afce76.svg#arrowa-usage"
-                        alt="common/arrow"
-                      />
-                    </div>
-                  </div>
-                  <span />
-                </button>
-              </div>
+              <FormLogout />
             </div>
           </div>
         </div>
       </div>
-      <FormLogout hidden={hidden} />
     </header>
   );
 }

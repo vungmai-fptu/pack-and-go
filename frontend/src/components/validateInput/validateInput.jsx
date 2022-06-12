@@ -1,51 +1,62 @@
-const validateInput = (e, user, error, setError) => {
-  let { name, value } = e.target;
-  setError((prev) => {
-    const stateObj = { ...prev, [name]: "" };
-    switch (name) {
-      case "email":
-        if (!value) {
-          stateObj[name] = "Please enter Email.";
-        }
-        break;
-      case "username":
-        if (!value) {
-          stateObj[name] = "Please enter Username.";
-        }
-        break;
-      case "usernameOrEmail":
-        if (!value) {
-          stateObj[name] = "Please enter email Or UserName.";
-        }
-        break;
-      case "forgotPassword":
-        if (!value) {
-          stateObj[name] = "Please enter forgotten Password.";
-        }
-        break;
-      case "password":
-        if (!value) {
-          stateObj[name] = "Please enter Password.";
-        } else if (user.confirmPassword && value !== user.confirmPassword) {
-          stateObj["confirmPassword"] =
-            "Password and Confirm Password does not match.";
-        } else {
-          stateObj["confirmPassword"] = user.confirmPassword
-            ? ""
-            : error.confirmPassword;
-        }
-        break;
-      case "confirmPassword":
-        if (!value) {
-          stateObj[name] = "Please enter Confirm Password.";
-        } else if (user.password && value !== user.password) {
-          stateObj[name] = "Password and Confirm Password does not match.";
-        }
-        break;
-      default:
-        break;
-    }
-    return stateObj;
-  });
-};
-export default validateInput;
+export function validateLogin(values) {
+  let errors = {};
+  if (!values.username) {
+    errors.username = "Username is required";
+  }
+  if (!values.password) {
+    errors.password = "Password is required";
+  }
+
+  return errors;
+}
+export function validateRegister(values) {
+  let errors = {};
+  if (!values.email) {
+    errors.email = "Email address is required";
+  } else if (!/\S+@\S+\.\S+/.test(values.email)) {
+    errors.email = "Email address is invalid";
+  }
+  if (!values.username) {
+    errors.username = "Username is required";
+  } else if (values.username.length < 5) {
+    errors.username = "Password must be 5 or more characters";
+  }
+  if (!values.password) {
+    errors.password = "Password is required";
+  } else if (values.password.length < 8) {
+    errors.password = "Password must be 8 or more characters";
+  } else if (!/\d/.test(values.password) || !/[!@#$%&?.]/g.test(values.password) || !/[A-Z]/g.test(values.password)) {
+    errors.password = "Password must contains at least 1 number, at least 1 capital character, 1 special character";
+  }
+  if (!values.confirmPassword) {
+    errors.confirmPassword = "Confirm password is required";
+  } else if (values.confirmPassword !== values.password) {
+    errors.confirmPassword = "Password and Confirm Password does not match.";
+  }
+  return errors;
+}
+export function validateForgotPassword(values) {
+  let errors = {};
+  if (!values.forgotPassword) {
+    errors.forgotPassword = "Email address is required";
+  } else if (!/\S+@\S+\.\S+/.test(values.forgotPassword)) {
+    errors.forgotPassword = "Email address is invalid";
+  }
+  return errors;
+}
+export function validateResetPassword(values) {
+  let errors = {};
+  if (!values.password) {
+    errors.password = "Password is required";
+  } else if (values.password.length < 8) {
+    errors.password = "Password must be 8 or more characters";
+  } else if (!/\d/.test(values.password) || !/[!@#$%&?.]/g.test(values.password) || !/[A-Z]/g.test(values.password)) {
+    errors.password = "Password must contains at least 1 number, at least 1 capital character, 1 special character";
+  }
+  if (!values.confirmPassword) {
+    errors.confirmPassword = "Confirm password is required";
+  } else if (values.confirmPassword !== values.password) {
+    errors.confirmPassword = "Password and Confirm Password does not match.";
+  }
+  return errors;
+}

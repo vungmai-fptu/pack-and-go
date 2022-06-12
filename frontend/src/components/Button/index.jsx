@@ -2,7 +2,6 @@ import React from 'react';
 import styles from './Button.module.css';
 
 const Button = ({ name, color }) => {
-  x
   const className = `${styles.button} ${color === "red" ? styles["bg_red"] : styles["bg_blue"]}`;
   console.log(className);
   return (

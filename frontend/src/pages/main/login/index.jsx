@@ -1,8 +1,7 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import classNames from "classnames";
-import { gapi } from "gapi-script";
 import { IoArrowBack } from "react-icons/io5";
 import { useIsHidden } from "../../../hooks/useIsHidden";
 import { postLogin } from "./../../../store/actions/user.action";
@@ -10,46 +9,21 @@ import styles from "./login.module.css";
 import LoginGoogle from "./loginGoogle";
 import "react-notifications/lib/notifications.css";
 import { NotificationContainer } from "react-notifications";
-import validateInput from "../../../components/validateInput/validateInput";
-const clientId =
-  "299402568375-ih3in50qahdomql32v7c864vc3c78kh5.apps.googleusercontent.com";
+import { validateLogin } from "../../../components/validateInput/validateInput";
+import Validate from "../../../components/validateInput";
+import useForm from "./../../../components/useForm/useForm";
+import { useIsLogin } from "../../../hooks/useIsLogin";
 function Login() {
   const { hidden, handleClick } = useIsHidden();
   const dispatch = useDispatch();
-
-  const [user, setUser] = useState({
-    usernameOrEmail: "",
-    password: "",
-  });
-  const [error, setError] = useState({
-    usernameOrEmail: "",
-    password: "",
-  });
-
-  const handleChange = (event) => {
-    const { value, name } = event.target;
-    setUser({
-      ...user,
-      [name]: value,
-    });
-    validateInput(event, user, error, setError);
-  };
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    dispatch(postLogin(user.usernameOrEmail, user.password));
-  };
-  // useEffect(() => {
-  //   function start() {
-  //     gapi.load("client.auth2", () => {
-  //       gapi.client.init({
-  //         clientId: clientId,
-  //         scope: "",
-  //       });
-  //     });
-  //   }
-  //   start();
-  // });
-
+  const { loading } = useIsLogin();
+  const { values, errors, handleChange, handleSubmit } = useForm(
+    login,
+    validateLogin
+  );
+  function login() {
+    dispatch(postLogin(values.username, values.password));
+  }
   return (
     <div>
       <div>
@@ -70,7 +44,6 @@ function Login() {
             <Link to="/">
               <img alt="Worldee logo" src="images/3bl.png" />
             </Link>
-            {/* <div style={{ display: errors ? "" : "none" }}>{errors}</div> */}
           </div>
           <div />
           <div className={styles.login}>
@@ -131,20 +104,22 @@ function Login() {
                 </button>
                 <h1>Login</h1>
               </div>
-              <form className={styles.loginEmail} onSubmit={handleSubmit}>
+              <form
+                className={styles.loginEmail}
+                onSubmit={handleSubmit}
+                noValidate
+              >
                 <div className={styles.input}>
                   <div className={styles.inputEmail}>
                     <input
                       type="text"
-                      name="usernameOrEmail"
+                      name="username"
                       placeholder="Fill your email Or UserName address"
                       onChange={handleChange}
+                      value={values.username || ""}
+                      required
                     />
-                    {error.usernameOrEmail && (
-                      <span style={{ color: "#e64646" }}>
-                        {error.usernameOrEmail}
-                      </span>
-                    )}
+                    <Validate errors={errors.username} />
                   </div>
                 </div>
                 <div className={styles.input}>
@@ -154,15 +129,27 @@ function Login() {
                       name="password"
                       placeholder="Password"
                       onChange={handleChange}
+                      value={values.password || ""}
+                      required
                     />
-                    {error.password && (
-                      <span style={{ color: "#e64646" }}>{error.password}</span>
-                    )}
+                    <Validate errors={errors.password} />
                   </div>
                 </div>
-                <button>
-                  <span>Log in</span>
-                </button>
+                {loading ? (
+                  <button disabled style={{ opacity: ".4" }}>
+                    <span>Log in</span>
+                    <div className="loadingio-spinner-ripple-ormwzc5m72e">
+                      <div className="ldio-gw2gg1659v">
+                        <div />
+                        <div />
+                      </div>
+                    </div>
+                  </button>
+                ) : (
+                  <button>
+                    <span>Log in </span>
+                  </button>
+                )}
               </form>
               <div className={styles.register} style={{ background: "none" }}>
                 <Link to="/sign/forgotten-password">
