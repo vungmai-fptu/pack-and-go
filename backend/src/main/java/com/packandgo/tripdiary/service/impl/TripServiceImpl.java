@@ -22,6 +22,7 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -192,7 +193,6 @@ public class TripServiceImpl implements TripService {
     }
 
     @Override
-
     public boolean existedLike(Long tripId){
         UserDetails userDetails = (UserDetails) SecurityContextHolder
                 .getContext()
@@ -207,4 +207,10 @@ public class TripServiceImpl implements TripService {
         );
         return likeRepository.existsByTripIdAndUserId(trip.getId(), user.getId());
     }
+
+    @Override
+    public List<Trip> getNotifiedTripsForDay() {
+        return tripRepository.getTripsForToday();
+    }
+
 }

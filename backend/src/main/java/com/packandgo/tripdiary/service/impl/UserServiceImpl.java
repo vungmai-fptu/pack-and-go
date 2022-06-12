@@ -102,7 +102,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     @Transactional
-    public void register(RegisterRequest registerRequest, String siteURL) throws Exception {
+    public void register(RegisterRequest registerRequest) throws Exception {
 
         if (userRepository.existsByUsername(registerRequest.getUsername())) {
             throw new IllegalArgumentException("Username has already exist");
@@ -129,7 +129,7 @@ public class UserServiceImpl implements UserService {
         userInfo.setGender(Gender.UNDEFINED);
 
         //create verify email
-        MailContent mailContent = new VerifyEmailMailContent(user.getEmail(), user.getVerifyToken(), siteURL);
+        MailContent mailContent = new VerifyEmailMailContent(user.getEmail(), user.getVerifyToken());
         emailSenderService.sendEmail(mailContent);
         userRepository.save(user);
         userInfoRepository.save(userInfo);

@@ -4,6 +4,7 @@ import com.packandgo.tripdiary.model.Trip;
 import com.packandgo.tripdiary.model.User;
 import com.packandgo.tripdiary.payload.request.trip.TripRequest;
 
+import java.util.Date;
 import java.util.List;
 
 public interface TripService {
@@ -16,4 +17,5 @@ public interface TripService {
     public void likeTrip(Long tripId);
     public boolean existedTrip(Long tripId);
     public boolean existedLike(Long tripId);
+    public List<Trip> getNotifiedTripsForDay();
 }

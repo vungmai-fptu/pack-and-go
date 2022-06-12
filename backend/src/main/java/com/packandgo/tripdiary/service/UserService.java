@@ -13,7 +13,7 @@ public interface UserService {
     public boolean existsByUsername(String username);
     public boolean existsByEmail(String email);
     public String createPasswordResetTokenForUser(User user);
-    public void register(RegisterRequest request, String siteURL) throws Exception;
+    public void register(RegisterRequest request) throws Exception;
     public boolean verify(String verifyToken);
     public void changePassword(User user, String newPassword);
     public void removeUser(String username);

@@ -40,10 +40,12 @@ public class Trip {
 
     @Column(name = "begin_date")
     @JsonFormat(pattern = "yyyy-MM-dd")
+    @Temporal(TemporalType.DATE)
     private Date beginDate;
 
     @Column(name = "end_date")
     @JsonFormat(pattern = "yyyy-MM-dd")
+    @Temporal(TemporalType.DATE)
     private Date endDate;
 
     @Enumerated(EnumType.STRING)
@@ -64,7 +66,7 @@ public class Trip {
     @Column(name = "notify_before")
     private int notifyBefore;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id", nullable = false)
     @JsonIgnore
     private User user;
@@ -83,6 +85,7 @@ public class Trip {
             cascade = CascadeType.ALL,
             orphanRemoval = true)
     private List<PriceItem> priceList = new ArrayList<>();
+
 
     public Trip() {
     }
@@ -156,6 +159,8 @@ public class Trip {
         } else {
             this.setConcurrencyUnit(request.getConcurrencyUnit());
         }
+
+
     }
 
     public TripResponse toResponse() {
