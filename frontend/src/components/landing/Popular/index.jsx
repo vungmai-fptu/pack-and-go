@@ -1,12 +1,20 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import SectionContainer from '../SectionContainer';
 import SectionHeader from '../SectionHeader';
 import styles from "./Popular.module.css";
 import TripItem from '../../TripItem/TripItem';
+import Aos from 'aos';
+import 'aos/dist/aos.css';
+import 'aos/dist/aos.js';
 
 const Popular = () => {
+  useEffect(() => {
+    Aos.init({duration: 2000});
+    Aos.refresh();
+  },[]
+  );
   return (
-    <div>
+    <div data-aos={"fade-down"}>
       <SectionContainer>
         <SectionHeader>Peek into some saved stories</SectionHeader>
         <div className={styles["trip-container"]}>
