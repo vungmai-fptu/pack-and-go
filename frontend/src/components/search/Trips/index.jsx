@@ -2,6 +2,7 @@ import React from "react";
 import SectionContainer from "../../landing/SectionContainer";
 import TripCardSlider from "./slider";
 import styles from "./Trips.module.css";
+import { Link } from "react-router-dom";
 
 const Trips = () => {
   return (
@@ -9,11 +10,11 @@ const Trips = () => {
       <div className={styles["trips-title"]}>
         <div className={styles["title-wrapper"]}>
           <label className={styles.title}>Trips</label>
-          <button className={styles["add-btn"]}>
+          <Link to="/alltrips" className={styles["add-btn"]}>
             <div className={styles["add-btn-title"]}>
               <span className={["add-btn-text"]}>Show all</span>
             </div>
-          </button>
+          </Link>
         </div>
       </div>
       <div className={styles["trip-container"]}>

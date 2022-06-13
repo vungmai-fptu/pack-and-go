@@ -8,7 +8,7 @@ const Header = () => {
   return (
     <div style={{ paddingTop: "95px" }}>
       <SectionContainer>
-        <div className={styles.header_search}>
+        <div>
           <div className={styles["header-cover"]}>
             <div className={styles["header-cover-photo"]}>
               <div className={styles["header-cover-photo-bg"]}></div>
@@ -32,35 +32,37 @@ const Header = () => {
                 <div className={styles.name}>
                   <div className={styles["user-name"]}>{user.username}</div>
                   <div className={styles["user-url"]}>/{user.username}</div>
+                  <div className={styles["row"]}><br/><br/><br/>
+                  </div>
+                  <div className={styles["header-second-section"]}>
+                    <div className={styles["user-info"]}>
+                      <div className={styles["user-repository"]}>
+                        <div className={styles["user-repo-item"]}>
+                          <span>00</span> countries
+                        </div>
+                        <div className={styles["user-repo-item"]}>
+                          <span>00</span> trips
+                        </div>
+                        <div className={styles["user-repo-item"]}>
+                          <span>00</span> photos
+                        </div>
+                        <div className={styles["user-repo-item"]}>
+                          <span>00</span> videos
+                        </div>
+                      </div>
+                    </div>
+                    <div className={styles["user-description"]}>
+                      <p>Hi!</p>
+                    </div>
+                  </div>
                 </div>
               </div>
-            </div>
-          </div>
-          <div className={styles["header-second-section"]}>
-            <div className={styles["user-info"]}>
-              <div className={styles["user-repository"]}>
-                <div className={styles["user-repo-item"]}>
-                  <span>00</span> countries
-                </div>
-                <div className={styles["user-repo-item"]}>
-                  <span>00</span> trips
-                </div>
-                <div className={styles["user-repo-item"]}>
-                  <span>00</span> photos
-                </div>
-                <div className={styles["user-repo-item"]}>
-                  <span>00</span> videos
-                </div>
-              </div>
-            </div>
-            <div className={styles["user-description"]}>
-              <p>Hi!</p>
             </div>
           </div>
         </div>
       </SectionContainer>
     </div>
-  );
-};
+  )
+}
 
 export default Header;

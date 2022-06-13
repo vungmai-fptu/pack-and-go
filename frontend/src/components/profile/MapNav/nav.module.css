@@ -4,6 +4,7 @@
     box-sizing: border-box;
     float: none!important;
     margin: 0 auto;
+    margin-top: 180px;
     max-width: calc(100% - 3rem);
     z-index: 0;
     overflow: visible;
@@ -15,8 +16,8 @@
     column-gap: 1rem;
     display: flex;
     width: 100%;
-    overflow: auto;
     z-index: 1;
+    height: fit-content;
 }
 
 .btn {
@@ -84,12 +85,12 @@
     border-radius: 50%;
 }
 
-@media (max-width: 740px) {
+@media (max-width: 1024px) {
     .nav-wrapper {
+        margin-top: 400px;
         width: 100%;
         max-width: 100%;
         padding: 0;
-        display: initial;
     }
 
     .btn, .btn-selected {
@@ -104,6 +105,7 @@
     width: 7.5rem;
     float: right;
     z-index: 100;
+    max-height: 100px;
 }
 
 

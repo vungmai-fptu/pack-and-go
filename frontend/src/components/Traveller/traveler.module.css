@@ -166,3 +166,7 @@
   text-align: left;
   cursor: text;
 }
+
+@media (max-width: 768px) {
+  
+}

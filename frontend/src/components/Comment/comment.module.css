@@ -7,7 +7,8 @@
     position: relative;
     white-space: normal;
     width: 100%;
-    z-index: 0;
+    z-index: 3;
+    height: 500px;
 }
 
 .show-comments {

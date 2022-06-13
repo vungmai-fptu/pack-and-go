@@ -1,5 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import styles from './comment.module.css'
+const fetchData = [
+    { }
+]
 
 const CommentBox = (username, image, tripId, repList) => {
     const [data, setData] = useState([])
@@ -42,8 +45,7 @@ const CommentBox = (username, image, tripId, repList) => {
     }
 
     return (
-        <div className={styles["container"]}>
-            
+        <div className={styles.container}>
             {
                 data.map(item => {
                     return (

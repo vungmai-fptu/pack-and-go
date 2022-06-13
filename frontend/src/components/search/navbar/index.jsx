@@ -10,7 +10,7 @@ const Nav = () => {
             <div className={styles["nav-container"]}>
                 <div className={styles["nav"]}>
                     <div className={styles["nav-content"]}>
-                        <div className={styles["nav-btn"]}>
+                        <div className={styles["nav-btn-selected"]}>
                             <div className={styles["btn-icon"]}>
                                 <AiOutlineUnorderedList className={styles["btn-icon"]}/>
                             </div>
