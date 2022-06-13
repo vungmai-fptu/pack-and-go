@@ -468,9 +468,9 @@
 }
 
 .active {
-    opacity: 1;
-    visibility: visible;
-    transform: translateY(0);
+    opacity: 1 !important;
+    visibility: visible !important;
+    transform: translateY(0) !important;
 }
 
 .activeExact {
@@ -593,6 +593,10 @@
     align-items: center;
     display: flex;
 }
+
+/* .dayOne:hover {
+    background: #071125
+} */
 
 .spanOne {
     background: #fff;
@@ -736,4 +740,12 @@
     font-size: .875rem;
     width: 100%;
     padding-left: 10px;
+}
+
+.dropDate {
+    display: grid;
+}
+
+.activeDropDate {
+    display: none;
 }

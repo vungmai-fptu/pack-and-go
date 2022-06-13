@@ -120,7 +120,7 @@
     position: initial;
 }
 
-/* .rdrDayInPreview {
+.rdrDayInPreview {
     border: none;
     background-color: #00e1d6;
     opacity: 0.3
@@ -142,7 +142,8 @@
     border: none;
     background-color: #00e1d6;
     opacity: 0.3
-} */
+}
+
 /* span.rdrStartEdge.rdrEndEdge {
     color: #00e1d6 !important;
 }

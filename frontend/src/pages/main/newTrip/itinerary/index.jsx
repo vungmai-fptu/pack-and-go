@@ -33,18 +33,6 @@ export default function Itinerary() {
                 </div>
               </div>
               <Day />
-              <div className={styles.containerDay}>
-                <div className={styles.addADay}>
-                  <div className={styles.aDay}>
-                    <div className={styles.addDIcon}>
-                      <IoMdAddCircleOutline />
-                    </div>
-                    <div style={{ paddingLeft: "10px" }}>
-                      <span>Add a Day</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
             </div>
           </div>
           <div style={{ padding: "0 30px" }}>
