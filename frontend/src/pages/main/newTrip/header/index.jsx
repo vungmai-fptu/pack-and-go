@@ -93,11 +93,6 @@ export default function Header() {
               <span>Save and close</span>
             </button>
           </div>
-          <img
-            src="fonts/src_app_components_components_svgIcon_icons_commonsprite-afce76.svg#option-dotsa1-usage"
-            alt="common/option-dots"
-            style={{ width: "40px", padding: "7px 3px", margin: "0 8px" }}
-          />
         </div>
       </div>
     </div>

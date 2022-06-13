@@ -1,0 +1,10 @@
+.isActive {
+    background: #00e1d6;
+    color: #fff;
+}
+
+.item {
+    padding: 5px 25px 0px 25px;
+    border-radius: 10px;
+    cursor: pointer;
+}

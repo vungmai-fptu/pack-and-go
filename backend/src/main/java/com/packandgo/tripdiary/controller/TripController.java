@@ -5,15 +5,14 @@ import com.packandgo.tripdiary.model.Trip;
 
 import com.packandgo.tripdiary.payload.request.trip.TripRequest;
 import com.packandgo.tripdiary.payload.response.MessageResponse;
-import com.packandgo.tripdiary.payload.response.trip.TripListResponse;
-import com.packandgo.tripdiary.payload.response.trip.TripResponse;
+import com.packandgo.tripdiary.payload.response.PagingResponse;
+import com.packandgo.tripdiary.payload.response.TripResponse;
 import com.packandgo.tripdiary.service.TripService;
 import com.packandgo.tripdiary.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RestController
 @RequestMapping("/api/trips")
@@ -39,11 +38,12 @@ public class TripController {
 
 
     @GetMapping("")
-    public ResponseEntity<?> getAllTrips(@RequestParam(defaultValue = "0") int page,
-                                         @RequestParam(defaultValue = "10") int size) {
+    public ResponseEntity<?> getAllTrips(@RequestParam(defaultValue = "1", required = false) int page,
+                                         @RequestParam(defaultValue = "10", required = false) int size) {
 
-        List<Trip> trips = tripService.getTrips(page, size);
-        TripListResponse response = new TripListResponse(page, size, trips);
+        page = page <= 0 ? 1 : page;
+        Page<Trip> trips = tripService.getTrips(page, size);
+        PagingResponse<Trip> response = new PagingResponse<>(page, size, trips.getTotalPages(), trips.getContent());
         return ResponseEntity.ok(response);
     }
 

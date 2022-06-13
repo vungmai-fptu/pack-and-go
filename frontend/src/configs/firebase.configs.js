@@ -13,10 +13,9 @@ const firebaseConfig = {
   storageBucket: "trip-diary-storage.appspot.com",
   messagingSenderId: "1041591169991",
   appId: "1:1041591169991:web:6cf8ab2d4aabe0c7d0dfe2",
-  measurementId: "G-FS79Q2XFF6"
+  measurementId: "G-FS79Q2XFF6",
 };
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
-const storage = getStorage(app);
-export default storage;
+export const storage = getStorage(app);

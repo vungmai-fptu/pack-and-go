@@ -468,9 +468,9 @@
 }
 
 .active {
-    opacity: 1;
-    visibility: visible;
-    transform: translateY(0);
+    opacity: 1 !important;
+    visibility: visible !important;
+    transform: translateY(0) !important;
 }
 
 .activeExact {
@@ -587,12 +587,16 @@
 .dayOne {
     flex-direction: row;
     height: 42px;
-    margin-left: 26px;
+    margin: 0 26px;
     padding-bottom: 16px;
     position: relative;
     align-items: center;
     display: flex;
 }
+
+/* .dayOne:hover {
+    background: #071125
+} */
 
 .spanOne {
     background: #fff;
@@ -697,6 +701,7 @@
     display: flex;
     flex: 1 1 0;
     min-width: 0;
+    justify-content: space-between;
 }
 
 .rightFlex {
@@ -736,4 +741,39 @@
     font-size: .875rem;
     width: 100%;
     padding-left: 10px;
+}
+
+.dropDate {
+    display: grid;
+}
+
+.activeDropDate {
+    display: none;
+}
+
+.trash {
+    max-width: 0;
+    overflow: hidden;
+    transition: all 0.3s;
+}
+
+.dayOne:hover .trash {
+    max-width: 70px;
+}
+
+
+.rightCenter:hover .trash {
+    max-width: 70px;
+}
+
+.rightCenter:hover {
+    background: #f4f8fb;
+    border-radius: 10px;
+}
+
+.idPlace {
+    position: absolute;
+    color: red;
+    font-weight: 800;
+    padding-bottom: 6px;
 }
