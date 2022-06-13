@@ -2,20 +2,12 @@ import { IoMdAddCircleOutline } from "react-icons/io";
 import styles from "../trip.module.css";
 import Place from "./place";
 import Collapse from "../../../../components/collapse";
-const Day = () => {
-  const day = [
-    {
-      day: 1,
-    },
-    {
-      day: 2,
-    },
-  ];
-  return day.map((day, index) => {
+const Day = (props) => {
+  return props.visitDay.map((day, index) => {
     return (
       <div className={styles.containerDay} key={index}>
-        <Collapse day={day.day}>
-          <Place />
+        <Collapse day={day} handleRemove={props.handleRemove} index={index}>
+          {day.visitPlaces ? <Place place={day.visitPlaces} /> : ""}
           <div className={styles.enterPlace}>
             <div className={styles.leftPlace} style={{ paddingLeft: "26px" }}>
               <div className={styles.leftPlace}>

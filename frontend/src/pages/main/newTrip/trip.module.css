@@ -587,7 +587,7 @@
 .dayOne {
     flex-direction: row;
     height: 42px;
-    margin-left: 26px;
+    margin: 0 26px;
     padding-bottom: 16px;
     position: relative;
     align-items: center;
@@ -701,6 +701,7 @@
     display: flex;
     flex: 1 1 0;
     min-width: 0;
+    justify-content: space-between;
 }
 
 .rightFlex {
@@ -748,4 +749,31 @@
 
 .activeDropDate {
     display: none;
+}
+
+.trash {
+    max-width: 0;
+    overflow: hidden;
+    transition: all 0.3s;
+}
+
+.dayOne:hover .trash {
+    max-width: 70px;
+}
+
+
+.rightCenter:hover .trash {
+    max-width: 70px;
+}
+
+.rightCenter:hover {
+    background: #f4f8fb;
+    border-radius: 10px;
+}
+
+.idPlace {
+    position: absolute;
+    color: red;
+    font-weight: 800;
+    padding-bottom: 6px;
 }

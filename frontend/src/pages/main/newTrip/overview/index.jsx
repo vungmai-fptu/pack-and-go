@@ -9,7 +9,6 @@ export default function Overview() {
     <div className="w_CU">
       <div className="w_oz w_CX">
         <div className="w_aam w_iW">
-          <div className="w_aan" />
           <ImageUpload />
         </div>
         <div className="w_oz w_iX">
