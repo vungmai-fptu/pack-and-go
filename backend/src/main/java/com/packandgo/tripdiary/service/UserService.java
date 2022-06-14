@@ -5,6 +5,8 @@ import com.packandgo.tripdiary.model.UserInfo;
 import com.packandgo.tripdiary.payload.request.auth.NewPasswordRequest;
 import com.packandgo.tripdiary.payload.request.auth.RegisterRequest;
 import com.packandgo.tripdiary.payload.request.user.InfoUpdateRequest;
+import com.packandgo.tripdiary.payload.response.UserResponse;
+import org.springframework.data.domain.Page;
 
 public interface UserService {
     public User findUserByEmail(String email);
@@ -13,7 +15,7 @@ public interface UserService {
     public boolean existsByUsername(String username);
     public boolean existsByEmail(String email);
     public String createPasswordResetTokenForUser(User user);
-    public void register(RegisterRequest request, String siteURL) throws Exception;
+    public void register(RegisterRequest request) throws Exception;
     public boolean verify(String verifyToken);
     public void changePassword(User user, String newPassword);
     public void removeUser(String username);
@@ -23,5 +25,5 @@ public interface UserService {
 
 
     public void updateUserInfo(User user, InfoUpdateRequest infoUpdateRequest);
-
+    public Page<UserResponse> getUsersAndAllTrips(int page, int size);
 }

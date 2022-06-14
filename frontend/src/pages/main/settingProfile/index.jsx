@@ -5,6 +5,55 @@ import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
 import styles from "./settingProfile.module.css";
 import { EditorState } from "draft-js";
 import { Link } from "react-router-dom";
+const toobar_config = {
+  inline: {
+    visible: true,
+    inDropdown: false,
+    bold: { visible: true, icon: 'xxx.png', },
+    italic: { visible: true, icon: 'xxx.png', },
+    underline: { visible: true, icon: 'xxx.png', },
+    strikeThrough: { visible: true, icon: 'xxx.png', },
+    monospace: { visible: true, icon: 'xxx.png', }
+  },
+  blockType: { visible: true, },
+  fontSize: { visible: true, icon: 'xxx.png', },
+  fontFamily: { visible: true, },
+  list: {
+    visible: true,
+    inDropdown: true,
+    unordered: { visible: true, icon: 'xxx.png', },
+    ordered: { visible: true, icon: 'xxx.png', },
+    indent: { visible: true, icon: 'xxx.png', },
+    outdent: { visible: true, icon: 'xxx.png', }
+  },
+  textAlign: {
+    visible: true,
+    inDropdown: true,
+    left: { visible: true, icon: 'xxx.png', },
+    center: { visible: true, icon: 'xxx.png', },
+    right: { visible: true, icon: 'xxx.png', },
+    justify: { visible: true, icon: 'xxx.png', }
+  },
+  colorPicker: { visible: true, icon: 'xxx.png', },
+  link: {
+    visible: true,
+    inDropdown: true,
+    addLink: { visible: true, icon: 'xxx.png', },
+    removeLink: { visible: true, icon: 'xxx.png', },
+  },
+  image: {
+    visible: false,
+    icon: 'xxx.png',
+    fileUpload: true,
+    url: true,
+  },
+  history: {
+    visible: true,
+    inDropdown: true,
+    undo: { visible: true, icon: 'xxx.png', },
+    redo: { visible: true, icon: 'xxx.png', },
+  }
+}
 class SettingProfile extends Component {
   state = {
     editorState: EditorState.createEmpty(),
@@ -28,7 +77,7 @@ class SettingProfile extends Component {
                   <div className={styles.bcg} />
                   <ul>
                     <li className={styles.active}>
-                      <a href="/setting">
+                      <Link to="/setting">
                         <span className={styles.barOfSpan}>
                           <img
                             src="https://www.worldee.com/images/asideucet.svg"
@@ -36,12 +85,12 @@ class SettingProfile extends Component {
                           />
                         </span>
                         <label> My account </label>{" "}
-                      </a>
+                      </Link>
                     </li>
                     <li>
-                      <a
+                      <Link
                         className={styles.barOfa}
-                        href="/changePassword"
+                        to="/changePassword"
                       >
                         <span className={styles.barOfSpan}>
                           <img
@@ -50,7 +99,7 @@ class SettingProfile extends Component {
                           />
                         </span>
                         <label> Password change</label>{" "}
-                      </a>
+                      </Link>
                     </li>
                     <li>
                       <a className={styles.barOfa} href="/sign/out">
@@ -640,14 +689,9 @@ class SettingProfile extends Component {
                                   wrapperClassName="wrapperClassName"
                                   editorClassName="editorClassName"
                                   onEditorStateChange={this.onEditorStateChange}
+                                  toolbarConfig={toobar_config}
                                 />
                               </div>
-                              <span data-tooltip="Public">
-                                <img
-                                  src="https://www.worldee.com/images/verejne.svg"
-                                  alt="veřejné"
-                                />
-                              </span>
                             </div>
                           </div>
                           <div
@@ -721,82 +765,6 @@ class SettingProfile extends Component {
                               </div>
                             </div>
                           </div>
-                          <hr />
-                          <div className={styles.boxInput}>
-                            <label htmlFor="vystupova"> Map variant</label>
-                            <div
-                              id="maps_type-select"
-                              className={styles.customSelect}
-                              ajax-val="Europe"
-                            >
-                              <div className={styles.selected}>
-                                <p>Europe centered</p>
-                              </div>
-                              <div className={styles.selectOptions}>
-                                <div
-                                  className={styles.selectOption}
-                                  ajax-val="Europe"
-                                >
-                                  <p>Europe centered</p>
-                                </div>
-                                <div
-                                  className={styles.selectOption}
-                                  ajax-val="Asia"
-                                >
-                                  <p>Asia centered</p>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                          <div className={styles.boxInput}>
-                            <label htmlFor="vystupova">
-                              {" "}
-                              Language settings
-                            </label>
-                            <div
-                              id="jazyk-select"
-                              className={styles.customSelect}
-                              ajax-val="EN"
-                            >
-                              <div className={styles.selected}>
-                                <p>English</p>
-                              </div>
-                              <div className={styles.selectOptions}>
-                                <div
-                                  className={styles.selectOption}
-                                  ajax-val="CS"
-                                >
-                                  <p>Čeština</p>
-                                </div>
-                                <div
-                                  className={styles.selectOption}
-                                  ajax-val="EN"
-                                >
-                                  <p>English</p>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                          <div className={styles.odsraneniUctu}>
-                            <button
-                              type="button"
-                              className={styles.toggleButton}
-                            >
-                              <strong>Delete profile</strong>
-                            </button>
-                            <div className={styles.content}>
-                              <p>
-                                Are you sure you want to delete your profile? By
-                                deleting your profile you will delete all your
-                                Worldee content (your profile, photos and
-                                trips). No user will be able to find you again.
-                              </p>
-                              <Link id="removeacc" to="/" data-has-password>
-                                Delete profile
-                              </Link>
-                            </div>
-                          </div>
-                          <hr className={styles.noTopMargin} />
                         </form>
                       </div>
                       <button

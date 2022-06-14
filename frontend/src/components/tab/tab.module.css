@@ -5,6 +5,8 @@
 
  .tab-list-item {
      color: #d4dbe9;
+     display: block;
+     padding: 35px 0;
  }
 
  .tab-list-active {
@@ -15,5 +17,5 @@
      display: block;
      font-size: .875rem;
      hyphens: auto;
-     padding: 4px 4px 0;
+     padding: 0px 5px;
  }

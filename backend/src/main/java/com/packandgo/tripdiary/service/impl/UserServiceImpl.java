@@ -12,6 +12,7 @@ import com.packandgo.tripdiary.model.mail.VerifyEmailMailContent;
 import com.packandgo.tripdiary.payload.request.auth.NewPasswordRequest;
 import com.packandgo.tripdiary.payload.request.auth.RegisterRequest;
 import com.packandgo.tripdiary.payload.request.user.InfoUpdateRequest;
+import com.packandgo.tripdiary.payload.response.UserResponse;
 import com.packandgo.tripdiary.repository.PasswordResetRepository;
 import com.packandgo.tripdiary.repository.RoleRepository;
 import com.packandgo.tripdiary.repository.UserInfoRepository;
@@ -20,6 +21,9 @@ import com.packandgo.tripdiary.service.EmailSenderService;
 import com.packandgo.tripdiary.service.PasswordResetService;
 import com.packandgo.tripdiary.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -102,7 +106,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     @Transactional
-    public void register(RegisterRequest registerRequest, String siteURL) throws Exception {
+    public void register(RegisterRequest registerRequest) throws Exception {
 
         if (userRepository.existsByUsername(registerRequest.getUsername())) {
             throw new IllegalArgumentException("Username has already exist");
@@ -129,7 +133,7 @@ public class UserServiceImpl implements UserService {
         userInfo.setGender(Gender.UNDEFINED);
 
         //create verify email
-        MailContent mailContent = new VerifyEmailMailContent(user.getEmail(), user.getVerifyToken(), siteURL);
+        MailContent mailContent = new VerifyEmailMailContent(user.getEmail(), user.getVerifyToken());
         emailSenderService.sendEmail(mailContent);
         userRepository.save(user);
         userInfoRepository.save(userInfo);
@@ -239,6 +243,20 @@ public class UserServiceImpl implements UserService {
         userInfo.setDateOfBirth(infoUpdateRequest.getDateOfBirth());
         userInfo.setAboutMe(infoUpdateRequest.getAboutMe());
         userInfoRepository.save(userInfo);
+    }
+
+    @Override
+    public Page<UserResponse> getUsersAndAllTrips(int page, int size) {
+        Pageable paging = PageRequest.of(page - 1, size);
+        Page<User> resultUser = userRepository.findUsersAndAllTrips(paging);
+        Page<UserResponse> resultUserResponse = resultUser.map(user -> {
+
+           UserResponse response =  new UserResponse();
+           response.setUsername(user.getUsername());
+           response.setTrips(user.getTrips());
+           return  response;
+        });
+        return resultUserResponse;
     }
 
     @Override

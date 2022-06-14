@@ -24,9 +24,13 @@ const MapComponent = () => {
   const mapRef = useRef();
 
   console.log(location);
-  const ZOOM_LEVEL = 13;
+  const ZOOM_LEVEL = 9;
 
   const showMyLocation = () => {
+    if (navigator.geolocation) {
+      return;
+    }
+
     if (location.loaded && !location.error) {
       console.log(mapRef.current);
       mapRef.current.flyTo(
@@ -44,7 +48,7 @@ const MapComponent = () => {
   return (
     <div className="container-map">
       <MapContainer
-        center={[location.coordinates.lat, location.coordinates.lng]}
+        center={[50, 50]}
         zoom={ZOOM_LEVEL}
         scrollWheelZoom={true}
         ref={mapRef}
@@ -74,7 +78,7 @@ const MapComponent = () => {
           keepResult={true}
         />
       </MapContainer>
-    </div>
+    </div >
   );
 };
 

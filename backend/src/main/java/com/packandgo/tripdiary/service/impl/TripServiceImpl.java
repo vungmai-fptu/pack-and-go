@@ -22,6 +22,7 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -79,15 +80,11 @@ public class TripServiceImpl implements TripService {
     }
 
     @Override
-    public List<Trip> getTrips(int page, int size) {
-        if (page == 0) {
-            List<Trip> trips = new ArrayList<>();
-            tripRepository.findAll().forEach(trips::add);
-            return trips;
-        }
+    public Page<Trip> getTrips(int page, int size) {
         Pageable paging = PageRequest.of(page - 1, size);
         Page<Trip> trips = tripRepository.findAll(paging);
-        return trips.getContent();
+
+        return trips;
     }
 
     @Override
@@ -192,7 +189,6 @@ public class TripServiceImpl implements TripService {
     }
 
     @Override
-
     public boolean existedLike(Long tripId){
         UserDetails userDetails = (UserDetails) SecurityContextHolder
                 .getContext()
@@ -207,4 +203,10 @@ public class TripServiceImpl implements TripService {
         );
         return likeRepository.existsByTripIdAndUserId(trip.getId(), user.getId());
     }
+
+    @Override
+    public List<Trip> getNotifiedTripsForDay() {
+        return tripRepository.getTripsForToday();
+    }
+
 }

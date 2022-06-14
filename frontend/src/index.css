@@ -91,3 +91,12 @@ body {
   text-overflow: ellipsis !important;
   white-space: nowrap !important;
 }
+
+input[type="radio"] {
+  opacity: 0;
+  width: 35px;
+  height: 35px;
+  margin: 0px 23px;
+  transform: translate(0px, -37px);
+  cursor: pointer;
+}
