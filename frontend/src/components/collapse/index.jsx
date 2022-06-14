@@ -36,7 +36,7 @@ function Collapse(props) {
         <div className={styles.dayBa}></div>
         <IoTrashSharp
           className={styles.trash}
-        // onClick={() => props.handleRemove(props.index)}
+          // onClick={() => props.handleRemove(props.index)}
         />
       </div>
       <div className={styles.write}>
