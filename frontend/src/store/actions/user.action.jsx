@@ -9,6 +9,8 @@ import {
   RESETPASSWORD_SUCCESS,
   RESETPASSWORD_REQUEST_FAILED,
   RESETPASSWORD_REQUEST_SUCCESS,
+  LIST_USER_SUCCESS,
+  LIST_USER_FAILED,
 } from "../constants/user.const";
 import { startLoading, stopLoading } from "../actions/common.action";
 export const postLogin = (usernameOrEmail, password) => {
@@ -172,6 +174,39 @@ const postResetPasswordSuccess = (user) => {
 const postResetPasswordFailed = (err) => {
   return {
     type: RESETPASSWORD_FAILED,
+    payload: err,
+  };
+};
+
+export const getUser = () => {
+  return (dispatch) => {
+    dispatch(startLoading());
+    axios({
+      method: "GET",
+      url: "https://trip-diary-backend.azurewebsites.net/api/users/trips?page=1&size=10",
+      data: null,
+    })
+      .then((res) => {
+        dispatch(stopLoading());
+        dispatch(getUserSuccess(res.data.data));
+      })
+      .catch((err) => {
+        dispatch(stopLoading());
+        dispatch(getUserFailed(err));
+      });
+  };
+};
+
+export const getUserSuccess = (listUser) => {
+  return {
+    type: LIST_USER_SUCCESS,
+    payload: listUser,
+  };
+};
+
+const getUserFailed = (err) => {
+  return {
+    type: LIST_USER_FAILED,
     payload: err,
   };
 };

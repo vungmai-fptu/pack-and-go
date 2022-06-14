@@ -38,65 +38,57 @@ class Transport extends React.Component {
             }}
           >
             <div
-              className={`${styles.item} ${
-                this.state.activeTab === "plane" ? activeClass : ""
-              }`}
+              className={`${styles.item} ${this.state.activeTab === "plane" ? activeClass : ""
+                }`}
               onClick={this.handleClickActiveTab.bind(this, "plane")}
             >
               <FaPlane />
             </div>
             <div
-              className={`${styles.item} ${
-                this.state.activeTab === "car" ? activeClass : ""
-              }`}
+              className={`${styles.item} ${this.state.activeTab === "car" ? activeClass : ""
+                }`}
               onClick={this.handleClickActiveTab.bind(this, "car")}
             >
               <IoCarSport />
             </div>
             <div
-              className={`${styles.item} ${
-                this.state.activeTab === "bus" ? activeClass : ""
-              }`}
+              className={`${styles.item} ${this.state.activeTab === "bus" ? activeClass : ""
+                }`}
               onClick={this.handleClickActiveTab.bind(this, "bus")}
             >
               <FaBusAlt />
             </div>
             <div
-              className={`${styles.item} ${
-                this.state.activeTab === "train" ? activeClass : ""
-              }`}
+              className={`${styles.item} ${this.state.activeTab === "train" ? activeClass : ""
+                }`}
               onClick={this.handleClickActiveTab.bind(this, "train")}
             >
               <FaTrain />
             </div>
             <div
-              className={`${styles.item} ${
-                this.state.activeTab === "ship" ? activeClass : ""
-              }`}
+              className={`${styles.item} ${this.state.activeTab === "ship" ? activeClass : ""
+                }`}
               onClick={this.handleClickActiveTab.bind(this, "ship")}
             >
               <FaShippingFast />
             </div>
             <div
-              className={`${styles.item} ${
-                this.state.activeTab === "moto" ? activeClass : ""
-              }`}
+              className={`${styles.item} ${this.state.activeTab === "moto" ? activeClass : ""
+                }`}
               onClick={this.handleClickActiveTab.bind(this, "moto")}
             >
               <FaMotorcycle />
             </div>
             <div
-              className={`${styles.item} ${
-                this.state.activeTab === "bike" ? activeClass : ""
-              }`}
+              className={`${styles.item} ${this.state.activeTab === "bike" ? activeClass : ""
+                }`}
               onClick={this.handleClickActiveTab.bind(this, "bike")}
             >
               <FaBicycle />
             </div>
             <div
-              className={`${styles.item} ${
-                this.state.activeTab === "walk" ? activeClass : ""
-              }`}
+              className={`${styles.item} ${this.state.activeTab === "walk" ? activeClass : ""
+                }`}
               onClick={this.handleClickActiveTab.bind(this, "walk")}
             >
               <FaWalking />

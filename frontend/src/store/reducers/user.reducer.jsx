@@ -1,4 +1,9 @@
-import { LOGIN_FAILED, LOGIN_SUCCESS } from "../constants/user.const";
+import {
+  LOGIN_FAILED,
+  LOGIN_SUCCESS,
+  LIST_USER_SUCCESS,
+  LIST_USER_FAILED,
+} from "../constants/user.const";
 
 const initialState = {
   user:
@@ -7,6 +12,7 @@ const initialState = {
       ? JSON.parse(localStorage.getItem("jwtToken")) ||
         JSON.parse(localStorage.getItem("userLogin"))
       : {},
+  listUser: [],
   errors: {},
 };
 
@@ -17,6 +23,12 @@ const userReducer = (state = initialState, action) => {
       return { ...state, user: payload };
     }
     case LOGIN_FAILED: {
+      return { ...state, errors: payload };
+    }
+    case LIST_USER_SUCCESS: {
+      return { ...state, listUser: payload };
+    }
+    case LIST_USER_FAILED: {
       return { ...state, errors: payload };
     }
     default:
