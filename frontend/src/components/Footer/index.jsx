@@ -1,9 +1,7 @@
 import styles from "./footer.module.css";
 import { useEffect } from "react";
 import logo from "../../assets/images/logos/logo-black-3.png";
-import Aos from 'aos';
-import 'aos/dist/aos.css';
-import 'aos/dist/aos.js';
+
 import {
   IoLogoFacebook,
   IoLogoGoogle,
@@ -11,13 +9,9 @@ import {
   IoLogoFigma,
 } from "react-icons/io5";
 export default function Footer() {
-  useEffect(() => {
-    Aos.init({duration: 2000});
-    Aos.refresh();
-  },[]
-  );
+
   return (
-    <footer data-aos={"fade-up"}>
+    <footer>
       <div className={styles.footer}>
         <div className={styles.container}>
           <div className={styles.col}>
