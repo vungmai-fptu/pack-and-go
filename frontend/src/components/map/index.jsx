@@ -78,7 +78,7 @@ const MapComponent = () => {
           keepResult={true}
         />
       </MapContainer>
-    </div >
+    </div>
   );
 };
 
