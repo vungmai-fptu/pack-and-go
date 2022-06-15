@@ -2,6 +2,8 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getListUser } from "../../store/actions/user.action";
 import Traveler from "./../Traveller/traveler";
+import { useIsLogin } from "./../../hooks/useIsLogin";
+import SkeletonTraveler from "../SkeletonCard/SkeletonTraveler";
 
 export default function RenderTraveler() {
   const dispatch = useDispatch();
@@ -13,11 +15,12 @@ export default function RenderTraveler() {
     []
   );
   const { listUser } = useSelector((state) => state.user);
-  console.log(
-    "🚀 ~ file: index.jsx ~ line 16 ~ RenderTraveler ~ listUser",
-    listUser
+  const { loading } = useIsLogin();
+  return loading ? (
+    <SkeletonTraveler />
+  ) : (
+    listUser.map((listUser, index) => {
+      return <Traveler listUser={listUser} key={index} />;
+    })
   );
-  return listUser.map((listUser, index) => {
-    return <Traveler listUser={listUser} key={index} />;
-  });
 }

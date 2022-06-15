@@ -37,7 +37,7 @@ function Feed() {
               <RenderTripItem />
             </div>
             <div className="w_i-" style={{ justifyContent: "center" }}>
-              <button className="w_ih w_ik w_cy">
+              <button className="w_ih w_ik w_cy" style={{ width: "auto" }}>
                 <span className="w_ia">Load More</span>
               </button>
             </div>
