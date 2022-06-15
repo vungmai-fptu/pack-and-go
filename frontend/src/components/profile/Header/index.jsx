@@ -1,10 +1,8 @@
 import React from "react";
 import styles from "./header.module.css";
 import SectionContainer from "../SectionContainer";
-import { useIsLogin } from "./../../../hooks/useIsLogin";
 
-const Header = () => {
-  const { user } = useIsLogin();
+const Header = (props) => {
   return (
     <div style={{ paddingTop: "95px" }}>
       <SectionContainer>
@@ -13,9 +11,13 @@ const Header = () => {
             <div className={styles["header-cover-photo"]}>
               <div className={styles["header-cover-photo-bg"]}></div>
               <img
-                alt=""
+                alt="coverImage"
                 className={styles["header-cover-img"]}
-                src="https://wrld-se-prod.b-cdn.net/images/bezfotky.png"
+                src={
+                  `${props.users.thumbnailUrl}` == null
+                    ? `${props.users.thumbnailUrl}`
+                    : "https://wrld-se-prod.b-cdn.net/images/bezfotky.png"
+                }
               ></img>
             </div>
             <div className={styles["header-cover-content"]}>
@@ -25,14 +27,25 @@ const Header = () => {
                     <img
                       alt="profile"
                       className={styles["avatar-img"]}
-                      src="https://wrld-se-prod.b-cdn.net/images/user-empty.svg"
+                      src={
+                        `${props.users.coverImageUrl}` == null
+                          ? `${props.users.coverImageUrl}`
+                          : "https://wrld-se-prod.b-cdn.net/images/user-empty.svg"
+                      }
                     />
                   </div>
                 </div>
                 <div className={styles.name}>
-                  <div className={styles["user-name"]}>{user.username}</div>
-                  <div className={styles["user-url"]}>/{user.username}</div>
-                  <div className={styles["row"]}><br/><br/><br/>
+                  <div className={styles["user-name"]}>
+                    {props.users.username}
+                  </div>
+                  <div className={styles["user-url"]}>
+                    /{props.users.username}
+                  </div>
+                  <div className={styles["row"]}>
+                    <br />
+                    <br />
+                    <br />
                   </div>
                   <div className={styles["header-second-section"]}>
                     <div className={styles["user-info"]}>
@@ -62,7 +75,7 @@ const Header = () => {
         </div>
       </SectionContainer>
     </div>
-  )
-}
+  );
+};
 
 export default Header;

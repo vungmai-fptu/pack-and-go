@@ -3,6 +3,7 @@ import styles from "./traveler.module.css";
 import { BiWorld } from "react-icons/bi";
 import { FaSuitcase } from "react-icons/fa";
 import { BsFillCameraFill } from "react-icons/bs";
+import { Link } from "react-router-dom";
 
 const Traveler = (props) => {
   return (
@@ -26,9 +27,12 @@ const Traveler = (props) => {
                 />
               </div>
             </div>
-            <a href="/profile/mai" className={styles["name-container"]}>
+            <Link
+              to={`/profile/${props.listUser.username}`}
+              className={styles["name-container"]}
+            >
               <span className={styles["name"]}>{props.listUser.username}</span>
-            </a>
+            </Link>
             <div className={styles["description-container"]}>
               <span className={styles["description"]}>{props.country}</span>
             </div>

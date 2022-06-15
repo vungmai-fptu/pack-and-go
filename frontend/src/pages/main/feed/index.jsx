@@ -1,24 +1,7 @@
-import React, { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { getUser } from "../../../store/actions/user.action";
-import Traveler from "./../../../components/Traveller/traveler";
-import TripItem from "./../../../components/TripItem/TripItem";
+import React from "react";
+import RenderTraveler from "../../../components/RenderTraveler";
+import RenderTripItem from "./../../../components/RenderTripItem";
 function Feed() {
-  const dispatch = useDispatch();
-  useEffect(() => {
-    dispatch(getUser());
-  }, []);
-  const { listUser } = useSelector((state) => state.user);
-  const renderListUser = () => {
-    return listUser.map((listUser, index) => {
-      return <Traveler listUser={listUser} />;
-    });
-  };
-  const renderTripItem = () => {
-    return listUser.map((listUser, index) => {
-      return <TripItem listUser={listUser} />;
-    });
-  };
   return (
     <div className="w_mS w_mT">
       <div className="w_cs">
@@ -42,13 +25,17 @@ function Feed() {
                 </div>
               </a>
             </div>
-            <div className="w_cv">{renderListUser()}</div>
+            <div className="w_cv">
+              <RenderTraveler />
+            </div>
           </div>
         </div>
         <div className="w_cw">
           <div className="w_cW w_cX ">
             <label className="w_rI w_rT">New Trips</label>
-            <div className="w_cx">{renderTripItem()}</div>
+            <div className="w_cx">
+              <RenderTripItem />
+            </div>
             <div className="w_i-" style={{ justifyContent: "center" }}>
               <button className="w_ih w_ik w_cy">
                 <span className="w_ia">Load More</span>

@@ -55,7 +55,7 @@ export default function Header() {
         <div className={styles.profile}>
           <div className={styles.profileList}>
             <div style={{ display: "flex", alignItems: "center" }}>
-              <Link to="/profile">
+              <Link to={`/profile/${user.username}`}>
                 <div className={styles.profileIcon}>
                   <img
                     className="w_km"

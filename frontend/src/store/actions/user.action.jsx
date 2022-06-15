@@ -11,6 +11,8 @@ import {
   RESETPASSWORD_REQUEST_SUCCESS,
   LIST_USER_SUCCESS,
   LIST_USER_FAILED,
+  USER_SUCCESS,
+  USER_FAILED,
 } from "../constants/user.const";
 import { startLoading, stopLoading } from "../actions/common.action";
 export const postLogin = (usernameOrEmail, password) => {
@@ -178,7 +180,7 @@ const postResetPasswordFailed = (err) => {
   };
 };
 
-export const getUser = () => {
+export const getListUser = () => {
   return (dispatch) => {
     dispatch(startLoading());
     axios({
@@ -188,7 +190,44 @@ export const getUser = () => {
     })
       .then((res) => {
         dispatch(stopLoading());
-        dispatch(getUserSuccess(res.data.data));
+        dispatch(getListUserSuccess(res.data.data));
+        console.log(
+          "🚀 ~ file: user.action.jsx ~ line 194 ~ .then ~ res.data.data",
+          res.data.data
+        );
+      })
+      .catch((err) => {
+        dispatch(stopLoading());
+        dispatch(getListUserFailed(err));
+      });
+  };
+};
+
+export const getListUserSuccess = (listUser) => {
+  return {
+    type: LIST_USER_SUCCESS,
+    payload: listUser,
+  };
+};
+
+const getListUserFailed = (err) => {
+  return {
+    type: LIST_USER_FAILED,
+    payload: err,
+  };
+};
+
+export const getUser = (username) => {
+  return (dispatch) => {
+    dispatch(startLoading());
+    axios({
+      method: "GET",
+      url: `https://trip-diary-backend.azurewebsites.net/api/users/${username}/trips`,
+      data: null,
+    })
+      .then((res) => {
+        dispatch(stopLoading());
+        dispatch(getUserSuccess(res.data));
       })
       .catch((err) => {
         dispatch(stopLoading());
@@ -197,16 +236,16 @@ export const getUser = () => {
   };
 };
 
-export const getUserSuccess = (listUser) => {
+export const getUserSuccess = (users) => {
   return {
-    type: LIST_USER_SUCCESS,
-    payload: listUser,
+    type: USER_SUCCESS,
+    payload: users,
   };
 };
 
 const getUserFailed = (err) => {
   return {
-    type: LIST_USER_FAILED,
+    type: USER_FAILED,
     payload: err,
   };
 };

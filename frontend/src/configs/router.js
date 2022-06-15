@@ -21,7 +21,7 @@ export const mainRouter = [
     Component: Feed,
   },
   {
-    path: "/profile",
+    path: "/profile/:username",
     exact: false,
     Component: Profile,
   },
