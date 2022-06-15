@@ -23,7 +23,11 @@ const Traveler = (props) => {
                 <img
                   className={styles["avt"]}
                   alt="profile"
-                  src={props.profilePhoto}
+                  src={
+                    props.profilePhoto == null
+                      ? "https://wrld-se-prod.b-cdn.net/images/user-empty.svg?width=640&height=640"
+                      : props.profilePhoto
+                  }
                 />
               </div>
             </div>

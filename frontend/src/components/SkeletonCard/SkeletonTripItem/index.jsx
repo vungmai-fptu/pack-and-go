@@ -1,19 +1,28 @@
 import React from "react";
 import Skeleton from "react-loading-skeleton";
 import styles from "../../TripItem/TripItem.module.css";
-import { Link } from "react-router-dom";
 const SkeletonTripItem = () => {
   return (
     <>
-      {Array(3)
+      {Array(12)
         .fill()
         .map((item, index) => (
           <div className={styles.outer} key={index}>
-            <div className={styles["item-image"]}>
+            <div
+              className={styles["item-image"]}
+              style={{
+                background:
+                  "linear-gradient(270deg, hsla(0, 0%, 100%, 0) 50%, rgba(0, 0, 0, 0.3))",
+              }}
+            >
               <img
                 alt="thumbnailUrl"
                 src="fonts/src_app_components_components_svgIcon_icons_customsprite-70fd46.svg#background-mapiV-usage"
-                style={{ width: "80%", height: "80%", top: "25px" }}
+                style={{
+                  width: "80%",
+                  height: "80%",
+                  top: "25px",
+                }}
               />
             </div>
             <div href="/trip/draft?id=348410" className={styles.inner}>
