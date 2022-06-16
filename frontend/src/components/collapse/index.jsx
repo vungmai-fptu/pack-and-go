@@ -1,11 +1,11 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   IoChevronUpSharp,
   IoChevronDownSharp,
   IoTrashSharp,
   IoDocumentText,
 } from "react-icons/io5";
-import styles from "../../pages/main/newTrip/trip.module.css";
+import styles from "./Collapse.module.css";
 const style = {
   collapsed: {
     display: "none",
@@ -20,23 +20,37 @@ const style = {
 };
 
 function Collapse(props) {
-  const [isCollapsed, setCollapsed] = useState(props.collapsed);
+  const { collapsed, day, onChangeDateDescription, order, onRemoveDay, children } = props;
+
+  const [isCollapsed, setCollapsed] = useState(collapsed);
+  const [description, setDescription] = useState(day.description || "");
+
 
   const toggleCollapse = () => {
     setCollapsed(!isCollapsed);
   };
 
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      onChangeDateDescription(description);
+    }, 1000);
+    return () => clearTimeout(timer);
+  }, [description]);
+
+  const onChange = (event) => {
+    setDescription(event.target.value);
+  }
   return (
     <>
       <div className={styles.dayOne}>
         <div className={styles.dayTop} onClick={() => toggleCollapse()}>
           {isCollapsed ? <IoChevronDownSharp /> : <IoChevronUpSharp />}
         </div>
-        <div className={styles.spanOne}>Day {props.day.dayNumber}</div>
+        <div className={styles.spanOne}>Day {order + 1}</div>
         <div className={styles.dayBa}></div>
         <IoTrashSharp
           className={styles.trash}
-        // onClick={() => props.handleRemove(props.index)}
+          onClick={onRemoveDay}
         />
       </div>
       <div className={styles.write}>
@@ -44,9 +58,10 @@ function Collapse(props) {
           <IoDocumentText style={{ fontSize: "25px" }} />
           <input
             type="text"
-            placeholder="Write a decription to the trip"
-            value={props.day.description}
-          ></input>
+            placeholder="Write a description for this day"
+            value={description}
+            onChange={onChange}
+          />
         </div>
       </div>
       <div
@@ -54,7 +69,7 @@ function Collapse(props) {
         style={isCollapsed ? style.collapsed : style.expanded}
         aria-expanded={isCollapsed}
       >
-        {props.children}
+        {children}
       </div>
     </>
   );

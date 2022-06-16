@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import styles from './PriceList.module.css';
+import { v4 as uuid } from 'uuid';
+
 import {
   GiMoneyStack
 } from 'react-icons/gi';
@@ -14,34 +16,17 @@ import {
 import PriceItem from "./PriceItem";
 import SavePriceItem from "./SavePriceItem";
 import NoItem from "../NoItem";
+import { SET_CONCURRENCY_UNIT, SET_PRICE_LIST } from "../../../../store/constants/trip.const";
+import { useDispatch, useSelector } from "react-redux";
 
 
-const fake_data = [
-  {
-    name: "Buy Cloth",
-    price: 1,
-  },
-  {
-    name: "Buy Cloth",
-    price: 2,
-  },
-  {
-    name: "Buy Tent",
-    price: 3,
-  },
-  {
-    name: "Food",
-    price: 4,
-  },
-]
 
 
 const concurrencies = ["$", "VND"];
 const PriceList = () => {
-
-  const [concurrencyUnit, setConcerrencyUnit] = useState("$");
+  const { trip } = useSelector(state => state.trip);
+  const dispatch = useDispatch();
   const [isSelectingConcurrency, setIsSelectingConcurrency] = useState(false);
-  const [list, setList] = useState(fake_data);
   const [updatedId, setUpdatedId] = useState(-1);
 
   const handleToggleSelect = () => {
@@ -49,13 +34,21 @@ const PriceList = () => {
   }
 
   const handleSelect = (concurrency) => {
-    setConcerrencyUnit(concurrency);
+    dispatch({
+      type: SET_CONCURRENCY_UNIT,
+      payload: concurrency
+    })
     setIsSelectingConcurrency(false);
   }
 
   const onDeleteItem = (index) => {
-    setList(prev => prev.filter((item, idx) => idx !== index));
+    // setList(prev => prev.filter((item, idx) => idx !== index));
     setUpdatedId(-1);
+    const newList = trip.priceList.filter((item, idx) => idx !== index);
+    dispatch({
+      type: SET_PRICE_LIST,
+      payload: newList
+    })
   }
 
   const handleClose = () => {
@@ -66,17 +59,18 @@ const PriceList = () => {
     if (id != null) {
       setUpdatedId(id);
     } else {
-      setUpdatedId(list.length);
+      setUpdatedId(trip.priceList.length);
     }
   }
 
   const onSaveItem = (newItem) => {
-    const newList = [...list];
-
-    newList[updatedId] = newItem;
-
-    setList(newList);
     setUpdatedId(-1);
+    const newList = [...trip.priceList];
+    newList[updatedId] = { id: uuid(), ...newItem };
+    dispatch({
+      type: SET_PRICE_LIST,
+      payload: newList
+    })
   }
 
   return <div className={styles.container}>
@@ -85,7 +79,7 @@ const PriceList = () => {
         <GiMoneyStack />
         Price List</h3>
       <div className={styles.concurrencies_selector}>
-        <span onClick={handleToggleSelect}>{concurrencyUnit}
+        <span onClick={handleToggleSelect}>{trip.concurrencyUnit}
           <RiArrowDropDownLine />
         </span>
         <div className={
@@ -106,19 +100,19 @@ const PriceList = () => {
       </div>
     </div>
     <div className={styles.total}>
-      Total: <span className={styles.total_amount}>{list.reduce((prev, item) => prev + item.price, 0)} {concurrencyUnit}</span>
+      Total: <span className={styles.total_amount}>{trip.priceList.reduce((prev, item) => prev + item.price, 0)} {trip.concurrencyUnit}</span>
     </div>
     <div className={styles.list_item}>
       {
-        list && list.length !== 0 ? list.map((item, index) =>
+        trip.priceList && trip.priceList.length !== 0 ? trip.priceList.map((item, index) =>
         (
           <PriceItem
             onOpen={() => handleOpen(index)}
             isUpdated={updatedId === index ? true : false}
             handleDelete={() => onDeleteItem(index)}
             item={item}
-            key={index}
-            concurrencyUnit={concurrencyUnit}
+            key={item.id}
+            concurrencyUnit={trip.concurrencyUnit}
             onClose={handleClose}
             handleUpdate={onSaveItem}
           />
@@ -137,7 +131,7 @@ const PriceList = () => {
         </div>
         <span>Add new item</span>
       </div>
-      {updatedId === list.length && <SavePriceItem
+      {updatedId === trip.priceList.length && <SavePriceItem
         handleClose={handleClose}
         handleSaveItem={onSaveItem}
       />}

@@ -5,26 +5,13 @@ import { IoImages } from "react-icons/io5";
 import { storeImageToFireBase } from "../../utils/storeImageToFirebase.";
 import { async } from "@firebase/util";
 import Loading from "../Loading";
-export default function ImageUpload() {
 
-  const id = useId();
+export default function ImageUpload({ image, handleChangeImage }) {
+
   const [selectedFile, setSelectedFile] = useState();
-  const [preview, setPreview] = useState();
+  const [preview, setPreview] = useState(image || null);
   const [isLoading, setIsLoading] = useState(false);
 
-
-
-
-  // const uploadImage = () => {
-  //   if (imageUpload === null) return;
-  //   console.log(imageUpload);
-  //   const imageRef = ref(storage, `${imageUpload.name + id}`);
-  //   uploadBytes(imageRef, imageUpload).then((snapshot) => {
-  //     getDownloadURL(snapshot.ref).then((url) => {
-  //       setImageList(url);
-  //     });
-  //   });
-  // };
   const style = {
     uploadedImage: {
       maxHeight: "200px",
@@ -57,15 +44,17 @@ export default function ImageUpload() {
     const uploadImage = async () => {
       setIsLoading(true);
       if (!selectedFile) {
-        setPreview(undefined);
         setIsLoading(false);
         return;
       }
       const { isSuccess, imageUrl, message } = await storeImageToFireBase(selectedFile);
       console.log("DONE");
-      if (isSuccess)
+      if (isSuccess) {
+
         //save this image to redux (thumbnail);
+        handleChangeImage(imageUrl);
         setPreview(imageUrl);
+      }
       else {
         console.log(message);
       }
@@ -87,7 +76,7 @@ export default function ImageUpload() {
 
   return (
     <div style={style.uploadedImage}>
-      {(!selectedFile || isLoading) ? (
+      {(!preview || isLoading) ? (
         <img
           src="fonts/src_app_components_components_svgIcon_icons_customsprite-70fd46.svg#background-mapiV-usage"
           alt="custom/background-map"

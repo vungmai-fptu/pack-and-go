@@ -11,12 +11,15 @@ import {
   RESETPASSWORD_REQUEST_SUCCESS,
 } from "../constants/user.const";
 import { startLoading, stopLoading } from "../actions/common.action";
+
+const API_URL = "https://trip-diary-backend.azurewebsites.net";
+
 export const postLogin = (usernameOrEmail, password) => {
   return (dispatch) => {
     dispatch(startLoading());
     axios({
       method: "POST",
-      url: "https://trip-diary-backend.herokuapp.com/api/auth/signin",
+      url: `${API_URL}/api/auth/signin`,
       headers: {
         "Content-Type": "application/json",
       },
@@ -56,7 +59,7 @@ export const postRegistration = (values, goBack) => {
     dispatch(startLoading());
     axios({
       method: "POST",
-      url: "https://trip-diary-backend.herokuapp.com/api/auth/signup",
+      url: `${API_URL}/api/auth/signup`,
       headers: {
         "Content-Type": "application/json",
       },
@@ -99,7 +102,7 @@ export const postResetPasswordRequest = (forgotPassword) => {
     dispatch(startLoading());
     axios({
       method: "POST",
-      url: "https://trip-diary-backend.herokuapp.com/api/auth/reset-password-request",
+      url: `${API_URL}/api/auth/reset-password-request`,
       headers: {
         "Content-Type": "application/json",
       },
@@ -139,7 +142,7 @@ export const postResetPassword = (token, newPassword, goBack) => {
     dispatch(startLoading());
     axios({
       method: "POST",
-      url: "https://trip-diary-backend.herokuapp.com/api/auth/reset-password",
+      url: `${API_URL}/api/auth/reset-password`,
       headers: {
         "Content-Type": "application/json",
       },

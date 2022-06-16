@@ -5,8 +5,8 @@ import Footer from "../../components/Footer";
 import { useIsLogin } from "../../hooks/useIsLogin";
 
 function MainTemplate(props) {
-  const useRouteNewTrip = useRouteMatch("/newTrip");
-  const useRoutePastTrip = useRouteMatch("/pastTrip");
+  const useRouteNewTrip = useRouteMatch("/save-trip");
+  const useRoutePastTrip = useRouteMatch("/trip");
   return (
     <>
       {!useRouteNewTrip && !useRoutePastTrip && <Header />}

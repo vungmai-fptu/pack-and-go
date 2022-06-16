@@ -3,7 +3,7 @@ import Err from "../pages/main/err";
 import Feed from "../pages/main/feed";
 import ForgotPassword from "../pages/main/forgotPassword";
 import Login from "../pages/main/login";
-import NewTrip from "../pages/main/newTrip";
+import Trip from "../pages/main/Trip";
 import Profile from "../pages/main/profile";
 import Register from "../pages/main/register";
 import ResetPassword from "../pages/main/resetPassword";
@@ -41,7 +41,7 @@ export const mainRouter = [
     Component: AllTravelers,
   },
   {
-    path: "/trip",
+    path: "/trip-page",
     exact: false,
     Component: TripPage,
   },
@@ -51,15 +51,11 @@ export const mainRouter = [
     Component: SettingProfile,
   },
   {
-    path: "/newTrip",
+    path: "/trip/:id?",
     exact: false,
-    Component: NewTrip,
+    Component: Trip,
   },
-  {
-    path: "/pastTrip",
-    exact: false,
-    Component: NewTrip,
-  },
+
   {
     path: "/changePassword",
     exact: false,

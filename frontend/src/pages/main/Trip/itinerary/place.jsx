@@ -1,0 +1,134 @@
+import React, { useEffect, useRef } from "react";
+import { useState } from "react";
+import { IoLocationSharp, IoDocumentText, IoTrashSharp, IoImage } from "react-icons/io5";
+import { storeImageToFireBase } from "../../../../utils/storeImageToFirebase.";
+import styles from "./Place.module.css";
+import { AiOutlineCloseCircle } from 'react-icons/ai'
+const Place = ({
+  place,
+  index,
+  onRemovePlace,
+  onChangePlaceDescription,
+  onAddImage,
+  onRemoveImage
+}) => {
+
+  const [description, setDescription] = useState(place.description || "");
+  const [selectedFile, setSelectedFile] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
+  const ref = useRef();
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      onChangePlaceDescription(description, index);
+    }, 1000);
+    return () => clearTimeout(timer);
+  }, [description]);
+
+
+  useEffect(() => {
+    //preview;
+    const uploadImage = async () => {
+      console.log("INDEX", index);
+      setIsLoading(true);
+      if (!selectedFile) {
+        setIsLoading(false);
+        return;
+      }
+      const { isSuccess, imageUrl, message } = await storeImageToFireBase(selectedFile);
+      if (isSuccess) {
+        onAddImage(imageUrl, index);
+      }
+      else {
+        console.log(message);
+      }
+      setIsLoading(false);
+    }
+
+    uploadImage();
+
+  }, [selectedFile, index]);
+
+  const onSelectFile = e => {
+    console.log("LOAD IMAGE");
+    if (!e.target.files || e.target.files.length === 0) {
+      setSelectedFile(null)
+      return;
+    }
+
+    setSelectedFile(e.target.files[0])
+    ref.current.value = null;
+  }
+
+
+  const onChange = (event) => {
+    setDescription(event.target.value);
+  }
+
+  return (
+    <div className={styles.place}>
+      <div className={styles.place_inner}>
+        <div className={styles.leftPlace} style={{ padding: "0 26px" }}>
+          <div
+            className={styles.leftImg}
+            style={{ color: "#00e1d6" }}
+          >
+            <IoLocationSharp />
+            <div className={styles.idPlace}>{index + 1}</div>
+          </div>
+          <div className={styles.rightContainer}>
+            <div className={styles.rightCenter}>
+              <div className={styles.rightFlex}>{place.address}</div>
+              <div className={styles.action}>
+                <div className={styles.icon_wrapper}>
+                  <input
+                    ref={ref}
+                    type="file" id="upload"
+                    hidden
+                    onChange={onSelectFile} />
+                  <label htmlFor="upload">
+                    <IoImage className={styles.icon} />
+                  </label>
+
+                </div>
+                <div className={styles.icon_wrapper}>
+                  <IoTrashSharp className={styles.icon} onClick={() => onRemovePlace(index)} />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div className={styles.write}>
+        <div
+          style={{ padding: "5.5px 10px 5.5px 80px", display: "flex" }}
+        >
+          <IoDocumentText style={{ fontSize: "25px" }} />
+          <input
+            type="text"
+            placeholder="Write a description for this place"
+            value={description}
+            onChange={onChange}
+          ></input>
+        </div>
+      </div>
+      <div className={styles.images_wrapper}>
+        <div className={styles.images}>
+          {place.images &&
+            place.images.length !== 0 &&
+            place.images.map((image, idx) =>
+              <div key={idx} className={styles.image}>
+                <div
+                  className={styles.remove_image_wrapper}
+                  onClick={() => onRemoveImage(image.url, index)}>
+                  <AiOutlineCloseCircle className={styles.remove_image} />
+                </div>
+                <img src={image.url} />
+              </div>
+            )}
+        </div>
+      </div>
+    </div>)
+}
+
+export default Place;

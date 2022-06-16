@@ -1,14 +1,50 @@
-import { useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import styles from "../trip.module.css";
 import { IoPeopleOutline, IoLockClosedOutline } from "react-icons/io5";
 import { useDetectOutsideClick } from "./../../../../components/useDetectOutsideClick";
 import Date from "./date";
+import { useDispatch, useSelector } from "react-redux";
+import { SET_TRIP_NAME, SET_TRIP_STATUS, TRIP_MODE } from "../../../../store/constants/trip.const";
+import { saveTrip, updateTrip } from "../../../../store/actions/trip.action";
+import Loading from "../../../../components/Loading";
 
 export default function Header() {
+  const { trip, mode } = useSelector(state => state.trip);
+  const { loading } = useSelector(state => state.common);
+  const [name, setName] = useState(trip.name || "");
   const dropdownRef = useRef(null);
-  const [isActive, setIsActive] = useDetectOutsideClick(dropdownRef, false);
-  const onClick = () => setIsActive(!isActive);
+
+  // const [isActive, setIsActive] = useDetectOutsideClick(dropdownRef, false);
+  const [isActive, setIsActive] = useState(false);
+
+  const onClick = () => {
+    setIsActive(prev => !prev);
+  };
+
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      dispatch({ type: SET_TRIP_NAME, payload: name })
+    }, 1000)
+
+    return () => clearTimeout(timer)
+  }, [name])
+
+  const handleStatusChange = (status) => {
+    setIsActive(false);
+    dispatch({
+      type: SET_TRIP_STATUS,
+      payload: status
+    })
+  }
+
+  const onSaveTrip = () => {
+    dispatch(mode === TRIP_MODE.CREATE ? saveTrip(trip) : updateTrip(trip));
+  }
+
+
   return (
     <div className={styles.header}>
       <div className={styles.headerLeft}>
@@ -21,7 +57,11 @@ export default function Header() {
           <div className={styles.content}>
             <div style={{ marginRight: "8px", minWidth: "60px" }}>
               <div className={styles.tripName}>
-                <input type="text" placeholder="Enter plan name" />
+                <input
+                  value={name}
+                  onChange={(event) => setName(event.target.value)}
+                  type="text"
+                  placeholder="Enter plan name" />
               </div>
             </div>
           </div>
@@ -31,10 +71,11 @@ export default function Header() {
       <div className={styles.save}>
         <div style={{ display: "flex", alignItems: "center" }}>
           <button className={styles.boxControl} onClick={onClick}>
-            <img
-              src="fonts/src_app_components_components_svgIcon_icons_commonsprite-afce76.svg#earth_fullY-usage"
-              alt="common/earth_full"
-            />
+            {trip.status === "public" ? (
+              <IoPeopleOutline />
+            ) : (
+              <IoLockClosedOutline />
+            )}
             <div className={styles.boxIndicators}>
               <div className={styles.boxDropdown} aria-hidden="true">
                 <img
@@ -46,9 +87,7 @@ export default function Header() {
           </button>
           <div
             ref={dropdownRef}
-            className={`${styles.popupContent} ${
-              isActive ? `${styles.active}` : "inactive"
-            }`}
+            className={`${styles.popupContent} ${isActive ? `${styles.active}` : `${styles.inactive}`}`}
             style={{ right: "182px" }}
           >
             <div className={styles.dropdownTop} style={{ left: "50% " }}>
@@ -62,39 +101,37 @@ export default function Header() {
               </svg>
             </div>
             <div className={styles.formLogout}>
-              <div className={styles.logout}>
+              <div className={styles.logout} onClick={() => handleStatusChange("public")}>
                 <div className={styles.logoutContent}>
                   <div className={styles.logoutIcon}>
                     <IoPeopleOutline />
                   </div>
-                  <Link to="/newTrip">
-                    <div className={styles.logoutTitle}>
-                      <span>Visible To All</span>
-                    </div>
-                  </Link>
+                  <div className={styles.logoutTitle}>
+                    <span>Visible To All</span>
+                  </div>
                 </div>
               </div>
-              <div className={styles.logout}>
+              <div className={styles.logout} onClick={() => handleStatusChange("private")}>
                 <div className={styles.logoutContent}>
                   <div className={styles.logoutIcon}>
                     <IoLockClosedOutline />
                   </div>
-                  <Link to="/pastTrip">
-                    <div className={styles.logoutTitle}>
-                      <span>Visible To Me</span>
-                    </div>
-                  </Link>
+                  <div className={styles.logoutTitle}>
+                    <span>Visible To Me</span>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
           <div>
-            <button className={styles.tripSave}>
-              <span>Save and close</span>
+            <button className={styles.tripSave} onClick={onSaveTrip} disabled={loading}>
+              {
+                !loading ? <span>Save and close</span> : <Loading isSmall={true} />
+              }
             </button>
           </div>
         </div>
       </div>
-    </div>
+    </div >
   );
 }

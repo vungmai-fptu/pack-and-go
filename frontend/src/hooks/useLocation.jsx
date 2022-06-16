@@ -15,7 +15,6 @@ const useLocation = () => {
       },
     });
 
-    console.log(location.coords);
   };
 
   const onError = (error) => {

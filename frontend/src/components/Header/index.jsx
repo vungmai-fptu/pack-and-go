@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { useIsLogin } from "../../hooks/useIsLogin";
-import { IoHeart, IoEarthSharp, IoSearch } from "react-icons/io5";
+import { IoHeart, IoEarthSharp, IoSearch, IoLocationSharp } from "react-icons/io5";
 import Create from "./create";
 import logo from "../../assets/images/logos/logo-black-3.png";
 import FormLogout from "./formLogout";
@@ -42,7 +42,12 @@ export default function Header() {
             </div>
             <span>Home</span>
           </Link>
-          <Create />
+          <Link to="/trip">
+            <div className={styles.menuIcon}>
+              <IoLocationSharp />
+            </div>
+            <span>Create</span>
+          </Link>
           <div className={styles.menuButton} aria-describedby="popup-3">
             <button>
               <div className={styles.menuIcon}>

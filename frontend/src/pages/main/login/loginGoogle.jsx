@@ -36,6 +36,7 @@ export default function LoginGoogle() {
     if (jwtToken.status === 200) {
       localStorage.setItem("jwtToken", JSON.stringify(jwtToken.data));
     }
+    console.log("OK");
     dispatch(postLoginSuccess(jwtToken.data));
   };
   const onFailure = (res) => {

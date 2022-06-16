@@ -3,8 +3,13 @@
   height: 50px;
   margin: 0 auto;
   font-size: 8px;
+  display: flex;
+  align-items: center;
+  justify-self: center;
 }
-
+.small {
+  font-size: 5px;
+}
 .loader {
   color: #ffffff;
   width: 1em;
@@ -16,7 +21,7 @@
   animation: load4 1.3s infinite linear;
   -webkit-transform: translateZ(0);
   -ms-transform: translateZ(0);
-  transform: translateZ(0);
+  transform: translateZ(0) translateX(20px);
 }
 @-webkit-keyframes load4 {
   0%,

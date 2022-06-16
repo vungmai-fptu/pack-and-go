@@ -5,27 +5,35 @@ import { AiOutlineCloseCircle, AiOutlinePlusCircle } from "react-icons/ai";
 
 import { GiLightBackpack } from "react-icons/gi";
 import NoItem from "../NoItem";
+import { useDispatch, useSelector } from "react-redux";
+import { SET_PREPARED_LIST } from "../../../../store/constants/trip.const";
 
-const fake_data = ["backpage", "Cloth", "Food", "Drink"];
+
 
 const PrepareList = ({ items, addItems }) => {
-  const [list, setList] = useState(fake_data);
+  const { trip } = useSelector(state => state.trip);
+  const dispatch = useDispatch();
+  const [list, setList] = useState(trip.preparedList || []);
   const [updatedId, setUpdateId] = useState(0);
 
   const handleUpdateItem = (e, id) => {
     const value = e.target.value;
-    setList((prev) => {
-      let newList = [...prev];
-      newList[id] = value;
-      return newList;
+    let newList = [...list];
+    newList[id] = value;
+    dispatch({
+      type: SET_PREPARED_LIST,
+      payload: newList,
     });
+    setList(newList);
   };
 
   const handleRemoveItem = (id) => {
-    setList((prev) => {
-      let newList = prev.filter((item, index) => index !== id);
-      return newList;
-    });
+    let newList = list.filter((item, index) => index !== id);
+    dispatch({
+      type: SET_PREPARED_LIST,
+      payload: newList,
+    })
+    setList(newList);
   };
 
   const handleAddItem = () => {

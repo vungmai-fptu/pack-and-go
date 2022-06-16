@@ -375,7 +375,7 @@
   justify-content: center;
   justify-items: center;
   max-width: 100%;
-  min-width: 0;
+  min-width: 100px;
   outline: none !important;
   padding: 0 21.5px;
   text-align: center;
@@ -423,6 +423,7 @@
   display: flex;
   height: 40px;
   padding: 0 20px;
+  cursor: pointer;
 }
 
 .logoutContent {
@@ -471,6 +472,11 @@
   opacity: 1 !important;
   visibility: visible !important;
   transform: translateY(0) !important;
+}
+.inactive {
+  opacity: 0 !important;
+  visibility: hidden !important;
+  transform: translateY(-20px) !important;
 }
 
 .activeExact {
@@ -554,6 +560,9 @@
   flex-shrink: 0;
   justify-content: center;
 }
+.iTin_wrapper {
+  width: 100%;
+}
 
 .iTin {
   height: 100%;
@@ -576,6 +585,7 @@
   overflow-y: scroll;
   padding-top: 8px;
   display: flex;
+  padding-right: 20px;
 }
 
 .tripItin label {
@@ -596,8 +606,8 @@
 }
 
 /* .dayOne:hover {
-    background: #071125
-} */
+      background: #071125
+  } */
 
 .spanOne {
   background: #fff;
@@ -666,16 +676,20 @@
 }
 
 .enterPlace {
-  align-items: center;
+  align-items: flex-start;
   display: flex;
   flex-wrap: wrap;
   font-size: 0.875rem;
-  height: 32px;
+  height: fit-content;
   width: 100%;
+  margin-top: 20px;
+  width: 90%;
+  max-width: 500px;
+  /* position: relative; */
 }
 
 .leftPlace {
-  align-items: center;
+  align-items: flex-start;
   display: flex;
   flex: 1 1 0;
   min-width: 0;
@@ -757,6 +771,7 @@
   max-width: 0;
   overflow: hidden;
   transition: all 0.3s;
+  cursor: pointer;
 }
 
 .dayOne:hover .trash {

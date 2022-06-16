@@ -15,7 +15,14 @@ import {
   FaCommentAlt,
 } from "react-icons/fa";
 import Note from "./note";
-function NewTrip() {
+import { NotificationContainer } from "react-notifications";
+import "react-notifications/lib/notifications.css";
+import { useParams } from "react-router-dom";
+
+function Trip() {
+  const { id } = useParams();
+  console.log(id);
+
   return (
     <div className={styles.newTrip}>
       <Header />
@@ -43,8 +50,9 @@ function NewTrip() {
           <MapComponent />
         </div>
       </div>
+      <NotificationContainer />
     </div>
   );
 }
 
-export default NewTrip;
+export default Trip;
