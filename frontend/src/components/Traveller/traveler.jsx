@@ -1,6 +1,5 @@
 import React from "react";
 import styles from "./traveler.module.css";
-import { BiWorld } from "react-icons/bi";
 import { FaSuitcase } from "react-icons/fa";
 import { BsFillCameraFill } from "react-icons/bs";
 import { Link } from "react-router-dom";
@@ -12,7 +11,7 @@ const Traveler = (props) => {
         <div className={styles["card"]}>
           <div className={styles["cover-photo"]}>
             <img
-              src={props.coverPhoto}
+              src={props.listUser.coverImageUrl}
               alt=""
               className={styles["cover-photo-img"]}
             />
@@ -24,9 +23,9 @@ const Traveler = (props) => {
                   className={styles["avt"]}
                   alt="profile"
                   src={
-                    props.profilePhoto == null
+                    props.listUser.profileImageUrl == null
                       ? "https://wrld-se-prod.b-cdn.net/images/user-empty.svg?width=640&height=640"
-                      : props.profilePhoto
+                      : props.listUser.profileImageUrl
                   }
                 />
               </div>
