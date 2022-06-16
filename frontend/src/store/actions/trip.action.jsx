@@ -1,13 +1,13 @@
 import axios from 'axios'
 import { NotificationManager } from 'react-notifications';
 import { startLoading, stopLoading } from './common.action';
-
 const API_URL = "https://trip-diary-backend.azurewebsites.net";
-const userLogin = localStorage.getItem("jwtToken");
-const token = userLogin ? JSON.parse(userLogin).token : "";
 
 export const saveTrip = (trip) => {
-    console.log("TOKEN: ", token);
+    const userLogin = localStorage.getItem("userLogin");
+    const token = userLogin ? JSON.parse(userLogin).token : "";
+
+    console.log("TOken", token);
     return (dispatch) => {
         dispatch(startLoading());
         axios({
@@ -34,6 +34,9 @@ export const saveTrip = (trip) => {
 };
 
 export const updateTrip = (trip) => {
+
+    const userLogin = localStorage.getItem("userLogin");
+    const token = userLogin ? JSON.parse(userLogin).token : "";
 
     return (dispatch) => {
         dispatch(startLoading());

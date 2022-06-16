@@ -28,14 +28,15 @@ export default function LoginGoogle() {
     },
   };
   const onSuccess = async (res) => {
+    console.log(res);
     let jwtToken = await axios.post(
-      "https://trip-diary-backend.herokuapp.com/oauth2/jwt/google",
+      `${process.env.REACT_APP_API_URL}/oauth2/jwt/google`,
       JSON.stringify(res),
       config
     );
     console.log(res);
     if (jwtToken.status === 200) {
-      localStorage.setItem("jwtToken", JSON.stringify(jwtToken.data));
+      localStorage.setItem("userLogin", JSON.stringify(jwtToken.data));
     }
     console.log("OK");
     dispatch(postLoginSuccess(jwtToken.data));

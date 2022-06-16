@@ -43,17 +43,6 @@ const Traveler = (props) => {
             <div className={styles["info-nav-container"]}>
               <div className={styles["info-item"]}>
                 <div className={styles["item-icon"]}>
-                  <BiWorld />
-                </div>
-                <div className={styles["item-content"]}>
-                  <label className={styles["number"]}>
-                    {props.numOfCountries}
-                  </label>
-                  Countries
-                </div>
-              </div>
-              <div className={styles["info-item"]}>
-                <div className={styles["item-icon"]}>
                   <FaSuitcase />
                 </div>
                 <div className={styles["item-content"]}>
