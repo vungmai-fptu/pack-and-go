@@ -16,8 +16,6 @@ import {
 } from "../constants/user.const";
 import { startLoading, stopLoading } from "../actions/common.action";
 
-const API_URL = "https://trip-diary-backend.azurewebsites.net";
-
 export const postLogin = (usernameOrEmail, password) => {
   return (dispatch) => {
     dispatch(startLoading());
