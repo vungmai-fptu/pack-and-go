@@ -3,6 +3,7 @@ import styles from "./nav.module.css";
 import SectionContainer from "../SectionContainer";
 import { BiFilter } from "react-icons/bi";
 import CountrySelector from "./CountrySelector";
+import TabGroup from "./TabGroup";
 
 const MapNav = () => {
   return (

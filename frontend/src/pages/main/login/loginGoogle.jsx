@@ -5,6 +5,7 @@ import styles from "./login.module.css";
 import { useDispatch } from "react-redux";
 import { postLoginSuccess } from "../../../store/actions/user.action";
 import { gapi } from "gapi-script";
+import { useIsLogin } from "./../../../hooks/useIsLogin";
 
 const clientId =
   "874015971178-0461l5tlksvspu487u08779128bn5rn7.apps.googleusercontent.com";
@@ -42,6 +43,11 @@ export default function LoginGoogle() {
   const onFailure = (res) => {
     console.log("onFailure", res);
   };
+  const { loading } = useIsLogin();
+  console.log(
+    "🚀 ~ file: loginGoogle.jsx ~ line 46 ~ LoginGoogle ~ loading",
+    loading
+  );
   return (
     <GoogleLogin
       render={(renderProps) => (

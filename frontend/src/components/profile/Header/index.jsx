@@ -1,10 +1,8 @@
 import React from "react";
 import styles from "./header.module.css";
 import SectionContainer from "../SectionContainer";
-import { useIsLogin } from "./../../../hooks/useIsLogin";
 
-const Header = () => {
-  const { user } = useIsLogin();
+const Header = (props) => {
   return (
     <div style={{ paddingTop: "95px" }}>
       <SectionContainer>
@@ -13,10 +11,14 @@ const Header = () => {
             <div className={styles["header-cover-photo"]}>
               <div className={styles["header-cover-photo-bg"]}></div>
               <img
-                alt=""
+                alt="coverImage"
                 className={styles["header-cover-img"]}
-                src="https://wrld-se-prod.b-cdn.net/images/bezfotky.png"
-              ></img>
+                src={
+                  `${props.users.coverImageUrl}` === "null"
+                    ? "https://wrld-se-prod.b-cdn.net/images/bezfotky.png"
+                    : `${props.users.coverImageUrl}`
+                }
+              />
             </div>
             <div className={styles["header-cover-content"]}>
               <div className={styles["header-cover-content-details"]}>
@@ -25,14 +27,25 @@ const Header = () => {
                     <img
                       alt="profile"
                       className={styles["avatar-img"]}
-                      src="https://wrld-se-prod.b-cdn.net/images/user-empty.svg"
+                      src={
+                        `${props.users.profileImageUrl}` === "null"
+                          ? "https://wrld-se-prod.b-cdn.net/images/user-empty.svg"
+                          : `${props.users.profileImageUrl}`
+                      }
                     />
                   </div>
                 </div>
                 <div className={styles.name}>
-                  <div className={styles["user-name"]}>{user.username}</div>
-                  <div className={styles["user-url"]}>/{user.username}</div>
-                  <div className={styles["row"]}><br/><br/><br/>
+                  <div className={styles["user-name"]}>
+                    {props.users.username}
+                  </div>
+                  <div className={styles["user-url"]}>
+                    /{props.users.aboutMe}
+                  </div>
+                  <div className={styles["row"]}>
+                    <br />
+                    <br />
+                    <br />
                   </div>
                   <div className={styles["header-second-section"]}>
                     <div className={styles["user-info"]}>
@@ -41,7 +54,7 @@ const Header = () => {
                           <span>00</span> countries
                         </div>
                         <div className={styles["user-repo-item"]}>
-                          <span>00</span> trips
+                          <span>{props.users.trips.length}</span> trips
                         </div>
                         <div className={styles["user-repo-item"]}>
                           <span>00</span> photos
@@ -62,7 +75,7 @@ const Header = () => {
         </div>
       </SectionContainer>
     </div>
-  )
-}
+  );
+};
 
 export default Header;

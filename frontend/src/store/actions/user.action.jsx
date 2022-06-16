@@ -9,6 +9,10 @@ import {
   RESETPASSWORD_SUCCESS,
   RESETPASSWORD_REQUEST_FAILED,
   RESETPASSWORD_REQUEST_SUCCESS,
+  LIST_USER_SUCCESS,
+  LIST_USER_FAILED,
+  USER_SUCCESS,
+  USER_FAILED,
 } from "../constants/user.const";
 import { startLoading, stopLoading } from "../actions/common.action";
 
@@ -19,7 +23,7 @@ export const postLogin = (usernameOrEmail, password) => {
     dispatch(startLoading());
     axios({
       method: "POST",
-      url: `${API_URL}/api/auth/signin`,
+      url: `${process.env.REACT_APP_API_URL}/api/auth/signin`,
       headers: {
         "Content-Type": "application/json",
       },
@@ -59,7 +63,7 @@ export const postRegistration = (values, goBack) => {
     dispatch(startLoading());
     axios({
       method: "POST",
-      url: `${API_URL}/api/auth/signup`,
+      url: `${process.env.REACT_APP_API_URL}/api/auth/signup`,
       headers: {
         "Content-Type": "application/json",
       },
@@ -102,7 +106,7 @@ export const postResetPasswordRequest = (forgotPassword) => {
     dispatch(startLoading());
     axios({
       method: "POST",
-      url: `${API_URL}/api/auth/reset-password-request`,
+      url: `${process.env.REACT_APP_API_URL}/api/auth/reset-password-request`,
       headers: {
         "Content-Type": "application/json",
       },
@@ -142,7 +146,7 @@ export const postResetPassword = (token, newPassword, goBack) => {
     dispatch(startLoading());
     axios({
       method: "POST",
-      url: `${API_URL}/api/auth/reset-password`,
+      url: `${process.env.REACT_APP_API_URL}/api/auth/reset-password`,
       headers: {
         "Content-Type": "application/json",
       },
@@ -175,6 +179,72 @@ const postResetPasswordSuccess = (user) => {
 const postResetPasswordFailed = (err) => {
   return {
     type: RESETPASSWORD_FAILED,
+    payload: err,
+  };
+};
+
+export const getListUser = () => {
+  return (dispatch) => {
+    dispatch(startLoading());
+    axios({
+      method: "GET",
+      url: `${process.env.REACT_APP_API_URL}/api/users/trips?page=1&size=10`,
+      data: null,
+    })
+      .then((res) => {
+        dispatch(stopLoading());
+        dispatch(getListUserSuccess(res.data.data));
+      })
+      .catch((err) => {
+        dispatch(stopLoading());
+        dispatch(getListUserFailed(err));
+      });
+  };
+};
+
+export const getListUserSuccess = (listUser) => {
+  return {
+    type: LIST_USER_SUCCESS,
+    payload: listUser,
+  };
+};
+
+const getListUserFailed = (err) => {
+  return {
+    type: LIST_USER_FAILED,
+    payload: err,
+  };
+};
+
+export const getUser = (username) => {
+  return (dispatch) => {
+    dispatch(startLoading());
+    axios({
+      method: "GET",
+      url: `${process.env.REACT_APP_API_URL}/api/users/${username}/trips`,
+      data: null,
+    })
+      .then((res) => {
+        dispatch(stopLoading());
+        dispatch(getUserSuccess(res.data));
+      })
+      .catch((err) => {
+        dispatch(stopLoading());
+        dispatch(getUserFailed(err));
+      });
+  };
+};
+
+export const getUserSuccess = (users) => {
+  return {
+    type: USER_SUCCESS,
+    payload: users,
+  };
+};
+
+const getUserFailed = (err) => {
+  return {
+    type: USER_FAILED,
     payload: err,
   };
 };

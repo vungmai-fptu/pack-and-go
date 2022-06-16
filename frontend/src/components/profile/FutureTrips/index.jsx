@@ -3,7 +3,7 @@ import SectionContainer from "../SectionContainer";
 import TripItem from "./TripItem";
 import styles from "./future.module.css";
 
-const FutureTrips = () => {
+const FutureTrips = (props) => {
   return (
     <div>
       <SectionContainer>
@@ -19,12 +19,7 @@ const FutureTrips = () => {
         </div>
         <div className={styles["trip-container"]}>
           <div className={styles["trip-items"]}>
-            <TripItem />
-            <TripItem />
-            <TripItem />
-            <TripItem />
-            <TripItem />
-            <TripItem />
+            <TripItem trips={props.users} />
           </div>
         </div>
       </SectionContainer>

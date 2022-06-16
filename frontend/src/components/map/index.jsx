@@ -95,7 +95,7 @@ const MapComponent = ({ destination }) => {
           keepResult={true}
         />
       </MapContainer>
-    </div >
+    </div>
   );
 };
 
