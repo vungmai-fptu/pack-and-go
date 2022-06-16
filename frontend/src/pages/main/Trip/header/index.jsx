@@ -2,16 +2,19 @@ import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import styles from "../trip.module.css";
 import { IoPeopleOutline, IoLockClosedOutline } from "react-icons/io5";
-import { useDetectOutsideClick } from "./../../../../components/useDetectOutsideClick";
 import Date from "./date";
 import { useDispatch, useSelector } from "react-redux";
-import { SET_TRIP_NAME, SET_TRIP_STATUS, TRIP_MODE } from "../../../../store/constants/trip.const";
+import {
+  SET_TRIP_NAME,
+  SET_TRIP_STATUS,
+  TRIP_MODE,
+} from "../../../../store/constants/trip.const";
 import { saveTrip, updateTrip } from "../../../../store/actions/trip.action";
 import Loading from "../../../../components/Loading";
 
 export default function Header() {
-  const { trip, mode } = useSelector(state => state.trip);
-  const { loading } = useSelector(state => state.common);
+  const { trip, mode } = useSelector((state) => state.trip);
+  const { loading } = useSelector((state) => state.common);
   const [name, setName] = useState(trip.name || "");
   const dropdownRef = useRef(null);
 
@@ -19,31 +22,30 @@ export default function Header() {
   const [isActive, setIsActive] = useState(false);
 
   const onClick = () => {
-    setIsActive(prev => !prev);
+    setIsActive((prev) => !prev);
   };
 
   const dispatch = useDispatch();
 
   useEffect(() => {
     const timer = setTimeout(() => {
-      dispatch({ type: SET_TRIP_NAME, payload: name })
-    }, 1000)
+      dispatch({ type: SET_TRIP_NAME, payload: name });
+    }, 1000);
 
-    return () => clearTimeout(timer)
-  }, [name])
+    return () => clearTimeout(timer);
+  }, [name]);
 
   const handleStatusChange = (status) => {
     setIsActive(false);
     dispatch({
       type: SET_TRIP_STATUS,
-      payload: status
-    })
-  }
+      payload: status,
+    });
+  };
 
   const onSaveTrip = () => {
     dispatch(mode === TRIP_MODE.CREATE ? saveTrip(trip) : updateTrip(trip));
-  }
-
+  };
 
   return (
     <div className={styles.header}>
@@ -61,7 +63,8 @@ export default function Header() {
                   value={name}
                   onChange={(event) => setName(event.target.value)}
                   type="text"
-                  placeholder="Enter plan name" />
+                  placeholder="Enter plan name"
+                />
               </div>
             </div>
           </div>
@@ -87,7 +90,9 @@ export default function Header() {
           </button>
           <div
             ref={dropdownRef}
-            className={`${styles.popupContent} ${isActive ? `${styles.active}` : `${styles.inactive}`}`}
+            className={`${styles.popupContent} ${
+              isActive ? `${styles.active}` : `${styles.inactive}`
+            }`}
             style={{ right: "182px" }}
           >
             <div className={styles.dropdownTop} style={{ left: "50% " }}>
@@ -101,7 +106,10 @@ export default function Header() {
               </svg>
             </div>
             <div className={styles.formLogout}>
-              <div className={styles.logout} onClick={() => handleStatusChange("public")}>
+              <div
+                className={styles.logout}
+                onClick={() => handleStatusChange("public")}
+              >
                 <div className={styles.logoutContent}>
                   <div className={styles.logoutIcon}>
                     <IoPeopleOutline />
@@ -111,7 +119,10 @@ export default function Header() {
                   </div>
                 </div>
               </div>
-              <div className={styles.logout} onClick={() => handleStatusChange("private")}>
+              <div
+                className={styles.logout}
+                onClick={() => handleStatusChange("private")}
+              >
                 <div className={styles.logoutContent}>
                   <div className={styles.logoutIcon}>
                     <IoLockClosedOutline />
@@ -124,14 +135,20 @@ export default function Header() {
             </div>
           </div>
           <div>
-            <button className={styles.tripSave} onClick={onSaveTrip} disabled={loading}>
-              {
-                !loading ? <span>Save and close</span> : <Loading isSmall={true} />
-              }
+            <button
+              className={styles.tripSave}
+              onClick={onSaveTrip}
+              disabled={loading}
+            >
+              {!loading ? (
+                <span>Save and close</span>
+              ) : (
+                <Loading isSmall={true} />
+              )}
             </button>
           </div>
         </div>
       </div>
-    </div >
+    </div>
   );
 }

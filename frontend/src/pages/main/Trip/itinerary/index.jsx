@@ -1,16 +1,17 @@
 import { IoMdAddCircleOutline } from "react-icons/io";
 import styles from "../trip.module.css";
-import Day from "./day";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { ADD_DAY, SET_DESCRIPTION } from "../../../../store/constants/trip.const";
+import {
+  ADD_DAY,
+  SET_DESCRIPTION,
+} from "../../../../store/constants/trip.const";
 import VisitDay from "./day";
 import NoItem from "../NoItem";
-import { v4 as uuid } from 'uuid';
+import { v4 as uuid } from "uuid";
 
 export default function Itinerary() {
-
-  const { trip } = useSelector(state => state.trip);
+  const { trip } = useSelector((state) => state.trip);
   const [description, setDescription] = useState(trip.description || "");
   const dispatch = useDispatch();
   const handleAddFirstDay = () => {
@@ -21,20 +22,18 @@ export default function Itinerary() {
         day: {
           id: uuid(),
           description: "",
-          visitPlaces: []
-        }
-      }
-    })
+          visitPlaces: [],
+        },
+      },
+    });
   };
-
 
   useEffect(() => {
     const timer = setTimeout(() => {
       dispatch({ type: SET_DESCRIPTION, payload: description });
-    }, 1000)
+    }, 1000);
 
     return () => clearTimeout(timer);
-
   }, [description]);
 
   return (
@@ -48,7 +47,7 @@ export default function Itinerary() {
                 <input
                   type="text"
                   value={description}
-                  onChange={event => setDescription(event.target.value)}
+                  onChange={(event) => setDescription(event.target.value)}
                   placeholder="Write a decription to the trip"
                 ></input>
               </div>
@@ -69,19 +68,17 @@ export default function Itinerary() {
                   </div>
                 </div>
               </div>
-              {
-                trip.visitDays && trip.visitDays.length !== 0 ?
-                  (
-                    trip.visitDays.map((day, index) => (
-                      <VisitDay key={day.id} detail={day} order={index} />
-                    ))
-                  ) : (<NoItem />)
-              }
+              {trip.visitDays && trip.visitDays.length !== 0 ? (
+                trip.visitDays.map((day, index) => (
+                  <VisitDay key={day.id} detail={day} order={index} />
+                ))
+              ) : (
+                <NoItem />
+              )}
             </div>
           </div>
-
         </div>
       </div>
-    </div >
+    </div>
   );
 }
