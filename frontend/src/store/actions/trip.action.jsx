@@ -4,7 +4,7 @@ import { startLoading, stopLoading } from './common.action';
 
 const API_URL = "https://trip-diary-backend.azurewebsites.net";
 const userLogin = localStorage.getItem("userLogin");
-const { token } = JSON.parse(userLogin);
+const token = userLogin ? JSON.parse(userLogin).token : "";
 
 export const saveTrip = (trip) => {
     console.log("TOKEN: ", token);
