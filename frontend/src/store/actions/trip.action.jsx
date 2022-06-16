@@ -3,7 +3,7 @@ import { NotificationManager } from 'react-notifications';
 import { startLoading, stopLoading } from './common.action';
 
 const API_URL = "https://trip-diary-backend.azurewebsites.net";
-const userLogin = localStorage.getItem("userLogin");
+const userLogin = localStorage.getItem("jwtToken");
 const token = userLogin ? JSON.parse(userLogin).token : "";
 
 export const saveTrip = (trip) => {
