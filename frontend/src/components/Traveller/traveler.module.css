@@ -110,7 +110,7 @@
 .info-nav-container {
   flex-basis: auto;
   display: flex;
-  justify-content: space-between;
+  justify-content: space-evenly;
   margin: 8px 0 4px -4px;
   width: 100%;
   text-align: center;
@@ -168,5 +168,4 @@
 }
 
 @media (max-width: 768px) {
-  
 }
