@@ -14,11 +14,11 @@ const Header = (props) => {
                 alt="coverImage"
                 className={styles["header-cover-img"]}
                 src={
-                  `${props.users.thumbnailUrl}` == null
-                    ? `${props.users.thumbnailUrl}`
-                    : "https://wrld-se-prod.b-cdn.net/images/bezfotky.png"
+                  `${props.users.coverImageUrl}` === "null"
+                    ? "https://wrld-se-prod.b-cdn.net/images/bezfotky.png"
+                    : `${props.users.coverImageUrl}`
                 }
-              ></img>
+              />
             </div>
             <div className={styles["header-cover-content"]}>
               <div className={styles["header-cover-content-details"]}>
@@ -28,9 +28,9 @@ const Header = (props) => {
                       alt="profile"
                       className={styles["avatar-img"]}
                       src={
-                        `${props.users.coverImageUrl}` == null
-                          ? `${props.users.coverImageUrl}`
-                          : "https://wrld-se-prod.b-cdn.net/images/user-empty.svg"
+                        `${props.users.profileImageUrl}` === "null"
+                          ? "https://wrld-se-prod.b-cdn.net/images/user-empty.svg"
+                          : `${props.users.profileImageUrl}`
                       }
                     />
                   </div>
@@ -40,7 +40,7 @@ const Header = (props) => {
                     {props.users.username}
                   </div>
                   <div className={styles["user-url"]}>
-                    /{props.users.username}
+                    /{props.users.aboutMe}
                   </div>
                   <div className={styles["row"]}>
                     <br />
@@ -54,7 +54,7 @@ const Header = (props) => {
                           <span>00</span> countries
                         </div>
                         <div className={styles["user-repo-item"]}>
-                          <span>00</span> trips
+                          <span>{props.users.trips.length}</span> trips
                         </div>
                         <div className={styles["user-repo-item"]}>
                           <span>00</span> photos

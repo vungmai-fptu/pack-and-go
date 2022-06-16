@@ -20,7 +20,7 @@ export const postLogin = (usernameOrEmail, password) => {
     dispatch(startLoading());
     axios({
       method: "POST",
-      url: "https://trip-diary-backend.herokuapp.com/api/auth/signin",
+      url: `${process.env.REACT_APP_API_URL}/api/auth/signin`,
       headers: {
         "Content-Type": "application/json",
       },
@@ -60,7 +60,7 @@ export const postRegistration = (values, goBack) => {
     dispatch(startLoading());
     axios({
       method: "POST",
-      url: "https://trip-diary-backend.herokuapp.com/api/auth/signup",
+      url: `${process.env.REACT_APP_API_URL}/api/auth/signup`,
       headers: {
         "Content-Type": "application/json",
       },
@@ -103,7 +103,7 @@ export const postResetPasswordRequest = (forgotPassword) => {
     dispatch(startLoading());
     axios({
       method: "POST",
-      url: "https://trip-diary-backend.herokuapp.com/api/auth/reset-password-request",
+      url: `${process.env.REACT_APP_API_URL}/api/auth/reset-password-request`,
       headers: {
         "Content-Type": "application/json",
       },
@@ -143,7 +143,7 @@ export const postResetPassword = (token, newPassword, goBack) => {
     dispatch(startLoading());
     axios({
       method: "POST",
-      url: "https://trip-diary-backend.herokuapp.com/api/auth/reset-password",
+      url: `${process.env.REACT_APP_API_URL}/api/auth/reset-password`,
       headers: {
         "Content-Type": "application/json",
       },
@@ -185,16 +185,12 @@ export const getListUser = () => {
     dispatch(startLoading());
     axios({
       method: "GET",
-      url: "https://trip-diary-backend.azurewebsites.net/api/users/trips?page=1&size=10",
+      url: `${process.env.REACT_APP_API_URL}/api/users/trips?page=1&size=10`,
       data: null,
     })
       .then((res) => {
         dispatch(stopLoading());
         dispatch(getListUserSuccess(res.data.data));
-        console.log(
-          "🚀 ~ file: user.action.jsx ~ line 194 ~ .then ~ res.data.data",
-          res.data.data
-        );
       })
       .catch((err) => {
         dispatch(stopLoading());
@@ -222,7 +218,7 @@ export const getUser = (username) => {
     dispatch(startLoading());
     axios({
       method: "GET",
-      url: `https://trip-diary-backend.azurewebsites.net/api/users/${username}/trips`,
+      url: `${process.env.REACT_APP_API_URL}/api/users/${username}/trips`,
       data: null,
     })
       .then((res) => {

@@ -21,13 +21,36 @@ const Profile = () => {
     []
   );
   const { users } = useSelector((state) => state.user);
+  console.log(
+    "🚀 ~ file: index.jsx ~ line 24 ~ Profi-----------",
+    users.username === undefined
+  );
   return (
     <>
-      <Header users={users} />
+      {users.username === undefined ? (
+        <div
+          className="loadingio-spinner-ripple-ormwzc5m72e"
+          style={{ marginTop: "200px" }}
+        >
+          <div className="ldio-gw2gg1659v">
+            <div />
+            <div />
+          </div>
+        </div>
+      ) : (
+        <>
+          <Header users={users} />
+          <TabGroup />
+          <FutureTrips users={users} />
+          <Trips users={users} />
+          <CountryList />
+        </>
+      )}
+      {/* <Header users={users} />
       <TabGroup />
-      <FutureTrips />
-      <Trips />
-      <CountryList />
+      <FutureTrips users={users} />
+      <Trips users={users} />
+      <CountryList /> */}
     </>
   );
 };
