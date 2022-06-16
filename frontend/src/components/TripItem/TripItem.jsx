@@ -6,7 +6,7 @@ const TripItem = (props) => {
   const render = () => {
     return props.listUser.trips.map((listUser, index) => {
       return (
-        <div className={styles.outer}>
+        <div className={styles.outer} key={index}>
           <div className={styles["item-image"]}>
             <img
               alt="thumbnailUrl"

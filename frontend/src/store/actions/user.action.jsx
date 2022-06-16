@@ -228,6 +228,10 @@ export const getUser = (username) => {
       .then((res) => {
         dispatch(stopLoading());
         dispatch(getUserSuccess(res.data));
+        console.log(
+          "🚀 ~ file: user.action.jsx ~ line 231 ~ .then ~ res.data",
+          res.data
+        );
       })
       .catch((err) => {
         dispatch(stopLoading());
