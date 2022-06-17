@@ -7,14 +7,6 @@ function MyAccount() {
     <div className={styles.accountPageContent}>
       <div className={styles.titleHeader}>
         <h1> My Account</h1>
-        <div className="spinner-master">
-          <input type="checkbox" id="spinner-form" />
-          <label htmlFor="spinner-form" className="spinner-spin">
-            <span className="spinner diagonal part-1" />
-            <span className="spinner horizontal" />
-            <span className="spinner diagonal part-2" />
-          </label>
-        </div>
       </div>
       <div className={styles.content}>
         <div className={styles.inputs}>
