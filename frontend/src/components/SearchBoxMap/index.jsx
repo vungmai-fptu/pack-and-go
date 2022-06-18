@@ -3,14 +3,13 @@ import PlacesAutocomplete, {
   geocodeByAddress,
   getLatLng,
 } from "react-places-autocomplete";
-import './SearchBoxMap.css';
+import "./SearchBoxMap.css";
 
-import { v4 as uuid } from 'uuid';
+import { v4 as uuid } from "uuid";
 import { useLayoutEffect } from "react";
 import { useDispatch } from "react-redux";
 import { SET_LOCATION } from "../../store/constants/map.const";
 const LocationSearchInput = ({ destination, onChangeDestination }) => {
-
   const [address, setAddress] = useState("");
   const dispatch = useDispatch();
   useEffect(() => {
@@ -26,13 +25,12 @@ const LocationSearchInput = ({ destination, onChangeDestination }) => {
     const newDestination = {
       address: address,
       latitude: results[0].geometry.location.lat(),
-      longitude: results[0].geometry.location.lng()
-    }
+      longitude: results[0].geometry.location.lng(),
+    };
     dispatch({
       type: SET_LOCATION,
-      payload: newDestination
-    })
-
+      payload: newDestination,
+    });
     onChangeDestination(newDestination);
     setAddress(address);
   };
@@ -52,7 +50,9 @@ const LocationSearchInput = ({ destination, onChangeDestination }) => {
             })}
             className="location-input"
           />
-          <div className={`autocomplete-dropdown-container suggestion-dropdown`}>
+          <div
+            className={`autocomplete-dropdown-container suggestion-dropdown`}
+          >
             {loading && <div>Loading...</div>}
             {suggestions.map((suggestion) => {
               const className = suggestion.active
@@ -62,7 +62,8 @@ const LocationSearchInput = ({ destination, onChangeDestination }) => {
                 ? { backgroundColor: "#fafafa", cursor: "pointer" }
                 : { backgroundColor: "#ffffff", cursor: "pointer" };
               return (
-                <div key={uuid()}
+                <div
+                  key={uuid()}
                   {...getSuggestionItemProps(suggestion, {
                     className,
                     style,
@@ -77,6 +78,6 @@ const LocationSearchInput = ({ destination, onChangeDestination }) => {
       )}
     </PlacesAutocomplete>
   );
-}
+};
 
 export default LocationSearchInput;

@@ -1,22 +1,15 @@
-import React, { useEffect, useId, useState } from "react";
-import { storage } from "../../configs/firebase.configs";
-import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
-import { IoImages } from "react-icons/io5";
+import React, { useEffect, useState } from "react";
 import { storeImageToFireBase } from "../../utils/storeImageToFirebase.";
-import { async } from "@firebase/util";
 import Loading from "../Loading";
-import { BsUpload } from 'react-icons/bs'
+import { BsUpload } from "react-icons/bs";
 export default function ImageUpload({ image, handleChangeImage }) {
-
   const [selectedFile, setSelectedFile] = useState();
   const [isLoading, setIsLoading] = useState(false);
-
   const style = {
     uploadedImage: {
       height: "100%",
-      overflow: "hidden"
+      overflow: "hidden",
     },
-
     image: {
       width: "35px",
       maxHeight: "35px",
@@ -39,42 +32,37 @@ export default function ImageUpload({ image, handleChangeImage }) {
   };
 
   useEffect(() => {
-    //preview;
     const uploadImage = async () => {
       setIsLoading(true);
       if (!selectedFile) {
         setIsLoading(false);
         return;
       }
-      const { isSuccess, imageUrl, message } = await storeImageToFireBase(selectedFile);
-      console.log("DONE");
+      const { isSuccess, imageUrl, message } = await storeImageToFireBase(
+        selectedFile
+      );
+      console.log("🚀 ", imageUrl);
       if (isSuccess) {
-
-        //save this image to redux (thumbnail);
         handleChangeImage(imageUrl);
-      }
-      else {
+        return imageUrl;
+      } else {
         console.log(message);
       }
       setIsLoading(false);
-    }
-
+    };
     uploadImage();
-
   }, [selectedFile]);
-
-  const onSelectFile = e => {
+  const onSelectFile = (e) => {
     if (!e.target.files || e.target.files.length === 0) {
-      setSelectedFile(undefined)
-      return
+      setSelectedFile(undefined);
+      return;
     }
 
-    setSelectedFile(e.target.files[0])
-  }
-
+    setSelectedFile(e.target.files[0]);
+  };
   return (
     <div style={style.uploadedImage}>
-      {(!image || isLoading) ? (
+      {!image || isLoading ? (
         <img
           src="fonts/src_app_components_components_svgIcon_icons_customsprite-70fd46.svg#background-mapiV-usage"
           alt="custom/background-map"
@@ -84,7 +72,9 @@ export default function ImageUpload({ image, handleChangeImage }) {
         <img src={image} alt="img" className="w_fu w_fB w_aao" />
       )}
       <div style={style.container}>
-        {isLoading ? <Loading /> :
+        {isLoading ? (
+          <Loading />
+        ) : (
           <div>
             <input
               style={style.image}
@@ -93,13 +83,17 @@ export default function ImageUpload({ image, handleChangeImage }) {
               onChange={onSelectFile}
               id="upload"
             />
-            <label htmlFor="upload" style={{ cursor: "pointer", color: "#ffff" }}>
+            <label
+              htmlFor="upload"
+              style={{ cursor: "pointer", color: "#ffff" }}
+            >
               <div>
                 <BsUpload />
               </div>
             </label>
-          </div>}
+          </div>
+        )}
       </div>
-    </div >
+    </div>
   );
 }

@@ -1,5 +1,5 @@
 import moment from "moment";
-import { useCallback, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import "react-date-range/dist/styles.css";
 import "react-date-range/dist/theme/default.css";
 import { useDispatch } from "react-redux";
@@ -8,9 +8,9 @@ import GetDate from "../../../../components/DateRange";
 import { SET_DATE, TRIP_MODE } from "../../../../store/constants/trip.const";
 import styles from "../trip.module.css";
 import { useDetectOutsideClick } from "./../../../../components/useDetectOutsideClick";
-import { BsCalendar3 } from 'react-icons/bs';
+import { BsCalendar3 } from "react-icons/bs";
 export default function Date() {
-  const { trip, mode } = useSelector(state => state.trip);
+  const { trip, mode } = useSelector((state) => state.trip);
   const dispatch = useDispatch();
   const dropdownRef = useRef(null);
   const [isActive, setIsActive] = useDetectOutsideClick(dropdownRef, false);
@@ -20,7 +20,7 @@ export default function Date() {
     if (mode === TRIP_MODE.VIEW) {
       return;
     }
-    setIsActive(!isActive)
+    setIsActive(!isActive);
   };
 
   useEffect(() => {
@@ -51,17 +51,23 @@ export default function Date() {
   return (
     <div className={styles.tripDate}>
       <div className={styles.date}>
-        <button onClick={onClick} >
+        <button onClick={onClick}>
           <BsCalendar3 style={{ marginRight: "10px" }} />
-          {
-            isSingleTrip ?
-              (<span>{trip.beginDate && moment(trip.beginDate).format("DD/MM/YYYY")}</span>)
-              : (<span>{trip.beginDate && moment(trip.beginDate).format("DD/MM/YYYY")} - {trip.endDate && moment(trip.endDate).format("DD/MM/YYYY")}</span>)
-          }
+          {isSingleTrip ? (
+            <span>
+              {trip.beginDate && moment(trip.beginDate).format("DD/MM/YYYY")}
+            </span>
+          ) : (
+            <span>
+              {trip.beginDate && moment(trip.beginDate).format("DD/MM/YYYY")} -{" "}
+              {trip.endDate && moment(trip.endDate).format("DD/MM/YYYY")}
+            </span>
+          )}
         </button>
         <div
-          className={`${styles.formTripDate} ${isActive ? `${styles.active}` : "inactive"
-            }`}
+          className={`${styles.formTripDate} ${
+            isActive ? `${styles.active}` : "inactive"
+          }`}
         >
           <div className={styles.dropdownTop} style={{ left: "50% " }}>
             <svg
@@ -78,8 +84,9 @@ export default function Date() {
             <div className={styles.tripType}>
               <div className={styles.change}>
                 <div
-                  className={`${styles.transition} ${isSingleTrip ? "inactive" : `${styles.activeExact}`
-                    }`}
+                  className={`${styles.transition} ${
+                    isSingleTrip ? "inactive" : `${styles.activeExact}`
+                  }`}
                 />
                 <label
                   className={`${isSingleTrip ? `${styles.cur}` : ""}`}

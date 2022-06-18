@@ -2,10 +2,6 @@ import React from "react";
 import { Link } from "react-router-dom";
 import styles from "./TripItem.module.css";
 const TripItem = (props) => {
-  console.log(
-    "🚀 ~ file: Trip.jsx ~ line 5 ~ Trip ~ props",
-    props.listTrip.thumbnailUrl
-  );
   return (
     <div className={styles.outer}>
       <div className={styles["item-image"]}>
@@ -37,11 +33,11 @@ const TripItem = (props) => {
             <Link to={props.listTrip.username || "/"} className="w_AP w_kq">
               <img
                 alt="profile"
-              // src={
-              //   props.listUser.profileImageUrl == null
-              //     ? "https://wrld-se-prod.b-cdn.net/images/user-empty.svg?width=640&height=640"
-              //     : props.listUser.profileImageUrl
-              // }
+                // src={
+                //   props.listUser.profileImageUrl == null
+                //     ? "https://wrld-se-prod.b-cdn.net/images/user-empty.svg?width=640&height=640"
+                //     : props.listUser.profileImageUrl
+                // }
               />
             </Link>
           </div>

@@ -2,7 +2,34 @@ import React from "react";
 import styles from "../settingProfile.module.css";
 import AboutMe from "../aboutMe";
 import classNames from "classnames";
+import { useDispatch, useSelector } from "react-redux";
+import useForm from "../../../../components/useForm/useForm";
+import { useIsLogin } from "../../../../hooks/useIsLogin";
+import { validateMyAccount } from "../../../../components/validateInput/validateInput";
+import { updateInfo } from "./../../../../store/actions/user.action";
+import ImageUpload from "../../../../components/imageUpload";
+import { SET_PROFILE_IMAGE } from "../../../../store/constants/user.const";
+import { NotificationContainer } from "react-notifications";
 function MyAccount() {
+  const dispatch = useDispatch();
+  const { loading } = useIsLogin();
+  const { profile } = useSelector((state) => state.user);
+  console.log("🚀 ~ file: index.jsx ~ line 16 ~ MyAccount ~ profile", profile);
+  const { values, errors, handleChange, handleSubmit } = useForm(
+    handleSubmits,
+    validateMyAccount
+  );
+  function handleSubmits() {
+    dispatch(updateInfo(profile));
+  }
+
+  const handleChangeProfileImage = (image) => {
+    dispatch({
+      type: SET_PROFILE_IMAGE,
+      payload: image,
+    });
+  };
+
   return (
     <div className={styles.accountPageContent}>
       <div className={styles.titleHeader}>
@@ -11,13 +38,7 @@ function MyAccount() {
       <div className={styles.content}>
         <div className={styles.inputs}>
           <div className={styles.row}>
-            <form
-              action="/account/account"
-              method="post"
-              className="ajax form-send"
-              encType="multipart/form-data"
-              id="frm-changePhotosForm"
-            >
+            <form id="frm-accountForm" onSubmit={handleSubmit} noValidate>
               <div
                 className={classNames(
                   `${styles.boxInput}`,
@@ -31,11 +52,15 @@ function MyAccount() {
                 >
                   <img
                     src="https://wrld-se-prod.b-cdn.net/images/user-empty.svg"
-                    alt="nahraneuzivatel"
+                    alt="thumbnail"
                     className={styles.thumbnail}
                   />
                 </div>
-                <button
+                <ImageUpload
+                  image={profile.profileImageUrl}
+                  handleChangeImage={handleChangeProfileImage}
+                />
+                {/* <button
                   id="profil-foto"
                   className={styles.upravitnahratsmazat}
                   type="button"
@@ -45,27 +70,7 @@ function MyAccount() {
                     src="https://www.worldee.com/images/upravitimg.svg"
                     alt="Upravit"
                   />
-                </button>
-                <div id="foto-modal" className={styles.modalFoto}>
-                  <div className={styles.fileInputWrapper}>
-                    <label
-                      htmlFor="profilovyobrazek"
-                      className={styles.btnFileInput}
-                    >
-                      Load photo
-                    </label>
-                    <input
-                      id="profilovyobrazek"
-                      type="file"
-                      name="profilovyobrazek"
-                    />
-                  </div>
-                  <div className={styles.vybrSmazatFotkuat}>
-                    <a href="/account/account?do=removeProfilePhoto">
-                      Remove photo
-                    </a>
-                  </div>
-                </div>
+                </button> */}
               </div>
               <div
                 className={classNames(
@@ -96,51 +101,33 @@ function MyAccount() {
                   />
                 </button>
               </div>
-            </form>
-            <form action="/account/account" method="post" id="frm-accountForm">
               <div className="clearfix" />
               <div className={styles.boxInput}>
                 <label> Name </label>
                 <div className={styles.input}>
-                  <input id="vasejmeno" type="text" name="vasejmeno" />
-                  <span data-tooltip="Public">
-                    <i />
-                    <img
-                      src="https://www.worldee.com/images/verejne.svg"
-                      alt="veřejné"
-                    />
-                  </span>
+                  <input
+                    type="text"
+                    name="name"
+                    onChange={handleChange}
+                    value={values.name || ""}
+                    required
+                  />
                 </div>
               </div>
               <div className={styles.boxInput}>
-                <label htmlFor="prijmeni"> Surname </label>
+                <label> Surname </label>
                 <div className={styles.input}>
                   <input id="prijmeni" type="text" name="prijmeni" />
-                  <span data-tooltip="Public">
-                    <i />
-                    <img
-                      src="https://www.worldee.com/images/verejne.svg"
-                      alt="veřejné"
-                    />
-                  </span>
                 </div>
               </div>
               <div className={styles.boxInput}>
-                <label htmlFor="telefon"> Telephone number</label>
+                <label> Telephone number</label>
                 <div className={styles.input}>
                   <input id="telefon" type="tel" name="telefon" />
-                  <span data-tooltip=" Private">
-                    <i />
-                    <img
-                      className={styles.private}
-                      src="https://www.worldee.com/images/soukrome.svg"
-                      alt="soukromé"
-                    />
-                  </span>
                 </div>
               </div>
               <div className={styles.boxInput}>
-                <label htmlFor="mesto"> City </label>
+                <label> City </label>
                 <div className={styles.input}>
                   <input
                     id="mesto"
@@ -149,17 +136,10 @@ function MyAccount() {
                     className="pac-target-input"
                     placeholder="Enter a location"
                   />
-                  <span data-tooltip="Public">
-                    <i />
-                    <img
-                      src="https://www.worldee.com/images/verejne.svg"
-                      alt="veřejné"
-                    />
-                  </span>
                 </div>
               </div>
               <div className={styles.boxInput}>
-                <label htmlFor="stat"> Country </label>
+                <label> Country </label>
                 <div className={styles.input}>
                   <select name="stat" id={styles.stat}>
                     <option value="0">-</option>
@@ -228,18 +208,17 @@ function MyAccount() {
                 </div>
               </div>
               <AboutMe />
+              <button
+                className={classNames(`${styles.button}`, `${styles.submit}`)}
+                id={styles.send}
+              >
+                <span> Save changes </span>
+              </button>
             </form>
           </div>
-          <button
-            className={classNames(`${styles.button}`, `${styles.submit}`)}
-            id={styles.send}
-            type="submit"
-            name="button"
-          >
-            <span> Save changes </span>
-          </button>
         </div>
       </div>
+      <NotificationContainer />
     </div>
   );
 }

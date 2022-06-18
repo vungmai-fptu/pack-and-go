@@ -104,3 +104,14 @@ export function validateChangePassword(values) {
   }
   return errors;
 }
+
+export function validateMyAccount(values) {
+  let errors = {};
+  if (!values.firstName) {
+    errors.firstName = "firstName address is required";
+  }
+  if (!values.lastName) {
+    errors.lastName = "lastName address is required";
+  }
+  return errors;
+}

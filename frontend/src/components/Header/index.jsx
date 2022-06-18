@@ -1,17 +1,37 @@
 import { Link } from "react-router-dom";
-import { useIsLogin } from "../../hooks/useIsLogin";
 import {
   IoHeart,
   IoEarthSharp,
   IoSearch,
   IoLocationSharp,
 } from "react-icons/io5";
-import Create from "./create";
 import logo from "../../assets/images/logos/logo-black-3.png";
 import FormLogout from "./formLogout";
 import styles from "./header.module.css";
+import axios from "axios";
+import { useEffect, useState } from "react";
 export default function Header() {
-  const { user } = useIsLogin();
+  const user = JSON.parse(localStorage.getItem("userLogin"));
+  const [state, setState] = useState({});
+  useEffect(
+    () => {
+      axios
+        .get(
+          `${process.env.REACT_APP_API_URL}/api/users/${user.username}/trips`
+        )
+        .then((res) => {
+          const persons = res.data;
+          setState(persons);
+        })
+        .catch((error) => console.log(error));
+    },
+    // eslint-disable-next-line
+    []
+  );
+  const src =
+    state.profileImageUrl === "null"
+      ? "https://wrld-se-prod.b-cdn.net/images/user-empty.svg"
+      : state.profileImageUrl;
   return (
     <header>
       <div className={styles.header}>
@@ -67,11 +87,7 @@ export default function Header() {
             <div style={{ display: "flex", alignItems: "center" }}>
               <Link to={`/profile/${user.username}`}>
                 <div className={styles.profileIcon}>
-                  <img
-                    className="w_km"
-                    alt="profile"
-                    src="https://wrld-se-prod.b-cdn.net/images/user-empty.svg?width=640&height=640"
-                  />
+                  <img className="w_km" alt="profile" src={src} />
                 </div>
                 <div>
                   <span>{user.username}</span>

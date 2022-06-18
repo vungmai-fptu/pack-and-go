@@ -260,7 +260,7 @@ export const postChangePassword = (currentPassword, newPassword) => {
     dispatch(startLoading());
     axios({
       method: "POST",
-      url: `${process.env.REACT_APP_API_URL}/api/user/change-password`,
+      url: `${API_URL}/api/user/change-password`,
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${token}`,
@@ -302,7 +302,7 @@ export const updateInfo = (values) => {
     dispatch(startLoading());
     axios({
       method: "PUT",
-      url: `${process.env.REACT_APP_API_URL}/api/user`,
+      url: `${API_URL}/api/user`,
       headers: {
         "Content-Type": "application/json",
       },
@@ -322,11 +322,19 @@ export const updateInfo = (values) => {
       .then((res) => {
         dispatch(stopLoading());
         dispatch(updateInfoSuccess(res.data));
+        console.log(
+          "🚀 ~ file: user.action.jsx ~ line 325 ~ .then ~ res.data",
+          res.data
+        );
         NotificationManager.success(res.data.message);
       })
       .catch((err) => {
         dispatch(stopLoading());
         dispatch(updateInfoFailed(err));
+        console.log(
+          "🚀 ~ file: user.action.jsx ~ line 331 ~ return ~ err",
+          err
+        );
         NotificationManager.error(err.response.data.message);
       });
   };

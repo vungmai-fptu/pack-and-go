@@ -23,7 +23,6 @@ export default function RenderTripItem() {
   const { listUser } = useSelector((state) => state.user);
   const { loading } = useIsLogin();
   const trips = listUser.map((user) => user.trips).flat();
-  console.log("🚀-------", trips);
   const getInitialItemList = () => {
     setState({
       listTrip: trips,

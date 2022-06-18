@@ -26,10 +26,10 @@ const MapComponent = ({ destination }) => {
   // const [center, setCenter] = useState([13, 13]);
   const location = useLocation();
   const mapRef = useRef();
-  const { trip } = useSelector(state => state.trip);
-  const { location: mapLocation } = useSelector(state => state.map);
+  const { trip } = useSelector((state) => state.trip);
+  const { location: mapLocation } = useSelector((state) => state.map);
   const dispatch = useDispatch();
-  const allVisitPlaces = trip.visitDays.map(day => day.visitPlaces).flat();
+  const allVisitPlaces = trip.visitDays.map((day) => day.visitPlaces).flat();
 
   const ZOOM_LEVEL = 9;
 
@@ -44,13 +44,12 @@ const MapComponent = ({ destination }) => {
     return () => {
       dispatch({
         type: SET_LOCATION,
-        payload: null
-      })
-    }
+        payload: null,
+      });
+    };
   }, [mapLocation]);
 
   const showMyLocation = () => {
-    console.log(location);
     if (location.loaded) {
       console.log("LOADED");
       mapRef.current.flyTo(
@@ -81,14 +80,17 @@ const MapComponent = ({ destination }) => {
           <>
             <Marker
               icon={makerIcon}
-              position={[trip.destination?.latitude || 50, trip.destination?.longitude || 50]}
+              position={[
+                trip.destination?.latitude || 50,
+                trip.destination?.longitude || 50,
+              ]}
             >
               <Popup>{trip.destination?.address}</Popup>
             </Marker>
           </>
         )}
-        {
-          allVisitPlaces.length !== 0 && allVisitPlaces.map((p, index) => (
+        {allVisitPlaces.length !== 0 &&
+          allVisitPlaces.map((p, index) => (
             <Marker
               key={index}
               icon={makerIcon}
@@ -96,8 +98,7 @@ const MapComponent = ({ destination }) => {
             >
               <Popup>{p.address}</Popup>
             </Marker>
-          ))
-        }
+          ))}
         <SearchControl
           provider={prov}
           showMarker={false}

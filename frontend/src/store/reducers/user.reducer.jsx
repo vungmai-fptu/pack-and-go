@@ -5,18 +5,20 @@ import {
   LIST_USER_FAILED,
   USER_SUCCESS,
   USER_FAILED,
+  SET_PROFILE_IMAGE,
 } from "../constants/user.const";
 
 const initialState = {
   user:
     JSON.parse(localStorage.getItem("jwtToken")) ||
-      JSON.parse(localStorage.getItem("userLogin"))
+    JSON.parse(localStorage.getItem("userLogin"))
       ? JSON.parse(localStorage.getItem("jwtToken")) ||
-      JSON.parse(localStorage.getItem("userLogin"))
+        JSON.parse(localStorage.getItem("userLogin"))
       : {},
   listUser: [],
   users: {},
   errors: {},
+  profile: { profileImageUrl: null },
 };
 
 const userReducer = (state = initialState, action) => {
@@ -39,6 +41,16 @@ const userReducer = (state = initialState, action) => {
     }
     case USER_FAILED: {
       return { ...state, errors: payload };
+    }
+    case SET_PROFILE_IMAGE: {
+      const updateProfile = {
+        ...state,
+        profile: {
+          ...state.profile,
+          profileImageUrl: payload,
+        },
+      };
+      return updateProfile;
     }
     default:
       return state;
