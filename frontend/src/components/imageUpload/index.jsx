@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { storeImageToFireBase } from "../../utils/storeImageToFirebase.";
-import Loading from "../Loading";
 import { BsUpload } from "react-icons/bs";
 export default function ImageUpload({ image, handleChangeImage }) {
   const [selectedFile, setSelectedFile] = useState();
   const [isLoading, setIsLoading] = useState(false);
+  console.log("🚀 long", isLoading);
   const style = {
     uploadedImage: {
       height: "100%",
@@ -44,6 +44,7 @@ export default function ImageUpload({ image, handleChangeImage }) {
       console.log("🚀 ", imageUrl);
       if (isSuccess) {
         handleChangeImage(imageUrl);
+        setIsLoading(false);
         return imageUrl;
       } else {
         console.log(message);
@@ -73,7 +74,15 @@ export default function ImageUpload({ image, handleChangeImage }) {
       )}
       <div style={style.container}>
         {isLoading ? (
-          <Loading />
+          <div
+            className="loadingio-spinner-ripple-ormwzc5m72e"
+            style={{ transform: "translate(10px, 10px)" }}
+          >
+            <div className="ldio-gw2gg1659v">
+              <div />
+              <div />
+            </div>
+          </div>
         ) : (
           <div>
             <input
