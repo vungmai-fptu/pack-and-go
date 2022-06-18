@@ -3,6 +3,7 @@ import SectionContainer from "../../landing/SectionContainer";
 import TripCardSlider from "./slider";
 import styles from "./Trips.module.css";
 import { Link } from "react-router-dom";
+import RenderTripItem from "../../RenderTripItem";
 
 const Trips = () => {
   return (
@@ -18,7 +19,9 @@ const Trips = () => {
         </div>
       </div>
       <div className={styles["trip-container"]}>
-        <TripCardSlider />
+        <div className={styles["trip-items"]}>
+          <RenderTripItem />
+        </div>
       </div>
     </SectionContainer>
   );

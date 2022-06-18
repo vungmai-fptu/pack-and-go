@@ -1,9 +1,11 @@
 import React, { useEffect, useRef } from "react";
 import { useState } from "react";
-import { IoLocationSharp, IoDocumentText, IoTrashSharp, IoImage } from "react-icons/io5";
+import { IoLocationSharp, IoDocumentText, IoTrashSharp, IoImage} from "react-icons/io5";
+import { ImLocation } from "react-icons/im";
 import { storeImageToFireBase } from "../../../../utils/storeImageToFirebase.";
 import styles from "./Place.module.css";
 import { AiOutlineCloseCircle } from 'react-icons/ai'
+import { mIcon } from "./green-marker-removebg-preview.png"
 const Place = ({
   place,
   index,
@@ -73,7 +75,7 @@ const Place = ({
             className={styles.leftImg}
             style={{ color: "#00e1d6" }}
           >
-            <IoLocationSharp />
+            < IoLocationSharp />
             <div className={styles.idPlace}>{index + 1}</div>
           </div>
           <div className={styles.rightContainer}>
@@ -89,7 +91,6 @@ const Place = ({
                   <label htmlFor="upload">
                     <IoImage className={styles.icon} />
                   </label>
-
                 </div>
                 <div className={styles.icon_wrapper}>
                   <IoTrashSharp className={styles.icon} onClick={() => onRemovePlace(index)} />

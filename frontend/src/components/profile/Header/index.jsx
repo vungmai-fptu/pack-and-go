@@ -39,9 +39,7 @@ const Header = (props) => {
                   <div className={styles["user-name"]}>
                     {props.users.username}
                   </div>
-                  <div className={styles["user-url"]}>
-                    /{props.users.aboutMe}
-                  </div>
+                  
                   <div className={styles["row"]}>
                     <br />
                     <br />
