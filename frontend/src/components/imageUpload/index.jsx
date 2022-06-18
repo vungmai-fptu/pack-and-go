@@ -5,16 +5,15 @@ import { IoImages } from "react-icons/io5";
 import { storeImageToFireBase } from "../../utils/storeImageToFirebase.";
 import { async } from "@firebase/util";
 import Loading from "../Loading";
-
+import { BsUpload } from 'react-icons/bs'
 export default function ImageUpload({ image, handleChangeImage }) {
 
   const [selectedFile, setSelectedFile] = useState();
-  const [preview, setPreview] = useState(image || null);
   const [isLoading, setIsLoading] = useState(false);
 
   const style = {
     uploadedImage: {
-      maxHeight: "200px",
+      height: "100%",
       overflow: "hidden"
     },
 
@@ -28,7 +27,7 @@ export default function ImageUpload({ image, handleChangeImage }) {
     },
     container: {
       position: "absolute",
-      bottom: 0,
+      bottom: "20px",
       right: "50px",
     },
     svg: {
@@ -53,7 +52,6 @@ export default function ImageUpload({ image, handleChangeImage }) {
 
         //save this image to redux (thumbnail);
         handleChangeImage(imageUrl);
-        setPreview(imageUrl);
       }
       else {
         console.log(message);
@@ -76,14 +74,14 @@ export default function ImageUpload({ image, handleChangeImage }) {
 
   return (
     <div style={style.uploadedImage}>
-      {(!preview || isLoading) ? (
+      {(!image || isLoading) ? (
         <img
           src="fonts/src_app_components_components_svgIcon_icons_customsprite-70fd46.svg#background-mapiV-usage"
           alt="custom/background-map"
           className="w_fu w_fB w_aao w_aap "
         />
       ) : (
-        <img src={preview} alt="img" className="w_fu w_fB w_aao" />
+        <img src={image} alt="img" className="w_fu w_fB w_aao" />
       )}
       <div style={style.container}>
         {isLoading ? <Loading /> :
@@ -95,9 +93,10 @@ export default function ImageUpload({ image, handleChangeImage }) {
               onChange={onSelectFile}
               id="upload"
             />
-            <label htmlFor="upload">
-              <IoImages style={style.svg} />
-              <button onClick={onSelectFile}>Upload</button>
+            <label htmlFor="upload" style={{ cursor: "pointer", color: "#ffff" }}>
+              <div>
+                <BsUpload />
+              </div>
             </label>
           </div>}
       </div>

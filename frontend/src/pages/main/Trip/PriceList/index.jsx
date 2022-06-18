@@ -89,10 +89,10 @@ const PriceList = () => {
         }>
           {
 
-            concurrencies.map((item) => (
+            concurrencies.map((item, index) => (
               <div
                 className={styles.concurrency_item}
-                key={item}
+                key={index}
                 onClick={() => handleSelect(item)}>{item}</div>
             ))
           }
@@ -111,7 +111,7 @@ const PriceList = () => {
             isUpdated={updatedId === index ? true : false}
             handleDelete={() => onDeleteItem(index)}
             item={item}
-            key={item.id}
+            key={index}
             concurrencyUnit={trip.concurrencyUnit}
             onClose={handleClose}
             handleUpdate={onSaveItem}

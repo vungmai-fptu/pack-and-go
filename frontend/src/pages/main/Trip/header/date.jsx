@@ -6,18 +6,27 @@ import "react-date-range/dist/theme/default.css";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 import GetDate from "../../../../components/DateRange";
-import { SET_DATE } from "../../../../store/constants/trip.const";
+import { SET_DATE, TRIP_MODE } from "../../../../store/constants/trip.const";
 import styles from "../trip.module.css";
 import { useDetectOutsideClick } from "./../../../../components/useDetectOutsideClick";
-
+import { BsCalendar3 } from 'react-icons/bs';
 export default function Date() {
-  const { trip } = useSelector(state => state.trip);
+  const { trip, mode } = useSelector(state => state.trip);
   const dispatch = useDispatch();
   const dropdownRef = useRef(null);
   const [isActive, setIsActive] = useDetectOutsideClick(dropdownRef, false);
-  const [isSingleTrip, setIsSingleTrip] = useState(trip.endDate === null);
+  const [isSingleTrip, setIsSingleTrip] = useState(false);
 
-  const onClick = () => setIsActive(!isActive);
+  const onClick = () => {
+    if (mode === TRIP_MODE.VIEW) {
+      return;
+    }
+    setIsActive(!isActive)
+  };
+
+  useEffect(() => {
+    setIsSingleTrip(trip.endDate === null);
+  }, [trip]);
 
   const onChangeTripType = () => {
     dispatch({
@@ -44,12 +53,8 @@ export default function Date() {
   return (
     <div className={styles.tripDate}>
       <div className={styles.date}>
-        <button onClick={onClick}>
-          <img
-            src="fonts/src_app_components_components_svgIcon_icons_commonsprite-afce76.svg#calendarl-usage"
-            alt="common/calendar"
-            style={{ marginRight: "10px" }}
-          />
+        <button onClick={onClick} >
+          <BsCalendar3 style={{ marginRight: "10px" }} />
           {
             isSingleTrip ?
               (<span>{trip.beginDate && moment(trip.beginDate).format("DD/MM/YYYY")}</span>)

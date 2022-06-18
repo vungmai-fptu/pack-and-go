@@ -10,9 +10,9 @@ import {
 const initialState = {
   user:
     JSON.parse(localStorage.getItem("jwtToken")) ||
-    JSON.parse(localStorage.getItem("userLogin"))
+      JSON.parse(localStorage.getItem("userLogin"))
       ? JSON.parse(localStorage.getItem("jwtToken")) ||
-        JSON.parse(localStorage.getItem("userLogin"))
+      JSON.parse(localStorage.getItem("userLogin"))
       : {},
   listUser: [],
   users: {},

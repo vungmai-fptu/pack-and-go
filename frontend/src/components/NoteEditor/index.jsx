@@ -11,7 +11,7 @@ import {
   ContentState,
 } from "draft-js";
 
-const NoteEditor = ({ html, setHtml }) => {
+const NoteEditor = ({ html, setHtml, viewOnly }) => {
   const [editorState, setEditorState] = useState(EditorState.createEmpty());
 
   useEffect(() => {
@@ -29,6 +29,7 @@ const NoteEditor = ({ html, setHtml }) => {
 
   return (
     <Editor
+      toolbarHidden={viewOnly}
       editorState={editorState}
       toolbarClassName="toolbarClassName"
       wrapperClassName="wrapperClassName"

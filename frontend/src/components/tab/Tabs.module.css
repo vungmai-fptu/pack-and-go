@@ -1,0 +1,8 @@
+.tabs {
+  flex-basis: 60px;
+  transition: all 0.3s;
+  overflow: hidden;
+}
+.tabs:hover {
+  flex-basis: 150px;
+}

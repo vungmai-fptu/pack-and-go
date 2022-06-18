@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import PlacesAutocomplete, {
   geocodeByAddress,
   getLatLng,
@@ -6,9 +6,17 @@ import PlacesAutocomplete, {
 import './SearchBoxMap.css';
 
 import { v4 as uuid } from 'uuid';
+import { useLayoutEffect } from "react";
+import { useDispatch } from "react-redux";
+import { SET_LOCATION } from "../../store/constants/map.const";
 const LocationSearchInput = ({ destination, onChangeDestination }) => {
 
-  const [address, setAddress] = useState(destination?.address || "");
+  const [address, setAddress] = useState("");
+  const dispatch = useDispatch();
+  useEffect(() => {
+    setAddress(destination?.address || "");
+  }, [destination]);
+
   const handleChange = (address) => {
     setAddress(address);
   };
@@ -20,6 +28,11 @@ const LocationSearchInput = ({ destination, onChangeDestination }) => {
       latitude: results[0].geometry.location.lat(),
       longitude: results[0].geometry.location.lng()
     }
+    dispatch({
+      type: SET_LOCATION,
+      payload: newDestination
+    })
+
     onChangeDestination(newDestination);
     setAddress(address);
   };

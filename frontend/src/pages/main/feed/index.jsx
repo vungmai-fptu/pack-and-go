@@ -1,7 +1,13 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { useDispatch } from "react-redux";
 import RenderTraveler from "../../../components/RenderTraveler";
+import { stopLoading } from "../../../store/actions/common.action";
 import RenderTripItem from "./../../../components/RenderTripItem";
 function Feed() {
+  const dispatch = useDispatch();
+  useEffect(() => {
+    return () => dispatch(stopLoading());
+  }, []);
   return (
     <div className="w_mS w_mT">
       <div className="w_cs">

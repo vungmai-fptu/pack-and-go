@@ -16,14 +16,14 @@ import {
 } from "../constants/user.const";
 import { startLoading, stopLoading } from "../actions/common.action";
 
-const API_URL = "https://trip-diary-backend.azurewebsites.net";
+const API_URL = process.env.REACT_APP_API_URL;
 
 export const postLogin = (usernameOrEmail, password) => {
   return (dispatch) => {
     dispatch(startLoading());
     axios({
       method: "POST",
-      url: `${process.env.REACT_APP_API_URL}/api/auth/signin`,
+      url: `${API_URL}/api/auth/signin`,
       headers: {
         "Content-Type": "application/json",
       },
@@ -63,7 +63,7 @@ export const postRegistration = (values, goBack) => {
     dispatch(startLoading());
     axios({
       method: "POST",
-      url: `${process.env.REACT_APP_API_URL}/api/auth/signup`,
+      url: `${API_URL}/api/auth/signup`,
       headers: {
         "Content-Type": "application/json",
       },
@@ -106,7 +106,7 @@ export const postResetPasswordRequest = (forgotPassword) => {
     dispatch(startLoading());
     axios({
       method: "POST",
-      url: `${process.env.REACT_APP_API_URL}/api/auth/reset-password-request`,
+      url: `${API_URL}/api/auth/reset-password-request`,
       headers: {
         "Content-Type": "application/json",
       },
@@ -146,7 +146,7 @@ export const postResetPassword = (token, newPassword, goBack) => {
     dispatch(startLoading());
     axios({
       method: "POST",
-      url: `${process.env.REACT_APP_API_URL}/api/auth/reset-password`,
+      url: `${API_URL}/api/auth/reset-password`,
       headers: {
         "Content-Type": "application/json",
       },
@@ -188,7 +188,7 @@ export const getListUser = () => {
     dispatch(startLoading());
     axios({
       method: "GET",
-      url: `${process.env.REACT_APP_API_URL}/api/users/trips?page=1&size=10`,
+      url: `${API_URL}/api/users/trips?page=1&size=10`,
       data: null,
     })
       .then((res) => {
@@ -221,7 +221,7 @@ export const getUser = (username) => {
     dispatch(startLoading());
     axios({
       method: "GET",
-      url: `${process.env.REACT_APP_API_URL}/api/users/${username}/trips`,
+      url: `${API_URL}/api/users/${username}/trips`,
       data: null,
     })
       .then((res) => {

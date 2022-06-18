@@ -1,5 +1,6 @@
 import {
     ADD_DAY,
+    CHANGE_MODE,
     REMOVE_DAY,
     SET_CONCURRENCY_UNIT,
     SET_DATE, SET_DESCRIPTION,
@@ -10,13 +11,15 @@ import {
     SET_PRICE_LIST,
     SET_THUMBNAIL,
     SET_TRANSPORTATION,
+    SET_TRIP,
+    SET_TRIP_ID,
     SET_TRIP_NAME,
     SET_TRIP_STATUS,
     TRIP_MODE,
     UPDATE_DAY
 } from "../constants/trip.const";
 
-const initialState = {
+export const tripInitialState = {
     mode: TRIP_MODE.CREATE,
     trip: {
         name: null,
@@ -57,7 +60,7 @@ const initialState = {
 }
 
 
-const tripReducer = (state = initialState, action) => {
+const tripReducer = (state = tripInitialState, action) => {
     const { type, payload } = action;
     switch (type) {
         case SET_TRIP_NAME: {
@@ -220,6 +223,27 @@ const tripReducer = (state = initialState, action) => {
                 }
             }
         }
+        case SET_TRIP: {
+            return {
+                ...state,
+                mode: payload.mode,
+                trip: payload.trip,
+            }
+        }
+        case SET_TRIP_ID: {
+            return {
+                ...state,
+                trip: {
+                    ...state.trip,
+                    id: payload
+                },
+            }
+        }
+        case CHANGE_MODE:
+            return {
+                ...state,
+                mode: payload
+            }
         default:
             return state;
     }

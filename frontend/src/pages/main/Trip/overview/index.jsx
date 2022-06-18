@@ -7,9 +7,12 @@ import { useDispatch, useSelector } from "react-redux";
 import { SET_DESTINATION, SET_NOTIFY_DAY, SET_THUMBNAIL, SET_TRANSPORTATION } from "../../../../store/constants/trip.const";
 import styles from './overview.module.css';
 import { IoLocationOutline } from "react-icons/io5";
-
+import bgImage from '../../../../assets/fonts/src_app_components_components_svgIcon_icons_customsprite-70fd46.svg'
+import warningIcon from '../../../../assets/fonts/src_app_components_components_svgIcon_icons_commonsprite-afce76.svg'
 export default function Overview() {
+
   const { trip } = useSelector(state => state.trip);
+
   const dispatch = useDispatch();
 
   const handleChangeThumbnail = (image) => {
@@ -45,7 +48,7 @@ export default function Overview() {
   return (
     <div className="w_CU">
       <div className="w_oz w_CX">
-        <div className="w_aam w_iW">
+        <div className={`w_aam w_iW ${styles.thumbnail}`} >
           <ImageUpload
             image={trip.thumbnailUrl}
             handleChangeImage={handleChangeThumbnail} />
@@ -85,14 +88,14 @@ export default function Overview() {
           <div className="w_ja w_UU" style={{ flex: "1 1 0%" }}>
             <img
               style={{ width: "auto", height: "auto" }}
-              src="fonts/src_app_components_components_svgIcon_icons_customsprite-70fd46.svg#toVisitEmptyj6-usage"
+              src={bgImage}
               alt="custom/toVisitEmpty"
               className="w_fu w_fB w_UV"
             />
             <div className="w_Eb w_Ee">
               <div className="w_Ej">
                 <img
-                  src="fonts/src_app_components_components_svgIcon_icons_commonsprite-afce76.svg#info_fullar-usage"
+                  src={warningIcon}
                   alt="common/info_full"
                   className="w_fu w_fz w_El w_fM"
                 />
@@ -105,6 +108,6 @@ export default function Overview() {
           </div>
         </div>
       </div>
-    </div>
+    </div >
   );
 }

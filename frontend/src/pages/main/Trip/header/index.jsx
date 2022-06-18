@@ -8,21 +8,27 @@ import { useDispatch, useSelector } from "react-redux";
 import { SET_TRIP_NAME, SET_TRIP_STATUS, TRIP_MODE } from "../../../../store/constants/trip.const";
 import { saveTrip, updateTrip } from "../../../../store/actions/trip.action";
 import Loading from "../../../../components/Loading";
+import logo from '../../../../assets/images/logos/logo-black-2.png';
+import { RiArrowDropDownLine } from 'react-icons/ri'
 
 export default function Header() {
   const { trip, mode } = useSelector(state => state.trip);
   const { loading } = useSelector(state => state.common);
-  const [name, setName] = useState(trip.name || "");
+  const [name, setName] = useState("");
+  const dispatch = useDispatch();
+
   const dropdownRef = useRef(null);
 
   // const [isActive, setIsActive] = useDetectOutsideClick(dropdownRef, false);
   const [isActive, setIsActive] = useState(false);
 
   const onClick = () => {
+    if (mode === TRIP_MODE.VIEW) {
+      return;
+    }
     setIsActive(prev => !prev);
   };
 
-  const dispatch = useDispatch();
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -31,6 +37,10 @@ export default function Header() {
 
     return () => clearTimeout(timer)
   }, [name])
+
+  useEffect(() => {
+    setName(trip.name || "");
+  }, [trip]);
 
   const handleStatusChange = (status) => {
     setIsActive(false);
@@ -41,9 +51,13 @@ export default function Header() {
   }
 
   const onSaveTrip = () => {
-    dispatch(mode === TRIP_MODE.CREATE ? saveTrip(trip) : updateTrip(trip));
-  }
 
+    if (mode === TRIP_MODE.CREATE) {
+      dispatch(saveTrip(trip));
+    } else if (mode === TRIP_MODE.UPDATE) {
+      dispatch(updateTrip(trip));
+    }
+  }
 
   return (
     <div className={styles.header}>
@@ -51,7 +65,7 @@ export default function Header() {
         <div className={styles.content}>
           <div className={styles.logo}>
             <Link to="/">
-              <img alt="logo" src="images/logo/logo-black-2.png" />
+              <img alt="logo" src={logo} />
             </Link>
           </div>
           <div className={styles.content}>
@@ -59,6 +73,7 @@ export default function Header() {
               <div className={styles.tripName}>
                 <input
                   value={name}
+                  readOnly={mode === TRIP_MODE.VIEW}
                   onChange={(event) => setName(event.target.value)}
                   type="text"
                   placeholder="Enter plan name" />
@@ -78,10 +93,7 @@ export default function Header() {
             )}
             <div className={styles.boxIndicators}>
               <div className={styles.boxDropdown} aria-hidden="true">
-                <img
-                  src="fonts/src_app_components_components_svgIcon_icons_commonsprite-afce76.svg#arrowa-usage"
-                  alt="common/arrow"
-                />
+                <RiArrowDropDownLine />
               </div>
             </div>
           </button>
@@ -124,14 +136,17 @@ export default function Header() {
             </div>
           </div>
           <div>
-            <button className={styles.tripSave} onClick={onSaveTrip} disabled={loading}>
-              {
-                !loading ? <span>Save and close</span> : <Loading isSmall={true} />
-              }
-            </button>
+            {
+              mode === TRIP_MODE.VIEW ? <></> :
+                (<button className={styles.tripSave} onClick={onSaveTrip} disabled={loading}>
+                  {
+                    !loading ? <span>Save and close</span> : <Loading isSmall={true} />
+                  }
+                </button>)
+            }
           </div>
         </div>
       </div>
     </div >
-  );
+  )
 }

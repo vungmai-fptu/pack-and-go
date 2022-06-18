@@ -1,11 +1,11 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import NoteEditor from "../../../../components/NoteEditor";
-import { SET_NOTE } from "../../../../store/constants/trip.const";
+import { SET_NOTE, TRIP_MODE } from "../../../../store/constants/trip.const";
 import styles from "../trip.module.css";
 
 function Note() {
-  const { trip } = useSelector(state => state.trip);
+  const { trip, mode } = useSelector(state => state.trip);
   const dispatch = useDispatch();
   const handleChangeNote = (html) => {
     dispatch({
@@ -19,7 +19,11 @@ function Note() {
         <div className={styles.tripItin}>
           <div style={{ padding: "32px 32px 0" }}>
             <label>Notes</label>
-            <NoteEditor html={trip.note || ""} setHtml={handleChangeNote} />
+            <NoteEditor
+              html={trip.note || ""}
+              setHtml={handleChangeNote}
+              viewOnly={mode === TRIP_MODE.VIEW}
+            />
           </div>
         </div>
       </div>

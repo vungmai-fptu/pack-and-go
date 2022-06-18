@@ -1,4 +1,5 @@
 export const SET_TRIP = "SET_TRIP";
+export const SET_TRIP_ID = "SET_TRIP_ID";
 export const SET_TRIP_NAME = "SET_TRIP_NAME";
 export const SET_DATE = "SET_BEGIN_DATE";
 export const SET_TRIP_STATUS = "SET_TRIP_STATUS";
@@ -21,6 +22,7 @@ export const TRIP_MODE = {
     UPDATE: "UPDATE",
     VIEW: "VIEW",
 }
+
 
 
 

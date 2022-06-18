@@ -19,12 +19,14 @@ function MainTemplate(props) {
 
 const RouterMainTemplate = ({ path, exact, Component }) => {
   const { isLogin } = useIsLogin();
+  const mathUser = useRouteMatch("/user");
+  const matchTrip = useRouteMatch("/trip");
   return (
     <Route
       path={path}
       exact={exact}
       render={() =>
-        isLogin ? (
+        (isLogin || matchTrip || mathUser) ? (
           <MainTemplate>
             <Component />
           </MainTemplate>

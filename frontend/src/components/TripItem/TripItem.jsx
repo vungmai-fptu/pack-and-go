@@ -4,16 +4,16 @@ import { Link } from "react-router-dom";
 
 const TripItem = (props) => {
   const render = () => {
-    return props.listUser.trips.map((listUser, index) => {
+    return props.listUser.trips.map((trip, index) => {
       return (
         <div className={styles.outer} key={index}>
           <div className={styles["item-image"]}>
             <img
               alt="thumbnailUrl"
               src={
-                listUser.thumbnailUrl === ""
+                trip.thumbnailUrl === ""
                   ? "https://wrld-se-prod.b-cdn.net/images/bezfotky.png"
-                  : listUser.thumbnailUrl
+                  : trip.thumbnailUrl
               }
             />
           </div>
@@ -23,23 +23,23 @@ const TripItem = (props) => {
                 <div className={styles.flag}>
                   <img
                     src={
-                      listUser.flag == null
+                      trip.flag == null
                         ? "https://wrld-se-prod.b-cdn.net/images/user-empty.svg?width=640&height=640"
-                        : listUser.flag
+                        : trip.flag
                     }
                     alt="countryFlags/VN"
                     className="w_fu w_fB"
                   />
                 </div>
               </div>
-              <div title="Sơn Lê" className={styles["profile-image"]}>
-                <Link to={listUser.username || "/"} className="w_AP w_kj w_kq">
+              <div className={styles["profile-image"]}>
+                <Link to={trip.username || "/"} className="w_AP w_kj w_kq">
                   <img
                     alt="profile"
                     src={
-                      listUser.profilePhoto == null
+                      trip.profilePhoto == null
                         ? "https://wrld-se-prod.b-cdn.net/images/user-empty.svg?width=640&height=640"
-                        : listUser.profilePhoto
+                        : trip.profilePhoto
                     }
                   />
                 </Link>
@@ -48,17 +48,17 @@ const TripItem = (props) => {
 
             <div className={styles.bottom}>
               <Link
-                to="/trips/trips-to-america"
+                to={`/trip/${trip.id}`}
                 className={styles["trip-name"]}
               >
                 <div className="">
-                  <span>{props.listUser.tripName}</span>
+                  <span>{trip.name}</span>
                 </div>
               </Link>
               <div className={styles["destination-info"]}>
-                <span>{listUser.numOfDates} days</span>
-                <span>{listUser.numOfPhotos} photos</span>
-                <span>{listUser.numOfPlaces} places</span>
+                <span>{trip.numOfDates} days</span>
+                <span>{trip.numOfPhotos} photos</span>
+                <span>{trip.numOfPlaces} places</span>
               </div>
             </div>
           </div>
