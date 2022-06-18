@@ -29,7 +29,7 @@ export default function Header() {
     []
   );
   const src =
-    state.profileImageUrl === "null"
+    state.profileImageUrl == null
       ? "https://wrld-se-prod.b-cdn.net/images/user-empty.svg"
       : state.profileImageUrl;
   return (

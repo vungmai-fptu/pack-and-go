@@ -19,9 +19,9 @@ import {
   UPDATE_INFO_FAILED,
 } from "../constants/user.const";
 import { startLoading, stopLoading } from "../actions/common.action";
-
 const API_URL = process.env.REACT_APP_API_URL;
-
+const userLogin = localStorage.getItem("userLogin");
+const token = userLogin ? JSON.parse(userLogin).token : "";
 export const postLogin = (usernameOrEmail, password) => {
   return (dispatch) => {
     dispatch(startLoading());
@@ -254,8 +254,6 @@ const getUserFailed = (err) => {
 };
 
 export const postChangePassword = (currentPassword, newPassword) => {
-  const userLogin = localStorage.getItem("userLogin");
-  const token = userLogin ? JSON.parse(userLogin).token : "";
   return (dispatch) => {
     dispatch(startLoading());
     axios({
@@ -297,7 +295,7 @@ const postChangePasswordFailed = (err) => {
   };
 };
 
-export const updateInfo = (values) => {
+export const updateInfo = (profileImageUrl, coverImageUrl, values) => {
   return (dispatch) => {
     dispatch(startLoading());
     axios({
@@ -305,18 +303,19 @@ export const updateInfo = (values) => {
       url: `${API_URL}/api/user`,
       headers: {
         "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
       },
       data: {
         aboutMe: values.aboutMe,
         city: values.city,
         country: values.country,
-        coverImageUrl: values.coverImageUrl,
+        coverImageUrl,
         dateOfBirth: values.dateOfBirth,
         firstName: values.firstName,
         gender: values.gender,
         lastName: values.lastName,
         phoneNumber: values.phoneNumber,
-        profileImageUrl: values.profileImageUrl,
+        profileImageUrl,
       },
     })
       .then((res) => {
@@ -331,10 +330,19 @@ export const updateInfo = (values) => {
       .catch((err) => {
         dispatch(stopLoading());
         dispatch(updateInfoFailed(err));
-        console.log(
-          "🚀 ~ file: user.action.jsx ~ line 331 ~ return ~ err",
-          err
-        );
+
+        console.log("🚀 ~ file: user.action.jsx ~ line 331 ~ return ~ err", {
+          aboutMe: values.aboutMe,
+          city: values.city,
+          country: values.country,
+          coverImageUrl,
+          dateOfBirth: values.dateOfBirth,
+          firstName: values.firstName,
+          gender: values.gender,
+          lastName: values.lastName,
+          phoneNumber: values.phoneNumber,
+          profileImageUrl,
+        });
         NotificationManager.error(err.response.data.message);
       });
   };

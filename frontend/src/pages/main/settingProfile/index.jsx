@@ -5,6 +5,7 @@ import Tabs from "./tabSettingProfile/tabs";
 import { FaUserCircle, FaUnlockAlt } from "react-icons/fa";
 import MyAccount from "./myAccount";
 import ChangePassword from "./changePassword";
+
 class SettingProfile extends Component {
   render() {
     return (

@@ -2,6 +2,9 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import Tab from "./tab";
 import styles from "../settingProfile.module.css";
+import { Redirect } from "react-router-dom";
+import { FaOutdent } from "react-icons/fa";
+import stylesTab from "../settingProfile.module.css";
 class Tabs extends Component {
   static propTypes = {
     children: PropTypes.instanceOf(Array).isRequired,
@@ -42,6 +45,22 @@ class Tabs extends Component {
                 />
               );
             })}
+            <a
+              href="/landing"
+              onClick={async () => {
+                localStorage.removeItem("userLogin");
+                localStorage.removeItem("jwtToken");
+                localStorage.removeItem("accessToken");
+                return <Redirect to="/landing" />;
+              }}
+            >
+              <div className={stylesTab.barOfa}>
+                <span className={stylesTab.barOfSpan}>
+                  <FaOutdent />
+                </span>
+                <label>Logout</label>
+              </div>
+            </a>
           </ul>
         </aside>
         {children.map((child) => {

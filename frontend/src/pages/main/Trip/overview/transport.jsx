@@ -6,8 +6,8 @@ import {
   FaBusAlt,
   FaTrain,
   FaWalking,
-  FaShippingFast,
 } from "react-icons/fa";
+import { RiShipFill } from "react-icons/ri";
 import { IoCarSport } from "react-icons/io5";
 import styles from "./overview.module.css";
 const Transport = ({ transportation, onChangeTransportation }) => {
@@ -66,7 +66,7 @@ const Transport = ({ transportation, onChangeTransportation }) => {
             }`}
             onClick={() => handleClickActiveTab("ship")}
           >
-            <FaShippingFast />
+            <RiShipFill />
           </div>
           <div
             className={`${styles.item} ${

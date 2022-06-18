@@ -11,7 +11,11 @@ const Traveler = (props) => {
         <div className={styles["card"]}>
           <div className={styles["cover-photo"]}>
             <img
-              src={props.listUser.coverImageUrl}
+              src={
+                props.listUser.coverImageUrl === ""
+                  ? "https://wrld-se-prod.b-cdn.net/images/bezfotky.png"
+                  : props.listUser.coverImageUrl
+              }
               alt=""
               className={styles["cover-photo-img"]}
             />
@@ -23,7 +27,7 @@ const Traveler = (props) => {
                   className={styles["avt"]}
                   alt="profile"
                   src={
-                    props.listUser.profileImageUrl == null
+                    props.listUser.profileImageUrl === ""
                       ? "https://wrld-se-prod.b-cdn.net/images/user-empty.svg?width=640&height=640"
                       : props.listUser.profileImageUrl
                   }

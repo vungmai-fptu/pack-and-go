@@ -5,7 +5,6 @@ import {
   LIST_USER_FAILED,
   USER_SUCCESS,
   USER_FAILED,
-  SET_PROFILE_IMAGE,
 } from "../constants/user.const";
 
 const initialState = {
@@ -18,7 +17,6 @@ const initialState = {
   listUser: [],
   users: {},
   errors: {},
-  profile: { profileImageUrl: null },
 };
 
 const userReducer = (state = initialState, action) => {
@@ -41,16 +39,6 @@ const userReducer = (state = initialState, action) => {
     }
     case USER_FAILED: {
       return { ...state, errors: payload };
-    }
-    case SET_PROFILE_IMAGE: {
-      const updateProfile = {
-        ...state,
-        profile: {
-          ...state.profile,
-          profileImageUrl: payload,
-        },
-      };
-      return updateProfile;
     }
     default:
       return state;

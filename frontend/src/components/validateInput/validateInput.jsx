@@ -73,18 +73,18 @@ export function validateResetPassword(values) {
 
 export function validateChangePassword(values) {
   let errors = {};
-  if (!values.currentPassword) {
-    errors.currentPassword = "Password is required";
-  } else if (values.currentPassword.length < 8) {
-    errors.currentPassword = "Password must be 8 or more characters";
-  } else if (
-    !/\d/.test(values.currentPassword) ||
-    !/[!@#$%&?.]/g.test(values.currentPassword) ||
-    !/[A-Z]/g.test(values.currentPassword)
-  ) {
-    errors.currentPassword =
-      "Password must contains at least 1 number, at least 1 capital character, 1 special character";
-  }
+  // if (!values.currentPassword) {
+  //   errors.currentPassword = "Password is required";
+  // } else if (values.currentPassword.length < 8) {
+  //   errors.currentPassword = "Password must be 8 or more characters";
+  // } else if (
+  //   !/\d/.test(values.currentPassword) ||
+  //   !/[!@#$%&?.]/g.test(values.currentPassword) ||
+  //   !/[A-Z]/g.test(values.currentPassword)
+  // ) {
+  //   errors.currentPassword =
+  //     "Password must contains at least 1 number, at least 1 capital character, 1 special character";
+  // }
   if (!values.newPassword) {
     errors.newPassword = "Password is required";
   } else if (values.newPassword.length < 8) {

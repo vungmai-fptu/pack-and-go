@@ -24,7 +24,7 @@ function ChangePassword() {
       </div>
       <div className={styles.content}>
         <form onSubmit={handleSubmit} noValidate>
-          <div className={styles.boxInput}>
+          {/* <div className={styles.boxInput}>
             <label>password</label>
             <div className={styles.inputAnother}>
               <input
@@ -38,7 +38,7 @@ function ChangePassword() {
               />
               <Validate errors={errors.currentPassword} />
             </div>
-          </div>
+          </div> */}
           <div className={styles.boxInput}>
             <label>New password</label>
             <div className={styles.inputAnother}>

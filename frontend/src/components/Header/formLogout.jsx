@@ -42,10 +42,10 @@ export default function FormLogout() {
         <div className={styles.formLogout}>
           <div className={styles.logout}>
             <div className={styles.logoutContent}>
-              <div className={styles.logoutIcon}>
-                <IoSettingsOutline />
-              </div>
               <Link to="/setting">
+                <div className={styles.logoutIcon}>
+                  <IoSettingsOutline />
+                </div>
                 <div className={styles.logoutTitle}>
                   <span>Settings</span>
                 </div>
@@ -54,9 +54,6 @@ export default function FormLogout() {
           </div>
           <div className={styles.logout}>
             <div className={styles.logoutContent}>
-              <div className={styles.logoutIcon}>
-                <IoLogOutOutline />
-              </div>
               <a
                 href="/landing"
                 className={styles.logoutTitle}
@@ -67,6 +64,9 @@ export default function FormLogout() {
                   return <Redirect to="/landing" />;
                 }}
               >
+                <div className={styles.logoutIcon}>
+                  <IoLogOutOutline />
+                </div>
                 <div className={styles.logoutTitle}>
                   <span>Log out</span>
                 </div>

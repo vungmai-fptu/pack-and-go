@@ -11,12 +11,12 @@ import {
 } from "../../../../store/constants/trip.const";
 import { saveTrip, updateTrip } from "../../../../store/actions/trip.action";
 import Loading from "../../../../components/Loading";
-import logo from '../../../../assets/images/logos/logo-black-2.png';
-import { RiArrowDropDownLine } from 'react-icons/ri'
+import logo from "../../../../assets/images/logos/logo-black-2.png";
+import { RiArrowDropDownLine } from "react-icons/ri";
 
 export default function Header() {
-  const { trip, mode } = useSelector(state => state.trip);
-  const { loading } = useSelector(state => state.common);
+  const { trip, mode } = useSelector((state) => state.trip);
+  const { loading } = useSelector((state) => state.common);
   const [name, setName] = useState("");
   const dispatch = useDispatch();
 
@@ -29,9 +29,8 @@ export default function Header() {
     if (mode === TRIP_MODE.VIEW) {
       return;
     }
-    setIsActive(prev => !prev);
+    setIsActive((prev) => !prev);
   };
-
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -54,13 +53,12 @@ export default function Header() {
   };
 
   const onSaveTrip = () => {
-
     if (mode === TRIP_MODE.CREATE) {
       dispatch(saveTrip(trip));
     } else if (mode === TRIP_MODE.UPDATE) {
       dispatch(updateTrip(trip));
     }
-  }
+  };
 
   return (
     <div className={styles.header}>
@@ -103,8 +101,9 @@ export default function Header() {
           </button>
           <div
             ref={dropdownRef}
-            className={`${styles.popupContent} ${isActive ? `${styles.active}` : `${styles.inactive}`
-              }`}
+            className={`${styles.popupContent} ${
+              isActive ? `${styles.active}` : `${styles.inactive}`
+            }`}
             style={{ right: "182px" }}
           >
             <div className={styles.dropdownTop} style={{ left: "50% " }}>
@@ -147,17 +146,24 @@ export default function Header() {
             </div>
           </div>
           <div>
-            {
-              mode === TRIP_MODE.VIEW ? <></> :
-                (<button className={styles.tripSave} onClick={onSaveTrip} disabled={loading}>
-                  {
-                    !loading ? <span>Save and close</span> : <Loading isSmall={true} />
-                  }
-                </button>)
-            }
-          </div >
-        </div >
-      </div >
-    </div >
-  )
+            {mode === TRIP_MODE.VIEW ? (
+              <></>
+            ) : (
+              <button
+                className={styles.tripSave}
+                onClick={onSaveTrip}
+                disabled={loading}
+              >
+                {!loading ? (
+                  <span>Save and close</span>
+                ) : (
+                  <Loading isSmall={true} />
+                )}
+              </button>
+            )}
+          </div>
+        </div>
+      </div>
+    </div>
+  );
 }

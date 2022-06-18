@@ -2,32 +2,40 @@ import React from "react";
 import styles from "../settingProfile.module.css";
 import AboutMe from "../aboutMe";
 import classNames from "classnames";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import useForm from "../../../../components/useForm/useForm";
 import { useIsLogin } from "../../../../hooks/useIsLogin";
-import { validateMyAccount } from "../../../../components/validateInput/validateInput";
 import { updateInfo } from "./../../../../store/actions/user.action";
-import ImageUpload from "../../../../components/imageUpload";
-import { SET_PROFILE_IMAGE } from "../../../../store/constants/user.const";
 import { NotificationContainer } from "react-notifications";
+import ImageUpload from "./../imageUpload/index";
+import { useState } from "react";
 function MyAccount() {
   const dispatch = useDispatch();
   const { loading } = useIsLogin();
-  const { profile } = useSelector((state) => state.user);
-  console.log("🚀 ~ file: index.jsx ~ line 16 ~ MyAccount ~ profile", profile);
-  const { values, errors, handleChange, handleSubmit } = useForm(
-    handleSubmits,
-    validateMyAccount
-  );
-  function handleSubmits() {
-    dispatch(updateInfo(profile));
-  }
-
-  const handleChangeProfileImage = (image) => {
-    dispatch({
-      type: SET_PROFILE_IMAGE,
-      payload: image,
+  const [coverImageUrl, setCoverImageUrl] = useState("");
+  const [profileImageUrl, setProfileImageUrl] = useState("");
+  const [user, setUser] = useState({
+    aboutMe: "",
+    city: "",
+    country: "",
+    dateOfBirth: "",
+    firstName: "",
+    gender: "",
+    lastName: "",
+    phoneNumber: "",
+  });
+  const handleChange = (event) => {
+    const { value, name } = event.target;
+    console.log({ value, name });
+    setUser({
+      ...user,
+      [name]: value,
     });
+  };
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    console.log("🚀 ~ file: index.jsx ~ line 40 ~ handleSubmit ~ user", user);
+    dispatch(updateInfo(profileImageUrl, coverImageUrl, user));
   };
 
   return (
@@ -38,129 +46,80 @@ function MyAccount() {
       <div className={styles.content}>
         <div className={styles.inputs}>
           <div className={styles.row}>
-            <form id="frm-accountForm" onSubmit={handleSubmit} noValidate>
-              <div
-                className={classNames(
-                  `${styles.boxInput}`,
-                  `${styles.w20}`,
-                  `${styles.specialwidth}`
-                )}
-              >
-                <div
-                  className={styles.imageHandler}
-                  id={styles.profilePhotoThumbnail}
-                >
-                  <img
-                    src="https://wrld-se-prod.b-cdn.net/images/user-empty.svg"
-                    alt="thumbnail"
-                    className={styles.thumbnail}
-                  />
-                </div>
-                <ImageUpload
-                  image={profile.profileImageUrl}
-                  handleChangeImage={handleChangeProfileImage}
-                />
-                {/* <button
-                  id="profil-foto"
-                  className={styles.upravitnahratsmazat}
-                  type="button"
-                  name="button"
-                >
-                  <img
-                    src="https://www.worldee.com/images/upravitimg.svg"
-                    alt="Upravit"
-                  />
-                </button> */}
-              </div>
-              <div
-                className={classNames(
-                  `${styles.boxInput}`,
-                  `${styles.w80}`,
-                  `${styles.specialwidth}`
-                )}
-              >
-                <div
-                  className={styles.imageHandler}
-                  id={styles.introPhotoThumbnail}
-                >
-                  <img
-                    src="https://wrld-se-prod.b-cdn.net/images/bezfotky.png"
-                    alt="nahranafotka"
-                    className={styles.thumbnail}
-                  />
-                </div>
-                <button
-                  id="profil-banner"
-                  className={styles.upravitnahratsmazat}
-                  type="button"
-                  name="button"
-                >
-                  <img
-                    src="https://www.worldee.com/images/upravitimg.svg"
-                    alt="Upravit"
-                  />
-                </button>
-              </div>
+            <form id="frm-accountForm" onSubmit={handleSubmit}>
+              <ImageUpload
+                defaultImage={
+                  "https://wrld-se-prod.b-cdn.net/images/user-empty.svg"
+                }
+                imageList={profileImageUrl}
+                setImageList={setProfileImageUrl}
+                w={true}
+              />
+              <ImageUpload
+                defaultImage={
+                  "https://wrld-se-prod.b-cdn.net/images/bezfotky.png"
+                }
+                imageList={coverImageUrl}
+                setImageList={setCoverImageUrl}
+                w={false}
+              />
               <div className="clearfix" />
               <div className={styles.boxInput}>
                 <label> Name </label>
                 <div className={styles.input}>
-                  <input
-                    type="text"
-                    name="name"
-                    onChange={handleChange}
-                    value={values.name || ""}
-                    required
-                  />
+                  <input type="text" name="firstName" onChange={handleChange} />
                 </div>
               </div>
               <div className={styles.boxInput}>
                 <label> Surname </label>
                 <div className={styles.input}>
-                  <input id="prijmeni" type="text" name="prijmeni" />
+                  <input type="text" name="lastName" onChange={handleChange} />
                 </div>
               </div>
               <div className={styles.boxInput}>
                 <label> Telephone number</label>
                 <div className={styles.input}>
-                  <input id="telefon" type="tel" name="telefon" />
+                  <input
+                    type="tel"
+                    name="phoneNumber"
+                    onChange={handleChange}
+                  />
                 </div>
               </div>
               <div className={styles.boxInput}>
                 <label> City </label>
                 <div className={styles.input}>
                   <input
-                    id="mesto"
                     type="text"
-                    name="mesto"
+                    name="city"
                     className="pac-target-input"
                     placeholder="Enter a location"
+                    onChange={handleChange}
                   />
                 </div>
               </div>
               <div className={styles.boxInput}>
                 <label> Country </label>
                 <div className={styles.input}>
-                  <select name="stat" id={styles.stat}>
-                    <option value="0">-</option>
-                    <option value="Việt Nam">Việt Nam</option>
-                    <option value="Hàn Quốc">Hàn Quốc</option>
-                  </select>
-                  <span data-tooltip="Public">
-                    <i />
-                    <img
-                      src="https://www.worldee.com/images/verejne.svg"
-                      alt="veřejné"
-                    />
-                  </span>
+                  <input
+                    type="text"
+                    name="country"
+                    className="pac-target-input"
+                    placeholder="Enter a country"
+                    onChange={handleChange}
+                  />
                 </div>
               </div>
               <div className={styles.boxInput}>
-                <label htmlFor="jsem"> Gender </label>
-                <div id="gender-select" className={styles.customSelect}>
-                  <div className={styles.selected}>
-                    <p>not specified</p>
-                  </div>
+                <label> Gender </label>
+                <div className={styles.input}>
+                  <input
+                    type="text"
+                    name="gender"
+                    className="pac-target-input"
+                    placeholder="Enter a gender"
+                    onChange={handleChange}
+                  />
                 </div>
               </div>
               <div
@@ -208,12 +167,30 @@ function MyAccount() {
                 </div>
               </div>
               <AboutMe />
-              <button
-                className={classNames(`${styles.button}`, `${styles.submit}`)}
-                id={styles.send}
-              >
-                <span> Save changes </span>
-              </button>
+              {loading ? (
+                <button
+                  className={classNames(`${styles.button}`, `${styles.submit}`)}
+                  id={styles.send}
+                  style={{ width: "96.5%", opacity: ".4" }}
+                  disabled
+                >
+                  <span> Save changes </span>
+                  <div className="loadingio-spinner-ripple-ormwzc5m72e">
+                    <div className="ldio-gw2gg1659v">
+                      <div />
+                      <div />
+                    </div>
+                  </div>
+                </button>
+              ) : (
+                <button
+                  className={classNames(`${styles.button}`, `${styles.submit}`)}
+                  id={styles.send}
+                  style={{ width: "96.5%" }}
+                >
+                  <span> Save changes </span>
+                </button>
+              )}
             </form>
           </div>
         </div>
