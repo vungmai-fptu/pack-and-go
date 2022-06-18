@@ -1,5 +1,4 @@
 import moment from "moment";
-import { useEffect } from "react";
 import { useCallback, useRef, useState } from "react";
 import "react-date-range/dist/styles.css";
 import "react-date-range/dist/theme/default.css";
@@ -33,10 +32,10 @@ export default function Date() {
       type: SET_DATE,
       payload: {
         beginDate: trip.beginDate,
-        endDate: !isSingleTrip ? null : trip.beginDate
+        endDate: !isSingleTrip ? null : trip.beginDate,
       },
-    })
-    setIsSingleTrip(prev => !prev);
+    });
+    setIsSingleTrip((prev) => !prev);
   };
 
   const handleDateChange = useCallback((dates) => {
@@ -44,11 +43,10 @@ export default function Date() {
       type: SET_DATE,
       payload: {
         beginDate: dates.startDate,
-        endDate: !isSingleTrip ? dates.endDate : null
+        endDate: !isSingleTrip ? dates.endDate : null,
       },
-    })
+    });
   });
-
 
   return (
     <div className={styles.tripDate}>
@@ -92,7 +90,7 @@ export default function Date() {
                   </div>
                 </label>
                 <label
-                  className={`${! `${styles.cur}`}`}
+                  className={`${!`${styles.cur}`}`}
                   onClick={onChangeTripType}
                 >
                   <div className={styles.changeTitle}>
@@ -107,7 +105,8 @@ export default function Date() {
                   onDateChange={handleDateChange}
                   focusedRange={[0, 0]}
                   // selectEnd={false}
-                  showDateDisplay={false} />
+                  showDateDisplay={false}
+                />
               ) : (
                 <GetDate
                   onDateChange={handleDateChange}
@@ -128,7 +127,6 @@ export default function Date() {
                   <span>Cancel</span>
                 </button>
               </div>
-
             </div>
           </div>
         </div>
@@ -137,7 +135,8 @@ export default function Date() {
   );
 }
 
-{/* <img
+{
+  /* <img
                     className={styles.setDateIcon1}
                     src="fonts/src_app_components_components_svgIcon_icons_commonsprite-afce76.svg#calendarl-usage"
                     alt="common/calendar"
@@ -146,4 +145,5 @@ export default function Date() {
                     className={styles.setDateIcon2}
                     src="fonts/src_app_components_components_svgIcon_icons_commonsprite-afce76.svg#calendarl-usage"
                     alt="common/calendar"
-                  /> */}
+                  /> */
+}

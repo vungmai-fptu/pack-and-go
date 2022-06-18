@@ -160,7 +160,8 @@ form {
     color: #071125;
     font-weight: 700;
     font-size: 1.1875rem;
-    display: inline-block;
+    display: flex;
+    align-items: center;
     width: 100%;
     position: relative;
     height: 75px;
@@ -200,7 +201,7 @@ form {
 .barOfSpan {
     margin-right: 15px;
     width: 35px;
-    display: inline-block;
+    display: flex;
     text-align: center;
     color: #071125;
     font-weight: 700;

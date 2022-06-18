@@ -7,12 +7,16 @@ import {
   REGISTRATION_SUCCESS,
   RESETPASSWORD_FAILED,
   RESETPASSWORD_SUCCESS,
+  CHANGE_PASSWORD_FAILED,
+  CHANGE_PASSWORD_SUCCESS,
   RESETPASSWORD_REQUEST_FAILED,
   RESETPASSWORD_REQUEST_SUCCESS,
   LIST_USER_SUCCESS,
   LIST_USER_FAILED,
   USER_SUCCESS,
   USER_FAILED,
+  UPDATE_INFO_SUCCESS,
+  UPDATE_INFO_FAILED,
 } from "../constants/user.const";
 import { startLoading, stopLoading } from "../actions/common.action";
 
@@ -245,6 +249,99 @@ export const getUserSuccess = (users) => {
 const getUserFailed = (err) => {
   return {
     type: USER_FAILED,
+    payload: err,
+  };
+};
+
+export const postChangePassword = (currentPassword, newPassword) => {
+  const userLogin = localStorage.getItem("userLogin");
+  const token = userLogin ? JSON.parse(userLogin).token : "";
+  return (dispatch) => {
+    dispatch(startLoading());
+    axios({
+      method: "POST",
+      url: `${process.env.REACT_APP_API_URL}/api/user/change-password`,
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      data: {
+        currentPassword,
+        newPassword,
+      },
+    })
+      .then((res) => {
+        dispatch(stopLoading());
+        dispatch(postChangePasswordSuccess(res.data));
+        NotificationManager.success(res.data.message);
+      })
+      .catch((err) => {
+        dispatch(stopLoading());
+        dispatch(postChangePasswordFailed(err));
+        NotificationManager.error(err.response.data.message);
+      });
+  };
+};
+
+const postChangePasswordSuccess = (change) => {
+  return {
+    type: CHANGE_PASSWORD_SUCCESS,
+    payload: change,
+  };
+};
+
+const postChangePasswordFailed = (err) => {
+  return {
+    type: CHANGE_PASSWORD_FAILED,
+    payload: err,
+  };
+};
+
+export const updateInfo = (values) => {
+  return (dispatch) => {
+    dispatch(startLoading());
+    axios({
+      method: "PUT",
+      url: `${process.env.REACT_APP_API_URL}/api/user`,
+      headers: {
+        "Content-Type": "application/json",
+      },
+      data: {
+        aboutMe: values.aboutMe,
+        city: values.city,
+        country: values.country,
+        coverImageUrl: values.coverImageUrl,
+        dateOfBirth: values.dateOfBirth,
+        firstName: values.firstName,
+        gender: values.gender,
+        lastName: values.lastName,
+        phoneNumber: values.phoneNumber,
+        profileImageUrl: values.profileImageUrl,
+      },
+    })
+      .then((res) => {
+        dispatch(stopLoading());
+        dispatch(updateInfoSuccess(res.data));
+        NotificationManager.success(res.data.message);
+      })
+      .catch((err) => {
+        dispatch(stopLoading());
+        dispatch(updateInfoFailed(err));
+        NotificationManager.error(err.response.data.message);
+      });
+  };
+};
+
+const updateInfoSuccess = (info) => {
+  return {
+    type: UPDATE_INFO_SUCCESS,
+    payload: info,
+  };
+};
+
+const updateInfoFailed = (err) => {
+  return {
+    type: UPDATE_INFO_FAILED,
     payload: err,
   };
 };

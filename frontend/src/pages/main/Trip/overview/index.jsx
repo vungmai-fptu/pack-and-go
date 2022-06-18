@@ -1,11 +1,15 @@
 import { IoNotificationsOutline } from "react-icons/io5";
 import LocationSearchInput from "../../../../components/SearchBoxMap";
-import { useState } from "react";
 import Transport from "./transport";
 import ImageUpload from "../../../../components/imageUpload";
 import { useDispatch, useSelector } from "react-redux";
-import { SET_DESTINATION, SET_NOTIFY_DAY, SET_THUMBNAIL, SET_TRANSPORTATION } from "../../../../store/constants/trip.const";
-import styles from './overview.module.css';
+import {
+  SET_DESTINATION,
+  SET_NOTIFY_DAY,
+  SET_THUMBNAIL,
+  SET_TRANSPORTATION,
+} from "../../../../store/constants/trip.const";
+import styles from "./overview.module.css";
 import { IoLocationOutline } from "react-icons/io5";
 import bgImage from '../../../../assets/fonts/src_app_components_components_svgIcon_icons_customsprite-70fd46.svg'
 import warningIcon from '../../../../assets/fonts/src_app_components_components_svgIcon_icons_commonsprite-afce76.svg'
@@ -18,32 +22,30 @@ export default function Overview() {
   const handleChangeThumbnail = (image) => {
     dispatch({
       type: SET_THUMBNAIL,
-      payload: image
-    })
-  }
+      payload: image,
+    });
+  };
 
   const handleChangeNotifyDay = (e) => {
     dispatch({
       type: SET_NOTIFY_DAY,
-      payload: +e.target.value
-    })
-  }
+      payload: +e.target.value,
+    });
+  };
 
   const handelChangeTransportation = (trans) => {
     dispatch({
       type: SET_TRANSPORTATION,
-      payload: trans
-    })
-  }
+      payload: trans,
+    });
+  };
 
   const handleChangeDestination = (destination) => {
     dispatch({
       type: SET_DESTINATION,
-      payload: destination
-    })
-  }
-
-
+      payload: destination,
+    });
+  };
 
   return (
     <div className="w_CU">
@@ -51,7 +53,8 @@ export default function Overview() {
         <div className={`w_aam w_iW ${styles.thumbnail}`} >
           <ImageUpload
             image={trip.thumbnailUrl}
-            handleChangeImage={handleChangeThumbnail} />
+            handleChangeImage={handleChangeThumbnail}
+          />
         </div>
         <div className="w_oz w_iX">
           <label className="w_rI w_rS w_UW">Trip’s destination</label>
@@ -71,7 +74,9 @@ export default function Overview() {
                 className={styles.notify_input}
                 onChange={handleChangeNotifyDay}
               >
-                <option value={0}>When do you want to notify about the trip?</option>
+                <option value={0}>
+                  When do you want to notify about the trip?
+                </option>
                 <option value={1}>before 1 day</option>
                 <option value={2}>before 2 days</option>
                 <option value={3}>before 3 days</option>
@@ -84,7 +89,8 @@ export default function Overview() {
           </div>
           <Transport
             transportation={trip.transportation}
-            onChangeTransportation={handelChangeTransportation} />
+            onChangeTransportation={handelChangeTransportation}
+          />
           <div className="w_ja w_UU" style={{ flex: "1 1 0%" }}>
             <img
               style={{ width: "auto", height: "auto" }}

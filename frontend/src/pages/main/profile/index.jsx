@@ -8,6 +8,7 @@ import Header from "../../../components/profile/Header";
 //import Map from "../../../components/profile/Map";
 import TabGroup from "../../../components/profile/MapNav/TabGroup";
 import Trips from "../../../components/profile/Trips";
+import SkeletonProfile from "../../../components/SkeletonCard/SkeletonProfile";
 import { getUser } from "../../../store/actions/user.action";
 
 const Profile = () => {
@@ -21,22 +22,18 @@ const Profile = () => {
     []
   );
   const { users } = useSelector((state) => state.user);
-  console.log(
-    "🚀 ~ file: index.jsx ~ line 24 ~ Profi-----------",
-    users.username === undefined
-  );
   return (
     <>
       {users.username === undefined ? (
-        <div
-          className="loadingio-spinner-ripple-ormwzc5m72e"
-          style={{ marginTop: "200px" }}
-        >
-          <div className="ldio-gw2gg1659v">
-            <div />
-            <div />
+        <>
+          <SkeletonProfile />
+          <div className="loadingio-spinner-ripple-p4t4leicp3h">
+            <div className="ldio-a43e4tfg33">
+              <div></div>
+              <div></div>
+            </div>
           </div>
-        </div>
+        </>
       ) : (
         <>
           <Header users={users} />
@@ -46,11 +43,6 @@ const Profile = () => {
           <CountryList />
         </>
       )}
-      {/* <Header users={users} />
-      <TabGroup />
-      <FutureTrips users={users} />
-      <Trips users={users} />
-      <CountryList /> */}
     </>
   );
 };
