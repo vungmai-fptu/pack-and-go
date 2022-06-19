@@ -14,7 +14,6 @@ const InviteFriends = () => {
   const [isActive, setIsActive] = useDetectOutsideClick(dropdownRef, false);
   const [items, setItem] = useState();
   const [list, dispatch] = useReducer(reducer, []);
-  console.log("🚀 ~ f==", list.length);
   const onClick = () => setIsActive(!isActive);
   const addInviteFriends = () => {
     setItem();
@@ -23,13 +22,13 @@ const InviteFriends = () => {
   return (
     <>
       <div className="w_ki">
-        <a href="/longpc" className="w_AP w_kj w_kr">
+        <div className="w_AP w_kj w_kr">
           <img
             className="w_km"
             alt="profile"
             src="https://wrld-se-prod.b-cdn.net/images/user-empty.svg?width=640&height=640"
           />
-        </a>
+        </div>
         <div className="w_kj">
           <div className="w_WS">
             <div className="w_WV w_WW">+{list.length}</div>
