@@ -59,7 +59,7 @@ export default function RenderTripItem() {
         <label className="w_rI w_rT">New Trips</label>
         <div className="w_cx">
           {state.listTripToShow.map((listTrip, index) => (
-            <TripItem listTrip={listTrip} key={index} />
+            <TripItem listTrip={listTrip} listUser={listUser} key={index} />
           ))}
         </div>
         <div className="w_i-" style={{ justifyContent: "center" }}>

@@ -141,16 +141,3 @@ export default function Date() {
     </div>
   );
 }
-
-{
-  /* <img
-                    className={styles.setDateIcon1}
-                    src="fonts/src_app_components_components_svgIcon_icons_commonsprite-afce76.svg#calendarl-usage"
-                    alt="common/calendar"
-                  />
-                  <img
-                    className={styles.setDateIcon2}
-                    src="fonts/src_app_components_components_svgIcon_icons_commonsprite-afce76.svg#calendarl-usage"
-                    alt="common/calendar"
-                  /> */
-}

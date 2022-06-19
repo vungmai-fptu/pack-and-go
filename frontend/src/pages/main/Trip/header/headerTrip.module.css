@@ -1,0 +1,89 @@
+.popupContent {
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-20px);
+    transition: opacity 0.4s ease, transform 0.4s ease, visibility 0.4s;
+    position: absolute;
+    pointer-events: auto;
+    top: 70px;
+    z-index: 999;
+    border-radius: 8px;
+    background: #fff;
+    box-shadow: 0 3px 10px hsla(0, 0%, 4%, 0.15) !important;
+    color: #202d3d;
+    font-size: 0.875rem;
+    max-width: 300px;
+    min-width: 180px;
+    padding: 0;
+    width: auto !important;
+    display: block !important;
+    right: 280px;
+}
+
+.active {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+.dropdownTop {
+    height: 8px;
+    width: 16px;
+    position: absolute;
+    background: transparent;
+    color: rgb(255, 255, 255);
+    z-index: 1;
+    transform: rotate(0deg) translateY(-100%) translateX(-50%);
+    top: 0%;
+    right: 22px;
+}
+
+.formLogout {
+    display: flex;
+    flex-flow: column;
+    max-height: calc(80vh - 100px);
+    min-width: 0;
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+
+.logout {
+    align-items: center;
+    display: flex;
+    height: 40px;
+    padding: 0 20px;
+}
+
+.logoutContent {
+    align-items: center;
+    max-width: 100%;
+    padding: 15px;
+}
+
+.logoutContent input {
+    background: hsla(0, 0%, 100%, 0);
+    border: none;
+    font-size: 1rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    width: 100%;
+    border: 1px solid #d0d8e6 !important;
+    border-radius: 5px;
+    padding: 5px 15px;
+    margin-right: 10px;
+}
+
+.listGmail {
+    background: #DDD;
+    margin: 10px;
+    text-align: left;
+    padding: 10px;
+    font-size: 15px;
+    border-radius: 10px;
+}
+
+.addMail {
+    cursor: pointer;
+
+}

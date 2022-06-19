@@ -29,23 +29,36 @@ const TripItem = (props) => {
               />
             </div>
           </div>
-          <div title="Sơn Lê" className={styles["profile-image"]}>
-            <Link to={props.listTrip.username || "/"} className="w_AP w_kq">
+          {/* <div title={props.listTrip.owner} className={styles["profile-image"]}>
+            <Link
+              to={`profile/${props.listTrip.owner}` || "/"}
+              className="w_AP w_kq"
+            >
               <img
                 alt="profile"
-                // src={
-                //   props.listUser.profileImageUrl == null
-                //     ? "https://wrld-se-prod.b-cdn.net/images/user-empty.svg?width=640&height=640"
-                //     : props.listUser.profileImageUrl
-                // }
+                src={
+                  props.listUser.profileImageUrl == null
+                    ? "https://wrld-se-prod.b-cdn.net/images/user-empty.svg?width=640&height=640"
+                    : props.listUser.profileImageUrl
+                }
               />
             </Link>
-          </div>
+          </div> */}
         </div>
         <div className={styles.bottom}>
           <Link to="/trips/trips-to-america" className={styles["trip-name"]}>
-            <div className="">
-              {/* <span>{props.listUser.tripName}</span> */}
+            <div>
+              <span>{props.listTrip.name}</span>
+            </div>
+          </Link>
+          <br />
+          <Link
+            to={`profile/${props.listTrip.owner}` || "/"}
+            className={styles["trip-name"]}
+            style={{ fontSize: "1rem", fontWeight: "400" }}
+          >
+            <div>
+              <span>{props.listTrip.owner}</span>
             </div>
           </Link>
           <div className={styles["destination-info"]}>
