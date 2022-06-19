@@ -16,7 +16,9 @@ class Tab extends Component {
     }
     return (
       <button className={className} onClick={onClick}>
-        <Icon />
+        <div className={styles.icon}>
+          <Icon />
+        </div>
         <span className={styles.tabSpan}>{label}</span>
       </button>
     );

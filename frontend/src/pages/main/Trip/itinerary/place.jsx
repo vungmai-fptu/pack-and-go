@@ -4,8 +4,10 @@ import { IoLocationSharp, IoDocumentText, IoTrashSharp, IoImage} from "react-ico
 import { ImLocation } from "react-icons/im";
 import { storeImageToFireBase } from "../../../../utils/storeImageToFirebase.";
 import styles from "./Place.module.css";
+import placeholder from '../../../../assets/images/placeholder.jpg';
 import { AiOutlineCloseCircle } from 'react-icons/ai'
-import { mIcon } from "./green-marker-removebg-preview.png"
+import { useDispatch } from "react-redux";
+import { SET_LOCATION } from "../../../../store/constants/map.const";
 const Place = ({
   place,
   index,
@@ -19,7 +21,7 @@ const Place = ({
   const [selectedFile, setSelectedFile] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const ref = useRef();
-
+  const dispatch = useDispatch();
   useEffect(() => {
     const timer = setTimeout(() => {
       onChangePlaceDescription(description, index);
@@ -80,7 +82,12 @@ const Place = ({
           </div>
           <div className={styles.rightContainer}>
             <div className={styles.rightCenter}>
-              <div className={styles.rightFlex}>{place.address}</div>
+              <div className={styles.rightFlex} onClick={() => {
+                dispatch({
+                  type: SET_LOCATION,
+                  payload: place,
+                })
+              }}>{place.address}</div>
               <div className={styles.action}>
                 <div className={styles.icon_wrapper}>
                   <input
@@ -124,7 +131,7 @@ const Place = ({
                   onClick={() => onRemoveImage(image.url, index)}>
                   <AiOutlineCloseCircle className={styles.remove_image} />
                 </div>
-                <img src={image.url} />
+                <img src={image?.url || placeholder} />
               </div>
             )}
         </div>

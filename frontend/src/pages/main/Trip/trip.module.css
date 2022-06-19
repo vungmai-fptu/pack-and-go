@@ -296,6 +296,7 @@
   /* min-width: 25px; */
   margin-left: 16px;
   min-width: 200px;
+  justify-content: end;
 }
 
 .save img {
@@ -561,18 +562,18 @@
   justify-content: center;
 }
 .iTin_wrapper {
-  width: 100%;
+  flex: 1;
 }
 
 .iTin {
   height: 100%;
   min-width: 0;
-  width: 100%;
   align-items: center;
   display: flex;
   flex-flow: row;
   max-width: 100%;
   min-width: 0;
+  flex: 1;
 }
 
 .tripItin {

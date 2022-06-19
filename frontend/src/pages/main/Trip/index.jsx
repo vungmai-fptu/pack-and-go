@@ -18,10 +18,33 @@ import Note from "./note";
 import { NotificationContainer } from "react-notifications";
 import "react-notifications/lib/notifications.css";
 import { useParams } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { setTrip } from "../../../store/actions/trip.action";
+import { useEffect } from "react";
+import { SET_TRIP, TRIP_MODE } from "../../../store/constants/trip.const";
+import { tripInitialState } from "../../../store/reducers/trip.reducer";
 
 function Trip() {
   const { id } = useParams();
-  console.log(id);
+  const dispatch = useDispatch();
+  useEffect(
+    () => {
+      if (id) {
+        dispatch(setTrip(id));
+      }
+      return () => {
+        dispatch({
+          type: SET_TRIP,
+          payload: {
+            mode: TRIP_MODE.CREATE,
+            trip: { ...tripInitialState.trip, beginDate: new Date() },
+          },
+        });
+      };
+    },
+    // eslint-disable-next-line
+    []
+  );
 
   return (
     <div className={styles.newTrip}>
@@ -35,7 +58,7 @@ function Trip() {
             <div label="Itinerary" Icon={FaMapMarkedAlt}>
               <Itinerary />
             </div>
-            <div label="Preparedlist" Icon={FaCheckSquare}>
+            <div label="Prepare" Icon={FaCheckSquare}>
               <PrepareList />
             </div>
             <div label="PriceList" Icon={FaMoneyBill}>

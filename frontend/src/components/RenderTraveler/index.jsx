@@ -19,7 +19,7 @@ export default function RenderTraveler() {
   return loading ? (
     <SkeletonTraveler />
   ) : (
-    listUser.map((listUser, index) => {
+    listUser.slice(0, 4).map((listUser, index) => {
       return <Traveler listUser={listUser} key={index} />;
     })
   );

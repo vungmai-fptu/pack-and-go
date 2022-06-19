@@ -7,23 +7,27 @@ import {
   REGISTRATION_SUCCESS,
   RESETPASSWORD_FAILED,
   RESETPASSWORD_SUCCESS,
+  CHANGE_PASSWORD_FAILED,
+  CHANGE_PASSWORD_SUCCESS,
   RESETPASSWORD_REQUEST_FAILED,
   RESETPASSWORD_REQUEST_SUCCESS,
   LIST_USER_SUCCESS,
   LIST_USER_FAILED,
   USER_SUCCESS,
   USER_FAILED,
+  UPDATE_INFO_SUCCESS,
+  UPDATE_INFO_FAILED,
 } from "../constants/user.const";
 import { startLoading, stopLoading } from "../actions/common.action";
-
-const API_URL = "https://trip-diary-backend.azurewebsites.net";
-
+const API_URL = process.env.REACT_APP_API_URL;
+const userLogin = localStorage.getItem("userLogin");
+const token = userLogin ? JSON.parse(userLogin).token : "";
 export const postLogin = (usernameOrEmail, password) => {
   return (dispatch) => {
     dispatch(startLoading());
     axios({
       method: "POST",
-      url: `${process.env.REACT_APP_API_URL}/api/auth/signin`,
+      url: `${API_URL}/api/auth/signin`,
       headers: {
         "Content-Type": "application/json",
       },
@@ -63,7 +67,7 @@ export const postRegistration = (values, goBack) => {
     dispatch(startLoading());
     axios({
       method: "POST",
-      url: `${process.env.REACT_APP_API_URL}/api/auth/signup`,
+      url: `${API_URL}/api/auth/signup`,
       headers: {
         "Content-Type": "application/json",
       },
@@ -106,7 +110,7 @@ export const postResetPasswordRequest = (forgotPassword) => {
     dispatch(startLoading());
     axios({
       method: "POST",
-      url: `${process.env.REACT_APP_API_URL}/api/auth/reset-password-request`,
+      url: `${API_URL}/api/auth/reset-password-request`,
       headers: {
         "Content-Type": "application/json",
       },
@@ -146,7 +150,7 @@ export const postResetPassword = (token, newPassword, goBack) => {
     dispatch(startLoading());
     axios({
       method: "POST",
-      url: `${process.env.REACT_APP_API_URL}/api/auth/reset-password`,
+      url: `${API_URL}/api/auth/reset-password`,
       headers: {
         "Content-Type": "application/json",
       },
@@ -188,7 +192,7 @@ export const getListUser = () => {
     dispatch(startLoading());
     axios({
       method: "GET",
-      url: `${process.env.REACT_APP_API_URL}/api/users/trips?page=1&size=10`,
+      url: `${API_URL}/api/users/trips?page=1&size=10`,
       data: null,
     })
       .then((res) => {
@@ -221,7 +225,7 @@ export const getUser = (username) => {
     dispatch(startLoading());
     axios({
       method: "GET",
-      url: `${process.env.REACT_APP_API_URL}/api/users/${username}/trips`,
+      url: `${API_URL}/api/users/${username}/trips`,
       data: null,
     })
       .then((res) => {
@@ -245,6 +249,115 @@ export const getUserSuccess = (users) => {
 const getUserFailed = (err) => {
   return {
     type: USER_FAILED,
+    payload: err,
+  };
+};
+
+export const postChangePassword = (currentPassword, newPassword) => {
+  return (dispatch) => {
+    dispatch(startLoading());
+    axios({
+      method: "POST",
+      url: `${API_URL}/api/user/change-password`,
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      data: {
+        currentPassword,
+        newPassword,
+      },
+    })
+      .then((res) => {
+        dispatch(stopLoading());
+        dispatch(postChangePasswordSuccess(res.data));
+        NotificationManager.success(res.data.message);
+      })
+      .catch((err) => {
+        dispatch(stopLoading());
+        dispatch(postChangePasswordFailed(err));
+        NotificationManager.error(err.response.data.message);
+      });
+  };
+};
+
+const postChangePasswordSuccess = (change) => {
+  return {
+    type: CHANGE_PASSWORD_SUCCESS,
+    payload: change,
+  };
+};
+
+const postChangePasswordFailed = (err) => {
+  return {
+    type: CHANGE_PASSWORD_FAILED,
+    payload: err,
+  };
+};
+
+export const updateInfo = (profileImageUrl, coverImageUrl, values) => {
+  return (dispatch) => {
+    dispatch(startLoading());
+    axios({
+      method: "PUT",
+      url: `${API_URL}/api/user`,
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      data: {
+        aboutMe: values.aboutMe,
+        city: values.city,
+        country: values.country,
+        coverImageUrl,
+        dateOfBirth: values.dateOfBirth,
+        firstName: values.firstName,
+        gender: values.gender,
+        lastName: values.lastName,
+        phoneNumber: values.phoneNumber,
+        profileImageUrl,
+      },
+    })
+      .then((res) => {
+        dispatch(stopLoading());
+        dispatch(updateInfoSuccess(res.data));
+        console.log(
+          "🚀 ~ file: user.action.jsx ~ line 325 ~ .then ~ res.data",
+          res.data
+        );
+        NotificationManager.success(res.data.message);
+      })
+      .catch((err) => {
+        dispatch(stopLoading());
+        dispatch(updateInfoFailed(err));
+
+        console.log("🚀 ~ file: user.action.jsx ~ line 331 ~ return ~ err", {
+          aboutMe: values.aboutMe,
+          city: values.city,
+          country: values.country,
+          coverImageUrl,
+          dateOfBirth: values.dateOfBirth,
+          firstName: values.firstName,
+          gender: values.gender,
+          lastName: values.lastName,
+          phoneNumber: values.phoneNumber,
+          profileImageUrl,
+        });
+        NotificationManager.error(err.response.data.message);
+      });
+  };
+};
+
+const updateInfoSuccess = (info) => {
+  return {
+    type: UPDATE_INFO_SUCCESS,
+    payload: info,
+  };
+};
+
+const updateInfoFailed = (err) => {
+  return {
+    type: UPDATE_INFO_FAILED,
     payload: err,
   };
 };

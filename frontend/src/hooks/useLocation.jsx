@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
 const useLocation = () => {
   const [location, setLocation] = useState({
@@ -14,7 +14,6 @@ const useLocation = () => {
         lng: location.coords.longitude,
       },
     });
-
   };
 
   const onError = (error) => {

@@ -1,33 +1,41 @@
 import moment from "moment";
-import { useEffect } from "react";
-import { useCallback, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import "react-date-range/dist/styles.css";
 import "react-date-range/dist/theme/default.css";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 import GetDate from "../../../../components/DateRange";
-import { SET_DATE } from "../../../../store/constants/trip.const";
+import { SET_DATE, TRIP_MODE } from "../../../../store/constants/trip.const";
 import styles from "../trip.module.css";
 import { useDetectOutsideClick } from "./../../../../components/useDetectOutsideClick";
-
+import { BsCalendar3 } from "react-icons/bs";
 export default function Date() {
-  const { trip } = useSelector(state => state.trip);
+  const { trip, mode } = useSelector((state) => state.trip);
   const dispatch = useDispatch();
   const dropdownRef = useRef(null);
   const [isActive, setIsActive] = useDetectOutsideClick(dropdownRef, false);
-  const [isSingleTrip, setIsSingleTrip] = useState(trip.endDate === null);
+  const [isSingleTrip, setIsSingleTrip] = useState(false);
 
-  const onClick = () => setIsActive(!isActive);
+  const onClick = () => {
+    if (mode === TRIP_MODE.VIEW) {
+      return;
+    }
+    setIsActive(!isActive);
+  };
+
+  useEffect(() => {
+    setIsSingleTrip(trip.endDate === null);
+  }, [trip]);
 
   const onChangeTripType = () => {
     dispatch({
       type: SET_DATE,
       payload: {
         beginDate: trip.beginDate,
-        endDate: !isSingleTrip ? null : trip.beginDate
+        endDate: !isSingleTrip ? null : trip.beginDate,
       },
-    })
-    setIsSingleTrip(prev => !prev);
+    });
+    setIsSingleTrip((prev) => !prev);
   };
 
   const handleDateChange = useCallback((dates) => {
@@ -35,30 +43,31 @@ export default function Date() {
       type: SET_DATE,
       payload: {
         beginDate: dates.startDate,
-        endDate: !isSingleTrip ? dates.endDate : null
+        endDate: !isSingleTrip ? dates.endDate : null,
       },
-    })
+    });
   });
-
 
   return (
     <div className={styles.tripDate}>
       <div className={styles.date}>
         <button onClick={onClick}>
-          <img
-            src="fonts/src_app_components_components_svgIcon_icons_commonsprite-afce76.svg#calendarl-usage"
-            alt="common/calendar"
-            style={{ marginRight: "10px" }}
-          />
-          {
-            isSingleTrip ?
-              (<span>{trip.beginDate && moment(trip.beginDate).format("DD/MM/YYYY")}</span>)
-              : (<span>{trip.beginDate && moment(trip.beginDate).format("DD/MM/YYYY")} - {trip.endDate && moment(trip.endDate).format("DD/MM/YYYY")}</span>)
-          }
+          <BsCalendar3 style={{ marginRight: "10px" }} />
+          {isSingleTrip ? (
+            <span>
+              {trip.beginDate && moment(trip.beginDate).format("DD/MM/YYYY")}
+            </span>
+          ) : (
+            <span>
+              {trip.beginDate && moment(trip.beginDate).format("DD/MM/YYYY")} -{" "}
+              {trip.endDate && moment(trip.endDate).format("DD/MM/YYYY")}
+            </span>
+          )}
         </button>
         <div
-          className={`${styles.formTripDate} ${isActive ? `${styles.active}` : "inactive"
-            }`}
+          className={`${styles.formTripDate} ${
+            isActive ? `${styles.active}` : "inactive"
+          }`}
         >
           <div className={styles.dropdownTop} style={{ left: "50% " }}>
             <svg
@@ -75,8 +84,9 @@ export default function Date() {
             <div className={styles.tripType}>
               <div className={styles.change}>
                 <div
-                  className={`${styles.transition} ${isSingleTrip ? "inactive" : `${styles.activeExact}`
-                    }`}
+                  className={`${styles.transition} ${
+                    isSingleTrip ? "inactive" : `${styles.activeExact}`
+                  }`}
                 />
                 <label
                   className={`${isSingleTrip ? `${styles.cur}` : ""}`}
@@ -87,7 +97,7 @@ export default function Date() {
                   </div>
                 </label>
                 <label
-                  className={`${! `${styles.cur}`}`}
+                  className={`${!`${styles.cur}`}`}
                   onClick={onChangeTripType}
                 >
                   <div className={styles.changeTitle}>
@@ -102,7 +112,8 @@ export default function Date() {
                   onDateChange={handleDateChange}
                   focusedRange={[0, 0]}
                   // selectEnd={false}
-                  showDateDisplay={false} />
+                  showDateDisplay={false}
+                />
               ) : (
                 <GetDate
                   onDateChange={handleDateChange}
@@ -123,7 +134,6 @@ export default function Date() {
                   <span>Cancel</span>
                 </button>
               </div>
-
             </div>
           </div>
         </div>
@@ -132,7 +142,8 @@ export default function Date() {
   );
 }
 
-{/* <img
+{
+  /* <img
                     className={styles.setDateIcon1}
                     src="fonts/src_app_components_components_svgIcon_icons_commonsprite-afce76.svg#calendarl-usage"
                     alt="common/calendar"
@@ -141,4 +152,5 @@ export default function Date() {
                     className={styles.setDateIcon2}
                     src="fonts/src_app_components_components_svgIcon_icons_commonsprite-afce76.svg#calendarl-usage"
                     alt="common/calendar"
-                  /> */}
+                  /> */
+}

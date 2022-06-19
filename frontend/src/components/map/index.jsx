@@ -7,7 +7,8 @@ import "leaflet/dist/leaflet.css";
 import "./map.css";
 import useLocation from "./../../hooks/useLocation";
 import mIcon from "./location-icon.png";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { SET_LOCATION } from "../../store/constants/map.const";
 const osm = {
   maptiler: {
     url: "https://api.maptiler.com/maps/streets/256/{z}/{x}/{y}.png?key=rI9ODoaXGg1gJcIgQzh5",
@@ -25,16 +26,30 @@ const MapComponent = ({ destination }) => {
   // const [center, setCenter] = useState([13, 13]);
   const location = useLocation();
   const mapRef = useRef();
-  const { trip } = useSelector(state => state.trip);
-  const allVisitPlaces = trip.visitDays.map(day => day.visitPlaces).flat();
-
-  console.log(allVisitPlaces);
-
+  const { trip } = useSelector((state) => state.trip);
+  const { location: mapLocation } = useSelector((state) => state.map);
+  const dispatch = useDispatch();
+  const allVisitPlaces = trip.visitDays.map((day) => day.visitPlaces).flat();
 
   const ZOOM_LEVEL = 9;
 
+  useEffect(() => {
+    if (location.loaded && mapLocation) {
+      mapRef.current.flyTo(
+        [mapLocation.latitude || 50, mapLocation.longitude || 50],
+        ZOOM_LEVEL,
+        { animation: true }
+      );
+    }
+    return () => {
+      dispatch({
+        type: SET_LOCATION,
+        payload: null,
+      });
+    };
+  }, [mapLocation]);
+
   const showMyLocation = () => {
-    console.log(location);
     if (location.loaded) {
       console.log("LOADED");
       mapRef.current.flyTo(
@@ -65,14 +80,17 @@ const MapComponent = ({ destination }) => {
           <>
             <Marker
               icon={makerIcon}
-              position={[trip.destination?.latitude || 50, trip.destination?.longitude || 50]}
+              position={[
+                trip.destination?.latitude || 50,
+                trip.destination?.longitude || 50,
+              ]}
             >
               <Popup>{trip.destination?.address}</Popup>
             </Marker>
           </>
         )}
-        {
-          allVisitPlaces.length !== 0 && allVisitPlaces.map((p, index) => (
+        {allVisitPlaces.length !== 0 &&
+          allVisitPlaces.map((p, index) => (
             <Marker
               key={index}
               icon={makerIcon}
@@ -80,8 +98,7 @@ const MapComponent = ({ destination }) => {
             >
               <Popup>{p.address}</Popup>
             </Marker>
-          ))
-        }
+          ))}
         <SearchControl
           provider={prov}
           showMarker={false}

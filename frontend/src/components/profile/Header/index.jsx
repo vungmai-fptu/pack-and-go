@@ -39,7 +39,9 @@ const Header = (props) => {
                   <div className={styles["user-name"]}>
                     {props.users.username}
                   </div>
-                  
+                  <div className={styles["user-url"]}>
+                    /{props.users.username}
+                  </div>
                   <div className={styles["row"]}>
                     <br />
                     <br />
@@ -63,7 +65,7 @@ const Header = (props) => {
                       </div>
                     </div>
                     <div className={styles["user-description"]}>
-                      <p>Hi!</p>
+                      <p>{props.users.aboutMe}</p>
                     </div>
                   </div>
                 </div>

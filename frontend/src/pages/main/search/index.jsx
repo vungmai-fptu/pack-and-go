@@ -1,5 +1,7 @@
 import React from "react";
 import CommentBox from "../../../components/Comment";
+import OrderedMarker from "../../../components/MapIcon/OrderedMarker";
+import SimpleMarker from "../../../components/MapIcon/SimpleMarker";
 import Header from "../../../components/search/header";
 import Travelers from "../../../components/search/travelers";
 import Trips from "../../../components/search/Trips";
