@@ -13,6 +13,7 @@ import { saveTrip, updateTrip } from "../../../../store/actions/trip.action";
 import Loading from "../../../../components/Loading";
 import logo from "../../../../assets/images/logos/logo-black-2.png";
 import { RiArrowDropDownLine } from "react-icons/ri";
+import InviteFriends from "./inviteFriends";
 
 export default function Header() {
   const { trip, mode } = useSelector((state) => state.trip);
@@ -85,6 +86,7 @@ export default function Header() {
         </div>
       </div>
       <Date />
+      <InviteFriends />
       <div className={styles.save}>
         <div style={{ display: "flex", alignItems: "center" }}>
           <button className={styles.boxControl} onClick={onClick}>
