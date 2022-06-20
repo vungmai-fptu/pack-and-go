@@ -1,5 +1,6 @@
 import React, { useRef, useState, useReducer } from "react";
 import { RiMailAddLine } from "react-icons/ri";
+import { BiPlus } from "react-icons/bi";
 import { useDetectOutsideClick } from "../../../../components/useDetectOutsideClick";
 import styles from "./headerTrip.module.css";
 const reducer = (state, action) => {
@@ -35,13 +36,9 @@ const InviteFriends = () => {
           </div>
         </div>
         <button className="w_kj" onClick={onClick}>
-          <div className="w_WS">
-            <div className="w_WV w_WX">
-              <img
-                src="fonts/src_app_components_components_svgIcon_icons_commonsprite-afce76.svg#plusbt-usage"
-                alt="common/plus"
-                className="w_fu w_fA w_fQ"
-              />
+          <div className="w_WS" style={{ marginBottom: "3px" }}>
+            <div className="w_WV w_WX" style={{ color: "#fff" }}>
+              <BiPlus />
             </div>
           </div>
         </button>
@@ -64,7 +61,7 @@ const InviteFriends = () => {
         <div className={styles.formLogout}>
           <div>
             <div className={styles.logoutContent}>
-              <div style={{ display: "flex" }}>
+              <div style={{ display: "flex", alignItems: "center" }}>
                 <input
                   onChange={(e) => setItem(e.target.value)}
                   type="text"

@@ -3,6 +3,9 @@ import styles from "./header.module.css";
 import SectionContainer from "../SectionContainer";
 
 const Header = (props) => {
+  const trips = props.users.trips.map((trips) => trips.visitDays).flat();
+  const visit = trips.map((visit) => visit.visitPlaces).flat();
+  const photos = visit.map((photos) => photos.images).flat().length;
   return (
     <div style={{ paddingTop: "95px" }}>
       <SectionContainer>
@@ -51,17 +54,17 @@ const Header = (props) => {
                     <div className={styles["user-info"]}>
                       <div className={styles["user-repository"]}>
                         <div className={styles["user-repo-item"]}>
-                          <span>00</span> countries
+                          <span>{props.users.trips.length}</span> countries
                         </div>
                         <div className={styles["user-repo-item"]}>
                           <span>{props.users.trips.length}</span> trips
                         </div>
                         <div className={styles["user-repo-item"]}>
-                          <span>00</span> photos
+                          <span>{photos}</span> photos
                         </div>
-                        <div className={styles["user-repo-item"]}>
+                        {/* <div className={styles["user-repo-item"]}>
                           <span>00</span> videos
-                        </div>
+                        </div> */}
                       </div>
                     </div>
                     <div className={styles["user-description"]}>

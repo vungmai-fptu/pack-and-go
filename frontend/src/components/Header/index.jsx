@@ -10,8 +10,9 @@ import FormLogout from "./formLogout";
 import styles from "./header.module.css";
 import axios from "axios";
 import { useEffect, useState } from "react";
+import { useIsLogin } from "../../hooks/useIsLogin";
 export default function Header() {
-  const user = JSON.parse(localStorage.getItem("userLogin"));
+  const { user } = useIsLogin();
   const [state, setState] = useState({});
   useEffect(
     () => {

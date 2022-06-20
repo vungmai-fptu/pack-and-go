@@ -13,6 +13,8 @@ import {
   RESETPASSWORD_REQUEST_SUCCESS,
   LIST_USER_SUCCESS,
   LIST_USER_FAILED,
+  LIST_TRIP_SUCCESS,
+  LIST_TRIP_FAILED,
   USER_SUCCESS,
   USER_FAILED,
   UPDATE_INFO_SUCCESS,
@@ -187,12 +189,12 @@ const postResetPasswordFailed = (err) => {
   };
 };
 
-export const getListUser = () => {
+export const getListUser = (page) => {
   return (dispatch) => {
     dispatch(startLoading());
     axios({
       method: "GET",
-      url: `${API_URL}/api/users/trips?page=1&size=10`,
+      url: `${API_URL}/api/users/trips?page=${page}&size=10`,
       data: null,
     })
       .then((res) => {
@@ -220,6 +222,42 @@ const getListUserFailed = (err) => {
   };
 };
 
+export const getListTrip = (page) => {
+  return (dispatch) => {
+    dispatch(startLoading());
+    console.log(
+      "🚀 ~ file: user.action.jsx ~ line 231 ~ return ~ url",
+      `${API_URL}/api/trips?page=${page}&size=3`
+    );
+    axios({
+      method: "GET",
+      url: `${API_URL}/api/trips?page=${page}&size=9`,
+      data: null,
+    })
+      .then((res) => {
+        dispatch(stopLoading());
+        dispatch(getListTripSuccess(res.data.data));
+      })
+      .catch((err) => {
+        dispatch(stopLoading());
+        dispatch(getListTripFailed(err));
+      });
+  };
+};
+
+export const getListTripSuccess = (listTrip) => {
+  return {
+    type: LIST_TRIP_SUCCESS,
+    payload: listTrip,
+  };
+};
+
+const getListTripFailed = (err) => {
+  return {
+    type: LIST_TRIP_FAILED,
+    payload: err,
+  };
+};
 export const getUser = (username) => {
   return (dispatch) => {
     dispatch(startLoading());
@@ -321,28 +359,11 @@ export const updateInfo = (profileImageUrl, coverImageUrl, values) => {
       .then((res) => {
         dispatch(stopLoading());
         dispatch(updateInfoSuccess(res.data));
-        console.log(
-          "🚀 ~ file: user.action.jsx ~ line 325 ~ .then ~ res.data",
-          res.data
-        );
         NotificationManager.success(res.data.message);
       })
       .catch((err) => {
         dispatch(stopLoading());
         dispatch(updateInfoFailed(err));
-
-        console.log("🚀 ~ file: user.action.jsx ~ line 331 ~ return ~ err", {
-          aboutMe: values.aboutMe,
-          city: values.city,
-          country: values.country,
-          coverImageUrl,
-          dateOfBirth: values.dateOfBirth,
-          firstName: values.firstName,
-          gender: values.gender,
-          lastName: values.lastName,
-          phoneNumber: values.phoneNumber,
-          profileImageUrl,
-        });
         NotificationManager.error(err.response.data.message);
       });
   };

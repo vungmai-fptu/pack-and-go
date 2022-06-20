@@ -128,8 +128,7 @@
   height: 40px;
   width: 40px;
   display: block;
-  filter: invert(56%) sepia(17%) saturate(473%) hue-rotate(194deg)
-    brightness(84%) contrast(80%);
+  filter: invert(56%) sepia(17%) saturate(473%) hue-rotate(194deg) brightness(84%) contrast(80%);
   flex-shrink: 0;
   max-width: none;
   pointer-events: none;
@@ -142,8 +141,8 @@
   color: #202d3d;
   display: flex;
   flex-direction: column;
-  font-size: 0.875rem;
-  font-weight: 400;
+  font-size: 1rem;
+  font-weight: 600;
   margin-left: 4px;
   max-width: 200px;
   overflow: hidden;
@@ -167,5 +166,4 @@
   cursor: text;
 }
 
-@media (max-width: 768px) {
-}
+@media (max-width: 768px) {}

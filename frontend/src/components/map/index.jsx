@@ -51,7 +51,6 @@ const MapComponent = ({ destination }) => {
 
   const showMyLocation = () => {
     if (location.loaded) {
-      console.log("LOADED");
       mapRef.current.flyTo(
         [trip.destination?.latitude || 50, trip.destination?.longitude || 50],
         ZOOM_LEVEL,

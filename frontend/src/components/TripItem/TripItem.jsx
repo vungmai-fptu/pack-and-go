@@ -2,6 +2,10 @@ import React from "react";
 import { Link } from "react-router-dom";
 import styles from "./TripItem.module.css";
 const TripItem = (props) => {
+  const place = props.listTrip.visitDays
+    .map((visit) => visit.visitPlaces)
+    .flat();
+  const photo = place.map((photo) => photo.images).flat();
   return (
     <div className={styles.outer}>
       <div className={styles["item-image"]}>
@@ -14,7 +18,7 @@ const TripItem = (props) => {
           }
         />
       </div>
-      <div href="/trip/draft?id=348410" className={styles.inner}>
+      <div className={styles.inner}>
         <div className={styles.top}>
           <div className={styles["list-flag"]} width="144" height="32">
             <div className={styles.flag}>
@@ -29,24 +33,12 @@ const TripItem = (props) => {
               />
             </div>
           </div>
-          {/* <div title={props.listTrip.owner} className={styles["profile-image"]}>
-            <Link
-              to={`profile/${props.listTrip.owner}` || "/"}
-              className="w_AP w_kq"
-            >
-              <img
-                alt="profile"
-                src={
-                  props.listUser.profileImageUrl == null
-                    ? "https://wrld-se-prod.b-cdn.net/images/user-empty.svg?width=640&height=640"
-                    : props.listUser.profileImageUrl
-                }
-              />
-            </Link>
-          </div> */}
         </div>
         <div className={styles.bottom}>
-          <Link to={`/trip/${props.listTrip.id}`} className={styles["trip-name"]}>
+          <Link
+            to={`/trip/${props.listTrip.id}`}
+            className={styles["trip-name"]}
+          >
             <div>
               <span>{props.listTrip.name}</span>
             </div>
@@ -62,13 +54,13 @@ const TripItem = (props) => {
             </div>
           </Link>
           <div className={styles["destination-info"]}>
-            <span>{props.listTrip.numOfDates} days</span>
-            <span>{props.listTrip.numOfPhotos} photos</span>
-            <span>{props.listTrip.numOfPlaces} places</span>
+            <span>{props.listTrip.visitDays.length} days</span>
+            <span>{photo.length} photos</span>
+            <span>{place.length} places</span>
           </div>
         </div>
       </div>
-    </div >
+    </div>
   );
 };
 
