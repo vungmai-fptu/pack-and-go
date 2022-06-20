@@ -8,8 +8,6 @@ import {
 } from "../constants/trip.const";
 import { startLoading, stopLoading } from "./common.action";
 import moment from "moment";
-import { useLocation } from "react-router-dom";
-
 const API_URL = process.env.REACT_APP_API_URL;
 
 export const saveTrip = (trip) => {
@@ -58,17 +56,13 @@ export const setTrip = (id) => {
         dispatch(stopLoading());
         const { data } = res;
         console.log(data, userLogin);
+
         const canUpdate = userLogin && JSON.parse(userLogin).username === data.owner || data.tripMates.includes(JSON.parse(userLogin).username);
-
-
 
         dispatch({
           type: SET_TRIP,
           payload: {
-            mode:
-              canUpdate
-                ? TRIP_MODE.UPDATE
-                : TRIP_MODE.VIEW,
+            mode: canUpdate ? TRIP_MODE.UPDATE : TRIP_MODE.VIEW,
             trip: {
               ...data,
               beginDate: data.beginDate
@@ -105,7 +99,6 @@ export const updateTrip = (trip) => {
       data: JSON.stringify(trip),
     })
       .then((res) => {
-        console.log(res);
         dispatch(stopLoading());
         NotificationManager.success("Trip was updated successfully");
       })
