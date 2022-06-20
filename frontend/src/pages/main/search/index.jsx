@@ -1,7 +1,5 @@
 import React from "react";
-import CommentBox from "../../../components/Comment";
-import OrderedMarker from "../../../components/MapIcon/OrderedMarker";
-import SimpleMarker from "../../../components/MapIcon/SimpleMarker";
+import CommentExampleComment from "../../../components/Comment";
 import Header from "../../../components/search/header";
 import Travelers from "../../../components/search/travelers";
 import Trips from "../../../components/search/Trips";
@@ -15,7 +13,7 @@ const SearchPage = () => {
       <Header/>
       <Travelers/>
       <Trips/>
-      <CommentBox/>
+      <CommentExampleComment/>
     </>
   );
 };

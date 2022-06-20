@@ -4,7 +4,7 @@ import { getListUser } from "../../store/actions/user.action";
 import TripItem from "./../TripItem/TripItem";
 import { useIsLogin } from "./../../hooks/useIsLogin";
 import SkeletonTripItem from "../SkeletonCard/SkeletonTripItem";
-export default function RenderTripItem() {
+export default function RenderTripNoTitle() {
     const dispatch = useDispatch();
     const [state, setState] = useState({
         listTrip: [],
@@ -56,22 +56,10 @@ export default function RenderTripItem() {
     ) : (
         <div className="w_cw">
             <div className="w_cW w_cX ">
-                <label className="w_rI w_rT">New Trips</label>
                 <div className="w_cx">
                     {state.listTripToShow.map((listTrip, index) => (
                         <TripItem listTrip={listTrip} key={index} />
                     ))}
-                </div>
-                <div className="w_i-" style={{ justifyContent: "center" }}>
-                    {!state.hideLoadMore && (
-                        <button
-                            onClick={loadMore}
-                            className="w_ih w_ik w_cy"
-                            style={{ width: "auto" }}
-                        >
-                            <span className="w_ia">Load More</span>
-                        </button>
-                    )}
                 </div>
             </div>
         </div>

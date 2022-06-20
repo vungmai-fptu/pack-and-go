@@ -32,7 +32,6 @@ const SkeletonTripItem = () => {
                 </div>
                 <Skeleton circle={true} height={35} width={35} />
               </div>
-
               <div className={styles.bottom}>
                 <Skeleton height={30} width={`70%`} borderRadius={13} />
                 <br />
