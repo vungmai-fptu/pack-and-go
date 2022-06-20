@@ -46,7 +46,7 @@ const TripItem = (props) => {
           </div> */}
         </div>
         <div className={styles.bottom}>
-          <Link to="/trips/trips-to-america" className={styles["trip-name"]}>
+          <Link to={`/trip/${props.listTrip.id}`} className={styles["trip-name"]}>
             <div>
               <span>{props.listTrip.name}</span>
             </div>
@@ -68,7 +68,7 @@ const TripItem = (props) => {
           </div>
         </div>
       </div>
-    </div>
+    </div >
   );
 };
 
