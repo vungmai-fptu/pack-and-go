@@ -55,13 +55,13 @@ export default function FormLogout() {
           <div className={styles.logout}>
             <div className={styles.logoutContent}>
               <a
-                href="/landing"
+                href="/"
                 className={styles.logoutTitle}
                 onClick={async () => {
                   localStorage.removeItem("userLogin");
                   localStorage.removeItem("jwtToken");
                   localStorage.removeItem("accessToken");
-                  return <Redirect to="/landing" />;
+                  return <Redirect to="/" />;
                 }}
               >
                 <div className={styles.logoutIcon}>

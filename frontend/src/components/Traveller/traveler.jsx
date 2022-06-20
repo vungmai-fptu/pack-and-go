@@ -5,6 +5,9 @@ import { BsFillCameraFill } from "react-icons/bs";
 import { Link } from "react-router-dom";
 
 const Traveler = (props) => {
+  const trips = props.listUser.trips.map((trips) => trips.visitDays).flat();
+  const visit = trips.map((visit) => visit.visitPlaces).flat();
+  const photos = visit.map((photos) => photos.images).flat().length;
   return (
     <div className={styles["container"]}>
       <div className={styles["inner-container"]}>
@@ -49,7 +52,9 @@ const Traveler = (props) => {
                   <FaSuitcase />
                 </div>
                 <div className={styles["item-content"]}>
-                  <label className={styles["number"]}>{props.numOfTrips}</label>
+                  <label className={styles["number"]}>
+                    {props.listUser.trips.length}
+                  </label>
                   Trips
                 </div>
               </div>
@@ -58,9 +63,7 @@ const Traveler = (props) => {
                   <BsFillCameraFill />
                 </div>
                 <div className={styles["item-content"]}>
-                  <label className={styles["number"]}>
-                    {props.numOfPhotos}
-                  </label>
+                  <label className={styles["number"]}>{photos}</label>
                   Photos
                 </div>
               </div>

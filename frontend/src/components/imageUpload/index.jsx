@@ -4,7 +4,6 @@ import { BsUpload } from "react-icons/bs";
 export default function ImageUpload({ image, handleChangeImage }) {
   const [selectedFile, setSelectedFile] = useState();
   const [isLoading, setIsLoading] = useState(false);
-  console.log("🚀 long", isLoading);
   const style = {
     uploadedImage: {
       height: "100%",

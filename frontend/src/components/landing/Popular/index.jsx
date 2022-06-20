@@ -14,7 +14,7 @@ const Popular = () => {
     Aos.refresh();
   }, []);
   return (
-    <div data-aos={"fade-down"}>
+    <div className="w_cs" data-aos={"fade-down"}>
       <SectionContainer>
         <SectionHeader>Peek into some saved stories</SectionHeader>
         <div className={styles["trip-container"]}>

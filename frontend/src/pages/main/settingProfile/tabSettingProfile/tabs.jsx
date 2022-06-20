@@ -46,12 +46,12 @@ class Tabs extends Component {
               );
             })}
             <a
-              href="/landing"
+              href="/"
               onClick={async () => {
                 localStorage.removeItem("userLogin");
                 localStorage.removeItem("jwtToken");
                 localStorage.removeItem("accessToken");
-                return <Redirect to="/landing" />;
+                return <Redirect to="/" />;
               }}
             >
               <div className={stylesTab.barOfa}>

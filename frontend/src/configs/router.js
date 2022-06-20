@@ -9,15 +9,42 @@ import Register from "../pages/main/register";
 import ResetPassword from "../pages/main/resetPassword";
 import SearchPage from "../pages/main/search";
 import SettingProfile from "../pages/main/settingProfile";
-// import changePassword from "../pages/main/changePassword";
 import TripPage from "../pages/main/trippage";
 import AllTrips from "../pages/main/alltrips";
 import AllTravelers from "../pages/main/alltravelers";
 
-export const mainRouter = [
+export const signRouter = [
   {
     path: "/",
     exact: true,
+    Component: LandingPage,
+  },
+  {
+    path: "/login",
+    exact: false,
+    Component: Login,
+  },
+  {
+    path: "/sign/up",
+    exact: false,
+    Component: Register,
+  },
+  {
+    path: "/sign/forgotten-password",
+    exact: false,
+    Component: ForgotPassword,
+  },
+  {
+    path: `/user/:slug`,
+    exact: false,
+    Component: ResetPassword,
+  },
+];
+
+export const mainRouter = [
+  {
+    path: "/feed",
+    exact: false,
     Component: Feed,
   },
   {
@@ -55,41 +82,7 @@ export const mainRouter = [
     exact: false,
     Component: Trip,
   },
-
-  // {
-  //   path: "/changePassword",
-  //   exact: false,
-  //   Component: changePassword,
-  // },
   {
     Component: Err,
-  },
-];
-
-export const signRouter = [
-  {
-    path: "/login",
-    exact: false,
-    Component: Login,
-  },
-  {
-    path: "/sign/up",
-    exact: false,
-    Component: Register,
-  },
-  {
-    path: "/sign/forgotten-password",
-    exact: false,
-    Component: ForgotPassword,
-  },
-  {
-    path: `/user/:slug`,
-    exact: false,
-    Component: ResetPassword,
-  },
-  {
-    path: "/landing",
-    exact: false,
-    Component: LandingPage,
   },
 ];

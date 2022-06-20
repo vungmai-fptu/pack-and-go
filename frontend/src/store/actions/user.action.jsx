@@ -321,28 +321,11 @@ export const updateInfo = (profileImageUrl, coverImageUrl, values) => {
       .then((res) => {
         dispatch(stopLoading());
         dispatch(updateInfoSuccess(res.data));
-        console.log(
-          "🚀 ~ file: user.action.jsx ~ line 325 ~ .then ~ res.data",
-          res.data
-        );
         NotificationManager.success(res.data.message);
       })
       .catch((err) => {
         dispatch(stopLoading());
         dispatch(updateInfoFailed(err));
-
-        console.log("🚀 ~ file: user.action.jsx ~ line 331 ~ return ~ err", {
-          aboutMe: values.aboutMe,
-          city: values.city,
-          country: values.country,
-          coverImageUrl,
-          dateOfBirth: values.dateOfBirth,
-          firstName: values.firstName,
-          gender: values.gender,
-          lastName: values.lastName,
-          phoneNumber: values.phoneNumber,
-          profileImageUrl,
-        });
         NotificationManager.error(err.response.data.message);
       });
   };

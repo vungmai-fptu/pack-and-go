@@ -14,7 +14,7 @@ const TripItem = (props) => {
           }
         />
       </div>
-      <div href="/trip/draft?id=348410" className={styles.inner}>
+      <div className={styles.inner}>
         <div className={styles.top}>
           <div className={styles["list-flag"]} width="144" height="32">
             <div className={styles.flag}>
@@ -29,24 +29,12 @@ const TripItem = (props) => {
               />
             </div>
           </div>
-          {/* <div title={props.listTrip.owner} className={styles["profile-image"]}>
-            <Link
-              to={`profile/${props.listTrip.owner}` || "/"}
-              className="w_AP w_kq"
-            >
-              <img
-                alt="profile"
-                src={
-                  props.listUser.profileImageUrl == null
-                    ? "https://wrld-se-prod.b-cdn.net/images/user-empty.svg?width=640&height=640"
-                    : props.listUser.profileImageUrl
-                }
-              />
-            </Link>
-          </div> */}
         </div>
         <div className={styles.bottom}>
-          <Link to={`/trip/${props.listTrip.id}`} className={styles["trip-name"]}>
+          <Link
+            to={`/trip/${props.listTrip.id}`}
+            className={styles["trip-name"]}
+          >
             <div>
               <span>{props.listTrip.name}</span>
             </div>
@@ -68,7 +56,7 @@ const TripItem = (props) => {
           </div>
         </div>
       </div>
-    </div >
+    </div>
   );
 };
 

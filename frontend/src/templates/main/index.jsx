@@ -16,7 +16,6 @@ function MainTemplate(props) {
   );
 }
 
-
 const RouterMainTemplate = ({ path, exact, Component }) => {
   const { isLogin } = useIsLogin();
   const mathUser = useRouteMatch("/user");
@@ -26,14 +25,14 @@ const RouterMainTemplate = ({ path, exact, Component }) => {
       path={path}
       exact={exact}
       render={() =>
-        (isLogin || matchTrip || mathUser) ? (
+        isLogin || matchTrip || mathUser ? (
           <MainTemplate>
             <Component />
           </MainTemplate>
         ) : (
           <Redirect
             to={{
-              pathname: "/landing",
+              pathname: "/",
             }}
           />
         )

@@ -2,11 +2,21 @@ export function validateLogin(values) {
   let errors = {};
   if (!values.username) {
     errors.username = "Username is required";
+  } else if (values.username.length < 5) {
+    errors.username = "Password must be 5 or more characters";
   }
   if (!values.password) {
     errors.password = "Password is required";
+  } else if (values.password.length < 8) {
+    errors.password = "Password must be 8 or more characters";
+  } else if (
+    !/\d/.test(values.password) ||
+    !/[!@#$%&?.]/g.test(values.password) ||
+    !/[A-Z]/g.test(values.password)
+  ) {
+    errors.password =
+      "Password must contains at least 1 number, at least 1 capital character, 1 special character";
   }
-
   return errors;
 }
 export function validateRegister(values) {

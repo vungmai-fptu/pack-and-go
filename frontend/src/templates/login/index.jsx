@@ -19,7 +19,7 @@ const RouterSignTemplate = ({ path, exact, Component }) => {
         ) : (
           <Redirect
             to={{
-              pathname: "/",
+              pathname: "/feed",
             }}
           />
         )
