@@ -9,7 +9,7 @@ export default function RenderTraveler() {
   const dispatch = useDispatch();
   useEffect(
     () => {
-      dispatch(getListUser());
+      dispatch(getListUser(1));
     },
     // eslint-disable-next-line
     []

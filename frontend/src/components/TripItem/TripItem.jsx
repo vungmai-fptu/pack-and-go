@@ -2,6 +2,10 @@ import React from "react";
 import { Link } from "react-router-dom";
 import styles from "./TripItem.module.css";
 const TripItem = (props) => {
+  const place = props.listTrip.visitDays
+    .map((visit) => visit.visitPlaces)
+    .flat();
+  const photo = place.map((photo) => photo.images).flat();
   return (
     <div className={styles.outer}>
       <div className={styles["item-image"]}>
@@ -50,9 +54,9 @@ const TripItem = (props) => {
             </div>
           </Link>
           <div className={styles["destination-info"]}>
-            <span>{props.listTrip.numOfDates} days</span>
-            <span>{props.listTrip.numOfPhotos} photos</span>
-            <span>{props.listTrip.numOfPlaces} places</span>
+            <span>{props.listTrip.visitDays.length} days</span>
+            <span>{photo.length} photos</span>
+            <span>{place.length} places</span>
           </div>
         </div>
       </div>

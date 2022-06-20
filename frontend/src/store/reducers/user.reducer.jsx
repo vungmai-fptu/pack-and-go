@@ -5,6 +5,8 @@ import {
   LIST_USER_FAILED,
   USER_SUCCESS,
   USER_FAILED,
+  LIST_TRIP_SUCCESS,
+  LIST_TRIP_FAILED,
 } from "../constants/user.const";
 
 const initialState = {
@@ -15,6 +17,7 @@ const initialState = {
         JSON.parse(localStorage.getItem("userLogin"))
       : {},
   listUser: [],
+  listTrip: [],
   users: {},
   errors: {},
 };
@@ -32,6 +35,12 @@ const userReducer = (state = initialState, action) => {
       return { ...state, listUser: payload };
     }
     case LIST_USER_FAILED: {
+      return { ...state, errors: payload };
+    }
+    case LIST_TRIP_SUCCESS: {
+      return { ...state, listTrip: payload };
+    }
+    case LIST_TRIP_FAILED: {
       return { ...state, errors: payload };
     }
     case USER_SUCCESS: {
