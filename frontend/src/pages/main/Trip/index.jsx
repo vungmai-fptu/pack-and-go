@@ -4,7 +4,6 @@ import Header from "./header";
 import PrepareList from "./PrepareList";
 import PriceList from "./PriceList";
 import Itinerary from "./itinerary";
-import Overview from "./overview";
 import styles from "./trip.module.css";
 import MapComponent from "./../../../components/map/index";
 import {
@@ -23,6 +22,7 @@ import { setTrip } from "../../../store/actions/trip.action";
 import { useEffect } from "react";
 import { SET_TRIP, TRIP_MODE } from "../../../store/constants/trip.const";
 import { tripInitialState } from "../../../store/reducers/trip.reducer";
+import Overview from "./overview";
 
 function Trip() {
   const { id } = useParams();

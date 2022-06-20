@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 //import MapComponent from "../../../components/map";
@@ -13,6 +13,7 @@ import { getUser } from "../../../store/actions/user.action";
 
 const Profile = () => {
   const { username } = useParams();
+  const { loading } = useSelector(state => state.common);
   const dispatch = useDispatch();
   useEffect(
     () => {
@@ -24,7 +25,7 @@ const Profile = () => {
   const { users } = useSelector((state) => state.user);
   return (
     <>
-      {users.username === undefined ? (
+      {loading ? (
         <>
           <SkeletonProfile />
           <div className="loadingio-spinner-ripple-p4t4leicp3h">
