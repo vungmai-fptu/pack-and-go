@@ -4,6 +4,7 @@ import TripCardSlider from "./slider";
 import styles from "./Trips.module.css";
 import { Link } from "react-router-dom";
 import RenderTripNoTitle from "../../RenderTripNoTitle";
+import RenderTripItem from "../../RenderTripItem";
 
 const Trips = () => {
   return (
@@ -20,7 +21,7 @@ const Trips = () => {
       </div>
       <div className={styles["trip-container"]}>
         <div className={styles["trip-items"]}>
-          <RenderTripNoTitle />
+          <RenderTripItem/>
         </div>
       </div>
     </SectionContainer>
