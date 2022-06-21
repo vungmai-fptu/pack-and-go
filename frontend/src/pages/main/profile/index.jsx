@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 //import MapComponent from "../../../components/map";
@@ -24,6 +24,7 @@ const Profile = () => {
   const { loading } = useSelector((state) => state.common);
   const { users } = useSelector((state) => state.user);
   console.log("🚀 ~ file: index.jsx ~ line 26 ~ Profile ~ users", users);
+
   return (
     <>
       {loading ? (

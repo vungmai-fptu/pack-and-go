@@ -48,10 +48,12 @@ function Collapse(props) {
         </div>
         <div className={styles.spanOne}>Day {order + 1}</div>
         <div className={styles.dayBa}></div>
-        <IoTrashSharp
-          className={styles.trash}
-          onClick={onRemoveDay}
-        />
+        {!props.isView &&
+          <IoTrashSharp
+            className={styles.trash}
+            onClick={onRemoveDay}
+          />
+        }
       </div>
       <div className={styles.write}>
         <div style={{ padding: "5.5px 10px 5.5px 80px", display: "flex" }}>
@@ -61,6 +63,7 @@ function Collapse(props) {
             placeholder="Write a description for this day"
             value={description}
             onChange={onChange}
+            disabled={props.isView}
           />
         </div>
       </div>

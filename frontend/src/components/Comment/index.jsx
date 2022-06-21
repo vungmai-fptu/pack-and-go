@@ -72,5 +72,4 @@ const CommentExampleComment = () => (
     </Form>
   </Comment.Group>
 );
-
 export default CommentExampleComment;
