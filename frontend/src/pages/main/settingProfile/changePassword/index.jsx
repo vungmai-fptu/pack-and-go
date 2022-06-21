@@ -15,7 +15,7 @@ function ChangePassword() {
     validateChangePassword
   );
   function handleSubmits() {
-    dispatch(postChangePassword(values.currentPassword, values.newPassword));
+    dispatch(postChangePassword(values.confirmPassword, values.password));
   }
   return (
     <div className={styles.accountPageContent}>
@@ -45,10 +45,10 @@ function ChangePassword() {
               <input
                 id={styles.frmChangePasswordFormHeslo2}
                 type="password"
-                name="newPassword"
+                name="password"
                 placeholder="New password"
                 onChange={handleChange}
-                value={values.newPassword || ""}
+                value={values.password || ""}
                 required
               />
               <Validate errors={errors.newPassword} />

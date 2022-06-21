@@ -189,12 +189,12 @@ const postResetPasswordFailed = (err) => {
   };
 };
 
-export const getListUser = (page) => {
+export const getListUser = () => {
   return (dispatch) => {
     dispatch(startLoading());
     axios({
       method: "GET",
-      url: `${API_URL}/api/users/trips?page=${page}&size=10`,
+      url: `${API_URL}/api/users/trips?page=1&size=10`,
       data: null,
     })
       .then((res) => {
@@ -225,10 +225,6 @@ const getListUserFailed = (err) => {
 export const getListTrip = (page) => {
   return (dispatch) => {
     dispatch(startLoading());
-    console.log(
-      "🚀 ~ file: user.action.jsx ~ line 231 ~ return ~ url",
-      `${API_URL}/api/trips?page=${page}&size=3`
-    );
     axios({
       method: "GET",
       url: `${API_URL}/api/trips?page=${page}&size=9`,
@@ -260,6 +256,10 @@ const getListTripFailed = (err) => {
 };
 export const getUser = (username) => {
   return (dispatch) => {
+    console.log(
+      "🚀 ~ file: user.action.jsx ~ line 231 ~ return ~ url",
+      `${API_URL}/api/users/${username}/trips`
+    );
     dispatch(startLoading());
     axios({
       method: "GET",
@@ -291,7 +291,7 @@ const getUserFailed = (err) => {
   };
 };
 
-export const postChangePassword = (currentPassword, newPassword) => {
+export const postChangePassword = (confirmPassword, password) => {
   return (dispatch) => {
     dispatch(startLoading());
     axios({
@@ -302,8 +302,8 @@ export const postChangePassword = (currentPassword, newPassword) => {
         Authorization: `Bearer ${token}`,
       },
       data: {
-        currentPassword,
-        newPassword,
+        confirmPassword,
+        password,
       },
     })
       .then((res) => {

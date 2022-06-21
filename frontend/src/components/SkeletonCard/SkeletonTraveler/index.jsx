@@ -2,7 +2,6 @@ import React from "react";
 import Skeleton from "react-loading-skeleton";
 import styles from "../../Traveller/traveler.module.css";
 import { Link } from "react-router-dom";
-import { BiWorld } from "react-icons/bi";
 import { FaSuitcase } from "react-icons/fa";
 import { BsFillCameraFill } from "react-icons/bs";
 import "react-loading-skeleton/dist/skeleton.css";
@@ -33,15 +32,6 @@ const SkeletonTraveler = () => {
                     </span>
                   </div>
                   <div className={styles["info-nav-container"]}>
-                    <div className={styles["info-item"]}>
-                      <div className={styles["item-icon"]}>
-                        <BiWorld />
-                      </div>
-                      <div className={styles["item-content"]}>
-                        <label className={styles["number"]}>0</label>
-                        Countries
-                      </div>
-                    </div>
                     <div className={styles["info-item"]}>
                       <div className={styles["item-icon"]}>
                         <FaSuitcase />

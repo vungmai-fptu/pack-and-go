@@ -9,14 +9,13 @@ export default function RenderTraveler() {
   const dispatch = useDispatch();
   useEffect(
     () => {
-      dispatch(getListUser(1));
+      dispatch(getListUser());
     },
     // eslint-disable-next-line
     []
   );
   const { listUser } = useSelector((state) => state.user);
-  const { loading } = useIsLogin();
-  return loading ? (
+  return listUser.length === 0 ? (
     <SkeletonTraveler />
   ) : (
     listUser.slice(0, 4).map((listUser, index) => {

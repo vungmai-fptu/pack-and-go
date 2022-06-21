@@ -14,7 +14,6 @@ import { getUser } from "../../../store/actions/user.action";
 
 const Profile = () => {
   const { username } = useParams();
-  const { loading } = useSelector(state => state.common);
   const dispatch = useDispatch();
   let futureTrips = [];
   let pastTrips = [];
@@ -25,6 +24,7 @@ const Profile = () => {
     // eslint-disable-next-line
     []
   );
+  const { loading } = useSelector((state) => state.common);
   const { users } = useSelector((state) => state.user);
   if (!loading && users) {
     const today = moment(new Date).format('YYYY-MM-DD');
