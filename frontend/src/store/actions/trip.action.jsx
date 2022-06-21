@@ -27,12 +27,12 @@ export const saveTrip = (trip) => {
       .then((res) => {
         dispatch(stopLoading());
         dispatch({
-          type: SET_TRIP_ID,
-          payload: res.data.id,
-        });
-        dispatch({
           type: CHANGE_MODE,
           payload: TRIP_MODE.UPDATE,
+        });
+        dispatch({
+          type: SET_TRIP_ID,
+          payload: res.data.id,
         });
         NotificationManager.success("Trip was planned successfully");
       })

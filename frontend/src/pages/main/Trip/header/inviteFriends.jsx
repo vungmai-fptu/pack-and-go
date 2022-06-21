@@ -45,6 +45,10 @@ const InviteFriends = ({ tripId, invitedUsers }) => {
           dispatch({ type: ADD_TRIPMATE, payload: email });
           NotificationManager.success("Invite tripmate successfully!");
         } catch (err) {
+          setIsLoading((prev) => ({
+            ...prev,
+            isInviting: false
+          }));
           NotificationManager.error(err.response?.data?.message || "Fail to invite user");
         }
       }
@@ -68,6 +72,10 @@ const InviteFriends = ({ tripId, invitedUsers }) => {
           dispatch({ type: REMOVE_TRIPMATE, payload: username });
           NotificationManager.success("Remove your tripmate successfully!");
         } catch (err) {
+          setIsLoading((prev) => ({
+            ...prev,
+            isRemoving: false
+          }));
           NotificationManager.error(err.response?.data?.message || "Fail to remove your tripmate");
         }
 

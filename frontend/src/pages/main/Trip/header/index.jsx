@@ -146,7 +146,7 @@ export default function Header() {
               </div>
             </div>
           </div>
-          <div>
+          <div className={styles.tripActions}>
             {mode === TRIP_MODE.VIEW ? (
               <></>
             ) : (
@@ -156,7 +156,21 @@ export default function Header() {
                 disabled={loading}
               >
                 {!loading ? (
-                  <span>Save and close</span>
+                  <span>Save</span>
+                ) : (
+                  <Loading isSmall={true} />
+                )}
+              </button>
+            )}
+
+            {mode === TRIP_MODE.UPDATE && (
+              <button
+                className={styles.tripDelete}
+                // onClick={onSaveTrip}
+                disabled={loading}
+              >
+                {!loading ? (
+                  <span>Delete</span>
                 ) : (
                   <Loading isSmall={true} />
                 )}

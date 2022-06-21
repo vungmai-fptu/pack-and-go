@@ -1,3 +1,4 @@
+import moment from "moment";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
@@ -15,6 +16,8 @@ const Profile = () => {
   const { username } = useParams();
   const { loading } = useSelector(state => state.common);
   const dispatch = useDispatch();
+  let futureTrips = [];
+  let pastTrips = [];
   useEffect(
     () => {
       dispatch(getUser(username));
@@ -23,10 +26,17 @@ const Profile = () => {
     []
   );
   const { users } = useSelector((state) => state.user);
-  console.log(users);
+  if (!loading && users) {
+    const today = moment(new Date).format('YYYY-MM-DD');
+    futureTrips = users.trips.filter(trip => moment(today).isBefore(trip.beginDate, 'day'));
+    pastTrips = users.trips.filter(trip => moment(today).isAfter(trip.beginDate, 'day'));
+  }
+  console.log(futureTrips);
+  console.log(pastTrips);
+
   return (
     <>
-      {loading ? (
+      {loading || !users ? (
         <>
           <SkeletonProfile />
           <div className="loadingio-spinner-ripple-p4t4leicp3h">
@@ -39,9 +49,9 @@ const Profile = () => {
       ) : (
         <>
           <Header users={users} />
-          <TabGroup />
-          <FutureTrips users={users} />
-          <Trips users={users} />
+          {/* <TabGroup /> */}
+          <FutureTrips trips={futureTrips} />
+          <Trips trips={pastTrips} />
           <CountryList />
         </>
       )}

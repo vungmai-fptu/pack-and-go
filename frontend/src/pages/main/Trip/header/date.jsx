@@ -16,7 +16,9 @@ export default function Date() {
   const [isActive, setIsActive] = useDetectOutsideClick(dropdownRef, false);
   const [isSingleTrip, setIsSingleTrip] = useState(false);
 
+
   const onClick = () => {
+    //view or trip occur
     if (mode === TRIP_MODE.VIEW) {
       return;
     }
@@ -65,9 +67,8 @@ export default function Date() {
           )}
         </button>
         <div
-          className={`${styles.formTripDate} ${
-            isActive ? `${styles.active}` : "inactive"
-          }`}
+          className={`${styles.formTripDate} ${isActive ? `${styles.active}` : "inactive"
+            }`}
         >
           <div className={styles.dropdownTop} style={{ left: "50% " }}>
             <svg
@@ -84,9 +85,8 @@ export default function Date() {
             <div className={styles.tripType}>
               <div className={styles.change}>
                 <div
-                  className={`${styles.transition} ${
-                    isSingleTrip ? "inactive" : `${styles.activeExact}`
-                  }`}
+                  className={`${styles.transition} ${isSingleTrip ? "inactive" : `${styles.activeExact}`
+                    }`}
                 />
                 <label
                   className={`${isSingleTrip ? `${styles.cur}` : ""}`}

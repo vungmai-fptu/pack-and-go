@@ -57,6 +57,7 @@ export const tripInitialState = {
       //     ]
       // }
     ],
+    tripMates: []
   },
   error: {},
 };
