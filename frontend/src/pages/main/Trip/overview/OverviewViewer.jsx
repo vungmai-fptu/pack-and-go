@@ -5,6 +5,8 @@ import warningIcon from '../../../../assets/fonts/src_app_components_components_
 import styles from './OverviewViewer.module.css';
 import { IoLocation } from 'react-icons/io5';
 import { IoMdPhotos } from 'react-icons/io';
+import { GoLocation } from 'react-icons/go';
+
 import {
     FaPlane,
     FaMotorcycle,
@@ -15,10 +17,21 @@ import {
 } from "react-icons/fa";
 import { RiShipFill } from "react-icons/ri";
 import { IoCarSport } from "react-icons/io5";
+import { useCallback } from "react";
+import { SET_LOCATION } from "../../../../store/constants/map.const";
 
 export default function OverviewViewer() {
 
     const { trip } = useSelector(state => state.trip);
+    const dispatch = useDispatch();
+
+    const handleClickDestination = useCallback((address) => {
+        console.log(address);
+        dispatch({
+            type: SET_LOCATION,
+            payload: address
+        })
+    }, []);
 
     return (
         <div className={styles.overview_container}>
@@ -55,8 +68,9 @@ export default function OverviewViewer() {
                 <div className={styles.overview_info}>
                     <div className={styles.overview_destination}>
                         <label>Trip’s destination</label>
-                        <div className={styles.destination}>
-                            {trip.destination?.address}
+                        <div className={styles.destination} onClick={() => handleClickDestination(trip.destination)}>
+                            <GoLocation />
+                            <span>{trip.destination?.address}</span>
                         </div>
                     </div>
                 </div>

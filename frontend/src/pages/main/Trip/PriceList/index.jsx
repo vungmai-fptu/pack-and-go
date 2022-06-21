@@ -16,7 +16,7 @@ import {
 import PriceItem from "./PriceItem";
 import SavePriceItem from "./SavePriceItem";
 import NoItem from "../NoItem";
-import { SET_CONCURRENCY_UNIT, SET_PRICE_LIST } from "../../../../store/constants/trip.const";
+import { SET_CONCURRENCY_UNIT, SET_PRICE_LIST, TRIP_MODE } from "../../../../store/constants/trip.const";
 import { useDispatch, useSelector } from "react-redux";
 
 
@@ -24,7 +24,8 @@ import { useDispatch, useSelector } from "react-redux";
 
 const concurrencies = ["$", "VND"];
 const PriceList = () => {
-  const { trip } = useSelector(state => state.trip);
+  const { trip, mode } = useSelector(state => state.trip);
+  const isView = mode === TRIP_MODE.VIEW;
   const dispatch = useDispatch();
   const [isSelectingConcurrency, setIsSelectingConcurrency] = useState(false);
   const [updatedId, setUpdatedId] = useState(-1);
@@ -78,26 +79,29 @@ const PriceList = () => {
       <h3 className={styles.header}>
         <GiMoneyStack />
         Price List</h3>
-      <div className={styles.concurrencies_selector}>
-        <span onClick={handleToggleSelect}>{trip.concurrencyUnit}
-          <RiArrowDropDownLine />
-        </span>
-        <div className={
-          isSelectingConcurrency ?
-            `${styles.concurrencies} ${styles.appear}` :
-            styles.concurrencies
-        }>
-          {
+      {
+        !isView &&
+        <div className={styles.concurrencies_selector}>
+          <span onClick={handleToggleSelect}>{trip.concurrencyUnit}
+            <RiArrowDropDownLine />
+          </span>
+          <div className={
+            isSelectingConcurrency ?
+              `${styles.concurrencies} ${styles.appear}` :
+              styles.concurrencies
+          }>
+            {
 
-            concurrencies.map((item, index) => (
-              <div
-                className={styles.concurrency_item}
-                key={index}
-                onClick={() => handleSelect(item)}>{item}</div>
-            ))
-          }
+              concurrencies.map((item, index) => (
+                <div
+                  className={styles.concurrency_item}
+                  key={index}
+                  onClick={() => handleSelect(item)}>{item}</div>
+              ))
+            }
+          </div>
         </div>
-      </div>
+      }
     </div>
     <div className={styles.total}>
       Total: <span className={styles.total_amount}>{trip.priceList.reduce((prev, item) => prev + item.price, 0)} {trip.concurrencyUnit}</span>
@@ -115,27 +119,31 @@ const PriceList = () => {
             concurrencyUnit={trip.concurrencyUnit}
             onClose={handleClose}
             handleUpdate={onSaveItem}
+            isView={isView}
           />
         )
         ) : <NoItem />
       }
     </div>
 
-    <div>
-      <div
-        className={styles.add_item}
-        onClick={() => handleOpen()}
-      >
-        <div className={styles.add_button}>
-          <AiOutlinePlusCircle />
+    {
+      !isView &&
+      <div>
+        <div
+          className={styles.add_item}
+          onClick={() => handleOpen()}
+        >
+          <div className={styles.add_button}>
+            <AiOutlinePlusCircle />
+          </div>
+          <span>Add new item</span>
         </div>
-        <span>Add new item</span>
+        {updatedId === trip.priceList.length && <SavePriceItem
+          handleClose={handleClose}
+          handleSaveItem={onSaveItem}
+        />}
       </div>
-      {updatedId === trip.priceList.length && <SavePriceItem
-        handleClose={handleClose}
-        handleSaveItem={onSaveItem}
-      />}
-    </div>
+    }
   </div >
 };
 

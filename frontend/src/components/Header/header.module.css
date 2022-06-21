@@ -60,7 +60,6 @@ a {
   width: 140px;
   display: inline-block;
   cursor: pointer;
-
 }
 
 .grow {
@@ -145,7 +144,8 @@ a {
 }
 
 .searchIcon img {
-  filter: invert(12%) sepia(34%) saturate(824%) hue-rotate(173deg) brightness(96%) contrast(86%);
+  filter: invert(12%) sepia(34%) saturate(824%) hue-rotate(173deg)
+    brightness(96%) contrast(86%);
   height: 24px;
   width: 24px;
 }
@@ -170,7 +170,8 @@ a {
 }
 
 .menuIcon img {
-  filter: invert(12%) sepia(34%) saturate(824%) hue-rotate(173deg) brightness(96%) contrast(86%);
+  filter: invert(12%) sepia(34%) saturate(824%) hue-rotate(173deg)
+    brightness(96%) contrast(86%);
   height: 24px;
   width: 24px;
 }
@@ -194,7 +195,8 @@ a {
 }
 
 .menuButton img {
-  filter: invert(12%) sepia(34%) saturate(824%) hue-rotate(173deg) brightness(96%) contrast(86%);
+  filter: invert(12%) sepia(34%) saturate(824%) hue-rotate(173deg)
+    brightness(96%) contrast(86%);
   height: 24px;
   width: 26px;
 }
@@ -252,7 +254,8 @@ a {
 }
 
 .dropdown svg {
-  filter: invert(77%) sepia(12%) saturate(374%) hue-rotate(184deg) brightness(94%) contrast(87%);
+  filter: invert(77%) sepia(12%) saturate(374%) hue-rotate(184deg)
+    brightness(94%) contrast(87%);
 }
 
 .popupContent {

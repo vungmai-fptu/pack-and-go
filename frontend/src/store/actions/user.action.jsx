@@ -267,6 +267,7 @@ export const getUser = (username) => {
       data: null,
     })
       .then((res) => {
+        console.log("RÉS", res);
         dispatch(stopLoading());
         dispatch(getUserSuccess(res.data));
       })

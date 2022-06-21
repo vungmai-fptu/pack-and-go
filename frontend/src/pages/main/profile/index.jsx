@@ -23,6 +23,7 @@ const Profile = () => {
     []
   );
   const { users } = useSelector((state) => state.user);
+  console.log(users);
   return (
     <>
       {loading ? (
