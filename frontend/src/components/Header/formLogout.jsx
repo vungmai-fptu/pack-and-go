@@ -7,9 +7,11 @@ import {
   IoChevronDownOutline,
 } from "react-icons/io5";
 import { useDetectOutsideClick } from "../useDetectOutsideClick";
+import { useHistory } from "react-router-dom";
 
 export default function FormLogout() {
   const dropdownRef = useRef(null);
+  const history = useHistory();
   const [isActive, setIsActive] = useDetectOutsideClick(dropdownRef, false);
   const onClick = () => setIsActive(!isActive);
   return (
@@ -24,8 +26,9 @@ export default function FormLogout() {
       </button>
       <div
         ref={dropdownRef}
-        className={`${styles.popupContent} ${isActive ? `${styles.active}` : "inactive"
-          }`}
+        className={`${styles.popupContent} ${
+          isActive ? `${styles.active}` : "inactive"
+        }`}
         style={{ right: "24px" }}
       >
         <div className={styles.dropdownTop} style={{ left: "90% " }}>
@@ -53,14 +56,14 @@ export default function FormLogout() {
           </div>
           <div className={styles.logout}>
             <div className={styles.logoutContent}>
-              <a
-                href="/"
+              <Link
+                to="#"
                 className={styles.logoutTitle}
-                onClick={async () => {
+                onClick={() => {
                   localStorage.removeItem("userLogin");
                   localStorage.removeItem("jwtToken");
                   localStorage.removeItem("accessToken");
-                  return <Redirect to="/" />;
+                  history.push("/");
                 }}
               >
                 <div className={styles.logoutIcon}>
@@ -69,7 +72,7 @@ export default function FormLogout() {
                 <div className={styles.logoutTitle}>
                   <span>Log out</span>
                 </div>
-              </a>
+              </Link>
             </div>
           </div>
         </div>
