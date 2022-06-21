@@ -24,9 +24,8 @@ export default function FormLogout() {
       </button>
       <div
         ref={dropdownRef}
-        className={`${styles.popupContent} ${
-          isActive ? `${styles.active}` : "inactive"
-        }`}
+        className={`${styles.popupContent} ${isActive ? `${styles.active}` : "inactive"
+          }`}
         style={{ right: "24px" }}
       >
         <div className={styles.dropdownTop} style={{ left: "90% " }}>

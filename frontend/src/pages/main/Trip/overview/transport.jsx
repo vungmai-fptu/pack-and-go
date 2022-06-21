@@ -29,65 +29,57 @@ const Transport = ({ transportation, onChangeTransportation }) => {
           }}
         >
           <div
-            className={`${styles.item} ${
-              transportation === "plane" ? `${styles.isActive}` : ""
-            }`}
+            className={`${styles.item} ${transportation === "plane" ? `${styles.isActive}` : ""
+              }`}
             onClick={() => handleClickActiveTab("plane")}
           >
             <FaPlane />
           </div>
           <div
-            className={`${styles.item} ${
-              transportation === "car" ? `${styles.isActive}` : ""
-            }`}
+            className={`${styles.item} ${transportation === "car" ? `${styles.isActive}` : ""
+              }`}
             onClick={() => handleClickActiveTab("car")}
           >
             <IoCarSport />
           </div>
           <div
-            className={`${styles.item} ${
-              transportation === "bus" ? `${styles.isActive}` : ""
-            }`}
+            className={`${styles.item} ${transportation === "bus" ? `${styles.isActive}` : ""
+              }`}
             onClick={() => handleClickActiveTab("bus")}
           >
             <FaBusAlt />
           </div>
           <div
-            className={`${styles.item} ${
-              transportation === "train" ? `${styles.isActive}` : ""
-            }`}
+            className={`${styles.item} ${transportation === "train" ? `${styles.isActive}` : ""
+              }`}
             onClick={() => handleClickActiveTab("train")}
           >
             <FaTrain />
           </div>
           <div
-            className={`${styles.item} ${
-              transportation === "ship" ? `${styles.isActive}` : ""
-            }`}
+            className={`${styles.item} ${transportation === "ship" ? `${styles.isActive}` : ""
+              }`}
             onClick={() => handleClickActiveTab("ship")}
           >
             <RiShipFill />
           </div>
           <div
-            className={`${styles.item} ${
-              transportation === "motorbike" ? `${styles.isActive}` : ""
-            }`}
+            className={`${styles.item} ${transportation === "motorbike" ? `${styles.isActive}` : ""
+              }`}
             onClick={() => handleClickActiveTab("motorbike")}
           >
             <FaMotorcycle />
           </div>
           <div
-            className={`${styles.item} ${
-              transportation === "bike" ? `${styles.isActive}` : ""
-            }`}
+            className={`${styles.item} ${transportation === "bike" ? `${styles.isActive}` : ""
+              }`}
             onClick={() => handleClickActiveTab("bike")}
           >
             <FaBicycle />
           </div>
           <div
-            className={`${styles.item} ${
-              transportation === "on_walk" ? `${styles.isActive}` : ""
-            }`}
+            className={`${styles.item} ${transportation === "on_walk" ? `${styles.isActive}` : ""
+              }`}
             onClick={() => handleClickActiveTab("on_walk")}
           >
             <FaWalking />

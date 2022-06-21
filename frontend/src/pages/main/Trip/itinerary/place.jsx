@@ -14,7 +14,8 @@ const Place = ({
   onRemovePlace,
   onChangePlaceDescription,
   onAddImage,
-  onRemoveImage
+  onRemoveImage,
+  isView
 }) => {
 
   const [description, setDescription] = useState(place.description || "");
@@ -88,7 +89,7 @@ const Place = ({
                   payload: place,
                 })
               }}>{place.address}</div>
-              <div className={styles.action}>
+              {!isView && <div className={styles.action}>
                 <div className={styles.icon_wrapper}>
                   <input
                     ref={ref}
@@ -102,7 +103,7 @@ const Place = ({
                 <div className={styles.icon_wrapper}>
                   <IoTrashSharp className={styles.icon} onClick={() => onRemovePlace(index)} />
                 </div>
-              </div>
+              </div>}
             </div>
           </div>
         </div>
@@ -117,6 +118,7 @@ const Place = ({
             placeholder="Write a description for this place"
             value={description}
             onChange={onChange}
+            disabled={isView}
           ></input>
         </div>
       </div>
@@ -126,17 +128,17 @@ const Place = ({
             place.images.length !== 0 &&
             place.images.map((image, idx) =>
               <div key={idx} className={styles.image}>
-                <div
+                {!isView && <div
                   className={styles.remove_image_wrapper}
                   onClick={() => onRemoveImage(image.url, index)}>
                   <AiOutlineCloseCircle className={styles.remove_image} />
-                </div>
+                </div>}
                 <img src={image?.url || placeholder} />
               </div>
             )}
         </div>
       </div>
-    </div>)
+    </div >)
 }
 
 export default Place;

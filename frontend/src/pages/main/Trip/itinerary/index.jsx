@@ -5,13 +5,14 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   ADD_DAY,
   SET_DESCRIPTION,
+  TRIP_MODE,
 } from "../../../../store/constants/trip.const";
 import VisitDay from "./day";
 import NoItem from "../NoItem";
 import { v4 as uuid } from "uuid";
 
 export default function Itinerary() {
-  const { trip } = useSelector((state) => state.trip);
+  const { trip, mode } = useSelector((state) => state.trip);
   const [description, setDescription] = useState(trip.description || "");
   const dispatch = useDispatch();
   const handleAddFirstDay = () => {
@@ -43,30 +44,37 @@ export default function Itinerary() {
           <div style={{ padding: "32px 32px 0", marginBottom: "30px" }}>
             <label>Trip Itinerary</label>
             <div className={styles.write}>
-              <div style={{ padding: "5.5px 10px" }}>
-                <input
-                  type="text"
-                  value={description}
-                  onChange={(event) => setDescription(event.target.value)}
-                  placeholder="Write a decription to the trip"
-                ></input>
-              </div>
+              {mode === TRIP_MODE.VIEW ?
+                <san>{trip.description}</san>
+                :
+                <div style={{ padding: "5.5px 10px" }}>
+                  <input
+                    type="text"
+                    value={description}
+                    onChange={(event) => setDescription(event.target.value)}
+                    placeholder="Write a decription to the trip"
+                  ></input>
+                </div>
+              }
             </div>
           </div>
           <div className={styles.allDay}>
             <div className={styles.leftAdd} />
             <div className={styles.day}>
               <div className={styles.containerDay}>
-                <div className={styles.addADay}>
-                  <div className={styles.aDay} onClick={handleAddFirstDay}>
-                    <div className={styles.addDIcon}>
-                      <IoMdAddCircleOutline />
-                    </div>
-                    <div style={{ paddingLeft: "10px" }}>
-                      <span>Add a Day</span>
+                {
+                  mode !== TRIP_MODE.VIEW &&
+                  <div className={styles.addADay}>
+                    <div className={styles.aDay} onClick={handleAddFirstDay}>
+                      <div className={styles.addDIcon}>
+                        <IoMdAddCircleOutline />
+                      </div>
+                      <div style={{ paddingLeft: "10px" }}>
+                        <span>Add a Day</span>
+                      </div>
                     </div>
                   </div>
-                </div>
+                }
               </div>
               {trip.visitDays && trip.visitDays.length !== 0 ? (
                 trip.visitDays.map((day, index) => (

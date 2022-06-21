@@ -1,29 +1,28 @@
 import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { getListTrip } from "../../store/actions/user.action";
 import TripItem from "./../TripItem/TripItem";
 import { useIsLogin } from "./../../hooks/useIsLogin";
 import SkeletonTripItem from "../SkeletonCard/SkeletonTripItem";
 export default function RenderTripItem() {
-  const dispatch = useDispatch();
-  useEffect(
-    () => {
-      dispatch(getListTrip(page));
-    },
-    // eslint-disable-next-line
-    []
-  );
-  const { listTrip } = useSelector((state) => state.user);
-  const { loading } = useIsLogin();
+  const [totalPages, setTotalPages] = useState(0);
   const [page, setPage] = useState(1);
-  console.log("🚀 ~ file", page);
-  const onClick = () => setPage(page + 1);
-  console.log(
-    "🚀 ~ file: index.jsx ~ line 12 ~ RenderTripItem ~ trips",
-    listTrip
-  );
+  const [userList, setUserList] = useState([]);
+  const [loading, setLoading] = useState(false);
+  useEffect(() => {
+    const getUserList = () => {
+      setLoading(true);
+      fetch(`${process.env.REACT_APP_API_URL}/api/trips?page=${page}&size=9`)
+        .then((res) => res.json())
+        .then((res) => {
+          setTotalPages(res.data.length);
+          setUserList([...userList, ...res.data]);
+          setLoading(false);
+        });
+    };
+    getUserList();
+  }, [page]);
 
-  return loading ? (
+  const { isLogin } = useIsLogin();
+  return userList.length === 0 ? (
     <div className="w_cw">
       <div className="w_cW w_cX ">
         <label className="w_rI w_rT">New Trips</label>
@@ -35,21 +34,39 @@ export default function RenderTripItem() {
   ) : (
     <div className="w_cw">
       <div className="w_cW w_cX ">
-        <label className="w_rI w_rT">New Trips</label>
+        {isLogin && <label className="w_rI w_rT">New Trips</label>}
         <div className="w_cx">
-          {listTrip.slice(0, 9).map((listTrip, index) => (
+          {userList.map((listTrip, index) => (
             <TripItem listTrip={listTrip} key={index} />
           ))}
         </div>
-        <div className="w_i-" style={{ justifyContent: "center" }}>
-          <button
-            onClick={onClick}
-            className="w_ih w_ik w_cy"
-            style={{ width: "auto" }}
-          >
-            <span className="w_ia">Load More</span>
-          </button>
-        </div>
+        {totalPages !== 0 && (
+          <div className="w_i-" style={{ justifyContent: "center" }}>
+            {loading ? (
+              <button
+                disabled
+                className="w_ih w_ik w_cy"
+                style={{ width: "auto" }}
+              >
+                <span className="w_ia">Load More</span>
+                <div className="loadingio-spinner-ripple-ormwzc5m72e">
+                  <div className="ldio-gw2gg1659v">
+                    <div />
+                    <div />
+                  </div>
+                </div>
+              </button>
+            ) : (
+              <button
+                onClick={() => setPage(page + 1)}
+                className="w_ih w_ik w_cy"
+                style={{ width: "auto" }}
+              >
+                <span className="w_ia">Load More</span>
+              </button>
+            )}
+          </div>
+        )}
       </div>
     </div>
   );

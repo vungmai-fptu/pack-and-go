@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 //import MapComponent from "../../../components/map";
@@ -21,10 +21,12 @@ const Profile = () => {
     // eslint-disable-next-line
     []
   );
+  const { loading } = useSelector((state) => state.common);
   const { users } = useSelector((state) => state.user);
+
   return (
     <>
-      {users.username === undefined ? (
+      {loading || users.username == null ? (
         <>
           <SkeletonProfile />
           <div className="loadingio-spinner-ripple-p4t4leicp3h">

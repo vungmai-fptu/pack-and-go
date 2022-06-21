@@ -1,7 +1,9 @@
 import {
   ADD_DAY,
+  ADD_TRIPMATE,
   CHANGE_MODE,
   REMOVE_DAY,
+  REMOVE_TRIPMATE,
   SET_CONCURRENCY_UNIT,
   SET_DATE,
   SET_DESCRIPTION,
@@ -236,6 +238,26 @@ const tripReducer = (state = tripInitialState, action) => {
       return {
         ...state,
         mode: payload,
+      };
+    case ADD_TRIPMATE:
+      const newTripmates = state.trip.tripMates || [];
+      newTripmates.push(payload);
+      return {
+        ...state,
+        trip: {
+          ...state.trip,
+          tripMates: newTripmates
+        },
+      };
+    case REMOVE_TRIPMATE:
+      const nTripmates = state.trip.tripMates.filter(item => item !== payload);
+      console.log("NEW: ", nTripmates);
+      return {
+        ...state,
+        trip: {
+          ...state.trip,
+          tripMates: nTripmates
+        },
       };
     default:
       return state;

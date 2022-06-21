@@ -86,7 +86,7 @@ export default function Header() {
         </div>
       </div>
       <Date />
-      <InviteFriends />
+      {mode === TRIP_MODE.UPDATE && <InviteFriends tripId={trip.id} invitedUsers={trip.tripMates} />}
       <div className={styles.save}>
         <div style={{ display: "flex", alignItems: "center" }}>
           <button className={styles.boxControl} onClick={onClick}>
@@ -103,9 +103,8 @@ export default function Header() {
           </button>
           <div
             ref={dropdownRef}
-            className={`${styles.popupContent} ${
-              isActive ? `${styles.active}` : `${styles.inactive}`
-            }`}
+            className={`${styles.popupContent} ${isActive ? `${styles.active}` : `${styles.inactive}`
+              }`}
             style={{ right: "182px" }}
           >
             <div className={styles.dropdownTop} style={{ left: "50% " }}>

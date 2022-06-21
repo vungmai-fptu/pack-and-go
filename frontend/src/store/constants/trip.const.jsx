@@ -17,6 +17,8 @@ export const SET_PRICE_LIST = "SET_PRICE_LIST";
 export const SET_NOTE = "SET_NOTE";
 export const SAVE_TRIP = "SAVE_TRIP"
 export const CHANGE_MODE = "CHANGE_MODE"
+export const ADD_TRIPMATE = "ADD_TRIPMATE"
+export const REMOVE_TRIPMATE = "REMOVE_TRIPMATE"
 export const TRIP_MODE = {
     CREATE: "CREATE",
     UPDATE: "UPDATE",

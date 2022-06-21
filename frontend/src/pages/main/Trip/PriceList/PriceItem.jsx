@@ -11,7 +11,8 @@ const PriceItem = ({
   handleDelete,
   concurrencyUnit,
   onClose,
-  onOpen
+  onOpen,
+  isView
 }) => {
 
 
@@ -23,19 +24,22 @@ const PriceItem = ({
       <div className={styles.price}>
         <span>{item.price} {concurrencyUnit || "$"}</span>
       </div>
-      <div className={styles.actions} >
-        <div
-          className={`${styles.action_update} ${styles.action}`}
-          onClick={onOpen}
-        >
-          <AiOutlineEdit />
+      {
+        !isView &&
+        <div className={styles.actions} >
+          <div
+            className={`${styles.action_update} ${styles.action}`}
+            onClick={onOpen}
+          >
+            <AiOutlineEdit />
+          </div>
+          <div
+            className={`${styles.action_delete} ${styles.action}`}
+            onClick={handleDelete}>
+            <AiOutlineClose />
+          </div>
         </div>
-        <div
-          className={`${styles.action_delete} ${styles.action}`}
-          onClick={handleDelete}>
-          <AiOutlineClose />
-        </div>
-      </div>
+      }
     </div>
     {isUpdated &&
       <SavePriceItem

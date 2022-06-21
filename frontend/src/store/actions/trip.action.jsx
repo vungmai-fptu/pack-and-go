@@ -37,6 +37,7 @@ export const saveTrip = (trip) => {
         NotificationManager.success("Trip was planned successfully");
       })
       .catch((err) => {
+        console.log(err);
         dispatch(stopLoading());
         NotificationManager.error(err.response.data.message);
       });
@@ -54,9 +55,10 @@ export const setTrip = (id) => {
       .then((res) => {
         dispatch(stopLoading());
         const { data } = res;
-        const canUpdate =
-          (userLogin && JSON.parse(userLogin).username === data.owner) ||
-          data.tripMates.includes(JSON.parse(userLogin).username);
+        console.log(data, userLogin);
+
+        const canUpdate = userLogin && JSON.parse(userLogin).username === data.owner || data.tripMates.includes(JSON.parse(userLogin).username);
+
         dispatch({
           type: SET_TRIP,
           payload: {
