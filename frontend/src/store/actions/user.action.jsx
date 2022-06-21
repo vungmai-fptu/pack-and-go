@@ -189,12 +189,12 @@ const postResetPasswordFailed = (err) => {
   };
 };
 
-export const getListUser = (page) => {
+export const getListUser = () => {
   return (dispatch) => {
     dispatch(startLoading());
     axios({
       method: "GET",
-      url: `${API_URL}/api/users/trips?page=${page}&size=10`,
+      url: `${API_URL}/api/users/trips?page=1&size=10`,
       data: null,
     })
       .then((res) => {
