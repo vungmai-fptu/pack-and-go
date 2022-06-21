@@ -21,10 +21,12 @@ const Profile = () => {
     // eslint-disable-next-line
     []
   );
+  const { loading } = useSelector((state) => state.common);
   const { users } = useSelector((state) => state.user);
+  console.log("🚀 ~ file: index.jsx ~ line 26 ~ Profile ~ users", users);
   return (
     <>
-      {users.username === undefined ? (
+      {loading ? (
         <>
           <SkeletonProfile />
           <div className="loadingio-spinner-ripple-p4t4leicp3h">

@@ -22,7 +22,7 @@ export default function RenderTripItem() {
     "🚀 ~ file: index.jsx ~ line 12 ~ RenderTripItem ~ trips",
     listTrip
   );
-
+  const { isLogin } = useIsLogin();
   return loading ? (
     <div className="w_cw">
       <div className="w_cW w_cX ">
@@ -35,7 +35,7 @@ export default function RenderTripItem() {
   ) : (
     <div className="w_cw">
       <div className="w_cW w_cX ">
-        <label className="w_rI w_rT">New Trips</label>
+        {isLogin && <label className="w_rI w_rT">New Trips</label>}
         <div className="w_cx">
           {listTrip.slice(0, 9).map((listTrip, index) => (
             <TripItem listTrip={listTrip} key={index} />
