@@ -3,6 +3,7 @@ import SectionContainer from '../../profile/SectionContainer'
 import ProfileCardSlider from './slider'
 import styles from './travelers.module.css'
 import { Link } from "react-router-dom";
+import RenderTraveler from '../../RenderTraveler';
 
 const Travelers = () => {
     return (
@@ -12,7 +13,9 @@ const Travelers = () => {
                     <Link to="/alltravelers" className={styles["add-btn"]}><div className={styles["add-btn-title"]}><span className={["add-btn-text"]}>Show all</span></div></Link>
                 </div>
             </div>
-            <ProfileCardSlider />
+            <div className={styles.travelers_container}>
+                <RenderTraveler />
+            </div>
             {/* <div className={styles["content-container"]}>
             </div> */}
         </SectionContainer>
