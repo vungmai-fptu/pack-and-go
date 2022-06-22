@@ -19,7 +19,7 @@ const Button = styled.button`
     background-color: ${(props) => theme[props.theme].default};
     color: white;
     padding: 5px 15px;
-    border-radius: 5px;
+    border-radius: 0;
     outline: 0;
     text-transform: uppercase;
     margin: 10px 0px;
@@ -48,8 +48,10 @@ const Tab = styled.button`
     background: white;
     border: 0;
     outline: 0;
+    border-radius: 0;
     border-bottom: 3px solid transparent;
     transition: ease border-bottom 250ms;
+    border-radius: 0;
     ${({ active }) =>
         active &&
         `
@@ -142,7 +144,7 @@ const MapTitle = styled.div`
 // types[0].icon = "https://countryflagsapi.com/png/vietnam";
 // types[0].title = "All Trips";
 
-const types = ["All Trips", "Global Trips", "Local Trips", "Select Country"];
+const types = ["Trips", "Photos"];
 // const types = ["FirstTab", "SecondTab"]
 
 function TabGroup() {

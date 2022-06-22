@@ -1,6 +1,5 @@
 import React from 'react'
 import SectionContainer from '../../profile/SectionContainer'
-import ProfileCardSlider from './slider'
 import styles from './travelers.module.css'
 import { Link } from "react-router-dom";
 import RenderTraveler from '../../RenderTraveler';
