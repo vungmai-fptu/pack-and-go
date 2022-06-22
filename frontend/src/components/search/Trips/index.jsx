@@ -1,12 +1,10 @@
 import React from "react";
 import SectionContainer from "../../landing/SectionContainer";
-import TripCardSlider from "./slider";
-import styles from "./Trips.module.css";
+import Trips from "./Trips"
+import styles from "./TripList.module.css";
 import { Link } from "react-router-dom";
-import RenderTripNoTitle from "../../RenderTripNoTitle";
-import RenderTripItem from "../../RenderTripItem";
 
-const Trips = () => {
+const TripList = () => {
   return (
     <SectionContainer>
       <div className={styles["trips-title"]}>
@@ -19,13 +17,9 @@ const Trips = () => {
           </Link>
         </div>
       </div>
-      <div className={styles["trip-container"]}>
-        <div className={styles["trip-items"]}>
-          <RenderTripItem/>
-        </div>
-      </div>
+      <Trips/>
     </SectionContainer>
   );
 };
 
-export default Trips;
+export default TripList;

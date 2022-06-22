@@ -50,6 +50,7 @@ const Tab = styled.button`
     outline: 0;
     border-bottom: 3px solid transparent;
     transition: ease border-bottom 250ms;
+    border-radius: 0;
     ${({ active }) =>
         active &&
         `

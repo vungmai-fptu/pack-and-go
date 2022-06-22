@@ -9,7 +9,6 @@ const Header = () => {
             <div className={styles["header"]}>
                 <div className={styles["header-content"]}>
                     <label className={styles["header-label"]}>Results for: ???</label>
-                    <Nav />
                 </div>
             </div>
         </div>
