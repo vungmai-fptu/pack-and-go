@@ -1,5 +1,5 @@
 import { IoNotificationsOutline } from "react-icons/io5";
-import LocationSearchInput from "../../../../components/SearchBoxMap";
+// import LocationSearchInput from "../../../../components/SearchBoxMap";
 import Transport from "./transport";
 import ImageUpload from "../../../../components/imageUpload";
 import { useDispatch, useSelector } from "react-redux";
@@ -13,6 +13,7 @@ import styles from "./overview.module.css";
 import { IoLocationOutline } from "react-icons/io5";
 import bgImage from '../../../../assets/fonts/src_app_components_components_svgIcon_icons_customsprite-70fd46.svg'
 import warningIcon from '../../../../assets/fonts/src_app_components_components_svgIcon_icons_commonsprite-afce76.svg'
+import SearchBox from "../../../../components/SearchAddress/SearchBox";
 export default function OverviewOwner() {
 
   const { trip, mode } = useSelector(state => state.trip);
@@ -59,15 +60,19 @@ export default function OverviewOwner() {
         <div className="w_oz w_iX">
           <label className="w_rI w_rS w_UW">Trip’s destination</label>
           <div className={styles.input}>
-            <IoLocationOutline />
-            <LocationSearchInput
+            <div className={styles.address_container}>
+              <IoLocationOutline />
+              <div className={styles.address}>{trip?.destination?.address}</div>
+            </div>
+            <SearchBox
+              // style={{ marginLeft: "20px" }}
               destination={trip.destination}
               onChangeDestination={handleChangeDestination}
             />
           </div>
           <label className="w_rI w_rS w_UW">Announce me before (days)</label>
           <div className="w_oz w_UX">
-            <div className={styles.input}>
+            <div className={styles.input_day}>
               <IoNotificationsOutline />
               <select
                 value={trip.notifyBefore ? trip.notifyBefore : 0}

@@ -33,12 +33,15 @@ const Profile = () => {
   const { loading } = useSelector((state) => state.common);
   const { users } = useSelector((state) => state.user);
   if (!loading && users) {
+    console.log("user", users);
     const today = moment(new Date).format('YYYY-MM-DD');
     futureTrips = users.trips.filter(trip => moment(today).isBefore(trip.beginDate, 'day'));
-    pastTrips = users.trips.filter(trip => moment(today).isAfter(trip.beginDate, 'day'));
+    pastTrips = users.trips.filter(trip => !moment(today).isBefore(trip.beginDate, 'day'));
+
+    console.log("future", futureTrips);
+    console.log("past", pastTrips);
+
   }
-  console.log(futureTrips);
-  console.log(pastTrips);
 
   return (
     <>

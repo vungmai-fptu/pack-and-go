@@ -4,9 +4,8 @@ import Place from "./place";
 import Collapse from "../../../../components/collapse";
 import { useDispatch, useSelector } from "react-redux";
 import { ADD_DAY, REMOVE_DAY, TRIP_MODE, UPDATE_DAY } from "../../../../store/constants/trip.const";
-import LocationSearchInput from "../../../../components/SearchBoxMap";
 import { useState } from "react";
-import { v4 as uuid } from 'uuid';
+import SearchBox from "../../../../components/SearchAddress/SearchBox";
 
 const VisitDay = ({ order, detail }) => {
   const { trip, mode } = useSelector(state => state.trip);
@@ -182,7 +181,7 @@ const VisitDay = ({ order, detail }) => {
                     <IoMdAddCircleOutline />
                   </div>
                   <div className={styles.rightContainer}>
-                    <LocationSearchInput
+                    <SearchBox
                       destination={destination}
                       onChangeDestination={handleAddPlace}
                     />

@@ -27,10 +27,7 @@ const LocationSearchInput = ({ destination, onChangeDestination }) => {
       latitude: results[0].geometry.location.lat(),
       longitude: results[0].geometry.location.lng(),
     };
-    dispatch({
-      type: SET_LOCATION,
-      payload: newDestination,
-    });
+
     onChangeDestination(newDestination);
     setAddress(address);
   };
