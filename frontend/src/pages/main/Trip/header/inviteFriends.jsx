@@ -137,21 +137,9 @@ const InviteFriends = ({ tripId, invitedUsers }) => {
                   invitedUsers.length !== 0 &&
                   invitedUsers.map((item, index) => {
                     return (
-                      <div>
-                        <div className={styles.mailItem} key={item}>
-                          <div className={styles.listGmail}>
-                            <Link to={`/profile/${item}`}>{item}</Link>
-                          </div>
-                          <div
-                            className={styles.remove_icon}
-                            onClick={() => onRemoveTripMate(item)}
-                          >
-                            {!isLoading.isRemoving ? (
-                              <AiOutlineCloseCircle className={styles.icon} />
-                            ) : (
-                              "Removing..."
-                            )}
-                          </div>
+                      <div className={styles.mailItem} key={item}>
+                        <div className={styles.listGmail}>
+                          <Link to={`/profile/${item}`}>{item}</Link>
                         </div>
                         <div className={styles.remove_icon} onClick={() => openModal(item)}>
                           {!isLoading.isRemoving ? <AiOutlineCloseCircle className={styles.icon} /> : "Removing..."}

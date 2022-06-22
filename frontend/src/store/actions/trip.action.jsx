@@ -63,12 +63,22 @@ export const setTrip = (id) => {
 
         const canUpdate = userLogin && (JSON.parse(userLogin).username === data.owner || data.tripMates.includes(JSON.parse(userLogin).username));
 
+        const visitDays = data.visitDays
+          .map(day =>
+          ({
+            id: Math.random().toString().substring(2, 9),
+            ...day,
+            visitPlaces: day.visitPlaces.map(place => ({ ...place, id: Math.random().toString().substring(2, 9) }))
+          })
+          )
+
         dispatch({
           type: SET_TRIP,
           payload: {
             mode: canUpdate ? TRIP_MODE.UPDATE : TRIP_MODE.VIEW,
             trip: {
               ...data,
+              visitDays: visitDays,
               beginDate: data.beginDate
                 ? moment(data.beginDate, "YYYY-MM-DD").toDate()
                 : new Date(),
