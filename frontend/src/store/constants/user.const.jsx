@@ -18,3 +18,4 @@ export const USER_FAILED = "USER_FAILED";
 export const SET_USER = "SET_USER";
 export const UPDATE_INFO_SUCCESS = "UPDATEINFO_SUCCESS";
 export const UPDATE_INFO_FAILED = "UPDATEINFO_FAILED";
+export const ACT_LOGOUT = "ACT_LOGOUT";

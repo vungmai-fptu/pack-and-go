@@ -1,5 +1,5 @@
 import { useRef } from "react";
-import { Link, Redirect } from "react-router-dom";
+import { Link } from "react-router-dom";
 import styles from "./header.module.css";
 import {
   IoSettingsOutline,
@@ -7,13 +7,19 @@ import {
   IoChevronDownOutline,
 } from "react-icons/io5";
 import { useDetectOutsideClick } from "../useDetectOutsideClick";
-import { useHistory } from "react-router-dom";
+import { actLogout } from "../../store/actions/user.action";
+import { useDispatch } from "react-redux";
 
 export default function FormLogout() {
+  const dispatch = useDispatch();
   const dropdownRef = useRef(null);
-  const history = useHistory();
   const [isActive, setIsActive] = useDetectOutsideClick(dropdownRef, false);
   const onClick = () => setIsActive(!isActive);
+  function handleLogout(e) {
+    e.preventDefault();
+    dispatch(actLogout());
+  }
+
   return (
     <div>
       <button onClick={onClick}>
@@ -57,14 +63,9 @@ export default function FormLogout() {
           <div className={styles.logout}>
             <div className={styles.logoutContent}>
               <Link
-                to="#"
+                to="/"
                 className={styles.logoutTitle}
-                onClick={() => {
-                  localStorage.removeItem("userLogin");
-                  localStorage.removeItem("jwtToken");
-                  localStorage.removeItem("accessToken");
-                  history.push("/");
-                }}
+                onClick={handleLogout}
               >
                 <div className={styles.logoutIcon}>
                   <IoLogOutOutline />

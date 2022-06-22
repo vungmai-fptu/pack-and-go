@@ -3,6 +3,7 @@ import { NotificationManager } from "react-notifications";
 import {
   LOGIN_FAILED,
   LOGIN_SUCCESS,
+  ACT_LOGOUT,
   REGISTRATION_FAILED,
   REGISTRATION_SUCCESS,
   RESETPASSWORD_FAILED,
@@ -64,6 +65,12 @@ const postLoginFailed = (err) => {
     payload: err,
   };
 };
+
+export function actLogout() {
+  return {
+    type: ACT_LOGOUT,
+  };
+}
 export const postRegistration = (values, goBack) => {
   return (dispatch) => {
     dispatch(startLoading());
