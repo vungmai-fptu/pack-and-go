@@ -22,20 +22,6 @@ export default function RenderTraveler() {
     [page]
   );
 
-  // const trips = userList.map((trips) =>
-  //   trips.trips.length.sort(function (a, b) {
-  //     return b - a;
-  //   })
-  // );
-
-  console.log(
-    "---------",
-    userList.map((trips) =>
-      trips.trips.length.sort(function (a, b) {
-        return b - a;
-      })
-    )
-  );
   return userList.length === 0 ? (
     <div className="w_cv">
       <SkeletonTraveler />
@@ -43,9 +29,13 @@ export default function RenderTraveler() {
   ) : (
     <>
       <div className="w_cv">
-        {userList.map((listUser, index) => {
-          return <Traveler listUser={listUser} key={index} />;
-        })}
+        {userList
+          .sort(function (a, b) {
+            return b.trips.length - a.trips.length;
+          })
+          .map((listUser, index) => {
+            return <Traveler listUser={listUser} key={index} />;
+          })}
       </div>
       {isLogin && (
         <div
