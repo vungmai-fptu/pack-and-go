@@ -20,7 +20,7 @@ const TripItem = (props) => {
       </div>
       <div className={styles.inner}>
         <div className={styles.top}>
-          <div className={styles["list-flag"]} width="144" height="32">
+          {/* <div className={styles["list-flag"]} width="144" height="32">
             <div className={styles.flag}>
               <img
                 src={
@@ -32,7 +32,7 @@ const TripItem = (props) => {
                 className="w_fu w_fB"
               />
             </div>
-          </div>
+          </div> */}
         </div>
         <div className={styles.bottom}>
           <Link

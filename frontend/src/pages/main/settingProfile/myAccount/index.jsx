@@ -3,7 +3,6 @@ import styles from "../settingProfile.module.css";
 import AboutMe from "../aboutMe";
 import classNames from "classnames";
 import { useDispatch } from "react-redux";
-import useForm from "../../../../components/useForm/useForm";
 import { useIsLogin } from "../../../../hooks/useIsLogin";
 import { updateInfo } from "./../../../../store/actions/user.action";
 import { NotificationContainer } from "react-notifications";
@@ -34,7 +33,6 @@ function MyAccount() {
   };
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log("🚀 ~ file: index.jsx ~ line 40 ~ handleSubmit ~ user", user);
     dispatch(updateInfo(profileImageUrl, coverImageUrl, user));
   };
 
@@ -171,7 +169,7 @@ function MyAccount() {
                 <button
                   className={classNames(`${styles.button}`, `${styles.submit}`)}
                   id={styles.send}
-                  style={{ width: "96.5%", opacity: ".4" }}
+                  style={{ opacity: ".4", display: "flex" }}
                   disabled
                 >
                   <span> Save changes </span>

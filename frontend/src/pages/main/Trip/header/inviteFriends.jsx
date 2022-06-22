@@ -1,10 +1,12 @@
 import React, { useRef, useState, useReducer, useEffect } from "react";
 import { RiMailAddLine } from "react-icons/ri";
 import { BiPlus } from "react-icons/bi";
-import { AiOutlineCloseCircle } from "react-icons/ai"
-import { useDetectOutsideClick } from "../../../../components/useDetectOutsideClick";
+import { AiOutlineCloseCircle } from "react-icons/ai";
 import styles from "./headerTrip.module.css";
-import { inviteToJoinTrip, removeTripMates } from "../../../../services/trip/useTrip";
+import {
+  inviteToJoinTrip,
+  removeTripMates,
+} from "../../../../services/trip/useTrip";
 import { Link } from "react-router-dom";
 import { NotificationManager } from "react-notifications";
 import { async } from "@firebase/util";
@@ -25,26 +27,24 @@ const InviteFriends = ({ tripId, invitedUsers }) => {
   });
   const dispatch = useDispatch();
 
-  console.log(invitedUsers);
-
   const onClick = () => setIsActive(!isActive);
 
   const onChange = (event) => {
     setEmail(event.target.value);
-  }
+  };
   const addInviteFriends = () => {
     const sentInviteEmail = async () => {
       if (email && email.length !== 0) {
         setIsLoading((prev) => ({
           ...prev,
-          isInviting: true
+          isInviting: true,
         }));
         try {
           const res = await inviteToJoinTrip(tripId, email);
           setEmail("");
           setIsLoading((prev) => ({
             ...prev,
-            isInviting: false
+            isInviting: false,
           }));
           dispatch({ type: ADD_TRIPMATE, payload: email });
           NotificationManager.success("Invite tripmate successfully!");
@@ -56,7 +56,7 @@ const InviteFriends = ({ tripId, invitedUsers }) => {
           NotificationManager.error(err.response?.data?.message || "Fail to invite user");
         }
       }
-    }
+    };
     sentInviteEmail();
   };
 
@@ -107,7 +107,14 @@ const InviteFriends = ({ tripId, invitedUsers }) => {
           <div>
             <div className={styles.logoutContent}>
               <div>
-                <div style={{ display: "flex", alignItems: "center", gap: "15px", marginBottom: "20px" }}>
+                <div
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    gap: "15px",
+                    marginBottom: "20px",
+                  }}
+                >
                   <input
                     value={email}
                     onChange={onChange}
@@ -115,35 +122,49 @@ const InviteFriends = ({ tripId, invitedUsers }) => {
                     placeholder="Invite Friends"
                   />
                   <div className={styles.addMail} onClick={addInviteFriends}>
-                    {!isLoading.isInviting ?
+                    {!isLoading.isInviting ? (
                       <button>
                         <RiMailAddLine />
                       </button>
-                      : "Inviting..."}
+                    ) : (
+                      "Inviting..."
+                    )}
                   </div>
                 </div>
               </div>
               <div className={styles.listMail}>
-                {invitedUsers && invitedUsers.length !== 0 && invitedUsers.map((item, index) => {
-                  return (
-                    <div className={styles.mailItem} key={item}>
-                      <div className={styles.listGmail}>
-                        <Link to={`/profile/${item}`}>
-                          {item}
-                        </Link>
+                {invitedUsers &&
+                  invitedUsers.length !== 0 &&
+                  invitedUsers.map((item, index) => {
+                    return (
+                      <div>
+                        <div className={styles.mailItem} key={item}>
+                          <div className={styles.listGmail}>
+                            <Link to={`/profile/${item}`}>{item}</Link>
+                          </div>
+                          <div
+                            className={styles.remove_icon}
+                            onClick={() => onRemoveTripMate(item)}
+                          >
+                            {!isLoading.isRemoving ? (
+                              <AiOutlineCloseCircle className={styles.icon} />
+                            ) : (
+                              "Removing..."
+                            )}
+                          </div>
+                        </div>
+                        <div className={styles.remove_icon} onClick={() => openModal(item)}>
+                          {!isLoading.isRemoving ? <AiOutlineCloseCircle className={styles.icon} /> : "Removing..."}
+                        </div>
                       </div>
-                      <div className={styles.remove_icon} onClick={() => openModal(item)}>
-                        {!isLoading.isRemoving ? <AiOutlineCloseCircle className={styles.icon} /> : "Removing..."}
-                      </div>
-                    </div>
-                  );
-                })}
+                    );
+                  })}
               </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
+    </div >
   );
 };
 

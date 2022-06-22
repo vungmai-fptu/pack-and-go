@@ -57,7 +57,7 @@ export const tripInitialState = {
       //     ]
       // }
     ],
-    tripMates: []
+    tripMates: [],
   },
   error: {},
 };
@@ -247,17 +247,19 @@ const tripReducer = (state = tripInitialState, action) => {
         ...state,
         trip: {
           ...state.trip,
-          tripMates: newTripmates
+          tripMates: newTripmates,
         },
       };
     case REMOVE_TRIPMATE:
-      const nTripmates = state.trip.tripMates.filter(item => item !== payload);
+      const nTripmates = state.trip.tripMates.filter(
+        (item) => item !== payload
+      );
       console.log("NEW: ", nTripmates);
       return {
         ...state,
         trip: {
           ...state.trip,
-          tripMates: nTripmates
+          tripMates: nTripmates,
         },
       };
     default:
