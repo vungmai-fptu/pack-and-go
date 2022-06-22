@@ -53,10 +53,10 @@ export default function FormLogout() {
           </div>
           <div className={styles.logout}>
             <div className={styles.logoutContent}>
-              <a
-                href="/"
+              <Link
+                to="/"
                 className={styles.logoutTitle}
-                onClick={async () => {
+                onClick={() => {
                   localStorage.removeItem("userLogin");
                   localStorage.removeItem("jwtToken");
                   localStorage.removeItem("accessToken");
@@ -69,7 +69,7 @@ export default function FormLogout() {
                 <div className={styles.logoutTitle}>
                   <span>Log out</span>
                 </div>
-              </a>
+              </Link>
             </div>
           </div>
         </div>

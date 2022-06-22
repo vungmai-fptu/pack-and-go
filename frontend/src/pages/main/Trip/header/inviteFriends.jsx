@@ -1,4 +1,4 @@
-import React, { useRef, useState, useReducer } from "react";
+import React, { useRef, useState, useReducer, useEffect } from "react";
 import { RiMailAddLine } from "react-icons/ri";
 import { BiPlus } from "react-icons/bi";
 import { AiOutlineCloseCircle } from "react-icons/ai"
@@ -10,10 +10,14 @@ import { NotificationManager } from "react-notifications";
 import { async } from "@firebase/util";
 import { useDispatch } from "react-redux";
 import { ADD_TRIPMATE, REMOVE_TRIPMATE } from "../../../../store/constants/trip.const";
+import { OPEN_MODAL } from "../../../../store/constants/modal.const";
+import RemoveTripMateModal from "../../../../components/Modal/RemoveTripMateModal";
+import useOutsideClick from "../../../../hooks/useOutsideClick";
 
 const InviteFriends = ({ tripId, invitedUsers }) => {
   const dropdownRef = useRef(null);
   const [isActive, setIsActive] = useState(false);
+  useOutsideClick(dropdownRef, () => setIsActive(false));
   const [email, setEmail] = useState("");
   const [isLoading, setIsLoading] = useState({
     isInviting: false,
@@ -56,35 +60,14 @@ const InviteFriends = ({ tripId, invitedUsers }) => {
     sentInviteEmail();
   };
 
-  const onRemoveTripMate = (username) => {
-    const removeTripMate = async () => {
-      if (username && username.length !== 0) {
-        setIsLoading((prev) => ({
-          ...prev,
-          isRemoving: true
-        }));
-        try {
-          const res = await removeTripMates(tripId, username);
-          setIsLoading((prev) => ({
-            ...prev,
-            isRemoving: false
-          }));
-          dispatch({ type: REMOVE_TRIPMATE, payload: username });
-          NotificationManager.success("Remove your tripmate successfully!");
-        } catch (err) {
-          setIsLoading((prev) => ({
-            ...prev,
-            isRemoving: false
-          }));
-          NotificationManager.error(err.response?.data?.message || "Fail to remove your tripmate");
-        }
-
-      }
-    }
-    removeTripMate();
+  const openModal = (username) => {
+    dispatch({
+      type: OPEN_MODAL,
+      payload: <RemoveTripMateModal username={username} tripId={tripId} />
+    });
   }
   return (
-    <>
+    <div style={{ position: "relative" }}>
       <div className="w_ki">
         <div className="w_AP w_kj w_kr">
           <img
@@ -149,7 +132,7 @@ const InviteFriends = ({ tripId, invitedUsers }) => {
                           {item}
                         </Link>
                       </div>
-                      <div className={styles.remove_icon} onClick={() => onRemoveTripMate(item)}>
+                      <div className={styles.remove_icon} onClick={() => openModal(item)}>
                         {!isLoading.isRemoving ? <AiOutlineCloseCircle className={styles.icon} /> : "Removing..."}
                       </div>
                     </div>
@@ -160,7 +143,7 @@ const InviteFriends = ({ tripId, invitedUsers }) => {
           </div>
         </div>
       </div>
-    </>
+    </div>
   );
 };
 

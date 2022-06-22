@@ -9,7 +9,6 @@ import {
 } from "../../../../store/constants/trip.const";
 import VisitDay from "./day";
 import NoItem from "../NoItem";
-import { v4 as uuid } from "uuid";
 
 export default function Itinerary() {
   const { trip, mode } = useSelector((state) => state.trip);
@@ -21,7 +20,7 @@ export default function Itinerary() {
       payload: {
         order: 0,
         day: {
-          id: uuid(),
+          id: Math.random().toString().substring(2, 9),
           description: "",
           visitPlaces: [],
         },
@@ -45,7 +44,7 @@ export default function Itinerary() {
             <label>Trip Itinerary</label>
             <div className={styles.write}>
               {mode === TRIP_MODE.VIEW ?
-                <san>{trip.description}</san>
+                <span>{trip.description}</span>
                 :
                 <div style={{ padding: "5.5px 10px" }}>
                   <input

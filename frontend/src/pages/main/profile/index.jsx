@@ -10,16 +10,22 @@ import Header from "../../../components/profile/Header";
 import TabGroup from "../../../components/profile/MapNav/TabGroup";
 import Trips from "../../../components/profile/Trips";
 import SkeletonProfile from "../../../components/SkeletonCard/SkeletonProfile";
-import { getUser } from "../../../store/actions/user.action";
+import { getMe, getUser } from "../../../store/actions/user.action";
 
 const Profile = () => {
   const { username } = useParams();
+  const { user } = useSelector((state) => state.user);
   const dispatch = useDispatch();
   let futureTrips = [];
   let pastTrips = [];
   useEffect(
     () => {
-      dispatch(getUser(username));
+      console.log(user.username, username);
+      if (user?.username === username) {
+        dispatch(getMe(username));
+      } else {
+        dispatch(getUser(username))
+      }
     },
     // eslint-disable-next-line
     []

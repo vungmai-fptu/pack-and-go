@@ -22,7 +22,11 @@ export const saveTrip = (trip) => {
         "Content-Type": "application/json",
         Authorization: `Bearer ${token}`,
       },
-      data: JSON.stringify(trip),
+      data: JSON.stringify({
+        ...trip,
+        beginDate: moment(trip.beginDate).format("YYYY-MM-DD"),
+        endDate: trip.endDate ? moment(trip.endDate).format("YYYY-MM-DD") : null,
+      }),
     })
       .then((res) => {
         dispatch(stopLoading());
@@ -37,7 +41,6 @@ export const saveTrip = (trip) => {
         NotificationManager.success("Trip was planned successfully");
       })
       .catch((err) => {
-        console.log(err);
         dispatch(stopLoading());
         NotificationManager.error(err.response.data.message);
       });
@@ -47,6 +50,8 @@ export const saveTrip = (trip) => {
 export const setTrip = (id) => {
   return async (dispatch) => {
     const userLogin = localStorage.getItem("userLogin");
+    console.log(userLogin);
+
     dispatch(startLoading());
     await axios({
       method: "GET",
@@ -55,9 +60,8 @@ export const setTrip = (id) => {
       .then((res) => {
         dispatch(stopLoading());
         const { data } = res;
-        console.log(data, userLogin);
 
-        const canUpdate = userLogin && JSON.parse(userLogin).username === data.owner || data.tripMates.includes(JSON.parse(userLogin).username);
+        const canUpdate = userLogin && (JSON.parse(userLogin).username === data.owner || data.tripMates.includes(JSON.parse(userLogin).username));
 
         dispatch({
           type: SET_TRIP,
@@ -87,6 +91,7 @@ export const setTrip = (id) => {
 export const updateTrip = (trip) => {
   const userLogin = localStorage.getItem("userLogin");
   const token = userLogin ? JSON.parse(userLogin).token : "";
+
   return async (dispatch) => {
     dispatch(startLoading());
     await axios({
@@ -96,7 +101,11 @@ export const updateTrip = (trip) => {
         "Content-Type": "application/json",
         Authorization: `Bearer ${token}`,
       },
-      data: JSON.stringify(trip),
+      data: JSON.stringify({
+        ...trip,
+        beginDate: moment(trip.beginDate).format("YYYY-MM-DD"),
+        endDate: trip.endDate ? moment(trip.endDate).format("YYYY-MM-DD") : "",
+      }),
     })
       .then((res) => {
         dispatch(stopLoading());

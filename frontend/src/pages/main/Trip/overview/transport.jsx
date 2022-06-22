@@ -23,9 +23,11 @@ const Transport = ({ transportation, onChangeTransportation }) => {
           style={{
             background: "hsla(0, 0%, 4%, .15)",
             margin: "0px auto",
-            borderRadius: "10px",
+            borderRadius: "8px",
             display: "flex",
+            justifyContent: "center",
             width: "fit-content",
+            // maxWidth: ""
           }}
         >
           <div

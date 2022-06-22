@@ -9,12 +9,16 @@ import { SET_DATE, TRIP_MODE } from "../../../../store/constants/trip.const";
 import styles from "../trip.module.css";
 import { useDetectOutsideClick } from "./../../../../components/useDetectOutsideClick";
 import { BsCalendar3 } from "react-icons/bs";
+import useOutsideClick from "../../../../hooks/useOutsideClick";
 export default function Date() {
   const { trip, mode } = useSelector((state) => state.trip);
   const dispatch = useDispatch();
-  const dropdownRef = useRef(null);
-  const [isActive, setIsActive] = useDetectOutsideClick(dropdownRef, false);
   const [isSingleTrip, setIsSingleTrip] = useState(false);
+  const dropdownRef = useRef(null);
+  const [isActive, setIsActive] = useState(false);
+
+  useOutsideClick(dropdownRef, () => setIsActive(false));
+
 
 
   const onClick = () => {
@@ -67,6 +71,7 @@ export default function Date() {
           )}
         </button>
         <div
+          ref={dropdownRef}
           className={`${styles.formTripDate} ${isActive ? `${styles.active}` : "inactive"
             }`}
         >

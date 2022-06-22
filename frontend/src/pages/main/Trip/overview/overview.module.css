@@ -5,8 +5,9 @@
 
 .item {
   padding: 5px 25px 0px 25px;
-  border-radius: 10px;
+  border-radius: 8px;
   cursor: pointer;
+  transition: all 0.2s;
 }
 .notify_input {
   width: 100%;
