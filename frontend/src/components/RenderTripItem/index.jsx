@@ -13,19 +13,18 @@ export default function RenderTripItem() {
       fetch(`${process.env.REACT_APP_API_URL}/api/trips?page=${page}&size=9`)
         .then((res) => res.json())
         .then((res) => {
-          setTotalPages(res.data.length);
           setUserList([...userList, ...res.data]);
           setLoading(false);
+          setTotalPages(res.total);
         });
     };
     getUserList();
   }, [page]);
-
   const { isLogin } = useIsLogin();
   return userList.length === 0 ? (
     <div className="w_cw">
       <div className="w_cW w_cX ">
-        <label className="w_rI w_rT">New Trips</label>
+        {isLogin && <label className="w_rI w_rT">New Trips</label>}
         <div className="w_cx">
           <SkeletonTripItem />
         </div>
@@ -40,33 +39,35 @@ export default function RenderTripItem() {
             <TripItem listTrip={listTrip} key={index} />
           ))}
         </div>
-        {totalPages !== 0 && (
-          <div className="w_i-" style={{ justifyContent: "center" }}>
-            {loading ? (
-              <button
-                disabled
-                className="w_ih w_ik w_cy"
-                style={{ width: "auto" }}
-              >
-                <span className="w_ia">Load More</span>
-                <div className="loadingio-spinner-ripple-ormwzc5m72e">
-                  <div className="ldio-gw2gg1659v">
-                    <div />
-                    <div />
-                  </div>
+        <div className="w_i-" style={{ justifyContent: "center" }}>
+          {loading ? (
+            <button
+              disabled
+              className="w_ih w_ik w_cy"
+              style={{ width: "auto" }}
+            >
+              <span className="w_ia">Load More</span>
+              <div className="loadingio-spinner-ripple-ormwzc5m72e">
+                <div className="ldio-gw2gg1659v">
+                  <div />
+                  <div />
                 </div>
-              </button>
-            ) : (
-              <button
-                onClick={() => setPage(page + 1)}
-                className="w_ih w_ik w_cy"
-                style={{ width: "auto" }}
-              >
-                <span className="w_ia">Load More</span>
-              </button>
-            )}
-          </div>
-        )}
+              </div>
+            </button>
+          ) : (
+            <>
+              {totalPages !== page && (
+                <button
+                  onClick={() => setPage(page + 1, setLoading(true))}
+                  className="w_ih w_ik w_cy"
+                  style={{ width: "auto" }}
+                >
+                  <span className="w_ia">Load More</span>
+                </button>
+              )}
+            </>
+          )}
+        </div>
       </div>
     </div>
   );

@@ -256,14 +256,32 @@ const getListTripFailed = (err) => {
 };
 export const getUser = (username) => {
   return (dispatch) => {
-    console.log(
-      "🚀 ~ file: user.action.jsx ~ line 231 ~ return ~ url",
-      `${API_URL}/api/users/${username}/trips`
-    );
     dispatch(startLoading());
     axios({
       method: "GET",
       url: `${API_URL}/api/users/${username}/trips`,
+      data: null,
+    })
+      .then((res) => {
+        dispatch(getUserSuccess(res.data));
+        dispatch(stopLoading());
+      })
+      .catch((err) => {
+        dispatch(getUserFailed(err));
+        dispatch(stopLoading());
+      });
+  };
+};
+export const getMe = (username) => {
+  return (dispatch) => {
+    console.log(
+      "🚀 ~ file: user.action.jsx ~ line 231 ~ return ~ url",
+      `${API_URL}/api/users/${username}/trips/me`
+    );
+    dispatch(startLoading());
+    axios({
+      method: "GET",
+      url: `${API_URL}/api/users/${username}/trips?target=me`,
       data: null,
     })
       .then((res) => {

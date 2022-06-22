@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from "react";
 import { useState } from "react";
-import { IoLocationSharp, IoDocumentText, IoTrashSharp, IoImage} from "react-icons/io5";
+import { IoLocationSharp, IoDocumentText, IoTrashSharp, IoImage } from "react-icons/io5";
 import { ImLocation } from "react-icons/im";
 import { storeImageToFireBase } from "../../../../utils/storeImageToFirebase.";
 import styles from "./Place.module.css";
@@ -9,6 +9,7 @@ import { AiOutlineCloseCircle } from 'react-icons/ai'
 import { useDispatch } from "react-redux";
 import { SET_LOCATION } from "../../../../store/constants/map.const";
 const Place = ({
+  id,
   place,
   index,
   onRemovePlace,
@@ -23,6 +24,7 @@ const Place = ({
   const [isLoading, setIsLoading] = useState(false);
   const ref = useRef();
   const dispatch = useDispatch();
+
   useEffect(() => {
     const timer = setTimeout(() => {
       onChangePlaceDescription(description, index);
@@ -30,11 +32,11 @@ const Place = ({
     return () => clearTimeout(timer);
   }, [description]);
 
+  console.log("CHANGE", id);
 
   useEffect(() => {
     //preview;
     const uploadImage = async () => {
-      console.log("INDEX", index);
       setIsLoading(true);
       if (!selectedFile) {
         setIsLoading(false);
@@ -50,12 +52,12 @@ const Place = ({
       setIsLoading(false);
     }
 
-    uploadImage();
+    uploadImage(index);
 
-  }, [selectedFile, index]);
+  }, [selectedFile]);
 
-  const onSelectFile = e => {
-    console.log("LOAD IMAGE");
+
+  const onSelectFile = (e) => {
     if (!e.target.files || e.target.files.length === 0) {
       setSelectedFile(null)
       return;
@@ -93,10 +95,12 @@ const Place = ({
                 <div className={styles.icon_wrapper}>
                   <input
                     ref={ref}
-                    type="file" id="upload"
+                    type="file" id={`upload-${id}`}
                     hidden
                     onChange={onSelectFile} />
-                  <label htmlFor="upload">
+                  <label
+                    htmlFor={`upload-${id}`}
+                  >
                     <IoImage className={styles.icon} />
                   </label>
                 </div>
@@ -127,7 +131,7 @@ const Place = ({
           {place.images &&
             place.images.length !== 0 &&
             place.images.map((image, idx) =>
-              <div key={idx} className={styles.image}>
+              <div key={image.url} className={styles.image}>
                 {!isView && <div
                   className={styles.remove_image_wrapper}
                   onClick={() => onRemoveImage(image.url, index)}>

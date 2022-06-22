@@ -12,13 +12,13 @@ import {
 const initialState = {
   user:
     JSON.parse(localStorage.getItem("jwtToken")) ||
-    JSON.parse(localStorage.getItem("userLogin"))
+      JSON.parse(localStorage.getItem("userLogin"))
       ? JSON.parse(localStorage.getItem("jwtToken")) ||
-        JSON.parse(localStorage.getItem("userLogin"))
+      JSON.parse(localStorage.getItem("userLogin"))
       : {},
   listUser: [],
   listTrip: [],
-  users: {},
+  users: null,
   errors: {},
 };
 

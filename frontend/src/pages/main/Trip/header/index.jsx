@@ -14,6 +14,9 @@ import Loading from "../../../../components/Loading";
 import logo from "../../../../assets/images/logos/logo-black-2.png";
 import { RiArrowDropDownLine } from "react-icons/ri";
 import InviteFriends from "./inviteFriends";
+import { OPEN_MODAL } from "../../../../store/constants/modal.const";
+import DeleteTripModal from "../../../../components/Modal/DeleteTripModal";
+import useOutsideClick from "../../../../hooks/useOutsideClick";
 
 export default function Header() {
   const { trip, mode } = useSelector((state) => state.trip);
@@ -22,9 +25,9 @@ export default function Header() {
   const dispatch = useDispatch();
 
   const dropdownRef = useRef(null);
-
-  // const [isActive, setIsActive] = useDetectOutsideClick(dropdownRef, false);
   const [isActive, setIsActive] = useState(false);
+  useOutsideClick(dropdownRef, () => setIsActive(false));
+  // const [isActive, setIsActive] = useDetectOutsideClick(dropdownRef, false);
 
   const onClick = () => {
     if (mode === TRIP_MODE.VIEW) {
@@ -54,12 +57,20 @@ export default function Header() {
   };
 
   const onSaveTrip = () => {
+    console.log(trip);
     if (mode === TRIP_MODE.CREATE) {
       dispatch(saveTrip(trip));
     } else if (mode === TRIP_MODE.UPDATE) {
       dispatch(updateTrip(trip));
     }
   };
+
+  const onDeleteTrip = (tripId) => {
+    dispatch({
+      type: OPEN_MODAL,
+      payload: <DeleteTripModal id={tripId} />
+    })
+  }
 
   return (
     <div className={styles.header}>
@@ -88,7 +99,7 @@ export default function Header() {
       <Date />
       {mode === TRIP_MODE.UPDATE && <InviteFriends tripId={trip.id} invitedUsers={trip.tripMates} />}
       <div className={styles.save}>
-        <div style={{ display: "flex", alignItems: "center" }}>
+        <div style={{ display: "flex", alignItems: "center", position: "relative" }}>
           <button className={styles.boxControl} onClick={onClick}>
             {trip.status === "public" ? (
               <IoPeopleOutline />
@@ -105,7 +116,6 @@ export default function Header() {
             ref={dropdownRef}
             className={`${styles.popupContent} ${isActive ? `${styles.active}` : `${styles.inactive}`
               }`}
-            style={{ right: "182px" }}
           >
             <div className={styles.dropdownTop} style={{ left: "50% " }}>
               <svg
@@ -146,7 +156,7 @@ export default function Header() {
               </div>
             </div>
           </div>
-          <div>
+          <div className={styles.tripActions}>
             {mode === TRIP_MODE.VIEW ? (
               <></>
             ) : (
@@ -156,10 +166,20 @@ export default function Header() {
                 disabled={loading}
               >
                 {!loading ? (
-                  <span>Save and close</span>
+                  <span>Save</span>
                 ) : (
                   <Loading isSmall={true} />
                 )}
+              </button>
+            )}
+
+            {mode === TRIP_MODE.UPDATE && (
+              <button
+                className={styles.tripDelete}
+                onClick={() => onDeleteTrip(trip.id)}
+                disabled={loading}
+              >
+                <span>Delete</span>
               </button>
             )}
           </div>

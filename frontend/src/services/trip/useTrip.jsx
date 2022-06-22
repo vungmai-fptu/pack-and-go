@@ -40,3 +40,22 @@ export const removeTripMates = async (tripId, usernameOrEmail) => {
 
     return res.data;
 }
+
+export const deleteTrip = async (tripId) => {
+    const userLoginString = localStorage.getItem("userLogin");
+    if (!userLoginString) {
+        return;
+    }
+
+    const userLogin = JSON.parse(userLoginString);
+    const { token } = userLogin;
+
+    const res = await fetch(`${baseUrl}/api/trips/${tripId}`, {
+        method: "DELETE",
+        headers: {
+            Authorization: `Bearer ${token}`,
+        },
+    })
+
+    return await res.json();
+}
