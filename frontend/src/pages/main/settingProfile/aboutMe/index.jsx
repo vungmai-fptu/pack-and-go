@@ -1,18 +1,8 @@
 import React from "react";
-import { useDispatch, useSelector } from "react-redux";
 import NoteEditor from "./../../../../components/NoteEditor/index";
-import { SET_NOTE } from "../../../../store/constants/trip.const";
 import styles from "../settingProfile.module.css";
 import classNames from "classnames";
-function AboutMe() {
-  const { trip } = useSelector((state) => state.trip);
-  const dispatch = useDispatch();
-  const handleChangeNote = (html) => {
-    dispatch({
-      type: SET_NOTE,
-      payload: html,
-    });
-  };
+function AboutMe({ profileAboutMe, setProfileAboutMe }) {
   return (
     <div className={classNames(`${styles.boxInput}`, `${styles.w100}`)}>
       <label htmlFor="ome-text-editor"> About me </label>
@@ -25,7 +15,10 @@ function AboutMe() {
             `${styles.trumbowyg}`
           )}
         >
-          <NoteEditor html={trip.note || ""} setHtml={handleChangeNote} />
+          <NoteEditor
+            html={profileAboutMe || ""}
+            setMarkdown={setProfileAboutMe}
+          />
         </div>
       </div>
     </div>

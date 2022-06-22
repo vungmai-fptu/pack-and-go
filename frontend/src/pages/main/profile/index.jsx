@@ -1,5 +1,5 @@
 import moment from "moment";
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 //import MapComponent from "../../../components/map";
@@ -7,7 +7,7 @@ import CountryList from "../../../components/profile/CountryList";
 import FutureTrips from "../../../components/profile/FutureTrips";
 import Header from "../../../components/profile/Header";
 //import Map from "../../../components/profile/Map";
-import TabGroup from "../../../components/profile/MapNav/TabGroup";
+// import TabGroup from "../../../components/profile/MapNav/TabGroup";
 import Trips from "../../../components/profile/Trips";
 import SkeletonProfile from "../../../components/SkeletonCard/SkeletonProfile";
 import { getMe, getUser } from "../../../store/actions/user.action";
@@ -20,7 +20,6 @@ const Profile = () => {
   let pastTrips = [];
   useEffect(
     () => {
-      console.log(user.username, username);
       if (user?.username === username) {
         dispatch(getMe(username));
       } else {
@@ -41,9 +40,6 @@ const Profile = () => {
       moment(today).isAfter(trip.beginDate, "day")
     );
   }
-  console.log(futureTrips);
-  console.log(pastTrips);
-
   return (
     <>
       {loading || !users ? (

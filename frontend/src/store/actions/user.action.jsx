@@ -196,16 +196,25 @@ const postResetPasswordFailed = (err) => {
   };
 };
 
-export const getListUser = () => {
+export const getListUser = (
+  page,
+  userList,
+  setUserList,
+  setTotalPages,
+  setLoading
+) => {
   return (dispatch) => {
     dispatch(startLoading());
     axios({
       method: "GET",
-      url: `${API_URL}/api/users/trips?page=1&size=10`,
+      url: `${API_URL}/api/users/trips?page=${page}&size=4`,
       data: null,
     })
       .then((res) => {
         dispatch(stopLoading());
+        setUserList([...userList, ...res.data.data]);
+        setLoading(false);
+        setTotalPages(res.data.total);
         dispatch(getListUserSuccess(res.data.data));
       })
       .catch((err) => {
@@ -229,7 +238,13 @@ const getListUserFailed = (err) => {
   };
 };
 
-export const getListTrip = (page) => {
+export const getListTrip = (
+  page,
+  userList,
+  setUserList,
+  setTotalPages,
+  setLoading
+) => {
   return (dispatch) => {
     dispatch(startLoading());
     axios({
@@ -239,6 +254,9 @@ export const getListTrip = (page) => {
     })
       .then((res) => {
         dispatch(stopLoading());
+        setUserList([...userList, ...res.data.data]);
+        setLoading(false);
+        setTotalPages(res.data.total);
         dispatch(getListTripSuccess(res.data.data));
       })
       .catch((err) => {
@@ -281,10 +299,6 @@ export const getUser = (username) => {
 };
 export const getMe = (username) => {
   return (dispatch) => {
-    console.log(
-      "🚀 ~ file: user.action.jsx ~ line 231 ~ return ~ url",
-      `${API_URL}/api/users/${username}/trips/me`
-    );
     dispatch(startLoading());
     axios({
       method: "GET",
@@ -358,7 +372,7 @@ const postChangePasswordFailed = (err) => {
   };
 };
 
-export const updateInfo = (profileImageUrl, coverImageUrl, values) => {
+export const updateInfo = (profileImageUrl, coverImageUrl, aboutMe, values) => {
   return (dispatch) => {
     dispatch(startLoading());
     axios({
@@ -369,7 +383,7 @@ export const updateInfo = (profileImageUrl, coverImageUrl, values) => {
         Authorization: `Bearer ${token}`,
       },
       data: {
-        aboutMe: values.aboutMe,
+        aboutMe,
         city: values.city,
         country: values.country,
         coverImageUrl,
