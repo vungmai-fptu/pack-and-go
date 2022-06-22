@@ -1,10 +1,8 @@
 import React, { useEffect } from "react";
 import SectionContainer from "../../landing/SectionContainer";
+import Trips from "./Trips"
 import styles from "./TripList.module.css";
 import { Link } from "react-router-dom";
-import RenderTripNoTitle from "../../RenderTripNoTitle";
-import RenderTripItem from "../../RenderTripItem";
-import Trips from "./Trips";
 
 const TripList = () => {
   return (

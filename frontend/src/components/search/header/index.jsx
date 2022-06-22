@@ -8,7 +8,7 @@ const Header = (props) => {
         <div>
             <div className={styles["header"]}>
                 <div className={styles["header-content"]}>
-                    <label className={styles["header-label"]}>Results for: {props.keyword}</label>
+                    <label className={styles["header-label"]}>Results for: ???</label>
                 </div>
             </div>
         </div>

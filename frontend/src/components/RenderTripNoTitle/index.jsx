@@ -1,30 +1,31 @@
 import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { getListTrip } from "../../store/actions/user.action";
 import TripItem from "./../TripItem/TripItem";
 import { useIsLogin } from "./../../hooks/useIsLogin";
 import SkeletonTripItem from "../SkeletonCard/SkeletonTripItem";
-export default function RenderTripNoTitle() {
-    const [totalPages, setTotalPages] = useState(0);
+export default function RenderTripItem() {
+    const dispatch = useDispatch();
+    useEffect(
+        () => {
+            dispatch(getListTrip(page));
+        },
+        // eslint-disable-next-line
+        []
+    );
+    const { listTrip } = useSelector((state) => state.user);
+    const { loading } = useIsLogin();
     const [page, setPage] = useState(1);
-    const [userList, setUserList] = useState([]);
-    const [loading, setLoading] = useState(false);
-    useEffect(() => {
-        const getUserList = () => {
-            setLoading(true);
-            fetch(`${process.env.REACT_APP_API_URL}/api/trips?page=${page}&size=9`)
-                .then((res) => res.json())
-                .then((res) => {
-                    setUserList([...userList, ...res.data]);
-                    setLoading(false);
-                    setTotalPages(res.total);
-                });
-        };
-        getUserList();
-    }, [page]);
-    const { isLogin } = useIsLogin();
-    return userList.length === 0 ? (
+    console.log("🚀 ~ file", page);
+    const onClick = () => setPage(page + 1);
+    console.log(
+        "🚀 ~ file: index.jsx ~ line 12 ~ RenderTripItem ~ trips",
+        listTrip
+    );
+
+    return loading ? (
         <div className="w_cw">
             <div className="w_cW w_cX ">
-                {isLogin && <label className="w_rI w_rT">New Trips</label>}
                 <div className="w_cx">
                     <SkeletonTripItem />
                 </div>
@@ -34,38 +35,18 @@ export default function RenderTripNoTitle() {
         <div className="w_cw">
             <div className="w_cW w_cX ">
                 <div className="w_cx">
-                    {userList.map((listTrip, index) => (
+                    {listTrip.slice(0, 9).map((listTrip, index) => (
                         <TripItem listTrip={listTrip} key={index} />
                     ))}
                 </div>
                 <div className="w_i-" style={{ justifyContent: "center" }}>
-                    {loading ? (
-                        <button
-                            disabled
-                            className="w_ih w_ik w_cy"
-                            style={{ width: "auto" }}
-                        >
-                            <span className="w_ia">Load More</span>
-                            <div className="loadingio-spinner-ripple-ormwzc5m72e">
-                                <div className="ldio-gw2gg1659v">
-                                    <div />
-                                    <div />
-                                </div>
-                            </div>
-                        </button>
-                    ) : (
-                        <>
-                            {totalPages !== page && (
-                                <button
-                                    onClick={() => setPage(page + 1, setLoading(true))}
-                                    className="w_ih w_ik w_cy"
-                                    style={{ width: "auto" }}
-                                >
-                                    <span className="w_ia">Load More</span>
-                                </button>
-                            )}
-                        </>
-                    )}
+                    <button
+                        onClick={onClick}
+                        className="w_ih w_ik w_cy"
+                        style={{ width: "auto" }}
+                    >
+                        <span className="w_ia">Load More</span>
+                    </button>
                 </div>
             </div>
         </div>
