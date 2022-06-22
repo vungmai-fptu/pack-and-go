@@ -19,7 +19,7 @@ const VisitDay = ({ order, detail }) => {
       payload: {
         order: order + 1,
         day: {
-          id: uuid(),
+          id: Math.random().toString().substring(2, 9),
           description: "",
           visitPlaces: []
         }
@@ -35,13 +35,14 @@ const VisitDay = ({ order, detail }) => {
 
     const newPlaces = [...detail.visitPlaces];
     newPlaces.push({
-      id: uuid(),
+      id: Math.random().toString().substring(2, 9),
       description: "",
       address: place.address,
       images: [],
       latitude: place.latitude,
       longitude: place.longitude
     })
+    console.log("order - ", order);
     dispatch({
       type: UPDATE_DAY,
       payload: {
@@ -110,7 +111,7 @@ const VisitDay = ({ order, detail }) => {
   }
 
   const handleAddImage = (url, index) => {
-    console.log("ADD IMAGE TO", index);
+
     const newPlaces = [...detail.visitPlaces];
     const updatedPlace = newPlaces[index];
     updatedPlace.images.push({
@@ -161,6 +162,7 @@ const VisitDay = ({ order, detail }) => {
             <Place
               place={place}
               key={place.id}
+              id={place.id}
               index={index}
               onRemovePlace={handleRemovePlace}
               onChangePlaceDescription={handleChangePlaceDescription}

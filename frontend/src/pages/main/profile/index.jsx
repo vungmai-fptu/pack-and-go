@@ -1,4 +1,5 @@
-import React, { useEffect } from "react";
+import moment from "moment";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 //import MapComponent from "../../../components/map";
@@ -9,24 +10,43 @@ import Header from "../../../components/profile/Header";
 import TabGroup from "../../../components/profile/MapNav/TabGroup";
 import Trips from "../../../components/profile/Trips";
 import SkeletonProfile from "../../../components/SkeletonCard/SkeletonProfile";
-import { getUser } from "../../../store/actions/user.action";
+import { getMe, getUser } from "../../../store/actions/user.action";
 
 const Profile = () => {
   const { username } = useParams();
+  const { user } = useSelector((state) => state.user);
   const dispatch = useDispatch();
+  let futureTrips = [];
+  let pastTrips = [];
   useEffect(
     () => {
-      dispatch(getUser(username));
+      console.log(user.username, username);
+      if (user?.username === username) {
+        dispatch(getMe(username));
+      } else {
+        dispatch(getUser(username));
+      }
     },
     // eslint-disable-next-line
     []
   );
   const { loading } = useSelector((state) => state.common);
   const { users } = useSelector((state) => state.user);
+  if (!loading && users) {
+    const today = moment(new Date()).format("YYYY-MM-DD");
+    futureTrips = users.trips.filter((trip) =>
+      moment(today).isBefore(trip.beginDate, "day")
+    );
+    pastTrips = users.trips.filter((trip) =>
+      moment(today).isAfter(trip.beginDate, "day")
+    );
+  }
+  console.log(futureTrips);
+  console.log(pastTrips);
 
   return (
     <>
-      {loading || users.username == null ? (
+      {loading || !users ? (
         <>
           <SkeletonProfile />
           <div className="loadingio-spinner-ripple-p4t4leicp3h">
@@ -39,9 +59,9 @@ const Profile = () => {
       ) : (
         <>
           <Header users={users} />
-          <TabGroup />
-          <FutureTrips users={users} />
-          <Trips users={users} />
+          {/* <TabGroup /> */}
+          <FutureTrips trips={futureTrips} />
+          <Trips trips={pastTrips} />
           <CountryList />
         </>
       )}

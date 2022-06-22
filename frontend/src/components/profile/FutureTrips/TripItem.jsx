@@ -1,8 +1,8 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import styles from "./TripItem.module.css";
-const TripItem = (props) => {
-  return props.trips.trips.map((trips, index) => {
+const TripItem = ({ trips }) => {
+  return trips.map((trips, index) => {
     const place = trips.visitDays.map((place) => place.visitPlaces).flat();
     const image = place.map((place) => place.images).flat();
     return (

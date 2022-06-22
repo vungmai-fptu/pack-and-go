@@ -5,6 +5,7 @@ import warningIcon from '../../../../assets/fonts/src_app_components_components_
 import styles from './OverviewViewer.module.css';
 import { IoLocation } from 'react-icons/io5';
 import { IoMdPhotos } from 'react-icons/io';
+import { IoToday } from 'react-icons/io5';
 import { GoLocation } from 'react-icons/go';
 
 import {
@@ -26,12 +27,17 @@ export default function OverviewViewer() {
     const dispatch = useDispatch();
 
     const handleClickDestination = useCallback((address) => {
-        console.log(address);
         dispatch({
             type: SET_LOCATION,
             payload: address
         })
     }, []);
+
+    const visitDays = trip?.visitDays || [];
+    const visitPlaces = visitDays.map(day => day?.visitPlaces || []).flat();
+    const photos = visitPlaces.map(place => place?.images || []).flat();
+
+    console.log(visitDays, visitPlaces, photos);
 
     return (
         <div className={styles.overview_container}>
@@ -41,16 +47,23 @@ export default function OverviewViewer() {
 
                     <div className={styles.amounts}>
                         <div>
+                            <IoToday />
+                            <div className={styles.number}>
+                                <span>{visitDays.length}</span>
+                                Days
+                            </div>
+                        </div>
+                        <div>
                             <IoLocation />
                             <div className={styles.number}>
-                                <span>10</span>
+                                <span>{visitPlaces.length}</span>
                                 Places
                             </div>
                         </div>
                         <div>
                             <IoMdPhotos />
                             <div className={styles.number}>
-                                <span>10</span>
+                                <span>{photos.length}</span>
                                 Photos
                             </div>
                         </div>

@@ -17,9 +17,10 @@ const initialState = {
       ? JSON.parse(localStorage.getItem("jwtToken")) ||
         JSON.parse(localStorage.getItem("userLogin"))
       : null,
+
   listUser: [],
   listTrip: [],
-  users: {},
+  users: null,
   errors: {},
 };
 

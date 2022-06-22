@@ -2,6 +2,7 @@ import { BrowserRouter, Switch } from "react-router-dom";
 import { mainRouter, signRouter } from "./configs/router";
 import RouterMainTemplate from "./templates/main";
 import RouterSignTemplate from "./templates/login";
+import { ModalContainer } from "./components/Modal";
 
 function App() {
   const renderMainRouter = () => {
@@ -33,6 +34,7 @@ function App() {
           {renderSignRouter()}
           {renderMainRouter()}
         </Switch>
+        <ModalContainer />
       </BrowserRouter>
     </div>
   );

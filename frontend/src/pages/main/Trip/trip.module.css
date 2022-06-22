@@ -359,7 +359,13 @@
   display: block;
 }
 
-.tripSave {
+.tripActions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.tripSave,
+.tripDelete {
   -webkit-tap-highlight-color: rgba(255, 255, 255, 0);
   align-items: center;
   background: linear-gradient(114deg, #00e1d6, #66ede7);
@@ -381,8 +387,15 @@
   padding: 0 21.5px;
   text-align: center;
   white-space: nowrap;
+  transition: all 0.2s;
 }
 
+.tripDelete {
+  background: #fa5252;
+}
+.tripDelete:hover {
+  background: #e03131;
+}
 .popupContent {
   opacity: 0;
   visibility: hidden;
