@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import Tab from "./tab";
-import styles from './Tabs.module.css';
+import styles from "./Tabs.module.css";
 class Tabs extends Component {
   static propTypes = {
     children: PropTypes.instanceOf(Array).isRequired,
@@ -26,7 +26,7 @@ class Tabs extends Component {
     } = this;
 
     return (
-      <div className="w_CS">
+      <div className="w_CS" style={{ minWidth: "fit-content" }}>
         <div style={{ background: "#071125" }} className={styles.tabs}>
           {children.map((child) => {
             const { label, Icon } = child.props;

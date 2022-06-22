@@ -24,7 +24,7 @@ const Profile = () => {
       if (user?.username === username) {
         dispatch(getMe(username));
       } else {
-        dispatch(getUser(username))
+        dispatch(getUser(username));
       }
     },
     // eslint-disable-next-line
@@ -33,9 +33,13 @@ const Profile = () => {
   const { loading } = useSelector((state) => state.common);
   const { users } = useSelector((state) => state.user);
   if (!loading && users) {
-    const today = moment(new Date).format('YYYY-MM-DD');
-    futureTrips = users.trips.filter(trip => moment(today).isBefore(trip.beginDate, 'day'));
-    pastTrips = users.trips.filter(trip => moment(today).isAfter(trip.beginDate, 'day'));
+    const today = moment(new Date()).format("YYYY-MM-DD");
+    futureTrips = users.trips.filter((trip) =>
+      moment(today).isBefore(trip.beginDate, "day")
+    );
+    pastTrips = users.trips.filter((trip) =>
+      moment(today).isAfter(trip.beginDate, "day")
+    );
   }
   console.log(futureTrips);
   console.log(pastTrips);
