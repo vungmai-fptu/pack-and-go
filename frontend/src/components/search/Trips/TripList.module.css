@@ -1,21 +1,23 @@
+.trips-section {
+  width: 90%;
+  max-width: 1400px;
+  margin: 0 auto;
+}
 
 .trip-container {
   padding: 0 30px;
+  margin-bottom: 3rem;
 }
 
 .trips-title {
   text-align: left;
   font-size: 1.5rem;
   max-width: cal(100%-3rem);
-  padding: 0 5.5rem;
   font-weight: 700;
   line-height: 1.5;
   text-decoration: none;
   vertical-align: middle;
-  margin: 0 auto;
-  margin-bottom: 1rem;
-  margin-right: 1.5rem;
-  margin-left: 1.5rem;
+  margin-bottom: 2rem;
 }
 
 .title-wrapper {
@@ -68,6 +70,7 @@
   width: 9.25rem;
   height: 3rem;
   padding: 1.3rem;
+  cursor: pointer;
 }
 
 .add-btn-title {
@@ -89,7 +92,6 @@
 }
 
 @media (max-width: 768px) {
-  
   .trips-title {
     max-width: 90%;
     padding: 0;

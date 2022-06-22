@@ -3,12 +3,12 @@ import Nav from '../navbar'
 
 import styles from './header.module.css'
 
-const Header = (props) => {
+const Header = ({ keyword }) => {
     return (
         <div>
             <div className={styles["header"]}>
                 <div className={styles["header-content"]}>
-                    <label className={styles["header-label"]}>Results for: ???</label>
+                    <label className={styles["header-label"]}>Results for: {keyword}</label>
                 </div>
             </div>
         </div>

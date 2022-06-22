@@ -13,6 +13,7 @@ const Grid = styled.div`
   grid-template-columns: repeat( auto-fill, minmax(320px, 1fr) );
   grid-template-columns: repeat( auto-fit, minmax(320px, 1fr) );
   margin: auto;
+  justify-content: start;
 `;
 export default function RenderTraveler() {
   const dispatch = useDispatch();

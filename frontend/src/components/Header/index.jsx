@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import {
   IoHeart,
   IoEarthSharp,
@@ -11,9 +11,12 @@ import styles from "./header.module.css";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useIsLogin } from "../../hooks/useIsLogin";
+
 export default function Header() {
   const { user } = useIsLogin();
   const [state, setState] = useState({});
+  const [text, setText] = useState("");
+  const history = useHistory();
   useEffect(
     () => {
       axios
@@ -29,6 +32,16 @@ export default function Header() {
     // eslint-disable-next-line
     []
   );
+
+  const onSearch = (e) => {
+    e.preventDefault();
+    if (!text || text.length === 0) {
+      return;
+    }
+    setText("");
+    history.push(`/search?text=${text}`)
+  }
+
   const src =
     state.profileImageUrl == null
       ? "https://wrld-se-prod.b-cdn.net/images/user-empty.svg"
@@ -44,23 +57,30 @@ export default function Header() {
           </div>
         </div>
         <div className={styles.menu}>
-          <div className={styles.search} aria-describedby="popup-1">
+          <form
+            onSubmit={onSearch}
+            className={styles.search} aria-describedby="popup-1">
             <div className={styles.searchAll}>
               <div className={styles.searchInput}>
-                <input type="text" placeholder="Search" />
+                <input
+                  value={text}
+                  onChange={e => setText(e.target.value)}
+                  type="text"
+                  placeholder="Search" />
               </div>
               <div className={styles.searchIcon}>
-                <button>
-                  <Link to="/search">
-                    <div>
+                <button type="submit">
+                  <div>
+                    <div style={{ color: "#343a40" }}>
                       <IoSearch />
                     </div>
                     <span />
-                  </Link>
+                  </div>
                 </button>
               </div>
             </div>
-          </div>
+          </form>
+
           <div className={styles.grow} />
           <Link to="/">
             <div className={styles.menuIcon}>

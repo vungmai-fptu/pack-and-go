@@ -6,8 +6,8 @@ import styles from "./TripItem.module.css";
 const List = styled.div`
     display: grid;
     gap: 20px;
-    grid-template-columns: repeat( auto-fill, minmax(320px, 1fr) );
-    grid-template-columns: repeat( auto-fit, minmax(320px, 1fr) );
+    grid-template-columns: repeat( auto-fill, minmax(320px, 400px) );
+    grid-template-columns: repeat( auto-fit, minmax(320px, 400px) );
 `;
 const Wrapper = styled.div`
     padding: 0 20px;
