@@ -1,39 +1,50 @@
-import React from "react";
+import React, { useEffect } from "react";
 import styles from "../settingProfile.module.css";
 import AboutMe from "../aboutMe";
 import classNames from "classnames";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useIsLogin } from "../../../../hooks/useIsLogin";
-import { updateInfo } from "./../../../../store/actions/user.action";
+import { getUser, updateInfo } from "./../../../../store/actions/user.action";
 import { NotificationContainer } from "react-notifications";
 import ImageUpload from "./../imageUpload/index";
 import { useState } from "react";
 function MyAccount() {
   const dispatch = useDispatch();
-  const { loading } = useIsLogin();
-  const [coverImageUrl, setCoverImageUrl] = useState("");
-  const [profileImageUrl, setProfileImageUrl] = useState("");
-  const [user, setUser] = useState({
-    aboutMe: "",
+  const { user, loading } = useIsLogin();
+  const { users } = useSelector((state) => state.user);
+  const setting = users == null ? "user" : users;
+  const [coverImageUrl, setCoverImageUrl] = useState(setting.coverImageUrl);
+  const [profileImageUrl, setProfileImageUrl] = useState(
+    setting.profileImageUrl
+  );
+  const [aboutMe, setAboutMe] = useState(setting.aboutMe);
+  const [userSetting, setUserSetting] = useState({
     city: "",
-    country: "",
+    country: setting.country,
     dateOfBirth: "",
     firstName: "",
     gender: "",
     lastName: "",
     phoneNumber: "",
   });
+  useEffect(
+    () => {
+      dispatch(getUser(user.username));
+    },
+    // eslint-disable-next-line
+    []
+  );
   const handleChange = (event) => {
     const { value, name } = event.target;
-    console.log({ value, name });
-    setUser({
-      ...user,
+    setUserSetting({
+      ...userSetting,
       [name]: value,
     });
   };
+
   const handleSubmit = (e) => {
     e.preventDefault();
-    dispatch(updateInfo(profileImageUrl, coverImageUrl, user));
+    dispatch(updateInfo(profileImageUrl, coverImageUrl, aboutMe, userSetting));
   };
 
   return (
@@ -104,6 +115,7 @@ function MyAccount() {
                     name="country"
                     className="pac-target-input"
                     placeholder="Enter a country"
+                    value={userSetting.country}
                     onChange={handleChange}
                   />
                 </div>
@@ -164,12 +176,15 @@ function MyAccount() {
                   </div>
                 </div>
               </div>
-              <AboutMe />
+              <AboutMe
+                profileAboutMe={aboutMe}
+                setProfileAboutMe={setAboutMe}
+              />
               {loading ? (
                 <button
                   className={classNames(`${styles.button}`, `${styles.submit}`)}
                   id={styles.send}
-                  style={{ opacity: ".4", display: "flex" }}
+                  style={{ width: "96.5%", opacity: ".4" }}
                   disabled
                 >
                   <span> Save changes </span>

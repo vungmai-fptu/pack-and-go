@@ -3,7 +3,6 @@
   box-sizing: border-box;
   float: none !important;
   margin: 0 auto;
-  max-width: calc(100% - 3rem);
 }
 
 .trip-items {
@@ -17,7 +16,7 @@
   text-align: left;
   font-size: 1.5rem;
   max-width: cal(100%-3rem);
-  padding: 0 5.5rem;
+  /* padding: 0 5.5rem; */
   font-weight: 700;
   line-height: 1.5;
   text-decoration: none;
@@ -98,9 +97,15 @@
   min-width: 0;
 }
 
+@media (max-width: 1024px) {
+  .trip-items {
+    padding: 0;
+    grid-template-columns: 100%;
+    padding: 8px 12px 8px 12px;
+  }
+}
+
 @media (max-width: 768px) {
-
-
   .trips-title {
     max-width: 90%;
     padding: 0;

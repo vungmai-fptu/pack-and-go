@@ -1,14 +1,13 @@
 import React from "react";
 import styles from "./header.module.css";
 import SectionContainer from "../SectionContainer";
-
 const Header = (props) => {
   const trips = props.users.trips.map((trips) => trips.visitDays).flat();
   const visit = trips.map((visit) => visit.visitPlaces).flat();
   const photos = visit.map((photos) => photos.images).flat().length;
   return (
-    <div style={{ paddingTop: "95px" }}>
-      <SectionContainer>
+    <div style={{ padding: "95px 20px 20px 0", margin: "0 auto" }}>
+      <div>
         <div className={styles["header-cover"]}>
           <div className={styles["header-cover-photo"]}>
             <div className={styles["header-cover-photo-bg"]}></div>
@@ -74,7 +73,7 @@ const Header = (props) => {
             </div>
           </div>
         </div>
-      </SectionContainer>
+      </div>
     </div>
   );
 };

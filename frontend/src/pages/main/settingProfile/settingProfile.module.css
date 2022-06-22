@@ -1022,6 +1022,8 @@ a {
 .accountPageContent .button#send {
     margin-top: 20px;
     margin-bottom: 40px;
+    display: inline-flex;
+
 }
 
 .accountPageContent .button {

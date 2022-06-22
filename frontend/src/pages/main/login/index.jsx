@@ -42,7 +42,7 @@ function Login() {
           />
           <div className={styles.logo}>
             <Link to="/">
-              <img alt="Worldee logo" src="images/3bl.png" />
+              <img alt="logo" src="images/3bl.png" />
             </Link>
           </div>
           <div />

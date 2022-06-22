@@ -51,7 +51,7 @@ function ChangePassword() {
                 value={values.password || ""}
                 required
               />
-              <Validate errors={errors.newPassword} />
+              <Validate errors={errors.password} />
             </div>
           </div>
           <div className={styles.boxInput}>

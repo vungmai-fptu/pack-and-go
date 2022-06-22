@@ -1,10 +1,12 @@
-import React from 'react';
-import styles from "./SectionContainer.module.css";
-
+import React from "react";
+import styled from "styled-components";
+const Container = styled.div`
+  max-width: 1400px;
+  margin: 0 auto;
+  margin-bottom: 100px; 
+`
 const SectionContainer = ({ children }) => {
-  return (
-    <div className={styles.container}>{children}</div>
-  )
-}
+  return <Container>{children}</Container>;
+};
 
 export default SectionContainer;

@@ -1,8 +1,9 @@
 import React from "react";
-import SectionContainer from "../SectionContainer";
-import TripItem from "./TripItem";
 import styles from "./future.module.css";
 import { Link } from "react-router-dom";
+import TripList from "../TripList";
+import SectionContainer from "../SectionContainer";
+
 
 const FutureTrips = ({ trips }) => {
   return (
@@ -20,13 +21,9 @@ const FutureTrips = ({ trips }) => {
             </Link>
           </div>
         </div>
-        <div className={styles["trip-container"]}>
-          <div className={styles["trip-items"]}>
-            <TripItem trips={trips} />
-          </div>
-        </div>
-      </SectionContainer>
-    </div>
+        <TripList trips={trips} />
+      </SectionContainer >
+    </div >
   );
 };
 

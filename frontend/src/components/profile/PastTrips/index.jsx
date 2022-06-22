@@ -1,9 +1,9 @@
 import React from "react";
 import SectionContainer from "../SectionContainer";
-import TripItem from "./TripItem";
+import TripList from "../TripList";
 import styles from "./Trips.module.css";
 
-const Trips = ({ trips }) => {
+const PastTrips = ({ trips }) => {
   return (
     <div>
       <SectionContainer>
@@ -12,14 +12,10 @@ const Trips = ({ trips }) => {
             <label className={styles.title}>Past trips</label>
           </div>
         </div>
-        <div className={styles["trip-container"]}>
-          <div className={styles["trip-items"]}>
-            <TripItem trips={trips} />
-          </div>
-        </div>
-      </SectionContainer>
-    </div>
+        <TripList trips={trips} />
+      </SectionContainer >
+    </div >
   );
 };
 
-export default Trips;
+export default PastTrips;

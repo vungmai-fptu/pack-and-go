@@ -1,14 +1,13 @@
 import moment from "moment";
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 //import MapComponent from "../../../components/map";
-import CountryList from "../../../components/profile/CountryList";
 import FutureTrips from "../../../components/profile/FutureTrips";
 import Header from "../../../components/profile/Header";
+import PastTrips from "../../../components/profile/PastTrips";
 //import Map from "../../../components/profile/Map";
-import TabGroup from "../../../components/profile/MapNav/TabGroup";
-import Trips from "../../../components/profile/Trips";
+// import TabGroup from "../../../components/profile/MapNav/TabGroup";
 import SkeletonProfile from "../../../components/SkeletonCard/SkeletonProfile";
 import { getMe, getUser } from "../../../store/actions/user.action";
 
@@ -20,11 +19,10 @@ const Profile = () => {
   let pastTrips = [];
   useEffect(
     () => {
-      console.log(user.username, username);
       if (user?.username === username) {
         dispatch(getMe(username));
       } else {
-        dispatch(getUser(username))
+        dispatch(getUser(username));
       }
     },
     // eslint-disable-next-line
@@ -33,16 +31,14 @@ const Profile = () => {
   const { loading } = useSelector((state) => state.common);
   const { users } = useSelector((state) => state.user);
   if (!loading && users) {
-    console.log("user", users);
-    const today = moment(new Date).format('YYYY-MM-DD');
-    futureTrips = users.trips.filter(trip => moment(today).isBefore(trip.beginDate, 'day'));
-    pastTrips = users.trips.filter(trip => !moment(today).isBefore(trip.beginDate, 'day'));
-
-    console.log("future", futureTrips);
-    console.log("past", pastTrips);
-
+    const today = moment(new Date()).format("YYYY-MM-DD");
+    futureTrips = users.trips.filter((trip) =>
+      moment(today).isBefore(trip.beginDate, "day")
+    );
+    pastTrips = users.trips.filter((trip) =>
+      moment(today).isAfter(trip.beginDate, "day")
+    );
   }
-
   return (
     <>
       {loading || !users ? (
@@ -60,8 +56,8 @@ const Profile = () => {
           <Header users={users} />
           {/* <TabGroup /> */}
           <FutureTrips trips={futureTrips} />
-          <Trips trips={pastTrips} />
-          <CountryList />
+          <PastTrips trips={pastTrips} />
+          {/* <CountryList /> */}
         </>
       )}
     </>

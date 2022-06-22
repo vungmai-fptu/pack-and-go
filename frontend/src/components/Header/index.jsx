@@ -38,8 +38,8 @@ export default function Header() {
       <div className={styles.header}>
         <div className={styles.headerLogo}>
           <div>
-            <Link to="/">
-              <img alt="Worldee logo" src={logo} />
+            <Link to="/feed">
+              <img alt="logo" src={logo} />
             </Link>
           </div>
         </div>

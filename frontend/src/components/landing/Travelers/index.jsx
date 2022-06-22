@@ -7,12 +7,14 @@ import RenderTraveler from "./../../RenderTraveler/index";
 
 const Travelers = (props) => {
   return (
-    <SectionContainer>
-      <SectionHeader>Popular travelers</SectionHeader>
-      <div className={styles.travelers_container}>
-        <RenderTraveler />
-      </div>
-    </SectionContainer>
+    <div className="w_cs">
+      <SectionContainer>
+        <SectionHeader>Popular travelers</SectionHeader>
+        <div className="w_cW w_cX ">
+          <RenderTraveler />
+        </div>
+      </SectionContainer>
+    </div>
   );
 };
 

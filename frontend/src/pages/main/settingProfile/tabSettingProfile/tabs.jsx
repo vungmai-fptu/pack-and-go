@@ -2,9 +2,29 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import Tab from "./tab";
 import styles from "../settingProfile.module.css";
-import { Redirect } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { FaOutdent } from "react-icons/fa";
 import stylesTab from "../settingProfile.module.css";
+import { actLogout } from "../../../../store/actions/user.action";
+import { connect, useDispatch } from "react-redux";
+
+function Logout() {
+  const dispatch = useDispatch();
+  const handleLogout = (e) => {
+    e.preventDefault();
+    dispatch(actLogout());
+  };
+  return (
+    <Link to="/" onClick={handleLogout}>
+      <div className={stylesTab.barOfa}>
+        <span className={stylesTab.barOfSpan}>
+          <FaOutdent />
+        </span>
+        <label>Logout</label>
+      </div>
+    </Link>
+  );
+}
 class Tabs extends Component {
   static propTypes = {
     children: PropTypes.instanceOf(Array).isRequired,
@@ -45,22 +65,7 @@ class Tabs extends Component {
                 />
               );
             })}
-            <a
-              href="/"
-              onClick={async () => {
-                localStorage.removeItem("userLogin");
-                localStorage.removeItem("jwtToken");
-                localStorage.removeItem("accessToken");
-                return <Redirect to="/" />;
-              }}
-            >
-              <div className={stylesTab.barOfa}>
-                <span className={stylesTab.barOfSpan}>
-                  <FaOutdent />
-                </span>
-                <label>Logout</label>
-              </div>
-            </a>
+            <Logout />
           </ul>
         </aside>
         {children.map((child) => {
@@ -72,4 +77,4 @@ class Tabs extends Component {
   }
 }
 
-export default Tabs;
+export default connect()(Tabs);

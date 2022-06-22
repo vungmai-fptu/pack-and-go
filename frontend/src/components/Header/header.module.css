@@ -144,8 +144,7 @@ a {
 }
 
 .searchIcon img {
-  filter: invert(12%) sepia(34%) saturate(824%) hue-rotate(173deg)
-    brightness(96%) contrast(86%);
+  filter: invert(12%) sepia(34%) saturate(824%) hue-rotate(173deg) brightness(96%) contrast(86%);
   height: 24px;
   width: 24px;
 }
@@ -170,8 +169,7 @@ a {
 }
 
 .menuIcon img {
-  filter: invert(12%) sepia(34%) saturate(824%) hue-rotate(173deg)
-    brightness(96%) contrast(86%);
+  filter: invert(12%) sepia(34%) saturate(824%) hue-rotate(173deg) brightness(96%) contrast(86%);
   height: 24px;
   width: 24px;
 }
@@ -195,8 +193,7 @@ a {
 }
 
 .menuButton img {
-  filter: invert(12%) sepia(34%) saturate(824%) hue-rotate(173deg)
-    brightness(96%) contrast(86%);
+  filter: invert(12%) sepia(34%) saturate(824%) hue-rotate(173deg) brightness(96%) contrast(86%);
   height: 24px;
   width: 26px;
 }
@@ -254,8 +251,7 @@ a {
 }
 
 .dropdown svg {
-  filter: invert(77%) sepia(12%) saturate(374%) hue-rotate(184deg)
-    brightness(94%) contrast(87%);
+  filter: invert(77%) sepia(12%) saturate(374%) hue-rotate(184deg) brightness(94%) contrast(87%);
 }
 
 .popupContent {
@@ -346,4 +342,28 @@ svg {
   opacity: 1;
   visibility: visible;
   transform: translateY(0);
+}
+
+.headerNotLogin a {
+  -webkit-tap-highlight-color: rgba(255, 255, 255, 0);
+  align-items: center;
+  background: #fff;
+  border-radius: 8px;
+  border-width: 0;
+  color: #fff;
+  cursor: pointer;
+  display: inline-flex;
+  flex-shrink: 1;
+  font-size: .875rem;
+  font-size: 1rem;
+  font-weight: 700;
+  height: 48px;
+  justify-content: center;
+  justify-items: center;
+  max-width: 100%;
+  min-width: 0;
+  outline: none !important;
+  padding: 0 21.5px;
+  text-align: center;
+  white-space: nowrap;
 }

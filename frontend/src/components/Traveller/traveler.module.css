@@ -6,6 +6,7 @@
   justify-content: center;
   touch-action: pan-y;
   padding: 0 12px;
+  max-width: 450px;
 }
 
 .inner-container {
@@ -128,7 +129,8 @@
   height: 40px;
   width: 40px;
   display: block;
-  filter: invert(56%) sepia(17%) saturate(473%) hue-rotate(194deg) brightness(84%) contrast(80%);
+  filter: invert(56%) sepia(17%) saturate(473%) hue-rotate(194deg)
+    brightness(84%) contrast(80%);
   flex-shrink: 0;
   max-width: none;
   pointer-events: none;
@@ -166,4 +168,5 @@
   cursor: text;
 }
 
-@media (max-width: 768px) {}
+@media (max-width: 768px) {
+}

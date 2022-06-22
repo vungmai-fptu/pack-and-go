@@ -1,6 +1,7 @@
 import {
   LOGIN_FAILED,
   LOGIN_SUCCESS,
+  ACT_LOGOUT,
   LIST_USER_SUCCESS,
   LIST_USER_FAILED,
   USER_SUCCESS,
@@ -12,10 +13,11 @@ import {
 const initialState = {
   user:
     JSON.parse(localStorage.getItem("jwtToken")) ||
-      JSON.parse(localStorage.getItem("userLogin"))
+    JSON.parse(localStorage.getItem("userLogin"))
       ? JSON.parse(localStorage.getItem("jwtToken")) ||
-      JSON.parse(localStorage.getItem("userLogin"))
-      : {},
+        JSON.parse(localStorage.getItem("userLogin"))
+      : null,
+
   listUser: [],
   listTrip: [],
   users: null,
@@ -49,6 +51,12 @@ const userReducer = (state = initialState, action) => {
     case USER_FAILED: {
       return { ...state, errors: payload };
     }
+    case ACT_LOGOUT:
+      localStorage.removeItem("userLogin");
+      return {
+        ...state,
+        user: null,
+      };
     default:
       return state;
   }

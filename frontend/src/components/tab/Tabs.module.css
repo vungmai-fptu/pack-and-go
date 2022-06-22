@@ -3,6 +3,7 @@
   transition: all 0.3s;
   overflow: hidden;
 }
+
 .tabs:hover {
-  flex-basis: 150px;
+  flex-basis: 140px;
 }

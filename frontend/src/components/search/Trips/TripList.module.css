@@ -1,22 +1,13 @@
-.trip-container {
-  padding: 0 5.5rem;
-  box-sizing: border-box;
-  float: none !important;
-  margin: 0 auto;
-}
 
-.trip-items {
-  display: grid;
-  justify-content: center;
-  gap: 20px;
-  grid-template-columns: repeat(3, 1fr);
+.trip-container {
+  padding: 0 30px;
 }
 
 .trips-title {
   text-align: left;
   font-size: 1.5rem;
   max-width: cal(100%-3rem);
-  /* padding: 0 5.5rem; */
+  padding: 0 5.5rem;
   font-weight: 700;
   line-height: 1.5;
   text-decoration: none;
@@ -54,9 +45,9 @@
 }
 
 .add-btn {
-  background: #eff4f9;
+  background: #202d3d;
   box-shadow: 0 0 7px #f4f8fb;
-  color: #202d3d;
+  color: #fff;
   -webkit-tap-highlight-color: rgba(255, 255, 255, 0);
   align-items: center;
   border-radius: 8px;
@@ -74,7 +65,7 @@
   padding: 0 21.5px;
   text-align: center;
   white-space: nowrap;
-  width: 12.25rem;
+  width: 9.25rem;
   height: 3rem;
   padding: 1.3rem;
 }
@@ -97,22 +88,11 @@
   min-width: 0;
 }
 
-@media (max-width: 1024px) {
-  .trips-title {
-    padding: 0;
-    padding-top: 25%;
-  }
-
-  .trip-items {
-    padding: 0;
-    grid-template-columns: 100%;
-    padding: 8px 12px 8px 12px;
-  }
-}
-
 @media (max-width: 768px) {
+  
   .trips-title {
     max-width: 90%;
+    padding: 0;
   }
 
   .add-btn {
