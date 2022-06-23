@@ -13,6 +13,7 @@ import LoginGoogle from "../login/loginGoogle";
 import Validate from "../../../components/validateInput";
 import useForm from "../../../components/useForm/useForm";
 import { useIsLogin } from "../../../hooks/useIsLogin";
+import Load from "../../../components/Load";
 function Register() {
   const { hidden, handleClick } = useIsHidden();
   const history = useHistory();
@@ -203,12 +204,7 @@ function Register() {
                 {loading ? (
                   <button disabled style={{ opacity: ".4" }}>
                     <span>Register </span>
-                    <div className="loadingio-spinner-ripple-ormwzc5m72e">
-                      <div className="ldio-gw2gg1659v">
-                        <div />
-                        <div />
-                      </div>
-                    </div>
+                    <Load isSmall={true} />
                   </button>
                 ) : (
                   <button>

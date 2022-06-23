@@ -2,6 +2,8 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import Tab from "./tab";
 import styles from "./Tabs.module.css";
+import { FcLikePlaceholder, FcComments, FcShare } from "react-icons/fc";
+import Comment from "../Comment";
 class Tabs extends Component {
   static propTypes = {
     children: PropTypes.instanceOf(Array).isRequired,
@@ -41,20 +43,36 @@ class Tabs extends Component {
             );
           })}
         </div>
-        {children.map((child) => {
-          if (child.props.label !== activeTab) return undefined;
-          return child.props.children;
-        })}
-        <p
-          style={{
-            position: "absolute",
-            bottom: "0",
-            left: "0",
-            background: "red",
-          }}
-        >
-          ALOOO
-        </p>
+        <div style={{ flex: "1 1", display: "flex", flexDirection: "column" }}>
+          {children.map((child) => {
+            if (child.props.label !== activeTab) return undefined;
+            return child.props.children;
+          })}
+          <div style={{ borderTop: "1px solid #d0d8e6" }}>
+            <div style={{ display: "flex" }}>
+              <div className={styles.interactive} style={{ display: "flex" }}>
+                <button>
+                  <div>
+                    <FcLikePlaceholder />
+                  </div>
+                  <span>00</span>
+                </button>
+                <button>
+                  <div>
+                    <FcComments />
+                  </div>
+                  <span>00</span>
+                </button>
+                <button>
+                  <div>
+                    <FcShare />
+                  </div>
+                </button>
+              </div>
+            </div>
+            <Comment />
+          </div>
+        </div>
       </div>
     );
   }

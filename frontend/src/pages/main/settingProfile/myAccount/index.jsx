@@ -5,6 +5,7 @@ import { useState } from "react";
 import styles from "../settingProfile.module.css";
 import { NotificationContainer } from "react-notifications";
 import AccountInfo from "./AccountInfo";
+import Load from "../../../../components/Load";
 function MyAccount() {
   const { user } = useIsLogin();
   const [userSetting, setUserSetting] = useState(null);
@@ -34,7 +35,7 @@ function MyAccount() {
         <div className={styles.inputs}>
           <div className={styles.row}>
             {userSetting === null ? (
-              <p>loading...</p>
+              <Load isSmall={true} />
             ) : (
               <AccountInfo userSettings={userSetting} />
             )}

@@ -3,6 +3,7 @@ import NotificationContainer from "react-notifications/lib/NotificationContainer
 import { useDispatch } from "react-redux";
 import { useLocation } from "react-router-dom";
 import { Link, useHistory } from "react-router-dom";
+import Load from "../../../components/Load";
 import useForm from "../../../components/useForm/useForm";
 import Validate from "../../../components/validateInput";
 import { validateResetPassword } from "../../../components/validateInput/validateInput";
@@ -90,12 +91,7 @@ function ResetPassword() {
                 {loading ? (
                   <button disabled style={{ opacity: ".4" }}>
                     <span>Save password </span>
-                    <div className="loadingio-spinner-ripple-ormwzc5m72e">
-                      <div className="ldio-gw2gg1659v">
-                        <div />
-                        <div />
-                      </div>
-                    </div>
+                    <Load isSmall={true} />
                   </button>
                 ) : (
                   <button>
