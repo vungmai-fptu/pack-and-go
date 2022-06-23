@@ -2,6 +2,7 @@ import moment from "moment";
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
+import Load from "../../../components/Load";
 //import MapComponent from "../../../components/map";
 import FutureTrips from "../../../components/profile/FutureTrips";
 import Header from "../../../components/profile/Header";
@@ -44,12 +45,7 @@ const Profile = () => {
       {loading || !users ? (
         <>
           <SkeletonProfile />
-          <div className="loadingio-spinner-ripple-p4t4leicp3h">
-            <div className="ldio-a43e4tfg33">
-              <div></div>
-              <div></div>
-            </div>
-          </div>
+          <Load />
         </>
       ) : (
         <>
