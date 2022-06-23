@@ -26,7 +26,7 @@ const Profile = () => {
       }
     },
     // eslint-disable-next-line
-    []
+    [username]
   );
   const { loading } = useSelector((state) => state.common);
   const { users } = useSelector((state) => state.user);

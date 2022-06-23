@@ -45,6 +45,16 @@ class Tabs extends Component {
           if (child.props.label !== activeTab) return undefined;
           return child.props.children;
         })}
+        <p
+          style={{
+            position: "absolute",
+            bottom: "0",
+            left: "0",
+            background: "red",
+          }}
+        >
+          ALOOO
+        </p>
       </div>
     );
   }

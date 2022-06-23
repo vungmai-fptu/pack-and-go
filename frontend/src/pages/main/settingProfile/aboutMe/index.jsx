@@ -15,10 +15,7 @@ function AboutMe({ profileAboutMe, setProfileAboutMe }) {
             `${styles.trumbowyg}`
           )}
         >
-          <NoteEditor
-            html={profileAboutMe || ""}
-            setMarkdown={setProfileAboutMe}
-          />
+          <NoteEditor html={profileAboutMe || ""} setHtml={setProfileAboutMe} />
         </div>
       </div>
     </div>

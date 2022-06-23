@@ -66,7 +66,9 @@ const Header = (props) => {
                     </div>
                   </div>
                   <div className={styles["user-description"]}>
-                    <p>{props.users.aboutMe}</p>
+                    <p
+                      dangerouslySetInnerHTML={{ __html: props.users.aboutMe }}
+                    ></p>
                   </div>
                 </div>
               </div>

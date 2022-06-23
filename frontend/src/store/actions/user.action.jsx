@@ -250,7 +250,7 @@ export const getListTrip = (
     dispatch(startLoading());
     axios({
       method: "GET",
-      url: `${API_URL}/api/trips?page=${page}&size=9`,
+      url: `${API_URL}/api/trips?page=${page}&size=1`,
       data: null,
     })
       .then((res) => {
