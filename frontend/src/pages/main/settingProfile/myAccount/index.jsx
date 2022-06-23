@@ -1,39 +1,34 @@
 import React, { useEffect } from "react";
 import styles from "../settingProfile.module.css";
+import axios from "axios";
 import AboutMe from "../aboutMe";
 import classNames from "classnames";
 import { useDispatch, useSelector } from "react-redux";
 import { useIsLogin } from "../../../../hooks/useIsLogin";
-import { getUser, updateInfo } from "./../../../../store/actions/user.action";
+import {
+  getAccountInfo,
+  updateInfo,
+} from "./../../../../store/actions/user.action";
 import { NotificationContainer } from "react-notifications";
 import ImageUpload from "./../imageUpload/index";
 import { useState } from "react";
 function MyAccount() {
   const dispatch = useDispatch();
-  const { user, loading } = useIsLogin();
-  const { users } = useSelector((state) => state.user);
-  const setting = users == null ? "user" : users;
-  const [coverImageUrl, setCoverImageUrl] = useState(setting.coverImageUrl);
-  const [profileImageUrl, setProfileImageUrl] = useState(
-    setting.profileImageUrl
-  );
-  const [aboutMe, setAboutMe] = useState(setting.aboutMe);
-  const [userSetting, setUserSetting] = useState({
-    city: "",
-    country: setting.country,
-    dateOfBirth: "",
-    firstName: "",
-    gender: "",
-    lastName: "",
-    phoneNumber: "",
-  });
-  useEffect(
-    () => {
-      dispatch(getUser(user.username));
-    },
+  const { loading } = useIsLogin();
+  const { getInfo } = useSelector((state) => state.user);
+  console.log("🚀 ~ file: index.jsx ~ line 19 ~ MyAccount ~ getInfo", getInfo);
+  useEffect(() => {
+    dispatch(getAccountInfo());
     // eslint-disable-next-line
-    []
+  }, []);
+
+  const [coverImageUrl, setCoverImageUrl] = useState(getInfo.coverImageUrl);
+  const [profileImageUrl, setProfileImageUrl] = useState(
+    getInfo.profileImageUrl
   );
+  const [aboutMe, setAboutMe] = useState(getInfo.aboutMe);
+  console.log("🚀 ~ file: index.jsx ~ line 30 ~ MyAccount ~ aboutMe", aboutMe);
+  const [userSetting, setUserSetting] = useState(getInfo);
   const handleChange = (event) => {
     const { value, name } = event.target;
     setUserSetting({
@@ -74,15 +69,25 @@ function MyAccount() {
               />
               <div className="clearfix" />
               <div className={styles.boxInput}>
-                <label> Name </label>
+                <label> firstName </label>
                 <div className={styles.input}>
-                  <input type="text" name="firstName" onChange={handleChange} />
+                  <input
+                    type="text"
+                    name="firstName"
+                    value={userSetting.firstName}
+                    onChange={handleChange}
+                  />
                 </div>
               </div>
               <div className={styles.boxInput}>
-                <label> Surname </label>
+                <label> lastName </label>
                 <div className={styles.input}>
-                  <input type="text" name="lastName" onChange={handleChange} />
+                  <input
+                    type="text"
+                    name="lastName"
+                    value={userSetting.lastName}
+                    onChange={handleChange}
+                  />
                 </div>
               </div>
               <div className={styles.boxInput}>
@@ -91,6 +96,7 @@ function MyAccount() {
                   <input
                     type="tel"
                     name="phoneNumber"
+                    value={userSetting.phoneNumber}
                     onChange={handleChange}
                   />
                 </div>
@@ -103,6 +109,7 @@ function MyAccount() {
                     name="city"
                     className="pac-target-input"
                     placeholder="Enter a location"
+                    value={userSetting.city}
                     onChange={handleChange}
                   />
                 </div>
@@ -128,6 +135,7 @@ function MyAccount() {
                     name="gender"
                     className="pac-target-input"
                     placeholder="Enter a gender"
+                    value={userSetting.gender}
                     onChange={handleChange}
                   />
                 </div>

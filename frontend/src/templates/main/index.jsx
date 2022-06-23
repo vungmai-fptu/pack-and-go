@@ -11,11 +11,9 @@ function MainTemplate(props) {
   const { isLogin } = useIsLogin();
   return (
     <>
-      {isLogin ? (
-        !useRouteNewTrip && !useRoutePastTrip && <Header />
-      ) : (
-        <HeaderNotLogin />
-      )}
+      {isLogin
+        ? !useRouteNewTrip && !useRoutePastTrip && <Header />
+        : !useRouteNewTrip && !useRoutePastTrip && <HeaderNotLogin />}
       <main>{props.children}</main>
       {!useRouteNewTrip && !useRoutePastTrip && <Footer />}
     </>
