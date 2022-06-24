@@ -324,10 +324,10 @@ export const getUserSuccess = (users) => {
   };
 };
 
-const getUserFailed = (err) => {
+const getUserFailed = (errUser) => {
   return {
     type: USER_FAILED,
-    payload: err,
+    payload: errUser,
   };
 };
 

@@ -35,7 +35,7 @@ function MyAccount() {
         <div className={styles.inputs}>
           <div className={styles.row}>
             {userSetting === null ? (
-              <Load isSmall={true} />
+              <Load />
             ) : (
               <AccountInfo userSettings={userSetting} />
             )}

@@ -17,16 +17,18 @@ import Note from "./note";
 import { NotificationContainer } from "react-notifications";
 import "react-notifications/lib/notifications.css";
 import { useParams } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { setTrip } from "../../../store/actions/trip.action";
 import { useEffect } from "react";
 import { SET_TRIP, TRIP_MODE } from "../../../store/constants/trip.const";
 import { tripInitialState } from "../../../store/reducers/trip.reducer";
 import Overview from "./overview";
+import Err from "../err";
 
 function Trip() {
   const { id } = useParams();
   const dispatch = useDispatch();
+  const { errorTrip } = useSelector((state) => state.trip);
   useEffect(
     () => {
       if (id) {
@@ -48,31 +50,37 @@ function Trip() {
 
   return (
     <div className={styles.newTrip}>
-      <Header />
-      <div className="w_i- w_hM">
-        <div style={{ width: "60%", height: "100%", display: "flex" }}>
-          <Tabs>
-            <div label="Overview" Icon={FaSuitcase}>
-              <Overview />
+      {errorTrip !== null ? (
+        <Err />
+      ) : (
+        <>
+          <Header />
+          <div className="w_i- w_hM">
+            <div style={{ width: "60%", height: "100%", display: "flex" }}>
+              <Tabs>
+                <div label="Overview" Icon={FaSuitcase}>
+                  <Overview />
+                </div>
+                <div label="Itinerary" Icon={FaMapMarkedAlt}>
+                  <Itinerary />
+                </div>
+                <div label="Prepare" Icon={FaCheckSquare}>
+                  <PrepareList />
+                </div>
+                <div label="PriceList" Icon={FaMoneyBill}>
+                  <PriceList />
+                </div>
+                <div label="Note" Icon={FaCommentAlt}>
+                  <Note />
+                </div>
+              </Tabs>
             </div>
-            <div label="Itinerary" Icon={FaMapMarkedAlt}>
-              <Itinerary />
+            <div style={{ width: "40%", height: "100%" }}>
+              <MapComponent />
             </div>
-            <div label="Prepare" Icon={FaCheckSquare}>
-              <PrepareList />
-            </div>
-            <div label="PriceList" Icon={FaMoneyBill}>
-              <PriceList />
-            </div>
-            <div label="Note" Icon={FaCommentAlt}>
-              <Note />
-            </div>
-          </Tabs>
-        </div>
-        <div style={{ width: "40%", height: "100%" }}>
-          <MapComponent />
-        </div>
-      </div>
+          </div>
+        </>
+      )}
       <NotificationContainer />
     </div>
   );

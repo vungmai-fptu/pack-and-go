@@ -44,42 +44,42 @@ export const signRouter = [
 export const mainRouter = [
   {
     path: "/feed",
-    exact: false,
+    exact: true,
     Component: Feed,
   },
   {
     path: "/profile/:username",
-    exact: false,
+    exact: true,
     Component: Profile,
   },
   {
     path: "/search",
-    exact: false,
+    exact: true,
     Component: SearchPage,
   },
   {
     path: "/alltrips",
-    exact: false,
+    exact: true,
     Component: AllTrips,
   },
   {
     path: "/alltravelers",
-    exact: false,
+    exact: true,
     Component: AllTravelers,
   },
   {
     path: "/trip-page",
-    exact: false,
+    exact: true,
     Component: TripPage,
   },
   {
     path: "/setting",
-    exact: false,
+    exact: true,
     Component: SettingProfile,
   },
   {
     path: "/trip/:id?",
-    exact: false,
+    exact: true,
     Component: Trip,
   },
   {

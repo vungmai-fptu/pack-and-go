@@ -11,6 +11,7 @@ import PastTrips from "../../../components/profile/PastTrips";
 // import TabGroup from "../../../components/profile/MapNav/TabGroup";
 import SkeletonProfile from "../../../components/SkeletonCard/SkeletonProfile";
 import { getMe, getUser } from "../../../store/actions/user.action";
+import Err from "../err";
 
 const Profile = () => {
   const { username } = useParams();
@@ -30,7 +31,7 @@ const Profile = () => {
     [username]
   );
   const { loading } = useSelector((state) => state.common);
-  const { users } = useSelector((state) => state.user);
+  const { users, errUser } = useSelector((state) => state.user);
   if (!loading && users) {
     const today = moment(new Date()).format("YYYY-MM-DD");
     futureTrips = users.trips.filter((trip) =>
@@ -42,18 +43,24 @@ const Profile = () => {
   }
   return (
     <>
-      {loading || !users ? (
-        <>
-          <SkeletonProfile />
-          <Load />
-        </>
+      {errUser !== null ? (
+        <Err />
       ) : (
         <>
-          <Header users={users} />
-          {/* <TabGroup /> */}
-          <FutureTrips trips={futureTrips} />
-          <PastTrips trips={pastTrips} />
-          {/* <CountryList /> */}
+          {loading || !users ? (
+            <>
+              <SkeletonProfile />
+              <Load />
+            </>
+          ) : (
+            <>
+              <Header users={users} />
+              {/* <TabGroup /> */}
+              <FutureTrips trips={futureTrips} />
+              <PastTrips trips={pastTrips} />
+              {/* <CountryList /> */}
+            </>
+          )}
         </>
       )}
     </>
