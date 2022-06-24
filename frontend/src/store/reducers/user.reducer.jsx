@@ -23,7 +23,6 @@ const initialState = {
   listTrip: [],
   users: null,
   errors: {},
-  errUser: null,
   getInfo: {},
 };
 
@@ -52,7 +51,7 @@ const userReducer = (state = initialState, action) => {
       return { ...state, users: payload };
     }
     case USER_FAILED: {
-      return { ...state, errUser: payload };
+      return { ...state, errors: payload };
     }
     case GET_INFO_SUCCESS: {
       return { ...state, getInfo: payload };

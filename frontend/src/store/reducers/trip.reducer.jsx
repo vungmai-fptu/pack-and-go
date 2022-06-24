@@ -20,7 +20,6 @@ import {
   SET_TRIP_STATUS,
   TRIP_MODE,
   UPDATE_DAY,
-  SET_TRIP_ID_FAILED,
 } from "../constants/trip.const";
 
 export const tripInitialState = {
@@ -60,7 +59,7 @@ export const tripInitialState = {
     ],
     tripMates: [],
   },
-  errorTrip: null,
+  error: null,
 };
 
 const tripReducer = (state = tripInitialState, action) => {
@@ -234,12 +233,6 @@ const tripReducer = (state = tripInitialState, action) => {
           ...state.trip,
           id: payload,
         },
-      };
-    }
-    case SET_TRIP_ID_FAILED: {
-      return {
-        ...state,
-        errorTrip: payload,
       };
     }
     case CHANGE_MODE:

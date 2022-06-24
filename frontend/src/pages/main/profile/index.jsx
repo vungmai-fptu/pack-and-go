@@ -1,5 +1,5 @@
 import moment from "moment";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import Load from "../../../components/Load";
@@ -16,22 +16,24 @@ import Err from "../err";
 const Profile = () => {
   const { username } = useParams();
   const { user } = useSelector((state) => state.user);
+
   const dispatch = useDispatch();
   let futureTrips = [];
   let pastTrips = [];
   useEffect(
     () => {
       if (user?.username === username) {
-        dispatch(getMe(username));
+        dispatch(getMe(username, setErrUser));
       } else {
-        dispatch(getUser(username));
+        dispatch(getUser(username, setErrUser));
       }
     },
     // eslint-disable-next-line
     [username]
   );
+  const [errUser, setErrUser] = useState(null);
   const { loading } = useSelector((state) => state.common);
-  const { users, errUser } = useSelector((state) => state.user);
+  const { users } = useSelector((state) => state.user);
   if (!loading && users) {
     const today = moment(new Date()).format("YYYY-MM-DD");
     futureTrips = users.trips.filter((trip) =>

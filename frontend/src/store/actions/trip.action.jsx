@@ -49,7 +49,7 @@ export const saveTrip = (trip) => {
   };
 };
 
-export const setTrip = (id) => {
+export const setTrip = (id, setErrorTrip) => {
   return async (dispatch) => {
     const userLogin = localStorage.getItem("userLogin");
     console.log(userLogin);
@@ -98,10 +98,7 @@ export const setTrip = (id) => {
       })
       .catch((err) => {
         dispatch(stopLoading());
-        dispatch({
-          type: SET_TRIP_ID_FAILED,
-          payload: err,
-        });
+        setErrorTrip(err);
         NotificationManager.error(err.response.data.message);
       });
   };

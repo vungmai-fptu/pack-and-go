@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Tabs from "../../../components/tab/tabs";
 import Header from "./header";
 import PrepareList from "./PrepareList";
@@ -28,11 +28,10 @@ import Err from "../err";
 function Trip() {
   const { id } = useParams();
   const dispatch = useDispatch();
-  const { errorTrip } = useSelector((state) => state.trip);
   useEffect(
     () => {
       if (id) {
-        dispatch(setTrip(id));
+        dispatch(setTrip(id, setErrorTrip));
       }
       return () => {
         dispatch({
@@ -45,9 +44,9 @@ function Trip() {
       };
     },
     // eslint-disable-next-line
-    []
+    [id]
   );
-
+  const [errorTrip, setErrorTrip] = useState(null);
   return (
     <div className={styles.newTrip}>
       {errorTrip !== null ? (

@@ -280,7 +280,7 @@ const getListTripFailed = (err) => {
     payload: err,
   };
 };
-export const getUser = (username) => {
+export const getUser = (username, setErrUser) => {
   return (dispatch) => {
     dispatch(startLoading());
     axios({
@@ -293,12 +293,13 @@ export const getUser = (username) => {
         dispatch(stopLoading());
       })
       .catch((err) => {
+        setErrUser(err);
         dispatch(getUserFailed(err));
         dispatch(stopLoading());
       });
   };
 };
-export const getMe = (username) => {
+export const getMe = (username, setErrUser) => {
   return (dispatch) => {
     dispatch(startLoading());
     axios({
@@ -311,6 +312,7 @@ export const getMe = (username) => {
         dispatch(stopLoading());
       })
       .catch((err) => {
+        setErrUser(err);
         dispatch(getUserFailed(err));
         dispatch(stopLoading());
       });
@@ -324,10 +326,10 @@ export const getUserSuccess = (users) => {
   };
 };
 
-const getUserFailed = (errUser) => {
+const getUserFailed = (err) => {
   return {
     type: USER_FAILED,
-    payload: errUser,
+    payload: err,
   };
 };
 
