@@ -1,5 +1,4 @@
 import { IoNotificationsOutline } from "react-icons/io5";
-// import LocationSearchInput from "../../../../components/SearchBoxMap";
 import Transport from "./transport";
 import ImageUpload from "../../../../components/imageUpload";
 import { useDispatch, useSelector } from "react-redux";

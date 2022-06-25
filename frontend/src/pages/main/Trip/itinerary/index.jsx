@@ -28,13 +28,17 @@ export default function Itinerary() {
     });
   };
 
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      dispatch({ type: SET_DESCRIPTION, payload: description });
-    }, 1000);
+  useEffect(
+    () => {
+      const timer = setTimeout(() => {
+        dispatch({ type: SET_DESCRIPTION, payload: description });
+      }, 1000);
 
-    return () => clearTimeout(timer);
-  }, [description]);
+      return () => clearTimeout(timer);
+    },
+    // eslint-disable-next-line
+    [description]
+  );
 
   return (
     <div className={styles.iTin_wrapper}>
@@ -43,9 +47,9 @@ export default function Itinerary() {
           <div style={{ padding: "32px 32px 0", marginBottom: "30px" }}>
             <label>Trip Itinerary</label>
             <div className={styles.write}>
-              {mode === TRIP_MODE.VIEW ?
+              {mode === TRIP_MODE.VIEW ? (
                 <span>{trip.description}</span>
-                :
+              ) : (
                 <div style={{ padding: "5.5px 10px" }}>
                   <input
                     type="text"
@@ -54,15 +58,14 @@ export default function Itinerary() {
                     placeholder="Write a decription to the trip"
                   ></input>
                 </div>
-              }
+              )}
             </div>
           </div>
           <div className={styles.allDay}>
             <div className={styles.leftAdd} />
             <div className={styles.day}>
               <div className={styles.containerDay}>
-                {
-                  mode !== TRIP_MODE.VIEW &&
+                {mode !== TRIP_MODE.VIEW && (
                   <div className={styles.addADay}>
                     <div className={styles.aDay} onClick={handleAddFirstDay}>
                       <div className={styles.addDIcon}>
@@ -73,7 +76,7 @@ export default function Itinerary() {
                       </div>
                     </div>
                   </div>
-                }
+                )}
               </div>
               {trip.visitDays && trip.visitDays.length !== 0 ? (
                 trip.visitDays.map((day, index) => (
