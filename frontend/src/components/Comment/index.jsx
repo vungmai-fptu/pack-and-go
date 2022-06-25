@@ -2,7 +2,7 @@ import React from "react";
 // import { Button, Comment, Form, Header } from "semantic-ui-react";
 // import "semantic-ui-css/semantic.min.css";
 
-const CommentExampleComment = () => { }
+const CommentSection = () => { }
 // (
 // <Comment.Group>
 //   <Header as="h3" dividing>
@@ -73,4 +73,4 @@ const CommentExampleComment = () => { }
 //   </Form>
 // </Comment.Group>
 // );
-export default CommentExampleComment;
+export default CommentSection;
