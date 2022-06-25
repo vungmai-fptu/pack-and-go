@@ -4,6 +4,7 @@
 
 .iTin_wrapper {
   flex: 1;
+  overflow: auto;
 }
 
 .thumbnail {
