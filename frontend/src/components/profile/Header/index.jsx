@@ -1,6 +1,5 @@
 import React from "react";
 import styles from "./header.module.css";
-import SectionContainer from "../SectionContainer";
 const Header = (props) => {
   const trips = props.users.trips.map((trips) => trips.visitDays).flat();
   const visit = trips.map((visit) => visit.visitPlaces).flat();
@@ -66,7 +65,9 @@ const Header = (props) => {
                     </div>
                   </div>
                   <div className={styles["user-description"]}>
-                    <p>{props.users.aboutMe}</p>
+                    <p
+                      dangerouslySetInnerHTML={{ __html: props.users.aboutMe }}
+                    ></p>
                   </div>
                 </div>
               </div>

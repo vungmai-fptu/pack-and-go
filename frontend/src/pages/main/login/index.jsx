@@ -13,6 +13,7 @@ import { validateLogin } from "../../../components/validateInput/validateInput";
 import Validate from "../../../components/validateInput";
 import useForm from "./../../../components/useForm/useForm";
 import { useIsLogin } from "../../../hooks/useIsLogin";
+import Load from "../../../components/Load";
 function Login() {
   const { hidden, handleClick } = useIsHidden();
   const dispatch = useDispatch();
@@ -138,12 +139,7 @@ function Login() {
                 {loading ? (
                   <button disabled style={{ opacity: ".4" }}>
                     <span>Log in</span>
-                    <div className="loadingio-spinner-ripple-ormwzc5m72e">
-                      <div className="ldio-gw2gg1659v">
-                        <div />
-                        <div />
-                      </div>
-                    </div>
+                    <Load isSmall={true} />
                   </button>
                 ) : (
                   <button>
