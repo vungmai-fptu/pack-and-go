@@ -48,9 +48,9 @@ export const saveTrip = (trip) => {
 };
 
 export const setTrip = (id) => {
-  return async (dispatch) => {
-    const userLogin = localStorage.getItem("userLogin");
-    console.log(userLogin);
+  return async (dispatch, getState) => {
+
+    const { user } = getState().user;
 
     dispatch(startLoading());
     await axios({
@@ -61,7 +61,7 @@ export const setTrip = (id) => {
         dispatch(stopLoading());
         const { data } = res;
 
-        const canUpdate = userLogin && (JSON.parse(userLogin).username === data.owner || data.tripMates.includes(JSON.parse(userLogin).username));
+        const canUpdate = user && (user.username === data.owner || data.tripMates.includes(user.username));
 
         const visitDays = data.visitDays
           .map(day =>

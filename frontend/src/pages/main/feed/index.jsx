@@ -1,10 +1,13 @@
 import React from "react";
+import NotificationPopup from "../../../components/NotificationPopup";
 import RenderTraveler from "../../../components/RenderTraveler";
 import RenderTripItem from "./../../../components/RenderTripItem";
+
+
 function Feed() {
   return (
     <div className="w_mS w_mT">
-      <div className="w_cs">
+      <div className="w_cs" style={{ position: "relative" }}>
         <div className="w_cu">
           <div className="w_cW w_cX">
             <div className="w_i-">
@@ -14,6 +17,7 @@ function Feed() {
           </div>
         </div>
         <RenderTripItem />
+        <NotificationPopup />
       </div>
     </div>
   );

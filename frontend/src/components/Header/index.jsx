@@ -4,6 +4,7 @@ import {
   IoEarthSharp,
   IoSearch,
   IoLocationSharp,
+  IoNotifications,
 } from "react-icons/io5";
 import logo from "../../assets/images/logos/logo-black-3.png";
 import FormLogout from "./formLogout";
@@ -11,11 +12,21 @@ import styles from "./header.module.css";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useIsLogin } from "../../hooks/useIsLogin";
+import NotificationBox from "../NotificationBox";
+
+const SIZE = 2;
 
 export default function Header() {
+
+  const [notificationActive, setNotificationActive] = useState(false);
+  const [notifications, setNotifications] = useState(null);
   const { user } = useIsLogin();
   const [state, setState] = useState({});
   const [text, setText] = useState("");
+  const [page, setPage] = useState(1);
+  const [loading, setLoading] = useState(false);
+  const [isReachingEnd, setIsReachingEnd] = useState(false);
+
   const history = useHistory();
   useEffect(
     () => {
@@ -28,9 +39,38 @@ export default function Header() {
           setState(persons);
         })
         .catch((error) => console.log(error));
-    },
-    // eslint-disable-next-line
-    []
+    }, []
+  );
+
+
+
+  useEffect(
+    () => {
+      setLoading(true);
+      console.log("NEXT: ", page);
+
+      axios
+        .get(
+          `${process.env.REACT_APP_API_URL}/api/notifications?page=${page}&size=${SIZE}`, {
+          headers: {
+            "Authorization": `Bearer ${user.token}`
+          }
+        }
+        )
+        .then((res) => {
+          console.log(res);
+          setNotifications(prev => prev ? [...prev, ...res.data.data] : res.data.data);
+          setLoading(false);
+          if (page === res.data.total) {
+            setIsReachingEnd(true);
+          }
+
+        })
+        .catch((error) => {
+          console.log(error)
+          setLoading(false);
+        });
+    }, [page]
   );
 
   const onSearch = (e) => {
@@ -46,6 +86,9 @@ export default function Header() {
     state.profileImageUrl == null
       ? "https://wrld-se-prod.b-cdn.net/images/user-empty.svg"
       : state.profileImageUrl;
+
+  const numOfUnRead = notifications?.filter(item => !item.read).length || 0;
+
   return (
     <header>
       <div className={styles.header}>
@@ -94,13 +137,25 @@ export default function Header() {
             </div>
             <span>Create</span>
           </Link>
-          <div className={styles.menuButton} aria-describedby="popup-3">
-            <button>
+          <div className={styles.menuButton} aria-describedby="popup-3" style={{ position: "relative" }}>
+            <button onClick={() => setNotificationActive(prev => !prev)}>
               <div className={styles.menuIcon}>
-                <IoHeart />
+                <IoNotifications />
+                {
+                  numOfUnRead !== 0 && <span className={styles.unread}>{numOfUnRead}</span>
+                }
               </div>
               <span>Notifications</span>
             </button>
+            <NotificationBox
+              isActive={notificationActive}
+              setIsActive={setNotificationActive}
+              notifications={notifications}
+              setNotifications={setNotifications}
+              setPage={setPage}
+              loading={loading}
+              isReachingEnd={isReachingEnd}
+            />
           </div>
         </div>
         <div className={styles.profile}>
@@ -118,7 +173,7 @@ export default function Header() {
             </div>
           </div>
         </div>
-      </div>
-    </header>
+      </div >
+    </header >
   );
 }
