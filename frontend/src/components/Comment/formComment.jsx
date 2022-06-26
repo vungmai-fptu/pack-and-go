@@ -47,11 +47,9 @@ function FormComment({ comment, onDelete, popup }) {
             </div>
           </div>
           <div style={{ display: "inline-flex" }}>
-            {popup && (
-              <button onClick={() => setPopupReply(!popupReply)}>
-                <span>Reply</span>
-              </button>
-            )}
+            <button onClick={() => setPopupReply(!popupReply)}>
+              <span>Reply</span>
+            </button>
             <button onClick={() => onDelete(comment)}>
               <span>Delete</span>
             </button>

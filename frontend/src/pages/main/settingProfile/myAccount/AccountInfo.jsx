@@ -5,18 +5,12 @@ import classNames from "classnames";
 import { useDispatch } from "react-redux";
 import { useIsLogin } from "../../../../hooks/useIsLogin";
 import { updateInfo } from "./../../../../store/actions/user.action";
-import { NotificationContainer } from "react-notifications";
 import ImageUpload from "./../imageUpload/index";
-import htmlToDraft from "html-to-draftjs";
 import { useState } from "react";
 function AccountInfo({ userSettings }) {
   const dispatch = useDispatch();
   const { loading } = useIsLogin();
   const [userSetting, setUserSetting] = useState(userSettings);
-  console.log(
-    "🚀 ~ file: AccountInfo.jsx ~ line 15 ~ AccountInfo ~ userSetting",
-    userSetting
-  );
   const [coverImageUrl, setCoverImageUrl] = useState(userSetting.coverImageUrl);
   const [profileImageUrl, setProfileImageUrl] = useState(
     userSetting.profileImageUrl

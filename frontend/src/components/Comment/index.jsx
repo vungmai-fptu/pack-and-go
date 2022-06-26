@@ -27,7 +27,7 @@ function Comment() {
   const [list, setList] = useState(dataComment);
   const addComment = () => {
     const newComment = {
-      id: Math.random().toString(),
+      id: Math.random().toString().substring(2, 9),
       name,
       comment,
       reply: [],

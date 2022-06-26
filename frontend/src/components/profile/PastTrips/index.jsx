@@ -13,8 +13,8 @@ const PastTrips = ({ trips }) => {
           </div>
         </div>
         <TripList trips={trips} />
-      </SectionContainer >
-    </div >
+      </SectionContainer>
+    </div>
   );
 };
 
