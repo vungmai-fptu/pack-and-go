@@ -98,7 +98,7 @@ const MapComponent = ({ destination }) => {
               <Popup>{p.address}</Popup>
             </Marker>
           ))}
-        <SearchControl
+        {/* <SearchControl
           provider={prov}
           showMarker={false}
           showPopup={false}
@@ -109,7 +109,7 @@ const MapComponent = ({ destination }) => {
           autoClose={true}
           searchLabel={"Enter address, please"}
           keepResult={true}
-        />
+        /> */}
       </MapContainer>
     </div>
   );

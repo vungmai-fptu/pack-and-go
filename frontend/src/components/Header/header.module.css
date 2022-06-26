@@ -16,7 +16,7 @@ a {
   box-shadow: 0 6px 5px rgb(136 148 170 / 16%);
   display: flex;
   flex-direction: row;
-  height: 80px;
+  min-height: 80px;
   padding: 0 16px;
   position: absolute;
   width: 100%;
@@ -145,7 +145,8 @@ a {
 }
 
 .searchIcon img {
-  filter: invert(12%) sepia(34%) saturate(824%) hue-rotate(173deg) brightness(96%) contrast(86%);
+  filter: invert(12%) sepia(34%) saturate(824%) hue-rotate(173deg)
+    brightness(96%) contrast(86%);
   height: 24px;
   width: 24px;
 }
@@ -167,16 +168,19 @@ a {
   margin: 0;
   padding-bottom: 4px;
   display: inline-flex;
+  position: relative;
 }
 
 .menuIcon img {
-  filter: invert(12%) sepia(34%) saturate(824%) hue-rotate(173deg) brightness(96%) contrast(86%);
+  filter: invert(12%) sepia(34%) saturate(824%) hue-rotate(173deg)
+    brightness(96%) contrast(86%);
   height: 24px;
   width: 24px;
 }
 
 .menuButton {
-  cursor: pointer;
+  /* cursor: pointer; */
+
   display: inline-block;
   max-width: 100%;
 }
@@ -186,17 +190,32 @@ a {
   color: #202d3d;
   display: flex;
   flex-direction: column;
-  font-size: 0.875rem;
-  font-weight: 400;
+  font-size: 1rem;
+  font-weight: 600;
   min-width: 100px;
   padding: 0 16px;
   position: relative;
 }
 
 .menuButton img {
-  filter: invert(12%) sepia(34%) saturate(824%) hue-rotate(173deg) brightness(96%) contrast(86%);
+  filter: invert(12%) sepia(34%) saturate(824%) hue-rotate(173deg)
+    brightness(96%) contrast(86%);
   height: 24px;
   width: 26px;
+}
+
+.menuIcon .unread {
+  width: 20px;
+  height: 20px;
+  background: #c5f6fa;
+  border-radius: 50%;
+  padding: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  right: -5px;
+  top: -5px;
 }
 
 .profileList {
@@ -252,7 +271,8 @@ a {
 }
 
 .dropdown svg {
-  filter: invert(77%) sepia(12%) saturate(374%) hue-rotate(184deg) brightness(94%) contrast(87%);
+  filter: invert(77%) sepia(12%) saturate(374%) hue-rotate(184deg)
+    brightness(94%) contrast(87%);
 }
 
 .popupContent {
@@ -355,7 +375,7 @@ svg {
   cursor: pointer;
   display: inline-flex;
   flex-shrink: 1;
-  font-size: .875rem;
+  font-size: 0.875rem;
   font-size: 1rem;
   font-weight: 700;
   height: 48px;
@@ -368,8 +388,9 @@ svg {
   text-align: center;
   white-space: nowrap;
 }
-
 @media (max-width: 1023px) {
+  
+
   .menu {
     /* background: #eff4f9;
     border: 1px solid #e4e8ef; */
@@ -380,7 +401,6 @@ svg {
     justify-content: space-around;
     padding: 1px 0 0;
     width: 20%;
-    margin-bottom: -133px;
   }
 
   .menu a {
