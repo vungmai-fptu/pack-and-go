@@ -49,17 +49,10 @@ export const saveTrip = (trip) => {
   };
 };
 
-<<<<<<< HEAD
-export const setTrip = (id) => {
+export const setTrip = (id, setErrorTrip) => {
   return async (dispatch, getState) => {
 
     const { user } = getState().user;
-=======
-export const setTrip = (id, setErrorTrip) => {
-  return async (dispatch) => {
-    const userLogin = localStorage.getItem("userLogin");
-    console.log(userLogin);
->>>>>>> 6a1ce2e5383c515a2a9d7aaf8e129ec1660a5c2a
 
     dispatch(startLoading());
     await axios({
@@ -70,14 +63,7 @@ export const setTrip = (id, setErrorTrip) => {
         dispatch(stopLoading());
         const { data } = res;
 
-<<<<<<< HEAD
         const canUpdate = user && (user.username === data.owner || data.tripMates.includes(user.username));
-=======
-        const canUpdate =
-          userLogin &&
-          (JSON.parse(userLogin).username === data.owner ||
-            data.tripMates.includes(JSON.parse(userLogin).username));
->>>>>>> 6a1ce2e5383c515a2a9d7aaf8e129ec1660a5c2a
 
         const visitDays = data.visitDays.map((day) => ({
           id: Math.random().toString().substring(2, 9),
