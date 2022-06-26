@@ -5,13 +5,14 @@ import TripList from "../TripList";
 import SectionContainer from "../SectionContainer";
 
 
-const FutureTrips = ({ trips }) => {
+const FutureTrips = ({ trips, users }) => {
   return (
     <div>
       <SectionContainer>
         <div className={styles["trips-title"]}>
           <div className={styles["title-wrapper"]}>
             <label className={styles.title}>My Next Trips</label>
+
             <Link to="/trip">
               <button className={styles["add-btn"]}>
                 <div className={styles["add-btn-title"]}>
@@ -19,6 +20,7 @@ const FutureTrips = ({ trips }) => {
                 </div>
               </button>
             </Link>
+            
           </div>
         </div>
         <TripList trips={trips} />

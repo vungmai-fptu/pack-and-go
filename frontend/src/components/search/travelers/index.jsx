@@ -41,7 +41,6 @@ const Travelers = ({ travelers }) => {
                                     )
                                 }
                             </Grid>) : "NOT FOUND"
-
                     }
                 </div>
             </div>
