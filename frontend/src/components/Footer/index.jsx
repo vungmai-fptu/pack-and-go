@@ -16,7 +16,7 @@ export default function Footer() {
         <div className={styles.container}>
           <div className={styles.col}>
             <a href="/" className={styles.footerLogo}>
-              <img alt="Worldee logo" src={logo} />
+              <img alt="Worldee logo" src={logo}/>
             </a>
           </div>
           <div className={styles.col}>

@@ -80,7 +80,6 @@ export default function Header() {
               </div>
             </div>
           </form>
-
           <div className={styles.grow} />
           <Link to="/">
             <div className={styles.menuIcon}>

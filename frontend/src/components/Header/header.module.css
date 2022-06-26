@@ -44,7 +44,7 @@ a {
   flex-grow: 1;
   flex-shrink: 1;
   max-width: 100%;
-  min-width: 230px;
+  min-width: 0px;
 }
 
 .profile {
@@ -87,6 +87,7 @@ a {
   border-radius: 8px;
   position: relative;
   width: 100%;
+  min-width: 80px;
 }
 
 .searchInput input {
@@ -158,7 +159,7 @@ a {
   font-size: 1rem;
   font-weight: 600;
   min-width: 100px;
-  padding: 0 16px;
+  padding: 0;
   position: relative;
 }
 
@@ -366,4 +367,48 @@ svg {
   padding: 0 21.5px;
   text-align: center;
   white-space: nowrap;
+}
+
+@media (max-width: 1023px) {
+  .menu {
+    /* background: #eff4f9;
+    border: 1px solid #e4e8ef; */
+    border-left: none;
+    border-right: none;
+    display: flex;
+    filter: none;
+    justify-content: space-around;
+    padding: 1px 0 0;
+    width: 20%;
+    margin-bottom: -133px;
+  }
+
+  .menu a {
+    padding: 0;
+    width: 15%;
+  }
+
+  .menu span {
+    display: none;
+  }
+
+  .formLogout span {
+    display: inline-block !important;
+  }
+
+  .profileList span {
+    display: none;
+  }
+
+  .grow {
+    display: none;
+  }
+
+  .search {
+    margin: 0 auto;
+  }
+
+  .searchIcon {
+    display: none;
+  }
 }
