@@ -2,6 +2,8 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import Tab from "./tab";
 import styles from "./Tabs.module.css";
+import { FcLikePlaceholder, FcLike, FcComments, FcShare } from "react-icons/fc";
+import Comment from "../Comment";
 class Tabs extends Component {
   static propTypes = {
     children: PropTypes.instanceOf(Array).isRequired,
@@ -11,6 +13,8 @@ class Tabs extends Component {
     super(props);
     this.state = {
       activeTab: this.props.children[0].props.label,
+      formComment: false,
+      isHeart: false,
     };
   }
 
@@ -22,7 +26,7 @@ class Tabs extends Component {
     const {
       onClickTabItem,
       props: { children },
-      state: { activeTab },
+      state: { activeTab, formComment, isHeart },
     } = this;
 
     return (
@@ -41,10 +45,42 @@ class Tabs extends Component {
             );
           })}
         </div>
-        {children.map((child) => {
-          if (child.props.label !== activeTab) return undefined;
-          return child.props.children;
-        })}
+        <div style={{ flex: "1 1", display: "flex", flexDirection: "column" }}>
+          {children.map((child) => {
+            if (child.props.label !== activeTab) return undefined;
+            return child.props.children;
+          })}
+          <div style={{ borderTop: "1px solid #d0d8e6" }}>
+            <div style={{ display: "flex" }}>
+              <div className={styles.interactive} style={{ display: "flex" }}>
+                <button
+                  onClick={() => {
+                    this.setState({ isHeart: !isHeart });
+                  }}
+                >
+                  <div>{isHeart ? <FcLike /> : <FcLikePlaceholder />} </div>
+                  <span>00</span>
+                </button>
+                <button
+                  onClick={() => {
+                    this.setState({ formComment: !formComment });
+                  }}
+                >
+                  <div>
+                    <FcComments />
+                  </div>
+                  <span>00</span>
+                </button>
+                <button>
+                  <div>
+                    <FcShare />
+                  </div>
+                </button>
+              </div>
+            </div>
+            {formComment && <Comment />}
+          </div>
+        </div>
       </div>
     );
   }

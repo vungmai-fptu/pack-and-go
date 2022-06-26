@@ -1,5 +1,4 @@
 import { IoNotificationsOutline } from "react-icons/io5";
-// import LocationSearchInput from "../../../../components/SearchBoxMap";
 import Transport from "./transport";
 import ImageUpload from "../../../../components/imageUpload";
 import { useDispatch, useSelector } from "react-redux";
@@ -11,12 +10,11 @@ import {
 } from "../../../../store/constants/trip.const";
 import styles from "./overview.module.css";
 import { IoLocationOutline } from "react-icons/io5";
-import bgImage from '../../../../assets/fonts/src_app_components_components_svgIcon_icons_customsprite-70fd46.svg'
-import warningIcon from '../../../../assets/fonts/src_app_components_components_svgIcon_icons_commonsprite-afce76.svg'
+import bgImage from "../../../../assets/fonts/src_app_components_components_svgIcon_icons_customsprite-70fd46.svg";
+import warningIcon from "../../../../assets/fonts/src_app_components_components_svgIcon_icons_commonsprite-afce76.svg";
 import SearchBox from "../../../../components/SearchAddress/SearchBox";
 export default function OverviewOwner() {
-
-  const { trip, mode } = useSelector(state => state.trip);
+  const { trip, mode } = useSelector((state) => state.trip);
 
   const dispatch = useDispatch();
 
@@ -49,9 +47,9 @@ export default function OverviewOwner() {
   };
 
   return (
-    <div className="w_CU">
+    <div className={styles.iTin_wrapper}>
       <div className="w_oz w_CX">
-        <div className={`w_aam w_iW ${styles.thumbnail}`} >
+        <div className={`w_aam w_iW ${styles.thumbnail}`}>
           <ImageUpload
             image={trip.thumbnailUrl}
             handleChangeImage={handleChangeThumbnail}
@@ -119,6 +117,6 @@ export default function OverviewOwner() {
           </div>
         </div>
       </div>
-    </div >
+    </div>
   );
 }

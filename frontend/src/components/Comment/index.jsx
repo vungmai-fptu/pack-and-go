@@ -1,76 +1,65 @@
-import React from "react";
-// import { Button, Comment, Form, Header } from "semantic-ui-react";
-// import "semantic-ui-css/semantic.min.css";
+import React, { useCallback, useState } from "react";
+import styles from "./comment.module.css";
+import FormComment from "./formComment";
+import InputComment from "./inputComment";
 
-const CommentExampleComment = () => { }
-// (
-// <Comment.Group>
-//   <Header as="h3" dividing>
-//     Comments
-//   </Header>
-//   <Comment>
-//     <Comment.Avatar src="https://react.semantic-ui.com/images/avatar/small/matt.jpg" />
-//     <Comment.Content>
-//       <Comment.Author as="a">Matt</Comment.Author>
-//       <Comment.Metadata>
-//         <div>Today at 5:42PM</div>
-//       </Comment.Metadata>
-//       <Comment.Text>How artistic!</Comment.Text>
-//       <Comment.Actions>
-//         <Comment.Action>Reply</Comment.Action>
-//       </Comment.Actions>
-//     </Comment.Content>
-//   </Comment>
+function Comment() {
+  const dataComment = [
+    {
+      id: 1,
+      name: "user1",
+      comment: "test comment 1",
+      reply: [
+        { id: 2, name: "user2", comment: "test comment 2" },
+        { id: 3, name: "user3", comment: "test comment 3" },
+      ],
+    },
+    {
+      id: 4,
+      name: "user4",
+      comment: "test comment 4",
+      reply: [{ id: 5, name: "user5", comment: "test comment 5" }],
+    },
+    { id: 6, name: "user6", comment: "test comment 6", reply: [] },
+  ];
+  const [comment, setComment] = useState("");
+  const [name, setName] = useState("long");
+  const [list, setList] = useState(dataComment);
+  const addComment = () => {
+    const newComment = {
+      id: Math.random().toString(),
+      name,
+      comment,
+      reply: [],
+    };
+    setList([...list, newComment]);
+    setComment("");
+  };
 
-//   <Comment>
-//     <Comment.Avatar src="https://react.semantic-ui.com/images/avatar/small/elliot.jpg" />
-//     <Comment.Content>
-//       <Comment.Author as="a">Elliot Fu</Comment.Author>
-//       <Comment.Metadata>
-//         <div>Yesterday at 12:30AM</div>
-//       </Comment.Metadata>
-//       <Comment.Text>
-//         <p>This has been very useful for my research. Thanks as well!</p>
-//       </Comment.Text>
-//       <Comment.Actions>
-//         <Comment.Action>Reply</Comment.Action>
-//       </Comment.Actions>
-//     </Comment.Content>
-//     <Comment.Group>
-//       <Comment>
-//         <Comment.Avatar src="https://react.semantic-ui.com/images/avatar/small/jenny.jpg" />
-//         <Comment.Content>
-//           <Comment.Author as="a">Jenny Hess</Comment.Author>
-//           <Comment.Metadata>
-//             <div>Just now</div>
-//           </Comment.Metadata>
-//           <Comment.Text>Elliot you are always so right :)</Comment.Text>
-//           <Comment.Actions>
-//             <Comment.Action>Reply</Comment.Action>
-//           </Comment.Actions>
-//         </Comment.Content>
-//       </Comment>
-//     </Comment.Group>
-//   </Comment>
+  const onDelete = useCallback((comment) => {
+    setList((list) =>
+      list.filter((oldComment) =>
+        oldComment.id === comment.id ? null : { oldComment }
+      )
+    );
+  }, []);
+  return (
+    <div className={styles.container}>
+      {list.map((comment, index) => (
+        <FormComment
+          comment={comment}
+          onDelete={onDelete}
+          popup={true}
+          key={index}
+        />
+      ))}
+      <InputComment
+        comment={comment}
+        setComment={setComment}
+        addComment={addComment}
+      />
+    </div>
+  );
+}
 
-//   <Comment>
-//     <Comment.Avatar src="https://react.semantic-ui.com/images/avatar/small/joe.jpg" />
-//     <Comment.Content>
-//       <Comment.Author as="a">Joe Henderson</Comment.Author>
-//       <Comment.Metadata>
-//         <div>5 days ago</div>
-//       </Comment.Metadata>
-//       <Comment.Text>Dude, this is awesome. Thanks so much</Comment.Text>
-//       <Comment.Actions>
-//         <Comment.Action>Reply</Comment.Action>
-//       </Comment.Actions>
-//     </Comment.Content>
-//   </Comment>
-
-//   <Form reply>
-//     <Form.TextArea />
-//     <Button content="Add Reply" labelPosition="left" icon="edit" primary />
-//   </Form>
-// </Comment.Group>
-// );
-export default CommentExampleComment;
+export default Comment;

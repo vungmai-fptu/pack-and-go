@@ -5,6 +5,7 @@ import {
   SET_TRIP,
   SET_TRIP_ID,
   TRIP_MODE,
+  SET_TRIP_ID_FAILED,
 } from "../constants/trip.const";
 import { startLoading, stopLoading } from "./common.action";
 import moment from "moment";
@@ -25,7 +26,9 @@ export const saveTrip = (trip) => {
       data: JSON.stringify({
         ...trip,
         beginDate: moment(trip.beginDate).format("YYYY-MM-DD"),
-        endDate: trip.endDate ? moment(trip.endDate).format("YYYY-MM-DD") : null,
+        endDate: trip.endDate
+          ? moment(trip.endDate).format("YYYY-MM-DD")
+          : null,
       }),
     })
       .then((res) => {
@@ -41,16 +44,22 @@ export const saveTrip = (trip) => {
         NotificationManager.success("Trip was planned successfully");
       })
       .catch((err) => {
-        dispatch(stopLoading());
         NotificationManager.error(err.response.data.message);
       });
   };
 };
 
+<<<<<<< HEAD
 export const setTrip = (id) => {
   return async (dispatch, getState) => {
 
     const { user } = getState().user;
+=======
+export const setTrip = (id, setErrorTrip) => {
+  return async (dispatch) => {
+    const userLogin = localStorage.getItem("userLogin");
+    console.log(userLogin);
+>>>>>>> 6a1ce2e5383c515a2a9d7aaf8e129ec1660a5c2a
 
     dispatch(startLoading());
     await axios({
@@ -61,16 +70,23 @@ export const setTrip = (id) => {
         dispatch(stopLoading());
         const { data } = res;
 
+<<<<<<< HEAD
         const canUpdate = user && (user.username === data.owner || data.tripMates.includes(user.username));
+=======
+        const canUpdate =
+          userLogin &&
+          (JSON.parse(userLogin).username === data.owner ||
+            data.tripMates.includes(JSON.parse(userLogin).username));
+>>>>>>> 6a1ce2e5383c515a2a9d7aaf8e129ec1660a5c2a
 
-        const visitDays = data.visitDays
-          .map(day =>
-          ({
+        const visitDays = data.visitDays.map((day) => ({
+          id: Math.random().toString().substring(2, 9),
+          ...day,
+          visitPlaces: day.visitPlaces.map((place) => ({
+            ...place,
             id: Math.random().toString().substring(2, 9),
-            ...day,
-            visitPlaces: day.visitPlaces.map(place => ({ ...place, id: Math.random().toString().substring(2, 9) }))
-          })
-          )
+          })),
+        }));
 
         dispatch({
           type: SET_TRIP,
@@ -93,6 +109,7 @@ export const setTrip = (id) => {
       })
       .catch((err) => {
         dispatch(stopLoading());
+        setErrorTrip(err);
         NotificationManager.error(err.response.data.message);
       });
   };

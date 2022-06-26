@@ -5,28 +5,10 @@ import SkeletonTripItem from "../SkeletonCard/SkeletonTripItem";
 import { useDispatch } from "react-redux";
 import { getListTrip } from "../../store/actions/user.action";
 export default function RenderTripItem() {
-  // const [totalPage, setTotalPage] = useState(0);
-  // useEffect(() => {
-  //   const getUserList = () => {
-  //     fetch(`${process.env.REACT_APP_API_URL}/api/trips?size=9`)
-  //       .then((res) => res.json())
-  //       .then((res) => {
-  //         setTotalPage(res.total);
-  //       });
-  //   };
-  //   getUserList();
-  //   // eslint-disable-next-line
-  // }, []);
-  // console.log("🚀 ==", totalPage);
   const dispatch = useDispatch();
   const [totalPages, setTotalPages] = useState(0);
   const [page, setPage] = useState(1);
-  console.log("🚀 ", page);
   const [userList, setUserList] = useState([]);
-  console.log(
-    "🚀 ~ file: index.jsx ~ line 26 ~ RenderTripItem ~ userList",
-    userList
-  );
   const [loading, setLoading] = useState(false);
   useEffect(() => {
     dispatch(

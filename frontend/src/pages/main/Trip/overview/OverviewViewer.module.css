@@ -1,8 +1,12 @@
 .overview_container {
   flex: 1;
 }
-.overview_inner {
+
+.iTin_wrapper {
+  flex: 1;
+  overflow: auto;
 }
+
 .thumbnail {
   height: 40vh;
   margin-bottom: 50px;
@@ -27,7 +31,7 @@
   padding: 10px 30px;
 }
 
-.amounts > div {
+.amounts>div {
   display: flex;
   align-items: center;
   gap: 8px;
@@ -50,6 +54,7 @@
   font-weight: 700;
   margin-bottom: 10px;
 }
+
 .overview_destination .destination {
   font-size: 20px;
   display: flex;
@@ -60,6 +65,7 @@
   border-radius: 8px;
   cursor: pointer;
 }
+
 .overview_destination .destination:hover {
   background: #c5f6fa;
 }

@@ -2,6 +2,7 @@ import React from "react";
 import NotificationContainer from "react-notifications/lib/NotificationContainer";
 import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
+import Load from "../../../components/Load";
 import useForm from "../../../components/useForm/useForm";
 import Validate from "../../../components/validateInput";
 import { validateForgotPassword } from "../../../components/validateInput/validateInput";
@@ -68,12 +69,7 @@ function ForgotPassword() {
                 {loading ? (
                   <button disabled style={{ opacity: ".4" }}>
                     <span>Reset password </span>
-                    <div className="loadingio-spinner-ripple-ormwzc5m72e">
-                      <div className="ldio-gw2gg1659v">
-                        <div />
-                        <div />
-                      </div>
-                    </div>
+                    <Load isSmall={true} />
                   </button>
                 ) : (
                   <button>

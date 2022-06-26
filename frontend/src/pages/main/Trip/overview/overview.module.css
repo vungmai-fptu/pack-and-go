@@ -3,12 +3,18 @@
   color: #fff;
 }
 
+.iTin_wrapper {
+  flex: 1;
+  overflow: auto;
+}
+
 .item {
   padding: 5px 25px 0px 25px;
   border-radius: 8px;
   cursor: pointer;
   transition: all 0.2s;
 }
+
 .notify_input {
   width: 100%;
   font-size: 20px;
@@ -48,6 +54,7 @@
   display: flex;
   align-items: center;
 }
+
 .input_day select {
   background: hsla(0, 0%, 100%, 0);
   border: none;

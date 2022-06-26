@@ -59,7 +59,7 @@ export const tripInitialState = {
     ],
     tripMates: [],
   },
-  error: {},
+  error: null,
 };
 
 const tripReducer = (state = tripInitialState, action) => {

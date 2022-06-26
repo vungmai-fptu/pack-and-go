@@ -20,6 +20,7 @@ import {
   USER_FAILED,
   UPDATE_INFO_SUCCESS,
   UPDATE_INFO_FAILED,
+  GET_INFO_SUCCESS,
 } from "../constants/user.const";
 import { startLoading, stopLoading } from "../actions/common.action";
 const API_URL = process.env.REACT_APP_API_URL;
@@ -279,7 +280,7 @@ const getListTripFailed = (err) => {
     payload: err,
   };
 };
-export const getUser = (username) => {
+export const getUser = (username, setErrUser) => {
   return (dispatch) => {
     dispatch(startLoading());
     axios({
@@ -292,12 +293,13 @@ export const getUser = (username) => {
         dispatch(stopLoading());
       })
       .catch((err) => {
+        setErrUser(err);
         dispatch(getUserFailed(err));
         dispatch(stopLoading());
       });
   };
 };
-export const getMe = (username) => {
+export const getMe = (username, setErrUser) => {
   return (dispatch) => {
     dispatch(startLoading());
     axios({
@@ -310,6 +312,7 @@ export const getMe = (username) => {
         dispatch(stopLoading());
       })
       .catch((err) => {
+        setErrUser(err);
         dispatch(getUserFailed(err));
         dispatch(stopLoading());
       });
@@ -407,7 +410,28 @@ export const updateInfo = (profileImageUrl, coverImageUrl, aboutMe, values) => {
       });
   };
 };
-
+export const getAccountInfo = () => {
+  return (dispatch) => {
+    dispatch(startLoading());
+    axios({
+      method: "GET",
+      url: `${API_URL}/api/user/account`,
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    }).then((res) => {
+      dispatch(stopLoading());
+      dispatch(getInfoSuccess(res.data));
+    });
+  };
+};
+const getInfoSuccess = (getInfo) => {
+  return {
+    type: GET_INFO_SUCCESS,
+    payload: getInfo,
+  };
+};
 const updateInfoSuccess = (info) => {
   return {
     type: UPDATE_INFO_SUCCESS,
