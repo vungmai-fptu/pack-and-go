@@ -24,6 +24,13 @@ function Comment() {
   ];
   const [comment, setComment] = useState("");
   const [name, setName] = useState("long");
+  const [updated, setUpdated] = useState({
+    id: null,
+    name: "",
+    comment: "",
+    reply: [],
+  });
+  console.log("🚀 ~ file: index.jsx ~ line 28 ~ Comment ~ updated", updated);
   const [list, setList] = useState(dataComment);
   const addComment = () => {
     const newComment = {
@@ -43,20 +50,30 @@ function Comment() {
       )
     );
   }, []);
+  const onUpdate = (id, updateComment) => {
+    setList(
+      list.map((comment) => (comment.id === id ? updateComment : comment))
+    );
+  };
   return (
     <div className={styles.container}>
       {list.map((comment, index) => (
         <FormComment
           comment={comment}
           onDelete={onDelete}
+          setUpdated={setUpdated}
           popup={true}
+          updated={updated}
           key={index}
         />
       ))}
       <InputComment
         comment={comment}
+        updated={updated}
+        setUpdated={setUpdated}
         setComment={setComment}
         addComment={addComment}
+        onUpdate={onUpdate}
       />
     </div>
   );

@@ -1,69 +1,55 @@
-import React, { Component } from "react";
-import PropTypes from "prop-types";
+import React, { useState } from "react";
 import Tab from "./tab";
 import styles from "./Tabs.module.css";
 import { FcLikePlaceholder, FcLike, FcComments, FcShare } from "react-icons/fc";
 import Comment from "../Comment";
-class Tabs extends Component {
-  static propTypes = {
-    children: PropTypes.instanceOf(Array).isRequired,
+import { useSelector } from "react-redux";
+import { TRIP_MODE } from "../../store/constants/trip.const";
+function Tabs(props) {
+  const [activeTab, setActiveTab] = useState(props.children[0].props.label);
+  const [formComment, setFormComment] = useState(false);
+  const [isHeart, setIsHeart] = useState(false);
+  const { mode } = useSelector((state) => state.trip);
+  const onClickTabItem = (tab) => {
+    setActiveTab(tab);
   };
 
-  constructor(props) {
-    super(props);
-    this.state = {
-      activeTab: this.props.children[0].props.label,
-      formComment: false,
-      isHeart: false,
-    };
-  }
-
-  onClickTabItem = (tab) => {
-    this.setState({ activeTab: tab });
-  };
-
-  render() {
-    const {
-      onClickTabItem,
-      props: { children },
-      state: { activeTab, formComment, isHeart },
-    } = this;
-
-    return (
-      <div className="w_CS" style={{ minWidth: "fit-content" }}>
-        <div style={{ background: "#071125" }} className={styles.tabs}>
-          {children.map((child) => {
-            const { label, Icon } = child.props;
-            return (
-              <Tab
-                activeTab={activeTab}
-                key={label}
-                label={label}
-                onClick={onClickTabItem}
-                Icon={Icon}
-              />
-            );
-          })}
-        </div>
-        <div style={{ flex: "1 1", display: "flex", flexDirection: "column" }}>
-          {children.map((child) => {
-            if (child.props.label !== activeTab) return undefined;
-            return child.props.children;
-          })}
+  return (
+    <div className="w_CS" style={{ minWidth: "fit-content" }}>
+      <div style={{ background: "#071125" }} className={styles.tabs}>
+        {props.children.map((child) => {
+          const { label, Icon } = child.props;
+          return (
+            <Tab
+              activeTab={activeTab}
+              key={label}
+              label={label}
+              onClick={onClickTabItem}
+              Icon={Icon}
+            />
+          );
+        })}
+      </div>
+      <div style={{ flex: "1 1", display: "flex", flexDirection: "column" }}>
+        {props.children.map((child) => {
+          if (child.props.label !== activeTab) return undefined;
+          return child.props.children;
+        })}
+        {mode !== TRIP_MODE.CREATE && (
           <div style={{ borderTop: "1px solid #d0d8e6" }}>
             <div style={{ display: "flex" }}>
               <div className={styles.interactive} style={{ display: "flex" }}>
                 <button
                   onClick={() => {
-                    this.setState({ isHeart: !isHeart });
+                    setIsHeart(!isHeart);
                   }}
                 >
-                  <div>{isHeart ? <FcLike /> : <FcLikePlaceholder />} </div>
+                  <div>{isHeart ? <FcLike /> : <FcLikePlaceholder />}</div>
                   <span>00</span>
                 </button>
                 <button
                   onClick={() => {
-                    this.setState({ formComment: !formComment });
+                    setFormComment(!formComment);
                   }}
                 >
                   <div>
@@ -80,10 +66,10 @@ class Tabs extends Component {
             </div>
             {formComment && <Comment />}
           </div>
-        </div>
+        )}
       </div>
-    );
-  }
+    </div>
+  );
 }
 
 export default Tabs;
