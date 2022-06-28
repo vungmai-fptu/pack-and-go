@@ -51,12 +51,12 @@
 
 .container table tbody tr:hover {
     color: #fff;
-    background-color: #fb4f83;
+    background-color: #DDD;
 }
 
 .container table tbody tr td {
     display: flex;
-    flex-wrap: wrap;
+    /* flex-wrap: wrap; */
     align-items: center;
 }
 
@@ -104,4 +104,30 @@
 
 .status-indicator--new {
     background: #febf02;
+}
+
+.save_button,
+.close_button {
+    height: fit-content;
+    border-radius: 8px;
+    padding: 0 20px;
+    align-self: end;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.save_button {
+    background: #22b8cf;
+}
+
+.save_button:hover {
+    background: #15aabf;
+}
+
+.close_button {
+    background: #f03e3e;
+}
+
+.close_button:hover {
+    background: #e03131;
 }
