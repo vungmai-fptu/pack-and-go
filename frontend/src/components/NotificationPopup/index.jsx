@@ -28,7 +28,7 @@ import { SET_LOCATION } from '../../store/constants/map.const'
 const API_URL = process.env.REACT_APP_API_URL;
 
 const NotificationPopup = (props) => {
-    const [isActive, setIsActive] = useState(false);
+    const [isActive, setIsActive] = useState(true);
     const ref = useRef();
     useOutsideClick(ref, () => setIsActive(false));
     const { user } = useSelector(state => state.user);
@@ -66,7 +66,9 @@ const NotificationPopup = (props) => {
                     setOccuringTrip(trip);
                     dispatch({
                         type: SET_LOCATION,
-                        payload: trip.destination
+                        payload: {
+                            ...trip.destination
+                        }
                     })
                 }
 
@@ -97,7 +99,7 @@ const NotificationPopup = (props) => {
                             </PopupHeader>
                             <PopupMap>
                                 <NotificationMap
-                                    zoom={5}
+                                    zoom={6}
                                     destination={location}
                                 />
                             </PopupMap>
@@ -106,7 +108,9 @@ const NotificationPopup = (props) => {
                                     onClick={() => {
                                         dispatch({
                                             type: SET_LOCATION,
-                                            payload: occuringTrip.destination
+                                            payload: {
+                                                ...occuringTrip.destination
+                                            }
                                         })
                                     }}
                                 >
@@ -148,7 +152,7 @@ const NotificationPopup = (props) => {
                         </PopupContent>
                     </PopupContainer>
                 )
-            ) : <div>NO</div>
+            ) : <></>
         }
     </>
 

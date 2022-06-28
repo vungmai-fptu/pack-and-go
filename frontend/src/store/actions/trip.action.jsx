@@ -44,6 +44,7 @@ export const saveTrip = (trip) => {
         NotificationManager.success("Trip was planned successfully");
       })
       .catch((err) => {
+        dispatch(stopLoading());
         NotificationManager.error(err.response.data.message);
       });
   };
@@ -51,9 +52,7 @@ export const saveTrip = (trip) => {
 
 export const setTrip = (id, setErrorTrip) => {
   return async (dispatch, getState) => {
-
     const { user } = getState().user;
-
     dispatch(startLoading());
     await axios({
       method: "GET",
@@ -63,7 +62,10 @@ export const setTrip = (id, setErrorTrip) => {
         dispatch(stopLoading());
         const { data } = res;
 
-        const canUpdate = user && (user.username === data.owner || data.tripMates.includes(user.username));
+        const canUpdate =
+          user &&
+          (user.username === data.owner ||
+            data.tripMates.includes(user.username));
 
         const visitDays = data.visitDays.map((day) => ({
           id: Math.random().toString().substring(2, 9),

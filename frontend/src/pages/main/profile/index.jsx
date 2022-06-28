@@ -22,6 +22,7 @@ const Profile = () => {
   let pastTrips = [];
   useEffect(
     () => {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
       if (user?.username === username) {
         dispatch(getMe(username, setErrUser));
       } else {

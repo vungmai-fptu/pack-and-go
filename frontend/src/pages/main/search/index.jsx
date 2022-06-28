@@ -17,9 +17,11 @@ const SearchPage = () => {
     users: [],
   })
 
+  const [loading, setLoading] = useState(false);
+
   useEffect(() => {
-    console.log(query.get("text"));
     const fetchData = async () => {
+      setLoading(true);
       fetch(`${API_URL}/api/search?text=${text}`, {
         method: "GET",
       })
@@ -30,8 +32,10 @@ const SearchPage = () => {
             users: result.users,
             trips: result.trips
           }))
+          setLoading(false);
         }).catch(err => {
           console.log(err);
+          setLoading(false);
         })
     }
     fetchData();
@@ -40,8 +44,12 @@ const SearchPage = () => {
   return (
     <>
       <Header keyword={text} />
-      <Travelers travelers={data.users} />
-      <TripList trips={data.trips} />
+      <Travelers
+        loading={loading}
+        travelers={data.users} />
+      <TripList
+        loading={loading}
+        trips={data.trips} />
     </>
   );
 };

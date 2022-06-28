@@ -33,7 +33,7 @@ const NotificationMap = ({ destination, zoom }) => {
 
 
     const showMyLocation = () => {
-        if (location.loaded) {
+        if (mapRef.current) {
             mapRef.current.flyTo(
                 [destination?.latitude || 50, destination?.longitude || 50],
                 zoom,
@@ -49,14 +49,13 @@ const NotificationMap = ({ destination, zoom }) => {
     return (
         <Wrapper>
             <MapContainer
-                center={[50, 50]}
+                center={[destination?.latitude || 50, destination?.longitude || 50]}
                 zoom={zoom}
                 scrollWheelZoom={true}
                 ref={mapRef}
             >
                 <TileLayer
-                    attribution={osm.maptiler.attribution}
-                    url={osm.maptiler.url}
+                    url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                 />
                 {destination && (
                     <>
@@ -78,7 +77,7 @@ const NotificationMap = ({ destination, zoom }) => {
                         icon={makerIcon}
                         position={[
                             location.coordinates.lat || 50,
-                            location.coordinates.long || 50,
+                            location.coordinates.lng || 50,
                         ]}
                     >
                         <Popup>Your location</Popup>

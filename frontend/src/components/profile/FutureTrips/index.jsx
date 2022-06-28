@@ -16,7 +16,7 @@ const FutureTrips = ({ trips }) => {
         <div className={styles["trips-title"]}>
           <div className={styles["title-wrapper"]}>
             <label className={styles.title}>My Next Trips</label>
-            {username === user.username ? (
+            {user && username === user.username ? (
               <Link to="/trip">
                 <button className={styles["add-btn"]}>
                   <div className={styles["add-btn-title"]}>

@@ -11,19 +11,10 @@ import { AiOutlineWarning } from 'react-icons/ai'
 
 const API_URL = process.env.REACT_APP_API_URL;
 
-const Popup = styled.div`
+const Wrapper = styled.div`
     position: absolute;
     right: 10px;
     top: 65px;
-    max-width: 400px;
-    width: 90vw;
-    border-radius: 10px;
-    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
-    text-align: start;
-    // overflow: hidden;
-    z-index: 9;
-    background: #fff;
-    transition: all 0.5s ease;
 
     &:after {
         content: ""; 
@@ -36,6 +27,21 @@ const Popup = styled.div`
         color: rgb(0,0,0); //make it invisible
         display: inline-block; //so width & height can be set
     }
+`;
+
+const Popup = styled.div`
+    max-width: 400px;
+    width: 90vw;
+    border-radius: 10px;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    text-align: start;
+    overflow: hidden;
+    z-index: 9;
+    background: #fff;
+    transition: all 0.5s ease;
+
+
+ 
 
     &.active {
         opacity: 1;
@@ -52,10 +58,14 @@ const Popup = styled.div`
 
 const NotificationWrapper = styled.div`
     max-height: 500px;
-    overflow-y: auto;
+    overflow: hidden;
 `
 
-const NotificationList = styled.ul``
+const NotificationList = styled.ul`
+    height: 100%;
+    overflow-y: auto;
+
+`
 
 const NotificationItem = styled.div`
     width: 100%;
@@ -165,74 +175,76 @@ const NotificationBox = ({
     };
 
     return (
-        <Popup ref={ref} className={isActive ? "active" : "inactive"}>
-            <NotificationWrapper>
-                <NotificationList>
-                    {
-                        notifications ? (
-                            notifications.length !== 0 ? (
-                                notifications.map(item => (
-                                    <li style={{ width: "100%" }} key={item.id}>
-                                        <NotificationItem
-                                            isRead={item.read}
-                                            key={item.id}
-                                            onClick={() => onClickNotification(item)}
-                                        >
-                                            {
-                                                item.type === "comming_trip" && (
-                                                    <>
-                                                        <NotificationIcon>
-                                                            <MdOutlineNotificationsActive />
-                                                        </NotificationIcon>
-                                                        <p>You are going on a trip <span className='trip-name'>{item.trip.name}</span>
-                                                        </p>
-                                                    </>
-                                                )
-                                            }
-                                            {
-                                                item.type === "invitation" && (
+        <Wrapper>
+            <Popup ref={ref} className={isActive ? "active" : "inactive"}>
+                <NotificationWrapper style={{ overflow: "hidden" }}>
+                    <NotificationList>
+                        {
+                            notifications ? (
+                                notifications.length !== 0 ? (
+                                    notifications.map(item => (
+                                        <li style={{ width: "100%" }} key={item.id}>
+                                            <NotificationItem
+                                                isRead={item.read}
+                                                key={item.id}
+                                                onClick={() => onClickNotification(item)}
+                                            >
+                                                {
+                                                    item.type === "comming_trip" && (
+                                                        <>
+                                                            <NotificationIcon>
+                                                                <MdOutlineNotificationsActive />
+                                                            </NotificationIcon>
+                                                            <p>You are going on a trip <span className='trip-name'>{item.trip.name}</span>
+                                                            </p>
+                                                        </>
+                                                    )
+                                                }
+                                                {
+                                                    item.type === "invitation" && (
 
-                                                    <>
-                                                        <NotificationIcon>
-                                                            <GoMailRead />
-                                                        </NotificationIcon>
-                                                        <p>
-                                                            <Link
-                                                                to={`/profile/${item.trip.owner}`}
-                                                                onClick={(e) => {
-                                                                    e.stopPropagation();
-                                                                    setIsActive(false);
-                                                                }}
-                                                                className='inviter'>{item.trip.owner}
-                                                            </Link>
-                                                            invited you to join a trip diary <span className='trip-name'>{item.trip.name}</span>
-                                                        </p>
-                                                    </>
-                                                )
-                                            }
+                                                        <>
+                                                            <NotificationIcon>
+                                                                <GoMailRead />
+                                                            </NotificationIcon>
+                                                            <p>
+                                                                <Link
+                                                                    to={`/profile/${item.trip.owner}`}
+                                                                    onClick={(e) => {
+                                                                        e.stopPropagation();
+                                                                        setIsActive(false);
+                                                                    }}
+                                                                    className='inviter'>{item.trip.owner}
+                                                                </Link>
+                                                                invited you to join a trip diary <span className='trip-name'>{item.trip.name}</span>
+                                                            </p>
+                                                        </>
+                                                    )
+                                                }
 
-                                        </NotificationItem>
+                                            </NotificationItem>
 
-                                    </li>
-                                ))
-                            ) : (
-                                <NoIem>
-                                    <AiOutlineWarning />
-                                    <p> No notification</p>
-                                </NoIem>)
-                        ) : (<p>Loading...</p>)
-                    }
-                </NotificationList>
-            </NotificationWrapper>
-            {
-                !isReachingEnd && notifications && notifications.length !== 0 && (
-                    <Button
-                        onClick={() => setPage(prev => prev + 1)}>
-                        {!loading ? "Load More" : "Loading..."}
-                    </Button>
-                )
-            }
-        </Popup >
+                                        </li>
+                                    ))
+                                ) : (
+                                    <NoIem>
+                                        <AiOutlineWarning />
+                                        <p> No notification</p>
+                                    </NoIem>)
+                            ) : (<p>Loading...</p>)
+                        }
+                    </NotificationList>
+                </NotificationWrapper>
+                {
+                    !isReachingEnd && notifications && notifications.length !== 0 && (
+                        <Button
+                            onClick={() => setPage(prev => prev + 1)}>
+                            {!loading ? "Load More" : "Loading..."}
+                        </Button>
+                    )
+                }
+            </Popup >
+        </Wrapper>
     )
 }
 

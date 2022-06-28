@@ -5,7 +5,7 @@ import Traveler from '../../Traveller/traveler';
 import SectionContainer from '../../landing/SectionContainer';
 import { useState } from 'react';
 
-const Travelers = ({ travelers }) => {
+const Travelers = ({ travelers, loading }) => {
     const [showed, setShowed] = useState(false);
 
     const onShowList = () => {
