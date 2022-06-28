@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import styles from "./comment.module.css";
 import InputComment from "./inputComment";
 
-function FormComment({ comment, onDelete, popup }) {
+function FormComment({ comment, onDelete, setUpdated, popup, updated }) {
   const [popupReply, setPopupReply] = useState(false);
   const [reply, setReply] = useState("");
   const [name, setName] = useState("long");
@@ -47,15 +47,13 @@ function FormComment({ comment, onDelete, popup }) {
             </div>
           </div>
           <div style={{ display: "inline-flex" }}>
-            {popup && (
-              <button onClick={() => setPopupReply(!popupReply)}>
-                <span>Reply</span>
-              </button>
-            )}
+            <button onClick={() => setPopupReply(!popupReply)}>
+              <span>Reply</span>
+            </button>
             <button onClick={() => onDelete(comment)}>
               <span>Delete</span>
             </button>
-            <button>
+            <button onClick={() => setUpdated(comment)}>
               <span>Edit</span>
             </button>
           </div>
@@ -75,6 +73,7 @@ function FormComment({ comment, onDelete, popup }) {
         {popupReply && (
           <InputComment
             comment={reply}
+            updated={updated}
             setComment={setReply}
             addComment={addReply}
           />

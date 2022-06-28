@@ -2,7 +2,7 @@ import React, { useEffect, useRef } from "react";
 import { MapContainer, TileLayer, Popup, Marker } from "react-leaflet";
 import { OpenStreetMapProvider } from "react-leaflet-geosearch";
 import L from "leaflet";
-import SearchControl from "./searchControl";
+// import SearchControl from "./searchControl";
 import "leaflet/dist/leaflet.css";
 import "./map.css";
 import useLocation from "./../../hooks/useLocation";

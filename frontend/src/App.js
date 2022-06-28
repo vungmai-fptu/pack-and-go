@@ -1,8 +1,9 @@
 import { BrowserRouter, Switch } from "react-router-dom";
-import { mainRouter, signRouter } from "./configs/router";
+import { mainRouter, signRouter, adminRouter } from "./configs/router";
 import RouterMainTemplate from "./templates/main";
 import RouterSignTemplate from "./templates/login";
 import { ModalContainer } from "./components/Modal";
+import RouterAdminTemplate from "./templates/admin";
 
 function App() {
   const renderMainRouter = () => {
@@ -27,10 +28,22 @@ function App() {
       );
     });
   };
+  const renderAdminRouter = () => {
+    return adminRouter.map(({ path, exact, Component }) => {
+      return (
+        <RouterAdminTemplate
+          path={path}
+          exact={exact}
+          Component={Component}
+        ></RouterAdminTemplate>
+      );
+    });
+  };
   return (
     <div className="App">
       <BrowserRouter>
         <Switch>
+          {renderAdminRouter()}
           {renderSignRouter()}
           {renderMainRouter()}
         </Switch>

@@ -12,6 +12,7 @@ import SettingProfile from "../pages/main/settingProfile";
 import TripPage from "../pages/main/trippage";
 import AllTrips from "../pages/main/alltrips";
 import AllTravelers from "../pages/main/alltravelers";
+import Dashboard from "../pages/admin/Dashboard";
 
 export const signRouter = [
   {
@@ -84,5 +85,12 @@ export const mainRouter = [
   },
   {
     Component: Err,
+  },
+];
+export const adminRouter = [
+  {
+    path: "/admin",
+    exact: true,
+    Component: Dashboard,
   },
 ];

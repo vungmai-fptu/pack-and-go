@@ -4,8 +4,9 @@ import Trips from "./Trips";
 import styles from "./TripList.module.css";
 import TripItem from "../../TripItem/TripItem";
 import { Grid } from "../../Grid/Grid";
+import Load from "../../Load";
 
-const TripList = ({ trips }) => {
+const TripList = ({ trips, loading }) => {
   const [showed, setShowed] = useState(false);
 
   useEffect(() => {
@@ -16,7 +17,7 @@ const TripList = ({ trips }) => {
     setShowed((prev) => !prev);
   };
 
-  const showedList = !showed ? [...trips].slice(0, 4) : [...trips];
+  const showedList = !showed ? [...trips].slice(0, 6) : [...trips];
 
   return (
     <SectionContainer>
@@ -34,15 +35,21 @@ const TripList = ({ trips }) => {
           </div>
         </div>
         <div className={styles["trips_container"]}>
-          {trips && trips.length !== 0 ? (
-            <Grid>
-              {showedList.map((trip) => (
-                <TripItem listTrip={trip} key={trip.id} />
-              ))}
-            </Grid>
-          ) : (
-            "NOT FOUND"
-          )}
+          {
+            !loading ? (
+              trips && trips.length !== 0 ? (
+                <Grid>
+                  {showedList.map((trip) => (
+                    <TripItem listTrip={trip} key={trip.id} />
+                  ))}
+                </Grid>
+              ) : (
+                "NOT FOUND"
+              )
+            ) : <div>
+              <Load isSmall={true} />
+            </div>
+          }
         </div>
       </div>
     </SectionContainer>

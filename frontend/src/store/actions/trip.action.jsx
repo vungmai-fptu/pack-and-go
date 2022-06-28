@@ -5,7 +5,6 @@ import {
   SET_TRIP,
   SET_TRIP_ID,
   TRIP_MODE,
-  SET_TRIP_ID_FAILED,
 } from "../constants/trip.const";
 import { startLoading, stopLoading } from "./common.action";
 import moment from "moment";

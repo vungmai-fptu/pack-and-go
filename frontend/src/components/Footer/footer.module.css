@@ -38,7 +38,7 @@ a {
 
 .col a {
   display: flex;
-  justify-content: start;
+  justify-content: center;
   margin-bottom: 16px;
   margin-left: 1px;
   text-align: left;
@@ -63,6 +63,7 @@ a {
   cursor: pointer;
   height: 120px;
   width: 200px;
+  margin: 0 auto !important;
 }
 
 @media (max-width: 768px) {

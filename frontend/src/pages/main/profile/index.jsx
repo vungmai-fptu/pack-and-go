@@ -60,7 +60,7 @@ const Profile = () => {
             <>
               <Header users={users} />
               {/* <TabGroup /> */}
-              <FutureTrips trips={futureTrips} />
+              <FutureTrips trips={futureTrips} users={users} />
               <PastTrips trips={pastTrips} />
               {/* <CountryList /> */}
             </>

@@ -4,6 +4,7 @@ import { Grid } from '../../Grid/Grid';
 import Traveler from '../../Traveller/traveler';
 import SectionContainer from '../../landing/SectionContainer';
 import { useState } from 'react';
+import Load from '../../Load';
 
 const Travelers = ({ travelers, loading }) => {
     const [showed, setShowed] = useState(false);
@@ -12,7 +13,7 @@ const Travelers = ({ travelers, loading }) => {
         setShowed(prev => !prev);
     }
 
-    const showedList = !showed ? [...travelers].slice(0, 4) : [...travelers];
+    const showedList = !showed ? [...travelers].slice(0, 6) : [...travelers];
 
     return (
         <SectionContainer>
@@ -33,15 +34,18 @@ const Travelers = ({ travelers, loading }) => {
                 </div>
                 <div className={styles.travelers_container}>
                     {
-                        travelers && travelers.length !== 0 ?
-                            (<Grid>
-                                {
-                                    showedList.map(traveler =>
-                                        <Traveler listUser={traveler} key={traveler.username} />
-                                    )
-                                }
-                            </Grid>) : "NOT FOUND"
-
+                        !loading ? (
+                            travelers && travelers.length !== 0 ?
+                                (<Grid>
+                                    {
+                                        showedList.map(traveler =>
+                                            <Traveler listUser={traveler} key={traveler.username} />
+                                        )
+                                    }
+                                </Grid>) : "NOT FOUND"
+                        ) : <div>
+                            <Load isSmall={true} />
+                        </div>
                     }
                 </div>
             </div>
