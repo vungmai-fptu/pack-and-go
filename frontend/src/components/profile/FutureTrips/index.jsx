@@ -5,10 +5,25 @@ import TripList from "../TripList";
 import SectionContainer from "../SectionContainer";
 import { useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
+import { Grid } from "../../Grid/Grid";
+import { useEffect, useState } from "react";
+import TripItem from "../../TripItem/TripItem";
 
 const FutureTrips = ({ trips }) => {
   const { username } = useParams();
   const { user } = useSelector((state) => state.user);
+
+  const [showed, setShowed] = useState(false);
+
+  useEffect(() => {
+    setShowed(false);
+  }, [trips]);
+
+  const onShowList = () => {
+    setShowed((prev) => !prev);
+  };
+
+  const showedList = !showed ? [...trips].slice(0, 4) : [...trips];
 
   return (
     <div>
@@ -29,7 +44,17 @@ const FutureTrips = ({ trips }) => {
             )}
           </div>
         </div>
-        <TripList trips={trips} />
+        <div className={styles["trips-container"]}>
+          {trips && trips.length !== 0 ? (
+            <Grid>
+              {showedList.map((trip) => (
+                <TripItem listTrip={trip} key={trip.id} />
+              ))}
+            </Grid>
+          ) : (
+            "NOT FOUND"
+          )}
+        </div>
       </SectionContainer>
     </div>
   );

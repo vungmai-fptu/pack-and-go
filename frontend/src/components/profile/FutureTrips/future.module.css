@@ -102,12 +102,6 @@
         padding: 0;
         padding-top: 25%;
     }
-
-    .trip-items {
-        padding: 0;
-        grid-template-columns: repeat(2, 1fr);
-        padding: 8px 12px 8px 12px;
-    }
 }
 
 @media (max-width: 576px) {
@@ -117,9 +111,5 @@
 
     .add-btn {
         display: none;
-    }
-
-    .trip-items {
-        grid-template-columns: repeat(1, 1fr);
     }
 }

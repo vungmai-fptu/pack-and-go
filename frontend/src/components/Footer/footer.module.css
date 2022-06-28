@@ -31,6 +31,7 @@ a {
 }
 
 .col h2 {
+  justify-content: start;
   margin: 8px 0 16px;
   font-size: 1.25rem;
   height: 1.875rem;
@@ -38,7 +39,7 @@ a {
 
 .col a {
   display: flex;
-  justify-content: center;
+  justify-content: start;
   margin-bottom: 16px;
   margin-left: 1px;
   text-align: left;
