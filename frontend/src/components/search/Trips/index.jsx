@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import SectionContainer from "../../landing/SectionContainer";
-import Trips from "./Trips";
 import styles from "./TripList.module.css";
 import TripItem from "../../TripItem/TripItem";
 import { Grid } from "../../Grid/Grid";

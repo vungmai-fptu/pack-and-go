@@ -16,14 +16,23 @@ const PastTrips = ({ trips }) => {
     setShowed((prev) => !prev);
   };
 
-  const showedList = !showed ? [...trips].slice(0, 4) : [...trips];
+  const showedList = !showed ? [...trips].slice(0, 3) : [...trips];
   return (
     <div>
       <SectionContainer>
         <div className={styles["trips-title"]}>
           <div className={styles["title-wrapper"]}>
             <label className={styles.title}>Past trips</label>
+            <button className={styles["add-btn"]} onClick={onShowList}>
+              <div className={styles["add-btn-title"]} >
+                {showed ?
+                  <span className={["add-btn-text"]}>Collapse</span>
+                  :
+                  <span className={["add-btn-text"]}>Show all</span>}
+              </div>
+            </button>
           </div>
+
         </div>
         <div className={styles["trips_container"]}>
           {trips && trips.length !== 0 ? (

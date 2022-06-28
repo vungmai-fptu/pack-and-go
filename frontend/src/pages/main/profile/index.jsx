@@ -32,6 +32,8 @@ const Profile = () => {
     // eslint-disable-next-line
     [username]
   );
+
+
   const [errUser, setErrUser] = useState(null);
   const { loading } = useSelector((state) => state.common);
   const { users } = useSelector((state) => state.user);
@@ -45,6 +47,8 @@ const Profile = () => {
       !moment(today, "YYYY-MM-DD").isBefore(trip.beginDate, "YYYY-MM-DD")
     );
   }
+
+  console.log(futureTrips, pastTrips);
   return (
     <>
       {errUser !== null ? (

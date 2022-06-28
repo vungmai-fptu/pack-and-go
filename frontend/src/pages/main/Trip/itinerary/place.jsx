@@ -8,6 +8,7 @@ import placeholder from '../../../../assets/images/placeholder.jpg';
 import { AiOutlineCloseCircle } from 'react-icons/ai'
 import { useDispatch } from "react-redux";
 import { SET_LOCATION } from "../../../../store/constants/map.const";
+import OrderedMarker from './OrderedMarker'
 const Place = ({
   id,
   place,
@@ -80,8 +81,7 @@ const Place = ({
             className={styles.leftImg}
             style={{ color: "#00e1d6" }}
           >
-            < IoLocationSharp />
-            <div className={styles.idPlace}>{index + 1}</div>
+            <OrderedMarker order={index + 1}/>
           </div>
           <div className={styles.rightContainer}>
             <div className={styles.rightCenter}>
