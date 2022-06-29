@@ -17,6 +17,7 @@ import InviteFriends from "./inviteFriends";
 import { OPEN_MODAL } from "../../../../store/constants/modal.const";
 import DeleteTripModal from "../../../../components/Modal/DeleteTripModal";
 import useOutsideClick from "../../../../hooks/useOutsideClick";
+import MeetingPlanTrip from "./meetingPlanTrip";
 
 export default function Header() {
   const { trip, mode } = useSelector((state) => state.trip);
@@ -68,9 +69,9 @@ export default function Header() {
   const onDeleteTrip = (tripId) => {
     dispatch({
       type: OPEN_MODAL,
-      payload: <DeleteTripModal id={tripId} />
-    })
-  }
+      payload: <DeleteTripModal id={tripId} />,
+    });
+  };
 
   return (
     <div className={styles.header}>
@@ -97,9 +98,20 @@ export default function Header() {
         </div>
       </div>
       <Date />
-      {mode === TRIP_MODE.UPDATE && <InviteFriends tripId={trip.id} invitedUsers={trip.tripMates} />}
+      {mode === TRIP_MODE.UPDATE && (
+        <MeetingPlanTrip tripId={trip.id} invitedUsers={trip.tripMates} />
+      )}
+      {mode === TRIP_MODE.UPDATE && (
+        <InviteFriends tripId={trip.id} invitedUsers={trip.tripMates} />
+      )}
       <div className={styles.save}>
-        <div style={{ display: "flex", alignItems: "center", position: "relative" }}>
+        <div
+          style={{
+            display: "flex",
+            alignItems: "center",
+            position: "relative",
+          }}
+        >
           <button className={styles.boxControl} onClick={onClick}>
             {trip.status === "public" ? (
               <IoPeopleOutline />
@@ -114,8 +126,9 @@ export default function Header() {
           </button>
           <div
             ref={dropdownRef}
-            className={`${styles.popupContent} ${isActive ? `${styles.active}` : `${styles.inactive}`
-              }`}
+            className={`${styles.popupContent} ${
+              isActive ? `${styles.active}` : `${styles.inactive}`
+            }`}
           >
             <div className={styles.dropdownTop} style={{ left: "50% " }}>
               <svg
@@ -165,11 +178,7 @@ export default function Header() {
                 onClick={onSaveTrip}
                 disabled={loading}
               >
-                {!loading ? (
-                  <span>Save</span>
-                ) : (
-                  <Loading isSmall={true} />
-                )}
+                {!loading ? <span>Save</span> : <Loading isSmall={true} />}
               </button>
             )}
 
