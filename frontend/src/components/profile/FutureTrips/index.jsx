@@ -23,7 +23,7 @@ const FutureTrips = ({ trips }) => {
     setShowed((prev) => !prev);
   };
 
-  const showedList = !showed ? [...trips].slice(0, 4) : [...trips];
+  const showedList = !showed ? [...trips].slice(0, 3) : [...trips];
 
   return (
     <div>
@@ -31,17 +31,28 @@ const FutureTrips = ({ trips }) => {
         <div className={styles["trips-title"]}>
           <div className={styles["title-wrapper"]}>
             <label className={styles.title}>My Next Trips</label>
-            {user && username === user.username ? (
-              <Link to="/trip">
-                <button className={styles["add-btn"]}>
-                  <div className={styles["add-btn-title"]}>
-                    <span className={["add-btn-text"]}>Plan Another Trip</span>
-                  </div>
-                </button>
-              </Link>
-            ) : (
-              <></>
-            )}
+            <div style={{ display: "flex" ,gap: "10px"}}>
+              {user && username === user.username ? (
+                <Link to="/trip">
+                  <button className={styles["add-btn"]}>
+                    <div className={styles["add-btn-title"]}>
+                      <span className={["add-btn-text"]}>Plan Another Trip</span>
+                    </div>
+                  </button>
+                </Link>
+              ) : (
+                <></>
+              )}
+
+              <button className={styles["add-btn"]} onClick={onShowList}>
+                <div className={styles["add-btn-title"]} >
+                  {showed ?
+                    <span className={["add-btn-text"]}>Collapse</span>
+                    :
+                    <span className={["add-btn-text"]}>Show all</span>}
+                </div>
+              </button>
+            </div>
           </div>
         </div>
         <div className={styles["trips-container"]}>
