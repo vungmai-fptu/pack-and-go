@@ -7,7 +7,7 @@
   color: #d4dbe9;
   display: flex;
   align-items: center;
-  justify-content: start;
+  justify-content: inherit;
   gap: 20px;
   padding: 35px 10px;
   transition: all 0.2s;

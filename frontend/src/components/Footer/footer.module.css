@@ -39,7 +39,7 @@ a {
 
 .col a {
   display: flex;
-  justify-content: start;
+  /* justify-content: start; */
   margin-bottom: 16px;
   margin-left: 1px;
   text-align: left;
@@ -53,8 +53,7 @@ a {
 }
 
 .socialIcons img {
-  filter: invert(12%) sepia(34%) saturate(824%) hue-rotate(173deg)
-    brightness(96%) contrast(86%);
+  filter: invert(12%) sepia(34%) saturate(824%) hue-rotate(173deg) brightness(96%) contrast(86%);
   height: 30px;
   width: 30px;
 }

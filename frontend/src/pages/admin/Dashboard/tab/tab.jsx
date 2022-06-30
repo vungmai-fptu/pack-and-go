@@ -15,12 +15,10 @@ class Tab extends Component {
       className += ` ${styles["tab-list-active"]}`;
     }
     return (
-      <button className={className} onClick={onClick}>
-        <div className={styles.icon}>
-          <Icon />
-        </div>
+      <li className={className} onClick={onClick}>
+        <Icon />
         <span className={styles.tabSpan}>{label}</span>
-      </button>
+      </li>
     );
   }
 }

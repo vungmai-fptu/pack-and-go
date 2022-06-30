@@ -152,7 +152,7 @@
 
 .w_n .w_o .w_p .w_u {
     display: flex;
-    justify-content: start;
+    /* justify-content: start; */
     margin-bottom: 16px;
     margin-left: 1px;
     text-align: left
@@ -5637,7 +5637,7 @@
 }
 
 .w_Eb .w_Ej {
-    align-items: start;
+    /* align-items: start; */
     display: flex;
     white-space: pre-line
 }

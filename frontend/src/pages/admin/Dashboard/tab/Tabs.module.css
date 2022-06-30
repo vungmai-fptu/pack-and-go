@@ -1,7 +1,17 @@
 .tabs {
-  /* flex-basis: 60px;
-  transition: all 0.3s;
-  overflow: hidden; */
+  height: 100vh;
+  /* left: 0; */
+  /* top: 0; */
+  /* z-index: 99; */
+  padding-bottom: 50px;
+  position: fixed;
+  width: 270px;
+  z-index: 999;
+  overflow: hidden;
+  overflow-y: auto;
+  transition: .5s;
+  background: #fff;
+  box-shadow: 0 0 40px #eff1f7;
 }
 
 .interactive {
@@ -15,4 +25,29 @@
 
 .interactive button span {
   padding-left: 10px;
+}
+
+.dashboard_part {
+  padding-left: 270px;
+  width: 100%;
+  padding-top: 0 !important;
+  transition: .5s;
+  position: relative;
+  min-height: 100vh;
+  padding-bottom: 90px;
+  overflow: hidden;
+  background: #eff1f7;
+}
+
+.main_content {
+  min-height: 68vh;
+  transition: .5s;
+  margin: 20px 30px 30px;
+}
+
+.logo {
+  margin: 30px;
+  background: #fff;
+  padding: 33px 30px;
+  border-radius: 7px;
 }
