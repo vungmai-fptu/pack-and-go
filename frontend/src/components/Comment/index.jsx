@@ -24,6 +24,7 @@ function Comment() {
   ];
   const [comment, setComment] = useState("");
   const [name, setName] = useState("long");
+  console.log("🚀", setName);
   const [updated, setUpdated] = useState({
     id: null,
     name: "",

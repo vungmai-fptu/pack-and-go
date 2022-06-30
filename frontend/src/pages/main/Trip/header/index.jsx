@@ -37,13 +37,17 @@ export default function Header() {
     setIsActive((prev) => !prev);
   };
 
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      dispatch({ type: SET_TRIP_NAME, payload: name });
-    }, 1000);
+  useEffect(
+    () => {
+      const timer = setTimeout(() => {
+        dispatch({ type: SET_TRIP_NAME, payload: name });
+      }, 1000);
 
-    return () => clearTimeout(timer);
-  }, [name]);
+      return () => clearTimeout(timer);
+    },
+    // eslint-disable-next-line
+    [name]
+  );
 
   useEffect(() => {
     setName(trip.name || "");

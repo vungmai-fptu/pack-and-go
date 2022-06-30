@@ -2,13 +2,12 @@ import React from "react";
 import SectionContainer from "../SectionContainer";
 import SectionHeader from "../SectionHeader";
 import styles from "./Popular.module.css";
-import TripItem from "../../TripItem/TripItem";
+// import TripItem from "../../TripItem/TripItem";
 import "aos/dist/aos.css";
 import "aos/dist/aos.js";
 import RenderTripItem from "./../../RenderTripItem/index";
 
 const Popular = () => {
-
   return (
     <div className="w_cs">
       <SectionContainer>

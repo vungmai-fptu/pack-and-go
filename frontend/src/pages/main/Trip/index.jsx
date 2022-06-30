@@ -17,7 +17,7 @@ import Note from "./note";
 import { NotificationContainer } from "react-notifications";
 import "react-notifications/lib/notifications.css";
 import { useHistory, useParams } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { setTrip } from "../../../store/actions/trip.action";
 import { useEffect } from "react";
 import { SET_TRIP, TRIP_MODE } from "../../../store/constants/trip.const";
@@ -28,18 +28,16 @@ import { useIsLogin } from "../../../hooks/useIsLogin";
 
 function Trip() {
   const { id } = useParams();
-  const {isLogin} = useIsLogin();
+  const { isLogin } = useIsLogin();
   const history = useHistory();
 
   const dispatch = useDispatch();
   useEffect(
     () => {
-  
-
       if (id) {
         dispatch(setTrip(id, setErrorTrip));
       } else {
-        if(!isLogin) {
+        if (!isLogin) {
           history.push("/login");
         }
       }

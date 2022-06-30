@@ -4,9 +4,13 @@ import { useIsLogin } from "../../../../hooks/useIsLogin";
 import { useState } from "react";
 import styles from "../settingProfile.module.css";
 import { NotificationContainer } from "react-notifications";
+import { NotificationManager } from "react-notifications";
 import AccountInfo from "./AccountInfo";
 import Load from "../../../../components/Load";
+import { useDispatch } from "react-redux";
+import { actLogout } from "../../../../store/actions/user.action";
 function MyAccount() {
+  const dispatch = useDispatch();
   const { user } = useIsLogin();
   const [userSetting, setUserSetting] = useState(null);
   useEffect(() => {
@@ -18,9 +22,14 @@ function MyAccount() {
           "Content-Type": "application/json",
           Authorization: `Bearer ${user.token}`,
         },
-      }).then((res) => {
-        setUserSetting(res.data);
-      });
+      })
+        .then((res) => {
+          setUserSetting(res.data);
+        })
+        .catch((err) => {
+          dispatch(actLogout());
+          NotificationManager.error("session has expired please login again");
+        });
     };
     getAccountInfo();
     // eslint-disable-next-line

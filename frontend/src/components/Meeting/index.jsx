@@ -13,6 +13,7 @@ import {
   MdCallEnd,
   MdChat,
 } from "react-icons/md";
+import HeaderMeeting from "./headerMeeting";
 const server_url = "https://video.sebastienbiollo.com";
 var connections = {};
 const peerConnectionConfig = {
@@ -472,9 +473,6 @@ class Meeting extends Component {
     return matchChrome !== null;
   };
 
-  openInNewTab = (url) => {
-    window.open(url, "_blank");
-  };
   render() {
     if (this.isChrome() === false) {
       return <h1>Sorry...</h1>;
@@ -483,14 +481,6 @@ class Meeting extends Component {
       <div div style={{ background: "#18191A" }}>
         {this.state.askForUsername === true ? (
           <div>
-            <button
-              onClick={() => this.openInNewTab("http://localhost:3000/7")}
-            >
-              Open google
-            </button>
-            <p style={{ margin: 0, fontWeight: "bold", paddingRight: "50px" }}>
-              your username
-            </p>
             <input
               type="text"
               placeholder="Username"
@@ -508,6 +498,7 @@ class Meeting extends Component {
           </div>
         ) : (
           <>
+            <HeaderMeeting />
             <div
               className="btn-down"
               style={{
@@ -579,25 +570,23 @@ class Meeting extends Component {
               </div>
               {this.state.showModal && (
                 <div className="chat-room">
-                  <div>
-                    <p>Chat</p>
-                  </div>
-                  <div
-                    style={{
-                      overflow: "auto",
-                    }}
-                  >
-                    {this.state.messages.length > 0 ? (
-                      this.state.messages.map((item, index) => (
-                        <div key={index} style={{ textAlign: "left" }}>
-                          <p style={{ wordBreak: "break-all" }}>
-                            <b>{item.sender}</b>: {item.data}
-                          </p>
-                        </div>
-                      ))
-                    ) : (
-                      <p>No message yet</p>
-                    )}
+                  <div style={{ flex: "1 1", overflow: "auto" }}>
+                    <div>
+                      <p>Message In Meet</p>
+                    </div>
+                    <div>
+                      {this.state.messages.length > 0 ? (
+                        this.state.messages.map((item, index) => (
+                          <div key={index} style={{ textAlign: "left" }}>
+                            <p style={{ wordBreak: "break-all" }}>
+                              <b>{item.sender}</b>: {item.data}
+                            </p>
+                          </div>
+                        ))
+                      ) : (
+                        <p>No message yet</p>
+                      )}
+                    </div>
                   </div>
                   <div className="div-send-msg">
                     <input

@@ -7,6 +7,7 @@ function FormComment({ comment, onDelete, setUpdated, popup, updated }) {
   const [popupReply, setPopupReply] = useState(false);
   const [reply, setReply] = useState("");
   const [name, setName] = useState("long");
+  console.log("🚀", setName);
   const [list, setList] = useState(comment.reply);
   const addReply = () => {
     const newComment = {

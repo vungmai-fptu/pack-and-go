@@ -3,12 +3,17 @@ import styles from "../trip.module.css";
 import Place from "./place";
 import Collapse from "../../../../components/collapse";
 import { useDispatch, useSelector } from "react-redux";
-import { ADD_DAY, REMOVE_DAY, TRIP_MODE, UPDATE_DAY } from "../../../../store/constants/trip.const";
+import {
+  ADD_DAY,
+  REMOVE_DAY,
+  TRIP_MODE,
+  UPDATE_DAY,
+} from "../../../../store/constants/trip.const";
 import { useState } from "react";
 import SearchBox from "../../../../components/SearchAddress/SearchBox";
 
 const VisitDay = ({ order, detail }) => {
-  const { trip, mode } = useSelector(state => state.trip);
+  const { mode } = useSelector((state) => state.trip);
   const dispatch = useDispatch();
   const [destination, setDestination] = useState({});
 
@@ -20,16 +25,15 @@ const VisitDay = ({ order, detail }) => {
         day: {
           id: Math.random().toString().substring(2, 9),
           description: "",
-          visitPlaces: []
-        }
-      }
-    })
-  }
-
+          visitPlaces: [],
+        },
+      },
+    });
+  };
 
   const handleAddPlace = (place) => {
-    setDestination(prev => ({
-      address: ""
+    setDestination((prev) => ({
+      address: "",
     }));
 
     const newPlaces = [...detail.visitPlaces];
@@ -39,8 +43,8 @@ const VisitDay = ({ order, detail }) => {
       address: place.address,
       images: [],
       latitude: place.latitude,
-      longitude: place.longitude
-    })
+      longitude: place.longitude,
+    });
     console.log("order - ", order);
     dispatch({
       type: UPDATE_DAY,
@@ -48,18 +52,18 @@ const VisitDay = ({ order, detail }) => {
         order: order,
         day: {
           ...detail,
-          visitPlaces: newPlaces
-        }
-      }
-    })
-  }
+          visitPlaces: newPlaces,
+        },
+      },
+    });
+  };
   const handleRemoveDay = () => {
     console.log(order);
     dispatch({
       type: REMOVE_DAY,
-      payload: order
-    })
-  }
+      payload: order,
+    });
+  };
 
   const handleDayDescription = (description) => {
     dispatch({
@@ -68,11 +72,11 @@ const VisitDay = ({ order, detail }) => {
         order: order,
         day: {
           ...detail,
-          description: description
-        }
-      }
-    })
-  }
+          description: description,
+        },
+      },
+    });
+  };
 
   const handleRemovePlace = (index) => {
     const newPlaces = [...detail.visitPlaces];
@@ -83,18 +87,18 @@ const VisitDay = ({ order, detail }) => {
         order: order,
         day: {
           ...detail,
-          visitPlaces: newPlaces
-        }
-      }
-    })
-  }
+          visitPlaces: newPlaces,
+        },
+      },
+    });
+  };
 
   const handleChangePlaceDescription = (description, index) => {
     const newPlaces = [...detail.visitPlaces];
     const updatedPlace = {
       ...newPlaces[index],
-      description: description
-    }
+      description: description,
+    };
     newPlaces[index] = updatedPlace;
 
     dispatch({
@@ -103,19 +107,18 @@ const VisitDay = ({ order, detail }) => {
         order: order,
         day: {
           ...detail,
-          visitPlaces: newPlaces
-        }
-      }
-    })
-  }
+          visitPlaces: newPlaces,
+        },
+      },
+    });
+  };
 
   const handleAddImage = (url, index) => {
-
     const newPlaces = [...detail.visitPlaces];
     const updatedPlace = newPlaces[index];
     updatedPlace.images.push({
       description: "",
-      url: url
+      url: url,
     });
     newPlaces[index] = updatedPlace;
     dispatch({
@@ -124,16 +127,16 @@ const VisitDay = ({ order, detail }) => {
         order: order,
         day: {
           ...detail,
-          visitPlaces: newPlaces
-        }
-      }
-    })
-  }
+          visitPlaces: newPlaces,
+        },
+      },
+    });
+  };
 
   const handleRemoveImage = (url, index) => {
     const newPlaces = [...detail.visitPlaces];
     const updatedPlace = newPlaces[index];
-    updatedPlace.images = updatedPlace.images.filter(img => img.url !== url);
+    updatedPlace.images = updatedPlace.images.filter((img) => img.url !== url);
     newPlaces[index] = updatedPlace;
     dispatch({
       type: UPDATE_DAY,
@@ -141,41 +144,41 @@ const VisitDay = ({ order, detail }) => {
         order: order,
         day: {
           ...detail,
-          visitPlaces: newPlaces
-        }
-      }
-    })
-  }
+          visitPlaces: newPlaces,
+        },
+      },
+    });
+  };
 
   return (
-    <div className={styles.containerDay} >
+    <div className={styles.containerDay}>
       <Collapse
         isView={mode === TRIP_MODE.VIEW}
         description={detail.description}
         day={detail}
         order={order}
         onRemoveDay={handleRemoveDay}
-        onChangeDateDescription={handleDayDescription}>
-        {detail.visitPlaces && detail.visitPlaces.length !== 0 ?
-          detail.visitPlaces.map((place, index) =>
-            <Place
-              place={place}
-              key={place.id}
-              id={place.id}
-              index={index}
-              onRemovePlace={handleRemovePlace}
-              onChangePlaceDescription={handleChangePlaceDescription}
-              onAddImage={handleAddImage}
-              onRemoveImage={handleRemoveImage}
-              isView={mode === TRIP_MODE.VIEW}
-            />
-          )
+        onChangeDateDescription={handleDayDescription}
+      >
+        {detail.visitPlaces && detail.visitPlaces.length !== 0
+          ? detail.visitPlaces.map((place, index) => (
+              <Place
+                place={place}
+                key={place.id}
+                id={place.id}
+                index={index}
+                onRemovePlace={handleRemovePlace}
+                onChangePlaceDescription={handleChangePlaceDescription}
+                onAddImage={handleAddImage}
+                onRemoveImage={handleRemoveImage}
+                isView={mode === TRIP_MODE.VIEW}
+              />
+            ))
           : ""}
         <div className={styles.enterPlace}>
           <div className={styles.leftPlace} style={{ paddingLeft: "26px" }}>
             <div className={styles.leftPlace}>
-              {
-                mode !== TRIP_MODE.VIEW &&
+              {mode !== TRIP_MODE.VIEW && (
                 <>
                   <div className={styles.leftImg}>
                     <IoMdAddCircleOutline />
@@ -187,13 +190,12 @@ const VisitDay = ({ order, detail }) => {
                     />
                   </div>
                 </>
-              }
+              )}
             </div>
           </div>
         </div>
       </Collapse>
-      {
-        mode !== TRIP_MODE.VIEW &&
+      {mode !== TRIP_MODE.VIEW && (
         <div
           className={styles.containerDay}
           style={{ paddingTop: "10px", paddingBottom: 0 }}
@@ -209,7 +211,7 @@ const VisitDay = ({ order, detail }) => {
             </div>
           </div>
         </div>
-      }
+      )}
     </div>
   );
 };

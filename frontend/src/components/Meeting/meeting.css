@@ -1,12 +1,7 @@
-body {
-    margin: 0;
-    background: #18191A;
-}
-
 .flex-container {
     height: calc(100% - 150px);
     width: 100%;
-    /* margin: 0 auto; */
+    margin: 0 auto;
     flex-wrap: wrap;
     display: flex;
     flex-direction: row;
@@ -90,5 +85,7 @@ body {
     border-radius: 8px;
     box-shadow: rgb(60 64 67 / 30%) 0px 1px 3px 0px,
         rgb(60 64 67 / 15%) 0px 4px 8px 3px;
-    display: grid;
+    flex: 1 1 0%;
+    display: flex;
+    flex-direction: column;
 }

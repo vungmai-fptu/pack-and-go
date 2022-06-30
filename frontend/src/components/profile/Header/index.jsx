@@ -51,17 +51,14 @@ const Header = (props) => {
                   <div className={styles["user-info"]}>
                     <div className={styles["user-repository"]}>
                       <div className={styles["user-repo-item"]}>
-                        <span>{props.users.trips.length}</span> countries
+                        <span>{props.users.trips.length}</span> trips
                       </div>
                       <div className={styles["user-repo-item"]}>
-                        <span>{props.users.trips.length}</span> trips
+                        <span>{visit.length}</span> visitPlaces
                       </div>
                       <div className={styles["user-repo-item"]}>
                         <span>{photos}</span> photos
                       </div>
-                      {/* <div className={styles["user-repo-item"]}>
-                          <span>00</span> videos
-                        </div> */}
                     </div>
                   </div>
                   <div className={styles["user-description"]}>

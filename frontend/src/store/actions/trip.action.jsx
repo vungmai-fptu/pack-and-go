@@ -8,6 +8,7 @@ import {
 } from "../constants/trip.const";
 import { startLoading, stopLoading } from "./common.action";
 import moment from "moment";
+import { actLogout } from "./user.action";
 const API_URL = process.env.REACT_APP_API_URL;
 
 export const saveTrip = (trip) => {
@@ -44,7 +45,12 @@ export const saveTrip = (trip) => {
       })
       .catch((err) => {
         dispatch(stopLoading());
-        NotificationManager.error(err.response.data.message);
+        if (err.response.data === "") {
+          dispatch(actLogout());
+          NotificationManager.error("session has expired please login again");
+        } else {
+          NotificationManager.error(err.response.data.message);
+        }
       });
   };
 };

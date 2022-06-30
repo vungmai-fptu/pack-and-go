@@ -1,7 +1,7 @@
 import React from "react";
 import styles from "./future.module.css";
 import { Link } from "react-router-dom";
-import TripList from "../TripList";
+// import TripList from "../TripList";
 import SectionContainer from "../SectionContainer";
 import { useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
@@ -31,12 +31,14 @@ const FutureTrips = ({ trips }) => {
         <div className={styles["trips-title"]}>
           <div className={styles["title-wrapper"]}>
             <label className={styles.title}>My Next Trips</label>
-            <div style={{ display: "flex" ,gap: "10px"}}>
+            <div style={{ display: "flex", gap: "10px" }}>
               {user && username === user.username ? (
                 <Link to="/trip">
                   <button className={styles["add-btn"]}>
                     <div className={styles["add-btn-title"]}>
-                      <span className={["add-btn-text"]}>Plan Another Trip</span>
+                      <span className={["add-btn-text"]}>
+                        Plan Another Trip
+                      </span>
                     </div>
                   </button>
                 </Link>
@@ -45,11 +47,12 @@ const FutureTrips = ({ trips }) => {
               )}
 
               <button className={styles["add-btn"]} onClick={onShowList}>
-                <div className={styles["add-btn-title"]} >
-                  {showed ?
+                <div className={styles["add-btn-title"]}>
+                  {showed ? (
                     <span className={["add-btn-text"]}>Collapse</span>
-                    :
-                    <span className={["add-btn-text"]}>Show all</span>}
+                  ) : (
+                    <span className={["add-btn-text"]}>Show all</span>
+                  )}
                 </div>
               </button>
             </div>

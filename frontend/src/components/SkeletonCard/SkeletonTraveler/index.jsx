@@ -5,12 +5,13 @@ import { Link } from "react-router-dom";
 import { FaSuitcase } from "react-icons/fa";
 import { BsFillCameraFill } from "react-icons/bs";
 import "react-loading-skeleton/dist/skeleton.css";
-import styled from "styled-components";
-const Grid = styled.div`
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-`
+// import styled from "styled-components";
+// const Grid = styled.div`
+//   display: grid;
+//   grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+//   grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+// `;
+
 const SkeletonTraveler = () => {
   return (
     <>

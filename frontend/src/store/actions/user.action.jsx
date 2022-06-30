@@ -420,10 +420,14 @@ export const getAccountInfo = () => {
         "Content-Type": "application/json",
         Authorization: `Bearer ${token}`,
       },
-    }).then((res) => {
-      dispatch(stopLoading());
-      dispatch(getInfoSuccess(res.data));
-    });
+    })
+      .then((res) => {
+        dispatch(stopLoading());
+        dispatch(getInfoSuccess(res.data));
+      })
+      .catch((err) => {
+        console.log("🚀 err", err);
+      });
   };
 };
 const getInfoSuccess = (getInfo) => {

@@ -1,6 +1,5 @@
 import { Link, useHistory } from "react-router-dom";
 import {
-  IoHeart,
   IoEarthSharp,
   IoSearch,
   IoLocationSharp,
@@ -17,7 +16,6 @@ import NotificationBox from "../NotificationBox";
 const SIZE = 2;
 
 export default function Header() {
-
   const [notificationActive, setNotificationActive] = useState(false);
   const [notifications, setNotifications] = useState(null);
   const { user } = useIsLogin();
@@ -39,10 +37,10 @@ export default function Header() {
           setState(persons);
         })
         .catch((error) => console.log(error));
-    }, []
+    },
+    // eslint-disable-next-line
+    []
   );
-
-
 
   useEffect(
     () => {
@@ -51,26 +49,30 @@ export default function Header() {
 
       axios
         .get(
-          `${process.env.REACT_APP_API_URL}/api/notifications?page=${page}&size=${SIZE}`, {
-          headers: {
-            "Authorization": `Bearer ${user.token}`
+          `${process.env.REACT_APP_API_URL}/api/notifications?page=${page}&size=${SIZE}`,
+          {
+            headers: {
+              Authorization: `Bearer ${user.token}`,
+            },
           }
-        }
         )
         .then((res) => {
           console.log(res);
-          setNotifications(prev => prev ? [...prev, ...res.data.data] : res.data.data);
+          setNotifications((prev) =>
+            prev ? [...prev, ...res.data.data] : res.data.data
+          );
           setLoading(false);
           if (page === res.data.total) {
             setIsReachingEnd(true);
           }
-
         })
         .catch((error) => {
-          console.log(error)
+          console.log(error);
           setLoading(false);
         });
-    }, [page]
+    },
+    // eslint-disable-next-line
+    [page]
   );
 
   const onSearch = (e) => {
@@ -79,15 +81,15 @@ export default function Header() {
       return;
     }
     setText("");
-    history.push(`/search?text=${text}`)
-  }
+    history.push(`/search?text=${text}`);
+  };
 
   const src =
     state.profileImageUrl == null
       ? "https://wrld-se-prod.b-cdn.net/images/user-empty.svg"
       : state.profileImageUrl;
 
-  const numOfUnRead = notifications?.filter(item => !item.read).length || 0;
+  const numOfUnRead = notifications?.filter((item) => !item.read).length || 0;
 
   return (
     <header>
@@ -102,14 +104,17 @@ export default function Header() {
         <div className={styles.menu}>
           <form
             onSubmit={onSearch}
-            className={styles.search} aria-describedby="popup-1">
+            className={styles.search}
+            aria-describedby="popup-1"
+          >
             <div className={styles.searchAll}>
               <div className={styles.searchInput}>
                 <input
                   value={text}
-                  onChange={e => setText(e.target.value)}
+                  onChange={(e) => setText(e.target.value)}
                   type="text"
-                  placeholder="Search" />
+                  placeholder="Search"
+                />
               </div>
               <div className={styles.searchIcon}>
                 <button type="submit">
@@ -136,13 +141,17 @@ export default function Header() {
             </div>
             <span>Create</span>
           </Link>
-          <div className={styles.menuButton} aria-describedby="popup-3" style={{ position: "relative" }}>
-            <button onClick={() => setNotificationActive(prev => !prev)}>
+          <div
+            className={styles.menuButton}
+            aria-describedby="popup-3"
+            style={{ position: "relative" }}
+          >
+            <button onClick={() => setNotificationActive((prev) => !prev)}>
               <div className={styles.menuIcon}>
                 <IoNotifications />
-                {
-                  numOfUnRead !== 0 && <span className={styles.unread}>{numOfUnRead}</span>
-                }
+                {numOfUnRead !== 0 && (
+                  <span className={styles.unread}>{numOfUnRead}</span>
+                )}
               </div>
               <span>Notifications</span>
             </button>
@@ -172,7 +181,7 @@ export default function Header() {
             </div>
           </div>
         </div>
-      </div >
-    </header >
+      </div>
+    </header>
   );
 }

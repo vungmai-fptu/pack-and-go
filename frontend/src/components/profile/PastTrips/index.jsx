@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import SectionContainer from "../SectionContainer";
-import TripList from "../TripList";
+// import TripList from "../TripList";
 import styles from "./Trips.module.css";
 import { Grid } from "../../Grid/Grid";
 import TripItem from "../../TripItem/TripItem";
@@ -24,15 +24,15 @@ const PastTrips = ({ trips }) => {
           <div className={styles["title-wrapper"]}>
             <label className={styles.title}>Past trips</label>
             <button className={styles["add-btn"]} onClick={onShowList}>
-              <div className={styles["add-btn-title"]} >
-                {showed ?
+              <div className={styles["add-btn-title"]}>
+                {showed ? (
                   <span className={["add-btn-text"]}>Collapse</span>
-                  :
-                  <span className={["add-btn-text"]}>Show all</span>}
+                ) : (
+                  <span className={["add-btn-text"]}>Show all</span>
+                )}
               </div>
             </button>
           </div>
-
         </div>
         <div className={styles["trips_container"]}>
           {trips && trips.length !== 0 ? (
