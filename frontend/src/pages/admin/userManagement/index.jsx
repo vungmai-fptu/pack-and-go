@@ -7,6 +7,7 @@ import location from "../assets/image/18-location-pin-flat.gif";
 import globe from "../assets/image/27-globe-flat.gif";
 import photo from "../assets/image/54-photo-picturelandscape-gallery-flat.gif";
 import styles from "../Dashboard/dashboard.module.css";
+import Chart from "./../Dashboard/chart/index";
 function UserManagement() {
   const dispatch = useDispatch();
   const [totalPages, setTotalPages] = useState(0);
@@ -22,7 +23,24 @@ function UserManagement() {
     // eslint-disable-next-line
     [page]
   );
-
+  const chartData = {
+    labels: ["E-3-40/45", "E-3", "B-52", "B-1", "E-6", "KC-135"],
+    datasets: [
+      {
+        label: "number of aircraft",
+        data: [617594, 181045, 153060, 106519, 105162, 95072], //fake data
+        backgroundColor: [
+          "rgba(255, 99, 132, 0.6)",
+          "rgba(54, 162, 235, 0.6)",
+          "rgba(255, 206, 86, 0.6)",
+          "rgba(75, 192, 192, 0.6)",
+          "rgba(153, 102, 255, 0.6)",
+          "rgba(255, 159, 64, 0.6)",
+          "rgba(255, 99, 132, 0.6)",
+        ],
+      },
+    ],
+  };
   return (
     <div className={styles.container}>
       <div className={styles.col_dash}>
@@ -84,7 +102,7 @@ function UserManagement() {
                 <div>
                   <input type="text" placeholder="Search here..." />
                 </div>
-                <button type="submit">
+                <button>
                   <FcSearch />
                 </button>
               </form>
@@ -137,8 +155,9 @@ function UserManagement() {
       <div className={styles.col_5}>
         <div className={styles.white_box_5}>
           <div className={styles.box_header}>
-            <h3>cái gì đó</h3>
+            <h3>Chart</h3>
           </div>
+          <Chart chartData={chartData} legendPosition="right" />
         </div>
       </div>
     </div>

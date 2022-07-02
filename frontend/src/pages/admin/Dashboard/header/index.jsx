@@ -1,7 +1,32 @@
+import axios from "axios";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import logo from "../../../../assets/images/logos/logo-black-3.png";
+import FormLogout from "../../../../components/Header/formLogout";
+import { useIsLogin } from "../../../../hooks/useIsLogin";
 import styles from "./headerAmin.module.css";
 export default function HeaderAdmin() {
+  const { user } = useIsLogin();
+  const [state, setState] = useState({});
+  useEffect(
+    () => {
+      axios
+        .get(
+          `${process.env.REACT_APP_API_URL}/api/users/${user.username}/trips`
+        )
+        .then((res) => {
+          const persons = res.data;
+          setState(persons);
+        })
+        .catch((error) => console.log(error));
+    },
+    // eslint-disable-next-line
+    []
+  );
+  const src =
+    state.profileImageUrl == null
+      ? "https://wrld-se-prod.b-cdn.net/images/user-empty.svg"
+      : state.profileImageUrl;
   return (
     <header>
       <div className={styles.header}>
@@ -15,20 +40,16 @@ export default function HeaderAdmin() {
         <div className={styles.menu}></div>
         <div className={styles.profile}>
           <div className={styles.profileList}>
-            <div
-              className={styles.headerNotLogin}
-              style={{ display: "flex", alignItems: "center" }}
-            >
-              <Link to="/login" style={{ color: "#202d3d" }}>
+            <div style={{ display: "flex", alignItems: "center" }}>
+              <Link to={`/profile/${user.username}`}>
+                <div className={styles.profileIcon}>
+                  <img className="w_km" alt="profile" src={src} />
+                </div>
                 <div>
-                  <span>login</span>
+                  <span>{user.username}</span>
                 </div>
               </Link>
-              <Link to="/sign/up" style={{ background: "#202d3d" }}>
-                <div>
-                  <span>Join Pack&Go</span>
-                </div>
-              </Link>
+              <FormLogout />
             </div>
           </div>
         </div>
