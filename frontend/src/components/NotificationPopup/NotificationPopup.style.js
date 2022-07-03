@@ -4,6 +4,7 @@ export const PopupContainer = styled.div`
     position: fixed;
     right: 70px;
     bottom: 70px;
+    z-index: 9;
 
     @media (max-width: 992px) {
         right: 40px;

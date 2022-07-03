@@ -50,18 +50,28 @@ const MapComponent = ({ destination }) => {
   }, [mapLocation]);
 
   const showMyLocation = () => {
+    console.log(location);
+
     if (location.loaded) {
-      mapRef.current.flyTo(
-        [trip.destination?.latitude || 50, trip.destination?.longitude || 50],
-        ZOOM_LEVEL,
-        { animation: true }
-      );
+      if (trip.destination) {
+        mapRef.current.flyTo(
+          [trip.destination.latitude, trip.destination.longitude],
+          ZOOM_LEVEL,
+          { animation: true }
+        );
+      } else if (!location.error) {
+        mapRef.current.flyTo(
+          [location.coordinates.lat, location.coordinates.lng],
+          ZOOM_LEVEL,
+          { animation: true }
+        );
+      }
     }
   };
 
   useEffect(() => {
     showMyLocation();
-  }, [trip.destination]);
+  }, [trip.destination, location]);
 
   return (
     <div className="container-map">

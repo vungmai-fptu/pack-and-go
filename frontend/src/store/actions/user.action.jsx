@@ -23,9 +23,11 @@ import {
   GET_INFO_SUCCESS,
 } from "../constants/user.const";
 import { startLoading, stopLoading } from "../actions/common.action";
+
 const API_URL = process.env.REACT_APP_API_URL;
 const userLogin = localStorage.getItem("userLogin");
 const token = userLogin ? JSON.parse(userLogin).token : "";
+
 export const postLogin = (usernameOrEmail, password) => {
   return (dispatch) => {
     dispatch(startLoading());
@@ -334,6 +336,10 @@ const getUserFailed = (err) => {
 };
 
 export const postChangePassword = (confirmPassword, password) => {
+
+  const userLogin = localStorage.getItem("userLogin");
+  const token = userLogin ? JSON.parse(userLogin).token : "";
+
   return (dispatch) => {
     dispatch(startLoading());
     axios({
@@ -376,6 +382,9 @@ const postChangePasswordFailed = (err) => {
 };
 
 export const updateInfo = (profileImageUrl, coverImageUrl, aboutMe, values) => {
+  const userLogin = localStorage.getItem("userLogin");
+  const token = userLogin ? JSON.parse(userLogin).token : "";
+
   return (dispatch) => {
     dispatch(startLoading());
     axios({

@@ -4,35 +4,44 @@ import { IoSend } from "react-icons/io5";
 import styles from "./comment.module.css";
 
 function InputComment({
-  comment,
+  avatar,
+  content,
   updated,
   setUpdated,
-  setComment,
+  setContent,
   addComment,
   onUpdate,
+  loading
 }) {
   return (
     <>
-      {updated.id === null || updated === undefined ? (
+      {!updated ? (
         <div className={styles.formComment}>
           <div className={styles.comment}>
             <Link to="/">
               <img
-                alt="profile"
-                src="https://wrld-se-prod.b-cdn.net/images/user-empty.svg"
+                alt="comment-trip-diary"
+                src={avatar}
               />
             </Link>
           </div>
           <div className={styles.comment_box}>
             <input
               type="text"
-              value={comment}
-              onChange={(event) => setComment(event.target.value)}
+              value={content || ""}
+              onChange={(event) => setContent(event.target.value)}
               placeholder="Enter comment..."
             />
-            <button onClick={addComment}>
-              <IoSend />
-            </button>
+            <div>
+              {
+                loading ? <p>Sending...</p> : (
+                  <button onClick={addComment}>
+                    <IoSend />
+                  </button>
+                )
+              }
+
+            </div>
           </div>
         </div>
       ) : (
@@ -41,20 +50,31 @@ function InputComment({
             <Link to="/">
               <img
                 alt="profile"
-                src="https://wrld-se-prod.b-cdn.net/images/user-empty.svg"
+                src={avatar}
               />
             </Link>
           </div>
           <div className={styles.comment_box}>
             <input
               type="text"
-              value={updated.comment}
-              onChange={(event) => setUpdated()}
+              value={updated.content}
+              onChange={(event) => setUpdated({
+                ...updated,
+                content: event.target.value
+              })}
+
               placeholder="Enter comment..."
             />
-            <button onClick={onUpdate}>
-              <IoSend />
-            </button>
+            <div>
+              {
+                loading ? <p>Sending...</p> : (
+                  <button onClick={onUpdate}>
+                    <IoSend />
+                  </button>
+                )
+              }
+
+            </div>
           </div>
         </div>
       )}

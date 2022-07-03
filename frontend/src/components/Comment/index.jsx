@@ -1,80 +1,110 @@
-import React, { useCallback, useState } from "react";
+import moment from "moment";
+import React, { useCallback, useRef, useState } from "react";
+import { useEffect } from "react";
+import { commentTrip, deleteComment, getComments, updateComment } from "../../services/trip/useTrip";
 import styles from "./comment.module.css";
 import FormComment from "./formComment";
 import InputComment from "./inputComment";
 
-function Comment() {
-  const dataComment = [
-    {
-      id: 1,
-      name: "user1",
-      comment: "test comment 1",
-      reply: [
-        { id: 2, name: "user2", comment: "test comment 2" },
-        { id: 3, name: "user3", comment: "test comment 3" },
-      ],
-    },
-    {
-      id: 4,
-      name: "user4",
-      comment: "test comment 4",
-      reply: [{ id: 5, name: "user5", comment: "test comment 5" }],
-    },
-    { id: 6, name: "user6", comment: "test comment 6", reply: [] },
-  ];
-  const [comment, setComment] = useState("");
+
+function Comment({ tripId, comments, setComments, currentUser, loadComments, }) {
+
+  console.log("COMEMNT: ", comments);
+
+
   const [name, setName] = useState("long");
-  const [updated, setUpdated] = useState({
-    id: null,
-    name: "",
-    comment: "",
-    reply: [],
-  });
-  console.log("🚀 ~ file: index.jsx ~ line 28 ~ Comment ~ updated", updated);
-  const [list, setList] = useState(dataComment);
-  const addComment = () => {
-    const newComment = {
-      id: Math.random().toString().substring(2, 9),
-      name,
-      comment,
-      reply: [],
-    };
-    setList([...list, newComment]);
-    setComment("");
-  };
+  const [comment, setComment] = useState("");
+  const [loading, setLoading] = useState(false);
+
+  const [updated, setUpdated] = useState();
+  const ref = useRef(null);
+
+  const addComment = async () => {
+    if (!comment || comment.trim().length === 0) {
+      return;
+    }
+    setLoading(true);
+
+    try {
+      const res = await commentTrip(tripId, comment);
+      console.log(res);
+      if (res.status === 200) {
+        await loadComments();
+        setComment("");
+        // ref.scrollTo({
+        //   top: ref.current.scrollHeight,
+        //   left: 0,
+        //   behavior: "smooth"
+        // })
+        ref.current.scrollTop = ref.current.scrollHeight;
+      }
+    } catch (err) {
+      console.log("ERROR", err);
+    } finally {
+      setLoading(false);
+    }
+  }
+
 
   const onDelete = useCallback((comment) => {
-    setList((list) =>
-      list.filter((oldComment) =>
-        oldComment.id === comment.id ? null : { oldComment }
-      )
-    );
+    const deleteCmt = async () => {
+      const res = await deleteComment(comment.id);
+      if (res.status === 200) {
+        loadComments();
+      }
+    }
+
+    deleteCmt();
   }, []);
-  const onUpdate = (id, updateComment) => {
-    setList(
-      list.map((comment) => (comment.id === id ? updateComment : comment))
-    );
+
+
+  const onUpdate = () => {
+    if (!updated || updated.content?.trim().length === 0) {
+      return;
+    }
+
+    const updateCmt = async () => {
+      const res = await updateComment(updated);
+      if (res.status === 200) {
+        await loadComments();
+        setUpdated(null);
+      }
+    }
+
+    updateCmt();
+
   };
+
+
   return (
     <div className={styles.container}>
-      {list.map((comment, index) => (
-        <FormComment
-          comment={comment}
-          onDelete={onDelete}
-          setUpdated={setUpdated}
-          popup={true}
+      <div
+        className={styles.container_comments}
+        ref={ref}
+      >
+        {comments.map((comment, index) => (
+          <FormComment
+            comment={comment}
+            onDelete={onDelete}
+            setUpdated={setUpdated}
+            popup={true}
+            updated={updated}
+            key={comment.id}
+          />
+        ))}
+      </div>
+      <div className={styles.root_input}>
+        <InputComment
+          avatar={currentUser?.profileImageUrl || "https://wrld-se-prod.b-cdn.net/images/user-empty.svg"}
+          content={comment}
           updated={updated}
-          key={index}
+          setUpdated={setUpdated}
+          setContent={setComment}
+          addComment={addComment}
+          onUpdate={onUpdate}
+          loading={loading}
         />
-      ))}
-      <InputComment
-        comment={comment}
-        updated={updated}
-        setUpdated={setUpdated}
-        setComment={setComment}
-        addComment={addComment}
-        onUpdate={onUpdate}
-      />
+      </div>
     </div>
   );
 }

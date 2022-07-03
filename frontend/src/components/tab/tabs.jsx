@@ -1,18 +1,56 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Tab from "./tab";
 import styles from "./Tabs.module.css";
 import { FcLikePlaceholder, FcLike, FcComments, FcShare } from "react-icons/fc";
 import Comment from "../Comment";
 import { useSelector } from "react-redux";
 import { TRIP_MODE } from "../../store/constants/trip.const";
+import { getComments, likeOrUnLikeTrip } from "../../services/trip/useTrip";
 function Tabs(props) {
   const [activeTab, setActiveTab] = useState(props.children[0].props.label);
+  const { user } = useSelector(state => state.user);
   const [formComment, setFormComment] = useState(false);
   const [isHeart, setIsHeart] = useState(false);
-  const { mode } = useSelector((state) => state.trip);
+  const { trip, mode } = useSelector((state) => state.trip);
+  const [numOfLikes, setNumOfLikes] = useState(trip.numOfLikes);
+  const [comments, setComments] = useState([]);
+
+  const loadComments = async () => {
+    if (trip.id) {
+      const cms = await getComments(trip.id);
+      console.log(cms)
+      setComments(cms);
+    }
+  };
+
+  useEffect(() => {
+    loadComments()
+  }, [trip.id]);
+
+  useEffect(() => {
+    setNumOfLikes(trip.numOfLikes);
+  }, [trip.numOfLikes]);
+
+
+
   const onClickTabItem = (tab) => {
     setActiveTab(tab);
   };
+
+
+  const likeTrip = async () => {
+    try {
+      likeOrUnLikeTrip(trip.id);
+      if (isHeart) {
+        setNumOfLikes(prev => prev - 1);
+      } else {
+        setNumOfLikes(prev => prev + 1);
+      }
+      setIsHeart(!isHeart);
+    } catch (err) {
+      console.log(err);
+    }
+  }
 
   return (
     <div className="w_CS" style={{ minWidth: "fit-content" }}>
@@ -40,12 +78,10 @@ function Tabs(props) {
             <div style={{ display: "flex" }}>
               <div className={styles.interactive} style={{ display: "flex" }}>
                 <button
-                  onClick={() => {
-                    setIsHeart(!isHeart);
-                  }}
+                  onClick={likeTrip}
                 >
                   <div>{isHeart ? <FcLike /> : <FcLikePlaceholder />}</div>
-                  <span>00</span>
+                  <span>{numOfLikes}</span>
                 </button>
                 <button
                   onClick={() => {
@@ -55,7 +91,7 @@ function Tabs(props) {
                   <div>
                     <FcComments />
                   </div>
-                  <span>00</span>
+                  <span>{comments.length}</span>
                 </button>
                 <button>
                   <div>
@@ -64,7 +100,12 @@ function Tabs(props) {
                 </button>
               </div>
             </div>
-            {formComment && <Comment />}
+            {formComment && <Comment
+              loadComments={loadComments}
+              tripId={trip.id}
+              currentUser={user}
+              comments={comments}
+              setComments={setComments} />}
           </div>
         )}
       </div>
