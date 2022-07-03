@@ -7,7 +7,7 @@ import { useSelector } from "react-redux";
 import GetDate from "../../../../components/DateRange";
 import { SET_DATE, TRIP_MODE } from "../../../../store/constants/trip.const";
 import styles from "../trip.module.css";
-import { useDetectOutsideClick } from "./../../../../components/useDetectOutsideClick";
+// import { useDetectOutsideClick } from "./../../../../components/useDetectOutsideClick";
 import { BsCalendar3 } from "react-icons/bs";
 import useOutsideClick from "../../../../hooks/useOutsideClick";
 export default function Date() {
@@ -18,8 +18,6 @@ export default function Date() {
   const [isActive, setIsActive] = useState(false);
 
   useOutsideClick(dropdownRef, () => setIsActive(false));
-
-
 
   const onClick = () => {
     //view or trip occur
@@ -72,8 +70,9 @@ export default function Date() {
         </button>
         <div
           ref={dropdownRef}
-          className={`${styles.formTripDate} ${isActive ? `${styles.active}` : "inactive"
-            }`}
+          className={`${styles.formTripDate} ${
+            isActive ? `${styles.active}` : "inactive"
+          }`}
         >
           <div className={styles.dropdownTop} style={{ left: "50% " }}>
             <svg
@@ -90,8 +89,9 @@ export default function Date() {
             <div className={styles.tripType}>
               <div className={styles.change}>
                 <div
-                  className={`${styles.transition} ${isSingleTrip ? "inactive" : `${styles.activeExact}`
-                    }`}
+                  className={`${styles.transition} ${
+                    isSingleTrip ? "inactive" : `${styles.activeExact}`
+                  }`}
                 />
                 <label
                   className={`${isSingleTrip ? `${styles.cur}` : ""}`}

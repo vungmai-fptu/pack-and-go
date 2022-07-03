@@ -13,6 +13,7 @@ import TripPage from "../pages/main/trippage";
 import AllTrips from "../pages/main/alltrips";
 import AllTravelers from "../pages/main/alltravelers";
 import Dashboard from "../pages/admin/Dashboard";
+import Meeting from "../components/Meeting";
 
 export const signRouter = [
   {
@@ -82,6 +83,11 @@ export const mainRouter = [
     path: "/trip/:id?",
     exact: true,
     Component: Trip,
+  },
+  {
+    path: "/trip/:id?/meeting/:id?",
+    exact: true,
+    Component: Meeting,
   },
   {
     Component: Err,

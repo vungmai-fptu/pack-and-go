@@ -295,7 +295,7 @@
   /* min-width: 25px; */
   margin-left: 16px;
   min-width: 200px;
-  justify-content: end;
+  /* justify-content: end; */
 }
 
 .save img {

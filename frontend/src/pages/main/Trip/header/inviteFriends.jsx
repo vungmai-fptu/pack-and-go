@@ -1,17 +1,14 @@
-import React, { useRef, useState, useReducer, useEffect } from "react";
+import React, { useRef, useState } from "react";
 import { RiMailAddLine } from "react-icons/ri";
 import { BiPlus } from "react-icons/bi";
 import { AiOutlineCloseCircle } from "react-icons/ai";
 import styles from "./headerTrip.module.css";
-import {
-  inviteToJoinTrip,
-  removeTripMates,
-} from "../../../../services/trip/useTrip";
+import { inviteToJoinTrip } from "../../../../services/trip/useTrip";
 import { Link } from "react-router-dom";
 import { NotificationManager } from "react-notifications";
-import { async } from "@firebase/util";
+// import { async } from "@firebase/util";
 import { useDispatch } from "react-redux";
-import { ADD_TRIPMATE, REMOVE_TRIPMATE } from "../../../../store/constants/trip.const";
+import { ADD_TRIPMATE } from "../../../../store/constants/trip.const";
 import { OPEN_MODAL } from "../../../../store/constants/modal.const";
 import RemoveTripMateModal from "../../../../components/Modal/RemoveTripMateModal";
 import useOutsideClick from "../../../../hooks/useOutsideClick";
@@ -41,6 +38,7 @@ const InviteFriends = ({ tripId, invitedUsers }) => {
         }));
         try {
           const res = await inviteToJoinTrip(tripId, email);
+          console.log("🚀", res);
           setEmail("");
           setIsLoading((prev) => ({
             ...prev,
@@ -51,9 +49,11 @@ const InviteFriends = ({ tripId, invitedUsers }) => {
         } catch (err) {
           setIsLoading((prev) => ({
             ...prev,
-            isInviting: false
+            isInviting: false,
           }));
-          NotificationManager.error(err.response?.data?.message || "Fail to invite user");
+          NotificationManager.error(
+            err.response?.data?.message || "Fail to invite user"
+          );
         }
       }
     };
@@ -63,9 +63,9 @@ const InviteFriends = ({ tripId, invitedUsers }) => {
   const openModal = (username) => {
     dispatch({
       type: OPEN_MODAL,
-      payload: <RemoveTripMateModal username={username} tripId={tripId} />
+      payload: <RemoveTripMateModal username={username} tripId={tripId} />,
     });
-  }
+  };
   return (
     <div style={{ position: "relative" }}>
       <div className="w_ki">
@@ -91,8 +91,9 @@ const InviteFriends = ({ tripId, invitedUsers }) => {
       </div>
       <div
         ref={dropdownRef}
-        className={`${styles.popupContent} ${isActive ? `${styles.active}` : "inactive"
-          }`}
+        className={`${styles.popupContent} ${
+          isActive ? `${styles.active}` : "inactive"
+        }`}
       >
         <div className={styles.dropdownTop}>
           <svg
@@ -141,8 +142,15 @@ const InviteFriends = ({ tripId, invitedUsers }) => {
                         <div className={styles.listGmail}>
                           <Link to={`/profile/${item}`}>{item}</Link>
                         </div>
-                        <div className={styles.remove_icon} onClick={() => openModal(item)}>
-                          {!isLoading.isRemoving ? <AiOutlineCloseCircle className={styles.icon} /> : "Removing..."}
+                        <div
+                          className={styles.remove_icon}
+                          onClick={() => openModal(item)}
+                        >
+                          {!isLoading.isRemoving ? (
+                            <AiOutlineCloseCircle className={styles.icon} />
+                          ) : (
+                            "Removing..."
+                          )}
                         </div>
                       </div>
                     );
@@ -152,7 +160,7 @@ const InviteFriends = ({ tripId, invitedUsers }) => {
           </div>
         </div>
       </div>
-    </div >
+    </div>
   );
 };
 

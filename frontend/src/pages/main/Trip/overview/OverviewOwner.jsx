@@ -14,10 +14,8 @@ import bgImage from "../../../../assets/fonts/src_app_components_components_svgI
 import warningIcon from "../../../../assets/fonts/src_app_components_components_svgIcon_icons_commonsprite-afce76.svg";
 import SearchBox from "../../../../components/SearchAddress/SearchBox";
 export default function OverviewOwner() {
-  const { trip, mode } = useSelector((state) => state.trip);
-
+  const { trip } = useSelector((state) => state.trip);
   const dispatch = useDispatch();
-
   const handleChangeThumbnail = (image) => {
     dispatch({
       type: SET_THUMBNAIL,

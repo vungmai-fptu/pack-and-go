@@ -5,6 +5,7 @@ import Features from "../../components/landing/Features";
 import Header from "../../components/landing/Header";
 import Popular from "../../components/landing/Popular";
 import Travelers from "../../components/landing/Travelers";
+import { NotificationContainer } from "react-notifications";
 const LandingPage = () => {
   return (
     <>
@@ -14,6 +15,7 @@ const LandingPage = () => {
       <Features />
       <CallToAction />
       <Footer />
+      <NotificationContainer />
     </>
   );
 };

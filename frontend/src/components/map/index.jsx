@@ -23,6 +23,7 @@ const makerIcon = new L.Icon({
 
 const MapComponent = ({ destination }) => {
   const prov = OpenStreetMapProvider();
+  console.log("🚀", prov);
   // const [center, setCenter] = useState([13, 13]);
   const location = useLocation();
   const mapRef = useRef();
@@ -33,21 +34,25 @@ const MapComponent = ({ destination }) => {
 
   const ZOOM_LEVEL = 9;
 
-  useEffect(() => {
-    if (location.loaded && mapLocation) {
-      mapRef.current.flyTo(
-        [mapLocation.latitude || 50, mapLocation.longitude || 50],
-        ZOOM_LEVEL,
-        { animation: true }
-      );
-    }
-    return () => {
-      dispatch({
-        type: SET_LOCATION,
-        payload: null,
-      });
-    };
-  }, [mapLocation]);
+  useEffect(
+    () => {
+      if (location.loaded && mapLocation) {
+        mapRef.current.flyTo(
+          [mapLocation.latitude || 50, mapLocation.longitude || 50],
+          ZOOM_LEVEL,
+          { animation: true }
+        );
+      }
+      return () => {
+        dispatch({
+          type: SET_LOCATION,
+          payload: null,
+        });
+      };
+    },
+    // eslint-disable-next-line
+    [mapLocation]
+  );
 
   const showMyLocation = () => {
     console.log(location);

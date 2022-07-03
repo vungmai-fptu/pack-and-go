@@ -2,6 +2,8 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import Tab from "./tab";
 import styles from "./Tabs.module.css";
+import logo from "../../../../assets/images/logos/logo-black-3.png";
+import HeaderAdmin from "./../header/index";
 class Tabs extends Component {
   static propTypes = {
     children: PropTypes.instanceOf(Array).isRequired,
@@ -28,28 +30,36 @@ class Tabs extends Component {
     } = this;
 
     return (
-      <div className="w_CS" style={{ minWidth: "fit-content" }}>
-        <div style={{ background: "#242526" }} className={styles.tabs}>
-          {children.map((child) => {
-            const { label, Icon } = child.props;
-            return (
-              <Tab
-                activeTab={activeTab}
-                key={label}
-                label={label}
-                onClick={onClickTabItem}
-                Icon={Icon}
-              />
-            );
-          })}
-        </div>
-        <div style={{ flex: "1 1", display: "flex", flexDirection: "column" }}>
-          {children.map((child) => {
-            if (child.props.label !== activeTab) return undefined;
-            return child.props.children;
-          })}
-        </div>
-      </div>
+      <>
+        <nav className={styles.tabs}>
+          <div className={styles.logo}>
+            <img src={logo} alt="img" />
+          </div>
+          <ul>
+            {children.map((child) => {
+              const { label, Icon } = child.props;
+              return (
+                <Tab
+                  activeTab={activeTab}
+                  key={label}
+                  label={label}
+                  onClick={onClickTabItem}
+                  Icon={Icon}
+                />
+              );
+            })}
+          </ul>
+        </nav>
+        <section className={styles.dashboard_part}>
+          <HeaderAdmin />
+          <div className={styles.main_content}>
+            {children.map((child) => {
+              if (child.props.label !== activeTab) return undefined;
+              return child.props.children;
+            })}
+          </div>
+        </section>
+      </>
     );
   }
 }

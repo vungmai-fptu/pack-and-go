@@ -1,12 +1,11 @@
-import React, { useEffect, useState } from 'react'
-import { NotificationManager } from 'react-notifications';
-import { useDispatch } from 'react-redux';
-import { useHistory } from 'react-router-dom';
-import styled from 'styled-components';
-import { deleteTrip, removeTripMates } from '../../services/trip/useTrip';
-import { CLOSE_MODAL } from '../../store/constants/modal.const';
-import { REMOVE_TRIPMATE } from '../../store/constants/trip.const';
-
+import React, { useState } from "react";
+import { NotificationManager } from "react-notifications";
+import { useDispatch } from "react-redux";
+import { useHistory } from "react-router-dom";
+import styled from "styled-components";
+import { removeTripMates } from "../../services/trip/useTrip";
+import { CLOSE_MODAL } from "../../store/constants/modal.const";
+import { REMOVE_TRIPMATE } from "../../store/constants/trip.const";
 
 export const ModalFooter = styled.div`
   display: flex;
@@ -60,59 +59,59 @@ const Message = styled.div`
   padding: 20px;
   text-align: center;
   font-size: 1.15rem;
-`
+`;
 
 const RemoveTripMateModal = ({ tripId, username }) => {
-    const [isLoading, setIsLoading] = useState(false);
-    const dispatch = useDispatch();
-    const history = useHistory();
-    console.log(history);
+  const [isLoading, setIsLoading] = useState(false);
+  const dispatch = useDispatch();
+  const history = useHistory();
+  console.log(history);
 
-    const onRemoveTripMate = async () => {
-        setIsLoading(true);
+  const onRemoveTripMate = async () => {
+    setIsLoading(true);
 
-        const removeTripMate = async () => {
-            if (username && username.length !== 0) {
-                try {
-                    const res = await removeTripMates(tripId, username);
-                    setIsLoading((prev) => ({
-                        ...prev,
-                        isRemoving: false
-                    }));
-                    dispatch({ type: REMOVE_TRIPMATE, payload: username });
-                    NotificationManager.success("Remove your tripmate successfully!");
-                    closeModal();
-                    setIsLoading(false);
-                } catch (err) {
-                    NotificationManager.error(err.response?.data?.message || "Fail to remove your tripmate");
-                    closeModal();
-                    setIsLoading(false);
-                }
-
-            }
+    const removeTripMate = async () => {
+      if (username && username.length !== 0) {
+        try {
+          const res = await removeTripMates(tripId, username);
+          console.log("🚀", res);
+          setIsLoading((prev) => ({
+            ...prev,
+            isRemoving: false,
+          }));
+          dispatch({ type: REMOVE_TRIPMATE, payload: username });
+          NotificationManager.success("Remove your tripmate successfully!");
+          closeModal();
+          setIsLoading(false);
+        } catch (err) {
+          NotificationManager.error(
+            err.response?.data?.message || "Fail to remove your tripmate"
+          );
+          closeModal();
+          setIsLoading(false);
         }
-        removeTripMate();
-    }
+      }
+    };
+    removeTripMate();
+  };
 
-    const closeModal = () => {
-        dispatch({
-            type: CLOSE_MODAL
-        })
-    }
+  const closeModal = () => {
+    dispatch({
+      type: CLOSE_MODAL,
+    });
+  };
 
-    return (
-        <div>
-            <Message>
-                Are you sure to remove this tripmate?
-            </Message>
-            <ModalFooter>
-                <ConfirmButton onClick={onRemoveTripMate} disabled={isLoading}>
-                    {isLoading ? 'Removing...' : 'Submit'}
-                </ConfirmButton>
-                <CloseButton onClick={closeModal}> Cancel </CloseButton>
-            </ModalFooter>
-        </div>
-    )
-}
+  return (
+    <div>
+      <Message>Are you sure to remove this tripmate?</Message>
+      <ModalFooter>
+        <ConfirmButton onClick={onRemoveTripMate} disabled={isLoading}>
+          {isLoading ? "Removing..." : "Submit"}
+        </ConfirmButton>
+        <CloseButton onClick={closeModal}> Cancel </CloseButton>
+      </ModalFooter>
+    </div>
+  );
+};
 
 export default RemoveTripMateModal;

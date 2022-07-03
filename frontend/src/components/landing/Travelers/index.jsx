@@ -1,8 +1,8 @@
 import React from "react";
 import SectionContainer from "../../profile/SectionContainer";
-import Traveler from "../../Traveller/traveler";
+// import Traveler from "../../Traveller/traveler";
 import SectionHeader from "../SectionHeader";
-import styles from "./Travelers.module.css";
+// import styles from "./Travelers.module.css";
 import RenderTraveler from "./../../RenderTraveler/index";
 
 const Travelers = (props) => {

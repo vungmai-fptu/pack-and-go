@@ -1,5 +1,4 @@
 import styles from "./footer.module.css";
-import { useEffect } from "react";
 import logo from "../../assets/images/logos/logo-black-3.png";
 
 import {
@@ -9,14 +8,13 @@ import {
   IoLogoFigma,
 } from "react-icons/io5";
 export default function Footer() {
-
   return (
     <footer>
       <div className={styles.footer}>
         <div className={styles.container}>
           <div className={styles.col}>
             <a href="/" className={styles.footerLogo}>
-              <img alt="Worldee logo" src={logo}/>
+              <img alt="Worldee logo" src={logo} />
             </a>
           </div>
           <div className={styles.col}>

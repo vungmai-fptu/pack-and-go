@@ -37,27 +37,31 @@ export default function ImageUpload({
     },
   };
 
-  useEffect(() => {
-    const uploadImage = async () => {
-      setIsLoading(true);
-      if (!selectedFile) {
+  useEffect(
+    () => {
+      const uploadImage = async () => {
+        setIsLoading(true);
+        if (!selectedFile) {
+          setIsLoading(false);
+          return;
+        }
+        const { isSuccess, imageUrl, message } = await storeImageToFireBase(
+          selectedFile
+        );
+        if (isSuccess) {
+          setImageList(imageUrl);
+          setIsLoading(false);
+          return imageUrl;
+        } else {
+          console.log(message);
+        }
         setIsLoading(false);
-        return;
-      }
-      const { isSuccess, imageUrl, message } = await storeImageToFireBase(
-        selectedFile
-      );
-      if (isSuccess) {
-        setImageList(imageUrl);
-        setIsLoading(false);
-        return imageUrl;
-      } else {
-        console.log(message);
-      }
-      setIsLoading(false);
-    };
-    uploadImage();
-  }, [selectedFile]);
+      };
+      uploadImage();
+    },
+    // eslint-disable-next-line
+    [selectedFile]
+  );
   const onSelectFile = (e) => {
     if (!e.target.files || e.target.files.length === 0) {
       setSelectedFile(undefined);

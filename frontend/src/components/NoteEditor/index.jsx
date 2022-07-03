@@ -4,22 +4,26 @@ import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
 import { useState } from "react";
 import draftToHtml from "draftjs-to-html";
 import htmlToDraft from "html-to-draftjs";
-import draftToMarkdown from "draftjs-to-markdown";
+// import draftToMarkdown from "draftjs-to-markdown";
 import { EditorState, convertToRaw, ContentState } from "draft-js";
 
 const NoteEditor = ({ html, setHtml, viewOnly }) => {
   const [editorState, setEditorState] = useState(EditorState.createEmpty());
 
-  useEffect(() => {
-    const blocksFromHtml = htmlToDraft(html);
-    const { contentBlocks, entityMap } = blocksFromHtml;
-    const contentState = ContentState.createFromBlockArray(
-      contentBlocks,
-      entityMap
-    );
-    const editorState = EditorState.createWithContent(contentState);
-    setEditorState(editorState);
-  }, []);
+  useEffect(
+    () => {
+      const blocksFromHtml = htmlToDraft(html);
+      const { contentBlocks, entityMap } = blocksFromHtml;
+      const contentState = ContentState.createFromBlockArray(
+        contentBlocks,
+        entityMap
+      );
+      const editorState = EditorState.createWithContent(contentState);
+      setEditorState(editorState);
+    },
+    // eslint-disable-next-line
+    []
+  );
 
   const onEditorStateChange = (state) => {
     // if (setHtml !== undefined) {

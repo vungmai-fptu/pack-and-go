@@ -1,10 +1,9 @@
-import React, { useEffect, useState } from 'react'
-import { useDispatch } from 'react-redux';
-import { useHistory } from 'react-router-dom';
-import styled from 'styled-components';
-import { deleteTrip } from '../../services/trip/useTrip';
-import { CLOSE_MODAL } from '../../store/constants/modal.const';
-
+import React, { useState } from "react";
+import { useDispatch } from "react-redux";
+import { useHistory } from "react-router-dom";
+import styled from "styled-components";
+import { deleteTrip } from "../../services/trip/useTrip";
+import { CLOSE_MODAL } from "../../store/constants/modal.const";
 
 export const ModalFooter = styled.div`
   display: flex;
@@ -58,7 +57,7 @@ const Message = styled.div`
   padding: 20px;
   text-align: center;
   font-size: 1.15rem;
-`
+`;
 
 const DeleteTripModal = ({ id }) => {
   const [isLoading, setIsLoading] = useState(false);
@@ -70,30 +69,28 @@ const DeleteTripModal = ({ id }) => {
     setIsLoading(true);
     const response = await deleteTrip(id);
     console.log(response);
-    closeModal()
+    closeModal();
     setIsLoading(false);
     history.push("/");
-  }
+  };
 
   const closeModal = () => {
     dispatch({
-      type: CLOSE_MODAL
-    })
-  }
+      type: CLOSE_MODAL,
+    });
+  };
 
   return (
     <div>
-      <Message>
-        Are you sure to delete this trip?
-      </Message>
+      <Message>Are you sure to delete this trip?</Message>
       <ModalFooter>
         <ConfirmButton onClick={onDeleteTrip} disabled={isLoading}>
-          {isLoading ? 'Deleting...' : 'Submit'}
+          {isLoading ? "Deleting..." : "Submit"}
         </ConfirmButton>
         <CloseButton onClick={closeModal}> Cancel </CloseButton>
       </ModalFooter>
     </div>
-  )
-}
+  );
+};
 
 export default DeleteTripModal;

@@ -4,27 +4,17 @@
 }
 
 .tab-list-item {
-  color: #d4dbe9;
+  color: #2e4765;
   display: flex;
   align-items: center;
-  justify-content: start;
+  justify-content: center;
   gap: 20px;
-  padding: 35px 10px;
-  transition: all 0.2s;
+  font-weight: 500;
+  font-size: 16px;
+  padding: 25px 10px;
 }
 
 .tab-list-active,
 .tab-list-item:hover {
   color: #00e1d6;
-}
-
-.tabSpan {
-  /* display: block; */
-  font-size: 0.875rem;
-  hyphens: auto;
-  padding: 0px 5px;
-  font-weight: 500;
-  /* text-indent: -200px; */
-  transition: all 0.5s;
-  word-wrap: break-word;
 }
