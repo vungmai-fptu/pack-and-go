@@ -1,27 +1,49 @@
 import React, { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
-import { FcSearch } from "react-icons/fc";
-import { getListUser } from "../../../store/actions/user.action";
+import { useDispatch, useSelector } from "react-redux";
+import { FcSearch, FcHighPriority, FcOk } from "react-icons/fc";
+import { getListUser, getUser } from "../../../store/actions/user.action";
 import avatar from "../assets/image/21-avatar-flat (1).gif";
 import location from "../assets/image/18-location-pin-flat.gif";
 import globe from "../assets/image/27-globe-flat.gif";
 import photo from "../assets/image/54-photo-picturelandscape-gallery-flat.gif";
 import styles from "../Dashboard/dashboard.module.css";
 import Chart from "./../Dashboard/chart/index";
+import ProfileUser from "./profileUser";
+import Load from "../../../components/Load";
+import Pagination from "./pagination";
 function UserManagement() {
   const dispatch = useDispatch();
   const [totalPages, setTotalPages] = useState(0);
   const [page, setPage] = useState(1);
   const [userList, setUserList] = useState([]);
-  const [loading, setLoading] = useState(false);
+  const [loadingInfo, setLoadingInfo] = useState(false);
+
+  const [username, setUsername] = useState(null);
+  const [errUser, setErrUser] = useState(null);
+  const { users } = useSelector((state) => state.user);
+  const { loading } = useSelector((state) => state.common);
   useEffect(
     () => {
       dispatch(
-        getListUser(page, userList, setUserList, setTotalPages, setLoading)
+        getListUser(
+          page,
+          userList,
+          setUserList,
+          setTotalPages,
+          setLoadingInfo,
+          10
+        )
       );
     },
     // eslint-disable-next-line
     [page]
+  );
+  useEffect(
+    () => {
+      dispatch(getUser(username, setErrUser));
+    },
+    // eslint-disable-next-line
+    [username]
   );
   const chartData = {
     labels: ["E-3-40/45", "E-3", "B-52", "B-1", "E-6", "KC-135"],
@@ -41,6 +63,13 @@ function UserManagement() {
       },
     ],
   };
+  const [currentPage, setCurrentPage] = useState(1);
+  const [postPerPage] = useState(5);
+  function pagiNate(number) {
+    setCurrentPage(number);
+    console.log("long" + number);
+  }
+
   return (
     <div className={styles.container}>
       <div className={styles.col_dash}>
@@ -112,10 +141,10 @@ function UserManagement() {
             <thead>
               <tr>
                 <th style={{ borderRadius: "30px 0 0 30px" }}>User Name</th>
-                <th style={{ width: 98 }}>Country</th>
-                <th style={{ width: 129 }}>Country</th>
-                <th style={{ width: 104, borderRadius: "0px 30px 30px 0px" }}>
-                  Country
+                <th style={{ width: 120 }}>Country</th>
+                <th style={{ width: 120 }}>Country</th>
+                <th style={{ width: 120, borderRadius: "0px 30px 30px 0px" }}>
+                  Actions
                 </th>
               </tr>
             </thead>
@@ -123,7 +152,7 @@ function UserManagement() {
               {userList.map((listUser, index) => {
                 return (
                   <tr key={index}>
-                    <th>
+                    <th onClick={() => setUsername(listUser.username)}>
                       <div className={styles.align_items_center}>
                         <div style={{ marginRight: "20px" }}>
                           <img
@@ -144,19 +173,35 @@ function UserManagement() {
                         : "Việt Nam"}
                     </td>
                     <td>Việt Nam</td>
-                    <td>Việt Nam</td>
+                    <td>
+                      <FcHighPriority />
+                      <FcOk />
+                    </td>
                   </tr>
                 );
               })}
             </tbody>
           </table>
+          <Pagination
+            pagiNate={(number) => pagiNate(number)}
+            postPerPage={postPerPage}
+            totalPosts={totalPages}
+          />
         </div>
       </div>
       <div className={styles.col_5}>
-        <div className={styles.white_box_5}>
-          <div className={styles.box_header}>
-            <h3>Chart</h3>
+        {users == null ? (
+          <></>
+        ) : loading ? (
+          <div className={styles.white_box_5}>
+            <Load />
           </div>
+        ) : (
+          <div className={styles.white_box_5}>
+            <ProfileUser users={users} />
+          </div>
+        )}
+        <div className={styles.white_box_5}>
           <Chart chartData={chartData} legendPosition="right" />
         </div>
       </div>

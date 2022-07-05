@@ -204,13 +204,14 @@ export const getListUser = (
   userList,
   setUserList,
   setTotalPages,
-  setLoading
+  setLoading,
+  size
 ) => {
   return (dispatch) => {
     dispatch(startLoading());
     axios({
       method: "GET",
-      url: `${API_URL}/api/users/trips?page=${page}&size=4`,
+      url: `${API_URL}/api/users/trips?page=${page}&size=${size}`,
       data: null,
     })
       .then((res) => {
@@ -336,7 +337,6 @@ const getUserFailed = (err) => {
 };
 
 export const postChangePassword = (confirmPassword, password) => {
-
   const userLogin = localStorage.getItem("userLogin");
   const token = userLogin ? JSON.parse(userLogin).token : "";
 

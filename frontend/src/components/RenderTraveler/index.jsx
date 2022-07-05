@@ -10,8 +10,8 @@ const Grid = styled.div`
   display: grid;
   row-gap: 20px;
   column-gap: 10px;
-  grid-template-columns: repeat( auto-fill, minmax(320px, 1fr) );
-  grid-template-columns: repeat( auto-fit, minmax(320px, 1fr) );
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
   margin: auto;
   justify-content: start;
 `;
@@ -25,7 +25,7 @@ export default function RenderTraveler() {
   useEffect(
     () => {
       dispatch(
-        getListUser(page, userList, setUserList, setTotalPages, setLoading)
+        getListUser(page, userList, setUserList, setTotalPages, setLoading, 4)
       );
     },
     // eslint-disable-next-line
@@ -38,7 +38,7 @@ export default function RenderTraveler() {
     </Grid>
   ) : (
     <>
-      <Grid >
+      <Grid>
         {userList
           .sort(function (a, b) {
             return b.trips.length - a.trips.length;
