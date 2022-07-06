@@ -139,7 +139,15 @@ const NotificationPopup = (props) => {
                 <div className="icon_wrapper">
                   <GrGroup className="icon" />
                 </div>
+
                 <div className="trip_mates">
+                  <Link
+                    key={occuringTrip.owner}
+                    to={`/profile/${occuringTrip.owner}`}
+                    className="user_tag"
+                  >
+                    <span>{occuringTrip.owner}</span>
+                  </Link>
                   {occuringTrip.tripMates &&
                     occuringTrip.tripMates.map((item) => (
                       <Link

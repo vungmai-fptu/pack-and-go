@@ -1,7 +1,7 @@
 import moment from "moment";
 import React, { useCallback, useRef, useState } from "react";
 import { useEffect } from "react";
-import { commentTrip, deleteComment, getComments, updateComment } from "../../services/trip/useTrip";
+import { commentTrip, deleteComment, getComments, replyComment, updateComment } from "../../services/trip/useTrip";
 import styles from "./comment.module.css";
 import FormComment from "./formComment";
 import InputComment from "./inputComment";
@@ -9,10 +9,6 @@ import InputComment from "./inputComment";
 
 function Comment({ tripId, comments, setComments, currentUser, loadComments, }) {
 
-  console.log("COMEMNT: ", comments);
-
-
-  const [name, setName] = useState("long");
   const [comment, setComment] = useState("");
   const [loading, setLoading] = useState(false);
 
@@ -75,6 +71,20 @@ function Comment({ tripId, comments, setComments, currentUser, loadComments, }) 
 
   };
 
+  const onReply = useCallback(async (id, content) => {
+
+    if (!content || content?.trim().length === 0) {
+      return;
+    }
+
+    const res = await replyComment(id, content);
+
+    if (res.status === 200) {
+      await loadComments();
+    }
+
+  });
+
 
   return (
     <div className={styles.container}>
@@ -86,6 +96,7 @@ function Comment({ tripId, comments, setComments, currentUser, loadComments, }) 
           <FormComment
             comment={comment}
             onDelete={onDelete}
+            onReply={onReply}
             setUpdated={setUpdated}
             popup={true}
             updated={updated}

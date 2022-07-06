@@ -113,18 +113,6 @@ const MapComponent = ({ destination }) => {
               <Popup>{p.address}</Popup>
             </Marker>
           ))}
-        {/* <SearchControl
-          provider={prov}
-          showMarker={false}
-          showPopup={false}
-          popupFormat={({ query, result }) => result.label}
-          maxMarkers={1}
-          retainZoomLevel={false}
-          animateZoom={true}
-          autoClose={true}
-          searchLabel={"Enter address, please"}
-          keepResult={true}
-        /> */}
       </MapContainer>
     </div>
   );

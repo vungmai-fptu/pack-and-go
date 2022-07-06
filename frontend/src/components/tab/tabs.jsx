@@ -52,6 +52,18 @@ function Tabs(props) {
     }
   }
 
+  const countNumOfComments = () => {
+    if (!comments) {
+      return 0;
+    }
+    let count = comments.length;
+    comments.forEach(cmt => {
+      count += cmt.extraComment && cmt.extraComment.length;
+    })
+
+    return count;
+  }
+
   return (
     <div className="w_CS" style={{ minWidth: "fit-content" }}>
       <div style={{ background: "#071125" }} className={styles.tabs}>
@@ -91,7 +103,7 @@ function Tabs(props) {
                   <div>
                     <FcComments />
                   </div>
-                  <span>{comments.length}</span>
+                  <span>{countNumOfComments()}</span>
                 </button>
                 <button>
                   <div>

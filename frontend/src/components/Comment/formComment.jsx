@@ -4,30 +4,11 @@ import { Link } from "react-router-dom";
 import styles from "./comment.module.css";
 import InputComment from "./inputComment";
 
-function FormComment({ comment, onDelete, setUpdated, popup, updated }) {
+function FormComment({ isSub = false, comment, onDelete, onReply, setUpdated, popup, updated }) {
   const [popupReply, setPopupReply] = useState(false);
-  const [reply, setReply] = useState("");
-  const [name, setName] = useState("long");
-  const [list, setList] = useState(comment.extraComment);
   const { user } = useSelector(state => state.user);
-
-  const addReply = () => {
-    const newComment = {
-      id: Math.random().toString(),
-      name,
-      comment: reply,
-    };
-    setList([...list, newComment]);
-    setReply("");
-  };
-
-  const onDeleteReply = useCallback((comments) => {
-    setList((list) =>
-      list.filter((oldComment) =>
-        oldComment.id === comments.id ? null : { oldComment }
-      )
-    );
-  }, []);
+  const [replyContent, setReplyContent] = useState("");
+  const [loading, setLoading] = useState(false);
 
   return (
     <div className={styles.formComment}>
@@ -39,7 +20,7 @@ function FormComment({ comment, onDelete, setUpdated, popup, updated }) {
           />
         </Link>
       </div>
-      <div>
+      <div className={styles.comment_right}>
         <div className={styles.content_box}>
           <div className={styles.content}>
             <div >
@@ -53,9 +34,11 @@ function FormComment({ comment, onDelete, setUpdated, popup, updated }) {
             </div>
           </div>
           <div className={styles.comment_actions} style={{ display: "inline-flex" }}>
-            <button onClick={() => setPopupReply(!popupReply)}>
-              <span>Reply</span>
-            </button>
+            {!isSub && (
+              <button onClick={() => setPopupReply(!popupReply)}>
+                <span>Reply</span>
+              </button>
+            )}
             {
               comment.username === user.username && (
                 <>
@@ -73,23 +56,36 @@ function FormComment({ comment, onDelete, setUpdated, popup, updated }) {
         {comment.extraComment === undefined ? (
           <></>
         ) : (
-          list.map((comment, index) => (
+          comment.extraComment.map((comment, index) => (
             <FormComment
-              comment={comment}
-              onDelete={onDeleteReply}
-              popup={false}
               key={index}
+              isSub={true}
+              comment={comment}
+              onDelete={onDelete}
+              onReply={onReply}
+              popup={false}
+              setUpdated={setUpdated}
             />
           ))
         )}
         {popupReply && (
-          <InputComment
-            style={{ marginBottom: "20px" }}
-            comment={reply}
-            updated={updated}
-            setComment={setReply}
-            addComment={addReply}
-          />
+          <div style={{ marginBottom: "20px" }}>
+            <InputComment
+              loading={loading}
+              content={replyContent}
+              setContent={setReplyContent}
+              avatar={user.avatar || "https://wrld-se-prod.b-cdn.net/images/user-empty.svg"}
+              addComment={async () => {
+                if (!replyContent || replyContent.trim().length === 0) {
+                  return;
+                }
+                await onReply(comment.id, replyContent)
+                setReplyContent("");
+                setPopupReply(false);
+
+              }}
+            />
+          </div>
         )}
       </div>
     </div >

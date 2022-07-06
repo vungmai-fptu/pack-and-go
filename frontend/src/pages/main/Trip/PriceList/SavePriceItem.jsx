@@ -20,11 +20,11 @@ const SavePriceItem = ({ item, handleClose, handleSaveItem }) => {
   }
 
   const onClickSave = () => {
-    if (!newItem || !newItem.name || newItem.name === "" || !newItem.price || +newItem.price === 0) {
+    if (!newItem || !newItem.name || newItem.name === "" || !newItem.price || +newItem.price <= 0) {
       if (!newItem || !newItem.name || newItem.name === "") {
         setError(prev => ({ ...prev, name: "Name is required" }))
       }
-      if (!newItem || !newItem.price || +newItem.price === 0) {
+      if (!newItem || !newItem.price || +newItem.price <= 0) {
         setError(prev => ({ ...prev, price: "Price should be more than 0" }))
       }
     } else {

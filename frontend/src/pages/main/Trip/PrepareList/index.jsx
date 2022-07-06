@@ -52,35 +52,33 @@ const PrepareList = ({ items, addItems }) => {
         What should be prepared? ({list.length})
       </h3>
       <div className={styles.list_container}>
-        <div>
-          {list && list.length !== 0 ? (
-            list.map((item, index) => (
-              <div key={index} className={styles.item}>
-                <div className={styles.item_name}>
-                  <span>{index + 1}. </span>
-                  <input
-                    value={item}
-                    onChange={(e) => handleUpdateItem(e, index)}
-                    autoFocus={index === updatedId ? true : false}
-                    disabled={mode === TRIP_MODE.VIEW}
-                  />
-                </div>
-                {
-                  mode !== TRIP_MODE.VIEW
-                  &&
-                  <div
-                    className={styles.action_button}
-                    onClick={() => handleRemoveItem(index)}
-                  >
-                    <AiOutlineCloseCircle />
-                  </div>
-                }
+        {list && list.length !== 0 ? (
+          list.map((item, index) => (
+            <div key={index} className={styles.item}>
+              <div className={styles.item_name}>
+                <span>{index + 1}. </span>
+                <input
+                  value={item}
+                  onChange={(e) => handleUpdateItem(e, index)}
+                  autoFocus={index === updatedId ? true : false}
+                  disabled={mode === TRIP_MODE.VIEW}
+                />
               </div>
-            ))
-          ) : (
-            <NoItem />
-          )}
-        </div>
+              {
+                mode !== TRIP_MODE.VIEW
+                &&
+                <div
+                  className={styles.action_button}
+                  onClick={() => handleRemoveItem(index)}
+                >
+                  <AiOutlineCloseCircle />
+                </div>
+              }
+            </div>
+          ))
+        ) : (
+          <NoItem />
+        )}
       </div>
       {
         mode !== TRIP_MODE.VIEW &&

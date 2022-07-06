@@ -46,15 +46,19 @@ const FutureTrips = ({ trips }) => {
                 <></>
               )}
 
-              <button className={styles["add-btn"]} onClick={onShowList}>
-                <div className={styles["add-btn-title"]}>
-                  {showed ? (
-                    <span className={["add-btn-text"]}>Collapse</span>
-                  ) : (
-                    <span className={["add-btn-text"]}>Show all</span>
-                  )}
-                </div>
-              </button>
+              {
+                trips && trips.length !== 0 && (
+                  <button className={styles["add-btn"]} onClick={onShowList}>
+                    <div className={styles["add-btn-title"]}>
+                      {showed ? (
+                        <span className={["add-btn-text"]}>Collapse</span>
+                      ) : (
+                        <span className={["add-btn-text"]}>Show all</span>
+                      )}
+                    </div>
+                  </button>
+                )
+              }
             </div>
           </div>
         </div>
@@ -66,7 +70,7 @@ const FutureTrips = ({ trips }) => {
               ))}
             </Grid>
           ) : (
-            "NOT FOUND"
+            "THERE IS NO TRIP"
           )}
         </div>
       </SectionContainer>

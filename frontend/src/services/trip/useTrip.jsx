@@ -167,9 +167,33 @@ export const updateComment = async (comment) => {
             content: comment.content
         })
     }
-    console.log("OPTIONS", options);
 
     const res = await fetch(`${baseUrl}/api/trips/comments/${comment.id}`, options);
+
+    return res;
+}
+export const replyComment = async (id, replyContent) => {
+    const userLoginString = localStorage.getItem("userLogin");
+    if (!userLoginString) {
+        return;
+    }
+
+    const userLogin = JSON.parse(userLoginString);
+
+    const { token } = userLogin;
+    const options = {
+        method: "POST",
+        headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            content: replyContent
+        })
+    }
+
+
+    const res = await fetch(`${baseUrl}/api/trips/comments/${id}/reply`, options);
 
     return res;
 }
