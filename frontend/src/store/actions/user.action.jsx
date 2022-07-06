@@ -296,7 +296,7 @@ export const getUser = (username, setErrUser) => {
         dispatch(stopLoading());
       })
       .catch((err) => {
-        setErrUser(err);
+        setErrUser && setErrUser(err);
         dispatch(getUserFailed(err));
         dispatch(stopLoading());
       });

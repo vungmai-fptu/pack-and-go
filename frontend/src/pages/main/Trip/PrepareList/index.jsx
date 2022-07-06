@@ -6,12 +6,13 @@ import { AiOutlineCloseCircle, AiOutlinePlusCircle } from "react-icons/ai";
 import { GiLightBackpack } from "react-icons/gi";
 import NoItem from "../NoItem";
 import { useDispatch, useSelector } from "react-redux";
-import { SET_PREPARED_LIST, TRIP_MODE } from "../../../../store/constants/trip.const";
-
-
+import {
+  SET_PREPARED_LIST,
+  TRIP_MODE,
+} from "../../../../store/constants/trip.const";
 
 const PrepareList = ({ items, addItems }) => {
-  const { trip, mode } = useSelector(state => state.trip);
+  const { trip, mode } = useSelector((state) => state.trip);
   const dispatch = useDispatch();
   const [list, setList] = useState(trip.preparedList || []);
   const [updatedId, setUpdateId] = useState(0);
@@ -32,7 +33,7 @@ const PrepareList = ({ items, addItems }) => {
     dispatch({
       type: SET_PREPARED_LIST,
       payload: newList,
-    })
+    });
     setList(newList);
   };
 
@@ -52,7 +53,7 @@ const PrepareList = ({ items, addItems }) => {
         What should be prepared? ({list.length})
       </h3>
       <div className={styles.list_container}>
-        <div>
+        <div style={{ overflow: "auto", height: "50vh" }}>
           {list && list.length !== 0 ? (
             list.map((item, index) => (
               <div key={index} className={styles.item}>
@@ -65,16 +66,14 @@ const PrepareList = ({ items, addItems }) => {
                     disabled={mode === TRIP_MODE.VIEW}
                   />
                 </div>
-                {
-                  mode !== TRIP_MODE.VIEW
-                  &&
+                {mode !== TRIP_MODE.VIEW && (
                   <div
                     className={styles.action_button}
                     onClick={() => handleRemoveItem(index)}
                   >
                     <AiOutlineCloseCircle />
                   </div>
-                }
+                )}
               </div>
             ))
           ) : (
@@ -82,15 +81,14 @@ const PrepareList = ({ items, addItems }) => {
           )}
         </div>
       </div>
-      {
-        mode !== TRIP_MODE.VIEW &&
+      {mode !== TRIP_MODE.VIEW && (
         <div className={styles.add_item} onClick={handleAddItem}>
           <div className={styles.add_button}>
             <AiOutlinePlusCircle />
           </div>
           <span>Add new item</span>
         </div>
-      }
+      )}
     </div>
   );
 };

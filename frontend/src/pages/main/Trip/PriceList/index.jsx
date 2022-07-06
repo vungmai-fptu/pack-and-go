@@ -110,23 +110,26 @@ const PriceList = () => {
         </span>
       </div>
       <div className={styles.list_item}>
-        {trip.priceList && trip.priceList.length !== 0 ? (
-          trip.priceList.map((item, index) => (
-            <PriceItem
-              onOpen={() => handleOpen(index)}
-              isUpdated={updatedId === index ? true : false}
-              handleDelete={() => onDeleteItem(index)}
-              item={item}
-              key={index}
-              concurrencyUnit={trip.concurrencyUnit}
-              onClose={handleClose}
-              handleUpdate={onSaveItem}
-              isView={isView}
-            />
-          ))
-        ) : (
-          <NoItem />
-        )}
+        <div style={{ overflow: "auto", height: "50vh" }}>
+          {" "}
+          {trip.priceList && trip.priceList.length !== 0 ? (
+            trip.priceList.map((item, index) => (
+              <PriceItem
+                onOpen={() => handleOpen(index)}
+                isUpdated={updatedId === index ? true : false}
+                handleDelete={() => onDeleteItem(index)}
+                item={item}
+                key={index}
+                concurrencyUnit={trip.concurrencyUnit}
+                onClose={handleClose}
+                handleUpdate={onSaveItem}
+                isView={isView}
+              />
+            ))
+          ) : (
+            <NoItem />
+          )}
+        </div>
       </div>
 
       {!isView && (

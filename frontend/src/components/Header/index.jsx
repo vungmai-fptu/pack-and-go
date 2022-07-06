@@ -113,7 +113,7 @@ export default function Header() {
                   value={text}
                   onChange={(e) => setText(e.target.value)}
                   type="text"
-                  placeholder="Search"
+                  placeholder="Search here..."
                 />
               </div>
               <div className={styles.searchIcon}>
