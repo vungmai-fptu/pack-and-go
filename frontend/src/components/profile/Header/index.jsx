@@ -5,7 +5,7 @@ const Header = (props) => {
   const visit = trips.map((visit) => visit.visitPlaces).flat();
   const photos = visit.map((photos) => photos.images).flat().length;
   return (
-    <div style={{ padding: "95px 20px 20px 20px", margin: "0 auto" }}>
+    <div style={{ padding: "100px 200px 20px 200px", margin: "0 auto" }}>
       <div>
         <div className={styles["header-cover"]}>
           <div className={styles["header-cover-photo"]}>

@@ -6,12 +6,13 @@ import { AiOutlineCloseCircle, AiOutlinePlusCircle } from "react-icons/ai";
 import { GiLightBackpack } from "react-icons/gi";
 import NoItem from "../NoItem";
 import { useDispatch, useSelector } from "react-redux";
-import { SET_PREPARED_LIST, TRIP_MODE } from "../../../../store/constants/trip.const";
-
-
+import {
+  SET_PREPARED_LIST,
+  TRIP_MODE,
+} from "../../../../store/constants/trip.const";
 
 const PrepareList = ({ items, addItems }) => {
-  const { trip, mode } = useSelector(state => state.trip);
+  const { trip, mode } = useSelector((state) => state.trip);
   const dispatch = useDispatch();
   const [list, setList] = useState(trip.preparedList || []);
   const [updatedId, setUpdateId] = useState(0);
@@ -32,7 +33,7 @@ const PrepareList = ({ items, addItems }) => {
     dispatch({
       type: SET_PREPARED_LIST,
       payload: newList,
-    })
+    });
     setList(newList);
   };
 
@@ -80,15 +81,14 @@ const PrepareList = ({ items, addItems }) => {
           <NoItem />
         )}
       </div>
-      {
-        mode !== TRIP_MODE.VIEW &&
+      {mode !== TRIP_MODE.VIEW && (
         <div className={styles.add_item} onClick={handleAddItem}>
           <div className={styles.add_button}>
             <AiOutlinePlusCircle />
           </div>
           <span>Add new item</span>
         </div>
-      }
+      )}
     </div>
   );
 };

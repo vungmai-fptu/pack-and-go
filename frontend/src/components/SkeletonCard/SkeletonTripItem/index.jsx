@@ -4,7 +4,7 @@ import styles from "../../TripItem/TripItem.module.css";
 const SkeletonTripItem = () => {
   return (
     <>
-      {Array(6)
+      {Array(9)
         .fill()
         .map((item, index) => (
           <div className={styles.outer} key={index}>

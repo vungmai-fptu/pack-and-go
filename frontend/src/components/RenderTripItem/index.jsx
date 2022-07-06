@@ -21,7 +21,15 @@ export default function RenderTripItem() {
     <div className="w_cw">
       <div className="w_cW w_cX ">
         {isLogin && <label className="w_rI w_rT">New Trips</label>}
-        <div className="w_cx">
+        <div
+          // className="w_cx"
+          style={{
+            display: "grid",
+            gap: "24px",
+            gridTemplateColumns: "repeat(3, 1fr)",
+            margin: "16px 0",
+          }}
+        >
           <SkeletonTripItem />
         </div>
       </div>
@@ -30,7 +38,15 @@ export default function RenderTripItem() {
     <div className="w_cw">
       <div className="w_cW w_cX ">
         {isLogin && <label className="w_rI w_rT">New Trips</label>}
-        <div className="w_cx">
+        <div
+          // className="w_cx"
+          style={{
+            display: "grid",
+            gap: "24px",
+            gridTemplateColumns: "repeat(3, 1fr)",
+            margin: "16px 0",
+          }}
+        >
           {userList
             .sort(function (a, b) {
               return b.visitDays.length - a.visitDays.length;
