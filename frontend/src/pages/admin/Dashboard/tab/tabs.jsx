@@ -4,6 +4,7 @@ import Tab from "./tab";
 import styles from "./Tabs.module.css";
 import logo from "../../../../assets/images/logos/logo-black-3.png";
 import HeaderAdmin from "./../header/index";
+import { Link } from "react-router-dom";
 class Tabs extends Component {
   static propTypes = {
     children: PropTypes.instanceOf(Array).isRequired,
@@ -33,7 +34,9 @@ class Tabs extends Component {
       <>
         <nav className={styles.tabs}>
           <div className={styles.logo}>
-            <img src={logo} alt="img" />
+            <Link to="/">
+              <img alt="logo" src={logo} />
+            </Link>
           </div>
           <ul>
             {children.map((child) => {

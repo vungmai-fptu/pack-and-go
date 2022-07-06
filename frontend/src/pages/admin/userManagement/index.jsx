@@ -27,12 +27,16 @@ function UserManagement() {
       setLoadingInfo(true);
       axios({
         method: "GET",
-        url: `${process.env.REACT_APP_API_URL}/api/users/trips?page=${page}&size=10`,
-      }).then((res) => {
-        setUserList(res.data.data);
-        setTotalPages(res.data.total);
-        setLoadingInfo(false);
-      });
+        url: `${process.env.REACT_APP_API_URL}/api/users/trips?page=${page}&size=8`,
+      })
+        .then((res) => {
+          setUserList(res.data.data);
+          setTotalPages(res.data.total);
+          setLoadingInfo(false);
+        })
+        .catch((err) => {
+          console.error(err);
+        });
     };
     getAccountInfo();
     // eslint-disable-next-line
@@ -56,7 +60,7 @@ function UserManagement() {
 
   useEffect(
     () => {
-      dispatch(getUser(username, null));
+      username && dispatch(getUser(username, null));
     },
     // eslint-disable-next-line
     [username]
@@ -185,7 +189,8 @@ function UserManagement() {
                           <div style={{ marginRight: "20px" }}>
                             <img
                               src={
-                                listUser.profileImageUrl === ""
+                                listUser.profileImageUrl === "" ||
+                                listUser.profileImageUrl === null
                                   ? "https://wrld-se-prod.b-cdn.net/images/user-empty.svg?width=640&height=640"
                                   : listUser.profileImageUrl
                               }

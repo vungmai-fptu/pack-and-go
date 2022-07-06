@@ -59,18 +59,12 @@ const LocationIcon = styled.div`
   color: #e03131;
   font-family: "Poppins", sans-serif;
 `;
-
 const LocationAddress = styled.div``;
-
 const OSM_API_URL = "https://nominatim.openstreetmap.org/search";
-
-const start = true;
-console.log("🚀", start);
 const SearchBox = ({ style, destination, onChangeDestination }) => {
   const dispatch = useDispatch();
   const [searchText, setSearchText] = useState("");
   const [listAddress, setListAddress] = useState([]);
-
   const handleSearch = async (keyword) => {
     const params = {
       q: keyword,

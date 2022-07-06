@@ -25,6 +25,34 @@
     align-items: center;
     justify-content: center;
     text-align: center;
+    position: relative;
+}
+
+.div-send-msg input {
+    border: 1px solid #d0d8e6;
+    border-radius: 8px;
+    font-size: 0.875rem;
+    min-height: 48px;
+    padding: 0 12px;
+    width: 250px;
+}
+
+.div-send-msg button {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    display: block;
+    width: 40px;
+    height: 40px;
+    background: #00e1d6;
+    border-radius: 50%;
+}
+
+.div-send-msg button svg {
+    font-size: 20px;
+    color: white;
+    margin: 10px;
 }
 
 .btn-down {
@@ -81,7 +109,8 @@
     background: rgb(255, 255, 255);
     height: calc(100% - 150px);
     margin-top: 20px;
-    margin-left: 10px;
+    padding: 15px;
+    margin-left: 20px;
     border-radius: 8px;
     box-shadow: rgb(60 64 67 / 30%) 0px 1px 3px 0px,
         rgb(60 64 67 / 15%) 0px 4px 8px 3px;

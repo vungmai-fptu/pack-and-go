@@ -1,11 +1,8 @@
 import React, { useState } from "react";
 import styles from "./PriceList.module.css";
 import { v4 as uuid } from "uuid";
-
 import { GiMoneyStack } from "react-icons/gi";
-
 import { AiOutlinePlusCircle } from "react-icons/ai";
-
 import { RiArrowDropDownLine } from "react-icons/ri";
 import PriceItem from "./PriceItem";
 import SavePriceItem from "./SavePriceItem";

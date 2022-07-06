@@ -11,7 +11,7 @@ function InputComment({
   setContent,
   addComment,
   onUpdate,
-  loading
+  loading,
 }) {
   return (
     <>
@@ -19,10 +19,7 @@ function InputComment({
         <div className={styles.formComment}>
           <div className={styles.comment}>
             <Link to="/">
-              <img
-                alt="comment-trip-diary"
-                src={avatar}
-              />
+              <img alt="comment-trip-diary" src={avatar} />
             </Link>
           </div>
           <div className={styles.comment_box}>
@@ -33,14 +30,13 @@ function InputComment({
               placeholder="Enter comment..."
             />
             <div>
-              {
-                loading ? <p>Sending...</p> : (
-                  <button onClick={addComment}>
-                    <IoSend />
-                  </button>
-                )
-              }
-
+              {loading ? (
+                <p>Sending...</p>
+              ) : (
+                <button onClick={addComment}>
+                  <IoSend />
+                </button>
+              )}
             </div>
           </div>
         </div>
@@ -48,32 +44,29 @@ function InputComment({
         <div className={styles.formComment}>
           <div className={styles.comment}>
             <Link to="/">
-              <img
-                alt="profile"
-                src={avatar}
-              />
+              <img alt="profile" src={avatar} />
             </Link>
           </div>
           <div className={styles.comment_box}>
             <input
               type="text"
               value={updated.content}
-              onChange={(event) => setUpdated({
-                ...updated,
-                content: event.target.value
-              })}
-
+              onChange={(event) =>
+                setUpdated({
+                  ...updated,
+                  content: event.target.value,
+                })
+              }
               placeholder="Enter comment..."
             />
             <div>
-              {
-                loading ? <p>Sending...</p> : (
-                  <button onClick={onUpdate}>
-                    <IoSend />
-                  </button>
-                )
-              }
-
+              {loading ? (
+                <p>Sending...</p>
+              ) : (
+                <button onClick={onUpdate}>
+                  <IoSend />
+                </button>
+              )}
             </div>
           </div>
         </div>

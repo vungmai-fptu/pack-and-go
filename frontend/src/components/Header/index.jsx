@@ -45,8 +45,6 @@ export default function Header() {
   useEffect(
     () => {
       setLoading(true);
-      console.log("NEXT: ", page);
-
       axios
         .get(
           `${process.env.REACT_APP_API_URL}/api/notifications?page=${page}&size=${SIZE}`,
@@ -57,7 +55,6 @@ export default function Header() {
           }
         )
         .then((res) => {
-          console.log(res);
           setNotifications((prev) =>
             prev ? [...prev, ...res.data.data] : res.data.data
           );
@@ -67,7 +64,6 @@ export default function Header() {
           }
         })
         .catch((error) => {
-          console.log(error);
           setLoading(false);
         });
     },

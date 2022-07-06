@@ -62,7 +62,6 @@ export default function Header() {
   };
 
   const onSaveTrip = () => {
-    console.log(trip);
     if (mode === TRIP_MODE.CREATE) {
       dispatch(saveTrip(trip));
     } else if (mode === TRIP_MODE.UPDATE) {
