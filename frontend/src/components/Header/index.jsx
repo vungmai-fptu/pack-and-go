@@ -12,10 +12,14 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { useIsLogin } from "../../hooks/useIsLogin";
 import NotificationBox from "../NotificationBox";
+import { useDispatch } from "react-redux";
+import { NotificationManager } from "react-notifications";
+import { actLogout } from "../../store/actions/user.action";
 
 const SIZE = 2;
 
 export default function Header() {
+  const dispatch = useDispatch();
   const [notificationActive, setNotificationActive] = useState(false);
   const [notifications, setNotifications] = useState(null);
   const { user } = useIsLogin();
@@ -65,6 +69,8 @@ export default function Header() {
         })
         .catch((error) => {
           setLoading(false);
+          dispatch(actLogout());
+          NotificationManager.error("session has expired please login again");
         });
     },
     // eslint-disable-next-line
