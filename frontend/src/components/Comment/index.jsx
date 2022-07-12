@@ -1,18 +1,17 @@
-import moment from "moment";
+// import moment from "moment";
 import React, { useCallback, useRef, useState } from "react";
-import { useEffect } from "react";
-import { commentTrip, deleteComment, getComments, updateComment } from "../../services/trip/useTrip";
+// import { useEffect } from "react";
+import {
+  commentTrip,
+  deleteComment,
+  updateComment,
+} from "../../services/trip/useTrip";
 import styles from "./comment.module.css";
 import FormComment from "./formComment";
 import InputComment from "./inputComment";
 
-
-function Comment({ tripId, comments, setComments, currentUser, loadComments, }) {
-
-  console.log("COMEMNT: ", comments);
-
-
-  const [name, setName] = useState("long");
+function Comment({ tripId, comments, setComments, currentUser, loadComments }) {
+  // const [name, setName] = useState("long");
   const [comment, setComment] = useState("");
   const [loading, setLoading] = useState(false);
 
@@ -43,20 +42,22 @@ function Comment({ tripId, comments, setComments, currentUser, loadComments, }) 
     } finally {
       setLoading(false);
     }
-  }
+  };
 
+  const onDelete = useCallback(
+    (comment) => {
+      const deleteCmt = async () => {
+        const res = await deleteComment(comment.id);
+        if (res.status === 200) {
+          loadComments();
+        }
+      };
 
-  const onDelete = useCallback((comment) => {
-    const deleteCmt = async () => {
-      const res = await deleteComment(comment.id);
-      if (res.status === 200) {
-        loadComments();
-      }
-    }
-
-    deleteCmt();
-  }, []);
-
+      deleteCmt();
+    },
+    // eslint-disable-next-line
+    []
+  );
 
   const onUpdate = () => {
     if (!updated || updated.content?.trim().length === 0) {
@@ -69,19 +70,14 @@ function Comment({ tripId, comments, setComments, currentUser, loadComments, }) 
         await loadComments();
         setUpdated(null);
       }
-    }
+    };
 
     updateCmt();
-
   };
-
 
   return (
     <div className={styles.container}>
-      <div
-        className={styles.container_comments}
-        ref={ref}
-      >
+      <div className={styles.container_comments} ref={ref}>
         {comments.map((comment, index) => (
           <FormComment
             comment={comment}
@@ -95,7 +91,10 @@ function Comment({ tripId, comments, setComments, currentUser, loadComments, }) 
       </div>
       <div className={styles.root_input}>
         <InputComment
-          avatar={currentUser?.profileImageUrl || "https://wrld-se-prod.b-cdn.net/images/user-empty.svg"}
+          avatar={
+            currentUser?.profileImageUrl ||
+            "https://wrld-se-prod.b-cdn.net/images/user-empty.svg"
+          }
           content={comment}
           updated={updated}
           setUpdated={setUpdated}

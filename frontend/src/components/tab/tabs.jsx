@@ -8,7 +8,7 @@ import { TRIP_MODE } from "../../store/constants/trip.const";
 import { getComments, likeOrUnLikeTrip } from "../../services/trip/useTrip";
 function Tabs(props) {
   const [activeTab, setActiveTab] = useState(props.children[0].props.label);
-  const { user } = useSelector(state => state.user);
+  const { user } = useSelector((state) => state.user);
   const [formComment, setFormComment] = useState(false);
   const [isHeart, setIsHeart] = useState(false);
   const { trip, mode } = useSelector((state) => state.trip);
@@ -18,39 +18,40 @@ function Tabs(props) {
   const loadComments = async () => {
     if (trip.id) {
       const cms = await getComments(trip.id);
-      console.log(cms)
+      console.log(cms);
       setComments(cms);
     }
   };
 
-  useEffect(() => {
-    loadComments()
-  }, [trip.id]);
+  useEffect(
+    () => {
+      loadComments();
+    },
+    // eslint-disable-next-line
+    [trip.id]
+  );
 
   useEffect(() => {
     setNumOfLikes(trip.numOfLikes);
   }, [trip.numOfLikes]);
 
-
-
   const onClickTabItem = (tab) => {
     setActiveTab(tab);
   };
-
 
   const likeTrip = async () => {
     try {
       likeOrUnLikeTrip(trip.id);
       if (isHeart) {
-        setNumOfLikes(prev => prev - 1);
+        setNumOfLikes((prev) => prev - 1);
       } else {
-        setNumOfLikes(prev => prev + 1);
+        setNumOfLikes((prev) => prev + 1);
       }
       setIsHeart(!isHeart);
     } catch (err) {
       console.log(err);
     }
-  }
+  };
 
   return (
     <div className="w_CS" style={{ minWidth: "fit-content" }}>
@@ -77,9 +78,7 @@ function Tabs(props) {
           <div style={{ borderTop: "1px solid #d0d8e6" }}>
             <div style={{ display: "flex" }}>
               <div className={styles.interactive} style={{ display: "flex" }}>
-                <button
-                  onClick={likeTrip}
-                >
+                <button onClick={likeTrip}>
                   <div>{isHeart ? <FcLike /> : <FcLikePlaceholder />}</div>
                   <span>{numOfLikes}</span>
                 </button>
@@ -100,12 +99,15 @@ function Tabs(props) {
                 </button>
               </div>
             </div>
-            {formComment && <Comment
-              loadComments={loadComments}
-              tripId={trip.id}
-              currentUser={user}
-              comments={comments}
-              setComments={setComments} />}
+            {formComment && (
+              <Comment
+                loadComments={loadComments}
+                tripId={trip.id}
+                currentUser={user}
+                comments={comments}
+                setComments={setComments}
+              />
+            )}
           </div>
         )}
       </div>

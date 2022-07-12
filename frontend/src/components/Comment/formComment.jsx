@@ -8,8 +8,9 @@ function FormComment({ comment, onDelete, setUpdated, popup, updated }) {
   const [popupReply, setPopupReply] = useState(false);
   const [reply, setReply] = useState("");
   const [name, setName] = useState("long");
+  console.log("🚀", setName);
   const [list, setList] = useState(comment.extraComment);
-  const { user } = useSelector(state => state.user);
+  const { user } = useSelector((state) => state.user);
 
   const addReply = () => {
     const newComment = {
@@ -35,16 +36,19 @@ function FormComment({ comment, onDelete, setUpdated, popup, updated }) {
         <Link to={`/profile/${comment.username}`}>
           <img
             alt="profile"
-            src={comment.avatar || "https://wrld-se-prod.b-cdn.net/images/user-empty.svg"}
+            src={
+              comment.avatar ||
+              "https://wrld-se-prod.b-cdn.net/images/user-empty.svg"
+            }
           />
         </Link>
       </div>
       <div>
         <div className={styles.content_box}>
           <div className={styles.content}>
-            <div >
+            <div>
               <div style={{ display: "flex", alignItems: "center" }}>
-                <Link to={`/profile/${comment.username}`} >
+                <Link to={`/profile/${comment.username}`}>
                   <span style={{ marginRight: "8px" }}>{comment.username}</span>
                 </Link>
                 <p>{comment.time}</p>
@@ -52,22 +56,23 @@ function FormComment({ comment, onDelete, setUpdated, popup, updated }) {
               <div className={styles.main}>{comment.content}</div>
             </div>
           </div>
-          <div className={styles.comment_actions} style={{ display: "inline-flex" }}>
+          <div
+            className={styles.comment_actions}
+            style={{ display: "inline-flex" }}
+          >
             <button onClick={() => setPopupReply(!popupReply)}>
               <span>Reply</span>
             </button>
-            {
-              comment.username === user.username && (
-                <>
-                  <button onClick={() => onDelete(comment)}>
-                    <span>Delete</span>
-                  </button>
-                  <button onClick={() => setUpdated(comment)}>
-                    <span>Edit</span>
-                  </button>
-                </>
-              )
-            }
+            {comment.username === user.username && (
+              <>
+                <button onClick={() => onDelete(comment)}>
+                  <span>Delete</span>
+                </button>
+                <button onClick={() => setUpdated(comment)}>
+                  <span>Edit</span>
+                </button>
+              </>
+            )}
           </div>
         </div>
         {comment.extraComment === undefined ? (
@@ -92,7 +97,7 @@ function FormComment({ comment, onDelete, setUpdated, popup, updated }) {
           />
         )}
       </div>
-    </div >
+    </div>
   );
 }
 

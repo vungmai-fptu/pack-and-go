@@ -42,15 +42,19 @@ export default function Date() {
     setIsSingleTrip((prev) => !prev);
   };
 
-  const handleDateChange = useCallback((dates) => {
-    dispatch({
-      type: SET_DATE,
-      payload: {
-        beginDate: dates.startDate,
-        endDate: !isSingleTrip ? dates.endDate : null,
-      },
-    });
-  });
+  const handleDateChange = useCallback(
+    (dates) => {
+      dispatch({
+        type: SET_DATE,
+        payload: {
+          beginDate: dates.startDate,
+          endDate: !isSingleTrip ? dates.endDate : null,
+        },
+      });
+    },
+    // eslint-disable-next-line
+    []
+  );
 
   return (
     <div className={styles.tripDate}>
