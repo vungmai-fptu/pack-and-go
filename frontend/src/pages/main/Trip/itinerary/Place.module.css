@@ -46,7 +46,7 @@
   min-width: 0;
   justify-content: space-between;
   padding: 5px 10px;
-  max-width: 90%;
+  max-width: 65%;
 }
 
 .rightFlex {
@@ -110,6 +110,7 @@
   transition: all 0.4s;
   cursor: pointer;
 }
+
 .icon_wrapper {
   width: 30px;
   height: 30px;
@@ -125,6 +126,7 @@
 .icon_wrapper:hover .icon {
   transform: scale(1.05);
 }
+
 .dayOne:hover .action {
   max-width: 100px;
 }
@@ -155,15 +157,18 @@
   display: flex;
   flex-wrap: wrap;
 }
+
 .image {
   padding: 8px;
   width: 180px;
   height: 180px;
   position: relative;
 }
+
 .image:hover img {
   transform: scale(1.05);
 }
+
 .image img {
   transition: all 0.2s;
   cursor: pointer;
@@ -188,6 +193,7 @@
   opacity: 0;
   transition: all 0.2s;
 }
+
 .remove_image {
   width: 100%;
   height: 100%;

@@ -17,7 +17,9 @@ class Tab extends Component {
     return (
       <li className={className} onClick={onClick}>
         <Icon />
-        <span className={styles.tabSpan}>{label}</span>
+        <span className={styles.tabSpan} style={{ cursor: "pointer" }}>
+          {label}
+        </span>
       </li>
     );
   }

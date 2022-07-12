@@ -10,22 +10,26 @@ function FormComment({ isSub = false, comment, onDelete, onReply, setUpdated, po
   const [replyContent, setReplyContent] = useState("");
   const [loading, setLoading] = useState(false);
 
+
   return (
     <div className={styles.formComment}>
       <div className={styles.comment}>
         <Link to={`/profile/${comment.username}`}>
           <img
             alt="profile"
-            src={comment.avatar || "https://wrld-se-prod.b-cdn.net/images/user-empty.svg"}
+            src={
+              comment.avatar ||
+              "https://wrld-se-prod.b-cdn.net/images/user-empty.svg"
+            }
           />
         </Link>
       </div>
       <div className={styles.comment_right}>
         <div className={styles.content_box}>
           <div className={styles.content}>
-            <div >
+            <div>
               <div style={{ display: "flex", alignItems: "center" }}>
-                <Link to={`/profile/${comment.username}`} >
+                <Link to={`/profile/${comment.username}`}>
                   <span style={{ marginRight: "8px" }}>{comment.username}</span>
                 </Link>
                 <p>{comment.time}</p>
@@ -53,41 +57,45 @@ function FormComment({ isSub = false, comment, onDelete, onReply, setUpdated, po
             }
           </div>
         </div>
-        {comment.extraComment === undefined ? (
-          <></>
-        ) : (
-          comment.extraComment.map((comment, index) => (
-            <FormComment
-              key={index}
-              isSub={true}
-              comment={comment}
-              onDelete={onDelete}
-              onReply={onReply}
-              popup={false}
-              setUpdated={setUpdated}
-            />
-          ))
-        )}
-        {popupReply && (
-          <div style={{ marginBottom: "20px" }}>
-            <InputComment
-              loading={loading}
-              content={replyContent}
-              setContent={setReplyContent}
-              avatar={user.avatar || "https://wrld-se-prod.b-cdn.net/images/user-empty.svg"}
-              addComment={async () => {
-                if (!replyContent || replyContent.trim().length === 0) {
-                  return;
-                }
-                await onReply(comment.id, replyContent)
-                setReplyContent("");
-                setPopupReply(false);
+        {
+          comment.extraComment === undefined ? (
+            <></>
+          ) : (
+            comment.extraComment.map((comment, index) => (
+              <FormComment
+                key={index}
+                isSub={true}
+                comment={comment}
+                onDelete={onDelete}
+                onReply={onReply}
+                popup={false}
+                setUpdated={setUpdated}
+              />
+            ))
+          )
+        }
+        {
+          popupReply && (
+            <div style={{ marginBottom: "20px" }}>
+              <InputComment
+                loading={loading}
+                content={replyContent}
+                setContent={setReplyContent}
+                avatar={user.avatar || "https://wrld-se-prod.b-cdn.net/images/user-empty.svg"}
+                addComment={async () => {
+                  if (!replyContent || replyContent.trim().length === 0) {
+                    return;
+                  }
+                  await onReply(comment.id, replyContent)
+                  setReplyContent("");
+                  setPopupReply(false);
 
-              }}
-            />
-          </div>
-        )}
-      </div>
+                }}
+              />
+            </div>
+          )
+        }
+      </div >
     </div >
   );
 }

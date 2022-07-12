@@ -5,7 +5,7 @@ import OverviewOwner from './OverviewOwner';
 import OverviewViewer from './OverviewViewer';
 
 const Overview = () => {
-    const { trip, mode } = useSelector(state => state.trip);
+    const {  mode } = useSelector(state => state.trip);
     return (
         <>
             {mode === TRIP_MODE.VIEW ?

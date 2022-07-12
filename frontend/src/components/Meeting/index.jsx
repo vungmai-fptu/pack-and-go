@@ -13,6 +13,7 @@ import {
   MdCallEnd,
   MdChat,
 } from "react-icons/md";
+import { IoSend } from "react-icons/io5";
 import HeaderMeeting from "./headerMeeting";
 const server_url = "https://video.sebastienbiollo.com";
 var connections = {};
@@ -590,7 +591,7 @@ class Meeting extends Component {
                   </div>
                   <div className="div-send-msg">
                     <input
-                      placeholder="Message"
+                      placeholder=" Enter Message..."
                       value={this.state.message}
                       onChange={(e) => this.handleMessage(e)}
                     />
@@ -599,7 +600,7 @@ class Meeting extends Component {
                       color="primary"
                       onClick={this.sendMessage}
                     >
-                      Send
+                      <IoSend />
                     </button>
                   </div>
                 </div>

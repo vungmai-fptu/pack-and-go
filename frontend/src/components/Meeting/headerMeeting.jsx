@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import logo from "../../assets/images/logos/logo-3.png";
 import styles from "../Header/header.module.css";
 import { useEffect, useState } from "react";
@@ -6,17 +6,30 @@ import { useIsLogin } from "../../hooks/useIsLogin";
 import axios from "axios";
 
 export default function HeaderMeeting() {
+  const { id } = useParams();
   const { user } = useIsLogin();
   const [state, setState] = useState({});
+  const [trip, setTrip] = useState(null);
   useEffect(
     () => {
-      axios
-        .get(
-          `${process.env.REACT_APP_API_URL}/api/users/${user.username}/trips`
-        )
+      axios({
+        method: "GET",
+        url: `${process.env.REACT_APP_API_URL}/api/user/account`,
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${user.token}`,
+        },
+      })
         .then((res) => {
-          const persons = res.data;
-          setState(persons);
+          setState(res.data);
+        })
+        .catch((error) => console.log(error));
+      axios({
+        method: "GET",
+        url: `${process.env.REACT_APP_API_URL}/api/trips/${id}`,
+      })
+        .then((res) => {
+          setTrip(res.data);
         })
         .catch((error) => console.log(error));
     },
@@ -42,7 +55,27 @@ export default function HeaderMeeting() {
             </Link>
           </div>
         </div>
-        <div className={styles.menu}></div>
+        <div className={styles.menu} style={{ justifyContent: "center" }}>
+          {trip && (
+            <>
+              <p
+                style={{ fontSize: 30, color: "aliceblue", fontWeight: "700" }}
+              >
+                {trip.name}
+                <span
+                  style={{
+                    fontSize: 20,
+                    paddingLeft: 15,
+                    color: "#999",
+                    fontWeight: "700",
+                  }}
+                >
+                  {trip.beginDate}
+                </span>
+              </p>
+            </>
+          )}
+        </div>
         <div className={styles.profile}>
           <div className={styles.profileList}>
             <div style={{ display: "flex", alignItems: "center" }}>

@@ -17,7 +17,7 @@
   flex-shrink: 1;
   max-width: 100%;
   min-width: 0;
-  height: 300px;
+  height: 350px;
   position: relative;
   width: 100%;
   margin-bottom: 250px;
@@ -33,11 +33,9 @@
   height: 100%;
   position: absolute;
   width: 100%;
-  background: linear-gradient(
-    180deg,
-    hsla(0, 0%, 100%, 0) 50%,
-    rgba(0, 0, 0, 0.44)
-  );
+  background: linear-gradient(180deg,
+      hsla(0, 0%, 100%, 0) 50%,
+      rgba(0, 0, 0, 0.44));
   border-radius: 8px;
 }
 
@@ -269,8 +267,7 @@
     flex-flow: row;
   }
 
-  .avatar-inner-cover {
-  }
+  .avatar-inner-cover {}
 
   .avatar-img {
     height: 192px;

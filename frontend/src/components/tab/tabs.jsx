@@ -5,50 +5,82 @@ import { FcLikePlaceholder, FcLike, FcComments, FcShare } from "react-icons/fc";
 import Comment from "../Comment";
 import { useSelector } from "react-redux";
 import { TRIP_MODE } from "../../store/constants/trip.const";
-import { getComments, likeOrUnLikeTrip } from "../../services/trip/useTrip";
+import { getComments, getUsersLiked, likeOrUnLikeTrip, likeTrip, unlikeTrip } from "../../services/trip/useTrip";
+import { useHistory } from 'react-router-dom'
+
 function Tabs(props) {
   const [activeTab, setActiveTab] = useState(props.children[0].props.label);
-  const { user } = useSelector(state => state.user);
+  const { user } = useSelector((state) => state.user);
   const [formComment, setFormComment] = useState(false);
-  const [isHeart, setIsHeart] = useState(false);
   const { trip, mode } = useSelector((state) => state.trip);
   const [numOfLikes, setNumOfLikes] = useState(trip.numOfLikes);
   const [comments, setComments] = useState([]);
+  const [liked, setLiked] = useState(false);
+
+  const history = useHistory();
+
 
   const loadComments = async () => {
     if (trip.id) {
       const cms = await getComments(trip.id);
-      console.log(cms)
+
       setComments(cms);
     }
   };
 
   useEffect(() => {
-    loadComments()
-  }, [trip.id]);
-
-  useEffect(() => {
     setNumOfLikes(trip.numOfLikes);
   }, [trip.numOfLikes]);
 
+  useEffect(
+    () => {
+      loadComments();
+      loadLike();
+    },
+    // eslint-disable-next-line
+    [trip.id]
+  );
 
+  const loadLike = async () => {
+    const likedUsers = await getUsersLiked(trip.id);
+    if (likedUsers.find(item => item.username == user.username)) {
+      setLiked(true);
+    }
+  }
 
   const onClickTabItem = (tab) => {
     setActiveTab(tab);
   };
 
-
-  const likeTrip = async () => {
+  const onClickLikeTrip = async () => {
+    if (!user) {
+      history.push("/login");
+      return;
+    }
     try {
-      likeOrUnLikeTrip(trip.id);
-      if (isHeart) {
-        setNumOfLikes(prev => prev - 1);
+
+      if (liked) {
+        const res = await unlikeTrip(trip.id);
+        if (res.status === 200) {
+          setNumOfLikes((prev) => prev - 1);
+          setLiked(false);
+        }
       } else {
-        setNumOfLikes(prev => prev + 1);
+        const res = await likeTrip(trip.id);
+        if (res.status === 200) {
+          setNumOfLikes((prev) => prev + 1);
+          setLiked(true);
+        }
       }
-      setIsHeart(!isHeart);
     } catch (err) {
       console.log(err);
+    }
+  };
+
+  const shareTrip = () => {
+    if (!user) {
+      history.push("/login");
+      return;
     }
   }
 
@@ -89,14 +121,16 @@ function Tabs(props) {
           <div style={{ borderTop: "1px solid #d0d8e6" }}>
             <div style={{ display: "flex" }}>
               <div className={styles.interactive} style={{ display: "flex" }}>
-                <button
-                  onClick={likeTrip}
-                >
-                  <div>{isHeart ? <FcLike /> : <FcLikePlaceholder />}</div>
+                <button onClick={onClickLikeTrip}>
+                  <div>{liked ? <FcLike /> : <FcLikePlaceholder />}</div>
                   <span>{numOfLikes}</span>
                 </button>
                 <button
                   onClick={() => {
+                    if (!user) {
+                      history.push("/login");
+                      return;
+                    }
                     setFormComment(!formComment);
                   }}
                 >
@@ -105,19 +139,22 @@ function Tabs(props) {
                   </div>
                   <span>{countNumOfComments()}</span>
                 </button>
-                <button>
+                <button onClick={shareTrip}>
                   <div>
                     <FcShare />
                   </div>
                 </button>
               </div>
             </div>
-            {formComment && <Comment
-              loadComments={loadComments}
-              tripId={trip.id}
-              currentUser={user}
-              comments={comments}
-              setComments={setComments} />}
+            {user && formComment && (
+              <Comment
+                loadComments={loadComments}
+                tripId={trip.id}
+                currentUser={user}
+                comments={comments}
+                setComments={setComments}
+              />
+            )}
           </div>
         )}
       </div>

@@ -74,9 +74,13 @@ const MapComponent = ({ destination }) => {
     }
   };
 
-  useEffect(() => {
-    showMyLocation();
-  }, [trip.destination, location]);
+  useEffect(
+    () => {
+      showMyLocation();
+    },
+    // eslint-disable-next-line
+    [trip.destination, location]
+  );
 
   return (
     <div className="container-map">
