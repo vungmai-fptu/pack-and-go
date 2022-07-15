@@ -107,7 +107,7 @@ const PriceList = () => {
         </span>
       </div>
       <div className={styles.list_item}>
-        <div style={{ overflow: "auto", height: "50vh" }}>
+        <div style={{ overflow: "auto", maxHeight: "45vh" }}>
           {" "}
           {trip.priceList && trip.priceList.length !== 0 ? (
             trip.priceList.map((item, index) => (

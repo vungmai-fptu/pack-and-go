@@ -18,7 +18,7 @@ export function validateRegister(values) {
   if (!values.username) {
     errors.username = "Username is required";
   } else if (values.username.length < 5) {
-    errors.username = "Password must be 5 or more characters";
+    errors.username = "Username must be 5 or more characters";
   }
   if (!values.password) {
     errors.password = "Password is required";
@@ -35,7 +35,7 @@ export function validateRegister(values) {
   if (!values.confirmPassword) {
     errors.confirmPassword = "Confirm password is required";
   } else if (values.confirmPassword !== values.password) {
-    errors.confirmPassword = "Password and Confirm Password does not match.";
+    errors.confirmPassword = "Password and Confirm Password do not match";
   }
   return errors;
 }

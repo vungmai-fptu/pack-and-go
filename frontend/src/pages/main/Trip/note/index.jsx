@@ -28,16 +28,18 @@ function Note() {
   //   padding: 0 13px;
 
   return (
-    <div className={styles.iTin}>
-      <div className={styles.iTin} style={{ position: "relative" }}>
-        <div className={styles.tripItin}>
-          <div style={{ padding: "32px 32px 0" }}>
-            <label>Notes</label>
-            <NoteEditor
-              html={trip.note || ""}
-              setHtml={handleChangeNote}
-              viewOnly={mode === TRIP_MODE.VIEW}
-            />
+    <div className={styles.container}>
+      <div className={styles.iTin}>
+        <div className={styles.iTin} style={{ position: "relative" }}>
+          <div className={styles.tripItin}>
+            <div style={{ padding: "32px 32px 0" }}>
+              <label>Notes</label>
+              <NoteEditor
+                html={trip.note || ""}
+                setHtml={handleChangeNote}
+                viewOnly={mode === TRIP_MODE.VIEW}
+              />
+            </div>
           </div>
         </div>
       </div>

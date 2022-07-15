@@ -4,6 +4,7 @@
   max-width: 100%;
   display: flex;
   flex-direction: column;
+  overflow: auto;
 }
 
 .header_container {
@@ -28,7 +29,7 @@
   position: relative;
 }
 
-.concurrencies_selector>span {
+.concurrencies_selector > span {
   display: inline-flex;
   align-items: center;
   justify-content: space-between;
