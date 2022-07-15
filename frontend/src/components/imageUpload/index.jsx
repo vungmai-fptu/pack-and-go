@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { storeImageToFireBase } from "../../utils/storeImageToFirebase.";
 import { BsUpload } from "react-icons/bs";
+import landscape from "../../assets/images/landscape.jpg";
+
 export default function ImageUpload({ image, handleChangeImage }) {
   const [selectedFile, setSelectedFile] = useState();
   const [isLoading, setIsLoading] = useState(false);
@@ -68,7 +70,7 @@ export default function ImageUpload({ image, handleChangeImage }) {
     <div style={style.uploadedImage}>
       {!image || isLoading ? (
         <img
-          src="fonts/src_app_components_components_svgIcon_icons_customsprite-70fd46.svg#background-mapiV-usage"
+          src={landscape}
           alt="custom/background-map"
           className="w_fu w_fB w_aao w_aap "
         />

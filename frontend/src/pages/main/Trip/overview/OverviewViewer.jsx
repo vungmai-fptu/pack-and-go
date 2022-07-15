@@ -1,5 +1,4 @@
 import { useDispatch, useSelector } from "react-redux";
-import bgImage from "../../../../assets/fonts/src_app_components_components_svgIcon_icons_customsprite-70fd46.svg";
 import styles from "./OverviewViewer.module.css";
 import { IoLocation } from "react-icons/io5";
 import { IoMdPhotos } from "react-icons/io";
@@ -86,14 +85,14 @@ export default function OverviewViewer() {
             </div>
           </div>
         </div>
-        <div className="w_ja w_UU" style={{ flex: "1 1 0%" }}>
+        {/* <div className="w_ja w_UU" style={{ flex: "1 1 0%" }}>
           <img
             style={{ width: "auto", height: "auto" }}
             src={bgImage}
             alt="custom/toVisitEmpty"
             className="w_fu w_fB w_UV"
           />
-        </div>
+        </div> */}
       </div>
     </div>
   );
