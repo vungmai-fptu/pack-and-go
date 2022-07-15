@@ -67,11 +67,7 @@ export default function ImageUpload({ image, handleChangeImage }) {
   return (
     <div style={style.uploadedImage}>
       {!image || isLoading ? (
-        <img
-          src="fonts/src_app_components_components_svgIcon_icons_customsprite-70fd46.svg#background-mapiV-usage"
-          alt="custom/background-map"
-          className="w_fu w_fB w_aao w_aap "
-        />
+        <></>
       ) : (
         <img src={image} alt="img" className="w_fu w_fB w_aao" />
       )}

@@ -10,7 +10,6 @@ import {
 } from "../../../../store/constants/trip.const";
 import styles from "./overview.module.css";
 import { IoLocationOutline } from "react-icons/io5";
-import bgImage from "../../../../assets/fonts/src_app_components_components_svgIcon_icons_customsprite-70fd46.svg";
 import warningIcon from "../../../../assets/fonts/src_app_components_components_svgIcon_icons_commonsprite-afce76.svg";
 import SearchBox from "../../../../components/SearchAddress/SearchBox";
 export default function OverviewOwner() {
@@ -92,13 +91,16 @@ export default function OverviewOwner() {
             transportation={trip.transportation}
             onChangeTransportation={handelChangeTransportation}
           />
-          <div className="w_ja w_UU" style={{ flex: "1 1 0%" }}>
-            <img
+          <div
+            className="w_ja w_UU"
+            style={{ flex: "1 1 0%", paddingTop: "100px" }}
+          >
+            {/* <img
               style={{ width: "auto", height: "auto" }}
-              src={bgImage}
+              src="images/map4.png"
               alt="custom/toVisitEmpty"
               className="w_fu w_fB w_UV"
-            />
+            /> */}
             <div className="w_Eb w_Ee">
               <div className="w_Ej">
                 <img

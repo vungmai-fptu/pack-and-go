@@ -1,12 +1,14 @@
-import React from "react";
+import React, { useState, useRef } from "react";
 import styles from "../settingProfile.module.css";
 import AboutMe from "../aboutMe";
+import { IoFemaleSharp, IoMaleSharp, IoMaleFemaleSharp } from "react-icons/io5";
 import classNames from "classnames";
 import { useDispatch } from "react-redux";
 import { useIsLogin } from "../../../../hooks/useIsLogin";
 import { updateInfo } from "./../../../../store/actions/user.action";
 import ImageUpload from "./../imageUpload/index";
-import { useState } from "react";
+import Countries from "./countries.json";
+import useOutsideClick from "./../../../../hooks/useOutsideClick";
 function AccountInfo({ userSettings }) {
   const dispatch = useDispatch();
   const { loading } = useIsLogin();
@@ -16,6 +18,10 @@ function AccountInfo({ userSettings }) {
     userSetting.profileImageUrl
   );
   const [aboutMe, setAboutMe] = useState(userSetting.aboutMe);
+  const [gender, setGender] = useState(userSetting.gender);
+  const dropdownRef = useRef(null);
+  const [isActive, setIsActive] = useState(false);
+  useOutsideClick(dropdownRef, () => setIsActive(false));
   const handleChange = (event) => {
     const { value, name } = event.target;
     setUserSetting({
@@ -25,8 +31,14 @@ function AccountInfo({ userSettings }) {
   };
   const handleSubmit = (e) => {
     e.preventDefault();
-    dispatch(updateInfo(profileImageUrl, coverImageUrl, aboutMe, userSetting));
+    dispatch(
+      updateInfo(profileImageUrl, coverImageUrl, aboutMe, gender, userSetting)
+    );
   };
+  const onClick = () => {
+    setIsActive((prev) => !prev);
+  };
+
   return (
     <form id="frm-accountForm" onSubmit={handleSubmit}>
       <ImageUpload
@@ -41,6 +53,7 @@ function AccountInfo({ userSettings }) {
         setImageList={setCoverImageUrl}
         w={false}
       />
+
       <div className="clearfix" />
       <div className={styles.boxInput}>
         <label> firstName </label>
@@ -90,7 +103,7 @@ function AccountInfo({ userSettings }) {
       </div>
       <div className={styles.boxInput}>
         <label> Country </label>
-        <div className={styles.input}>
+        <div className={styles.input} style={{ height: "auto" }}>
           <input
             type="text"
             name="country"
@@ -99,19 +112,94 @@ function AccountInfo({ userSettings }) {
             value={userSetting.country}
             onChange={handleChange}
           />
+          {userSetting.country && (
+            <div className={styles.formCountry}>
+              {Countries.filter((countries) =>
+                countries.country.includes(userSetting.country)
+              ).map((c, index) => (
+                <div className="f32" key={index}>
+                  <div
+                    style={{
+                      paddingLeft: "40px",
+                      width: "100%",
+                      textAlign: "left",
+                    }}
+                    className={`flag ${c.code}`}
+                  >
+                    {c.country}
+                  </div>
+                </div>
+              ))}
+            </div>
+          )}
         </div>
       </div>
       <div className={styles.boxInput}>
         <label> Gender </label>
         <div className={styles.input}>
-          <input
-            type="text"
-            name="gender"
-            className="pac-target-input"
-            placeholder="Enter a gender"
-            value={userSetting.gender}
-            onChange={handleChange}
-          />
+          <button type="button" style={{ display: "flex" }} onClick={onClick}>
+            {gender === "MALE" && (
+              <>
+                <IoMaleSharp />
+                <p>MALE</p>
+              </>
+            )}
+            {gender === "FEMALE" && (
+              <>
+                <IoFemaleSharp />
+                <p>FEMALE</p>
+              </>
+            )}
+            {gender === "OTHER" && (
+              <>
+                <IoMaleFemaleSharp />
+                <p>OTHER</p>
+              </>
+            )}
+          </button>
+          <div
+            ref={dropdownRef}
+            style={{ height: "auto" }}
+            className={`${styles.formCountry} ${
+              isActive ? `${styles.active}` : `${styles.inactive}`
+            }`}
+          >
+            <div className={styles.formLogout}>
+              <div className={styles.logout} onClick={() => setGender("MALE")}>
+                <div className={styles.logoutContent}>
+                  <div className={styles.logoutIcon}>
+                    <IoMaleSharp />
+                  </div>
+                  <div className={styles.logoutTitle}>
+                    <span>MALE</span>
+                  </div>
+                </div>
+              </div>
+              <div
+                className={styles.logout}
+                onClick={() => setGender("FEMALE")}
+              >
+                <div className={styles.logoutContent}>
+                  <div className={styles.logoutIcon}>
+                    <IoFemaleSharp />
+                  </div>
+                  <div className={styles.logoutTitle}>
+                    <span>FEMALE</span>
+                  </div>
+                </div>
+              </div>
+              <div className={styles.logout} onClick={() => setGender("OTHER")}>
+                <div className={styles.logoutContent}>
+                  <div className={styles.logoutIcon}>
+                    <IoMaleFemaleSharp />
+                  </div>
+                  <div className={styles.logoutTitle}>
+                    <span>OTHER</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
       <div className={classNames(`${styles.boxInput}`, `${styles.dateerror}`)}>
@@ -121,6 +209,7 @@ function AccountInfo({ userSettings }) {
             <div className={styles.input}>
               <input
                 maxLength={2}
+                min="0"
                 id="den"
                 type="number"
                 name="den"
@@ -131,6 +220,7 @@ function AccountInfo({ userSettings }) {
             <div className={styles.input}>
               <input
                 maxLength={2}
+                min="0"
                 id="mesic"
                 type="number"
                 name="mesic"
@@ -141,6 +231,7 @@ function AccountInfo({ userSettings }) {
             <div className={styles.input}>
               <input
                 maxLength={4}
+                min="0"
                 id="rok"
                 type="number"
                 name="rok"

@@ -598,12 +598,23 @@ label {
     float: left;
     width: 100%;
     position: relative;
-    height: 50px;
+    /* height: 50px; */
     outline: none !important;
     z-index: 0;
 }
 
 .boxInput .input input {
+    height: 50px;
+    border-radius: 5px;
+    border: 1px solid #e6e6e6;
+    display: inline-block;
+    font-size: 0.875rem;
+    width: 100%;
+    padding-left: 20px;
+    padding-right: 60px;
+}
+
+.boxInput .input button {
     height: 50px;
     border-radius: 5px;
     border: 1px solid #e6e6e6;
@@ -775,7 +786,7 @@ a {
     float: left;
     width: 100%;
     position: relative;
-    height: 50px;
+    /* height: 50px; */
     outline: none !important;
     z-index: 0;
 }
@@ -1227,4 +1238,83 @@ a {
 .buttony button {
     width: 22%;
     padding: 0;
+}
+
+.formCountry {
+    border-radius: 8px;
+    background: #fff;
+    box-shadow: 0 3px 10px hsl(0deg 0% 4% / 15%) !important;
+    height: 300px;
+    overflow: auto;
+}
+
+.formLogout {
+    display: flex;
+    flex-flow: column;
+    flex-shrink: 1;
+    max-width: 100%;
+    min-width: 0;
+    padding: 8px 0;
+}
+
+.logout {
+    align-items: center;
+    display: flex;
+    height: 40px;
+    padding: 0 20px;
+    cursor: pointer;
+}
+
+.logoutContent {
+    align-items: center;
+    display: inline-flex;
+    max-width: 100%;
+}
+
+.logoutIcon {
+    align-items: center;
+    display: flex;
+    flex-shrink: 0;
+    justify-content: center;
+}
+
+.logoutIcon svg {
+    font-size: 25px;
+}
+
+.logoutTitle {
+    overflow: hidden;
+    padding-left: 8px;
+    text-align: left;
+    font-weight: 600;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    width: 100%;
+}
+
+.hidden {
+    display: none;
+}
+
+.dropdownTop {
+    height: 8px;
+    width: 16px;
+    position: absolute;
+    background: transparent;
+    color: rgb(255, 255, 255);
+    z-index: 1;
+    transform: rotate(0deg) translateY(-100%) translateX(-50%);
+    top: 0%;
+}
+
+.active {
+    opacity: 1 !important;
+    visibility: visible !important;
+    transform: translateY(0) !important;
+}
+
+.inactive {
+    opacity: 0 !important;
+    visibility: hidden !important;
+    transform: translateY(-20px) !important;
 }

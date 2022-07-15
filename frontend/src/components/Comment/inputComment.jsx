@@ -2,7 +2,6 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { IoSend } from "react-icons/io5";
 import styles from "./comment.module.css";
-import { useState } from "react";
 
 function InputComment({
   avatar,
@@ -14,10 +13,6 @@ function InputComment({
   onUpdate,
   loading,
 }) {
-
-
-
-
   return (
     <>
       {!updated ? (
@@ -51,7 +46,10 @@ function InputComment({
             <Link to="/">
               <img
                 alt="profile"
-                src={avatar || "https://wrld-se-prod.b-cdn.net/images/user-empty.svg"}
+                src={
+                  avatar ||
+                  "https://wrld-se-prod.b-cdn.net/images/user-empty.svg"
+                }
               />
             </Link>
           </div>
