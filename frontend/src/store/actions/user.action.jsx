@@ -381,7 +381,13 @@ const postChangePasswordFailed = (err) => {
   };
 };
 
-export const updateInfo = (profileImageUrl, coverImageUrl, aboutMe, values) => {
+export const updateInfo = (
+  profileImageUrl,
+  coverImageUrl,
+  aboutMe,
+  gender,
+  values
+) => {
   const userLogin = localStorage.getItem("userLogin");
   const token = userLogin ? JSON.parse(userLogin).token : "";
 
@@ -401,7 +407,7 @@ export const updateInfo = (profileImageUrl, coverImageUrl, aboutMe, values) => {
         coverImageUrl,
         dateOfBirth: values.dateOfBirth,
         firstName: values.firstName,
-        gender: values.gender,
+        gender,
         lastName: values.lastName,
         phoneNumber: values.phoneNumber,
         profileImageUrl,

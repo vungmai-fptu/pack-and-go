@@ -5,8 +5,13 @@ import { FcLikePlaceholder, FcLike, FcComments, FcShare } from "react-icons/fc";
 import Comment from "../Comment";
 import { useSelector } from "react-redux";
 import { TRIP_MODE } from "../../store/constants/trip.const";
-import { getComments, getUsersLiked, likeOrUnLikeTrip, likeTrip, unlikeTrip } from "../../services/trip/useTrip";
-import { useHistory } from 'react-router-dom'
+import {
+  getComments,
+  getUsersLiked,
+  likeTrip,
+  unlikeTrip,
+} from "../../services/trip/useTrip";
+import { useHistory } from "react-router-dom";
 
 function Tabs(props) {
   const [activeTab, setActiveTab] = useState(props.children[0].props.label);
@@ -18,7 +23,6 @@ function Tabs(props) {
   const [liked, setLiked] = useState(false);
 
   const history = useHistory();
-
 
   const loadComments = async () => {
     if (trip.id) {
@@ -43,10 +47,10 @@ function Tabs(props) {
 
   const loadLike = async () => {
     const likedUsers = await getUsersLiked(trip.id);
-    if (likedUsers.find(item => item.username == user.username)) {
+    if (likedUsers.find((item) => item.username === user.username)) {
       setLiked(true);
     }
-  }
+  };
 
   const onClickTabItem = (tab) => {
     setActiveTab(tab);
@@ -58,7 +62,6 @@ function Tabs(props) {
       return;
     }
     try {
-
       if (liked) {
         const res = await unlikeTrip(trip.id);
         if (res.status === 200) {
@@ -82,19 +85,19 @@ function Tabs(props) {
       history.push("/login");
       return;
     }
-  }
+  };
 
   const countNumOfComments = () => {
     if (!comments) {
       return 0;
     }
     let count = comments.length;
-    comments.forEach(cmt => {
+    comments.forEach((cmt) => {
       count += cmt.extraComment && cmt.extraComment.length;
-    })
+    });
 
     return count;
-  }
+  };
 
   return (
     <div className="w_CS" style={{ minWidth: "fit-content" }}>

@@ -15,15 +15,7 @@ const SkeletonTripItem = () => {
                   "linear-gradient(270deg, hsla(0, 0%, 100%, 0) 50%, rgba(0, 0, 0, 0.3))",
               }}
             >
-              <img
-                alt="thumbnailUrl"
-                src="fonts/src_app_components_components_svgIcon_icons_customsprite-70fd46.svg#background-mapiV-usage"
-                style={{
-                  width: "80%",
-                  height: "80%",
-                  top: "25px",
-                }}
-              />
+              <img alt="thumbnailUrl" src="images/map4.png" />
             </div>
             <div href="/trip/draft?id=348410" className={styles.inner}>
               <div className={styles.top}>

@@ -27,7 +27,7 @@ export const signRouter = [
     Component: Login,
   },
   {
-    path: "/sign/up",
+    path: "/signUp",
     exact: false,
     Component: Register,
   },

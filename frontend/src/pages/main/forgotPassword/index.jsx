@@ -24,13 +24,13 @@ function ForgotPassword() {
       <div>
         <div className={styles.container}>
           <img
-            src="fonts/src_app_components_components_svgIcon_icons_customsprite-70fd46.svg#travelers-1j_-usage"
+            src="images/imagelogin1.png"
             alt="custom/travelers-1"
             className={styles.travelers}
             style={{ right: "calc(50% + 350px)" }}
           />
           <img
-            src="fonts/src_app_components_components_svgIcon_icons_customsprite-70fd46.svg#travelers-2kb-usage"
+            src="images/imagelogin2.png"
             alt="custom/travelers-2"
             className={styles.travelers}
             style={{ left: "calc(50% + 350px)" }}

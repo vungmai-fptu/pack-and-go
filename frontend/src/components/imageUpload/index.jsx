@@ -69,11 +69,7 @@ export default function ImageUpload({ image, handleChangeImage }) {
   return (
     <div style={style.uploadedImage}>
       {!image || isLoading ? (
-        <img
-          src={landscape}
-          alt="custom/background-map"
-          className="w_fu w_fB w_aao w_aap "
-        />
+        <></>
       ) : (
         <img src={image} alt="img" className="w_fu w_fB w_aao" />
       )}

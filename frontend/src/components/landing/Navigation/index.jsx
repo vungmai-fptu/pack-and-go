@@ -14,7 +14,7 @@ const Navigation = () => {
         <Link to="/login" className={styles.login}>
           Login
         </Link>
-        <Link to="/sign/up" className={styles.register}>
+        <Link to="/signUp" className={styles.register}>
           Join Pack&Go
         </Link>
       </div>
