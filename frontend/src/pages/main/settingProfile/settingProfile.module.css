@@ -1243,7 +1243,7 @@ a {
 .formCountry {
     border-radius: 8px;
     background: #fff;
-    box-shadow: 0 3px 10px hsl(0deg 0% 4% / 15%) !important;
+    /* box-shadow: 0 3px 10px hsl(0deg 0% 4% / 15%) !important; */
     height: 300px;
     overflow: auto;
 }

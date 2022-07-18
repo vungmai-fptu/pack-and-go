@@ -4,6 +4,7 @@ import AboutMe from "../aboutMe";
 import { IoFemaleSharp, IoMaleSharp, IoMaleFemaleSharp } from "react-icons/io5";
 import classNames from "classnames";
 import { useDispatch } from "react-redux";
+import moment from "moment";
 import { useIsLogin } from "../../../../hooks/useIsLogin";
 import { updateInfo } from "./../../../../store/actions/user.action";
 import ImageUpload from "./../imageUpload/index";
@@ -32,13 +33,28 @@ function AccountInfo({ userSettings }) {
   const handleSubmit = (e) => {
     e.preventDefault();
     dispatch(
-      updateInfo(profileImageUrl, coverImageUrl, aboutMe, gender, userSetting)
+      updateInfo(
+        profileImageUrl,
+        coverImageUrl,
+        aboutMe,
+        gender,
+        dateOfBirth,
+        userSetting
+      )
     );
   };
   const onClick = () => {
     setIsActive((prev) => !prev);
   };
+  const [dateOfBirth, setDateOfBirth] = useState(() =>
+    moment(userSetting.dateOfBirth).format("YYYY-MM-DD")
+  );
 
+  const handleDateChange = (d) => {
+    if (moment(d).isValid())
+      return setDateOfBirth(moment(d).format("YYYY-MM-DD"));
+    return setDateOfBirth(moment().format("YYYY-MM-DD"));
+  };
   return (
     <form id="frm-accountForm" onSubmit={handleSubmit}>
       <ImageUpload
@@ -205,41 +221,15 @@ function AccountInfo({ userSettings }) {
       <div className={classNames(`${styles.boxInput}`, `${styles.dateerror}`)}>
         <label>Date of birth</label>
         <div className={classNames(`${styles.input}`, `${styles.triple}`)}>
-          <div className={styles.row} id="jumpForm">
-            <div className={styles.input}>
-              <input
-                maxLength={2}
-                min="0"
-                id="den"
-                type="number"
-                name="den"
-                defaultValue
-                placeholder="DD"
-              />
-            </div>
-            <div className={styles.input}>
-              <input
-                maxLength={2}
-                min="0"
-                id="mesic"
-                type="number"
-                name="mesic"
-                defaultValue
-                placeholder="MM"
-              />
-            </div>
-            <div className={styles.input}>
-              <input
-                maxLength={4}
-                min="0"
-                id="rok"
-                type="number"
-                name="rok"
-                defaultValue
-                placeholder="RRRR"
-              />
-            </div>
-          </div>
+          <input
+            type="date"
+            data-date-format="DD/MM/YYYY"
+            value={dateOfBirth}
+            // min="2022-01-01"
+            // max="2022-12-31"
+            onKeyDown={(e) => e.preventDefault()}
+            onChange={(e) => handleDateChange(e.target.value)}
+          />
         </div>
       </div>
       <AboutMe profileAboutMe={aboutMe} setProfileAboutMe={setAboutMe} />

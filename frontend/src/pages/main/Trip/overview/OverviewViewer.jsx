@@ -1,4 +1,5 @@
 import { useDispatch, useSelector } from "react-redux";
+// import bgImage from "../../../../assets/fonts/src_app_components_components_svgIcon_icons_customsprite-70fd46.svg";
 import styles from "./OverviewViewer.module.css";
 import { IoLocation } from "react-icons/io5";
 import { IoMdPhotos } from "react-icons/io";
@@ -93,7 +94,7 @@ export default function OverviewViewer() {
             className="w_fu w_fB w_UV"
           />
         </div> */}
-      </div>
-    </div>
+      </div >
+    </div >
   );
 }

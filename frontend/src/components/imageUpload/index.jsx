@@ -69,9 +69,9 @@ export default function ImageUpload({ image, handleChangeImage }) {
   return (
     <div style={style.uploadedImage}>
       {!image || isLoading ? (
-        <></>
+        <img src="images/map4.png" alt="img" />
       ) : (
-        <img src={image} alt="img" className="w_fu w_fB w_aao" />
+        <img src={image} alt="img" />
       )}
       <div style={style.container}>
         {isLoading ? (

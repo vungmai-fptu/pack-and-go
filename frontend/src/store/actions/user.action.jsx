@@ -386,8 +386,10 @@ export const updateInfo = (
   coverImageUrl,
   aboutMe,
   gender,
+  dateOfBirth,
   values
 ) => {
+  console.log("🚀 ~ ", gender);
   const userLogin = localStorage.getItem("userLogin");
   const token = userLogin ? JSON.parse(userLogin).token : "";
 
@@ -405,7 +407,7 @@ export const updateInfo = (
         city: values.city,
         country: values.country,
         coverImageUrl,
-        dateOfBirth: values.dateOfBirth,
+        dateOfBirth,
         firstName: values.firstName,
         gender,
         lastName: values.lastName,
