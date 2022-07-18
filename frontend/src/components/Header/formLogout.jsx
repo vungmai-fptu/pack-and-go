@@ -6,12 +6,15 @@ import {
   IoLogOutOutline,
   IoChevronDownOutline,
 } from "react-icons/io5";
+import { MdAdminPanelSettings } from "react-icons/md";
 import { useDetectOutsideClick } from "../useDetectOutsideClick";
 import { actLogout } from "../../store/actions/user.action";
 import { useDispatch } from "react-redux";
+import { useIsLogin } from "../../hooks/useIsLogin";
 
 export default function FormLogout() {
   const dispatch = useDispatch();
+  const { isLoginToAdmin } = useIsLogin();
   const dropdownRef = useRef(null);
   const [isActive, setIsActive] = useDetectOutsideClick(dropdownRef, false);
   const onClick = () => setIsActive(!isActive);
@@ -48,6 +51,20 @@ export default function FormLogout() {
           </svg>
         </div>
         <div className={styles.formLogout}>
+          {isLoginToAdmin === "ADMIN" && (
+            <div className={styles.logout}>
+              <div className={styles.logoutContent}>
+                <Link to="/admin">
+                  <div className={styles.logoutIcon}>
+                    <MdAdminPanelSettings />
+                  </div>
+                  <div className={styles.logoutTitle}>
+                    <span>Dashboard</span>
+                  </div>
+                </Link>
+              </div>
+            </div>
+          )}
           <div className={styles.logout}>
             <div className={styles.logoutContent}>
               <Link to="/setting">

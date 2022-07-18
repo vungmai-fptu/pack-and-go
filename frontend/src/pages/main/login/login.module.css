@@ -163,8 +163,8 @@ button {
 }
 
 .icons svg {
-    margin-right: 10px;
-    font-size: 20px;
+    margin-right: 0;
+    /* font-size: 20px; */
 }
 
 .icons img {
