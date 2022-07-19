@@ -21,6 +21,7 @@ import {
   UPDATE_INFO_SUCCESS,
   UPDATE_INFO_FAILED,
   GET_INFO_SUCCESS,
+  ADMIN_SUCCESS,
 } from "../constants/user.const";
 import { startLoading, stopLoading } from "../actions/common.action";
 
@@ -333,6 +334,28 @@ const getUserFailed = (err) => {
   return {
     type: USER_FAILED,
     payload: err,
+  };
+};
+export const getAdmin = (username) => {
+  return (dispatch) => {
+    axios({
+      method: "GET",
+      url: `${API_URL}/api/users/${username}/trips?target=me`,
+      data: null,
+    })
+      .then((res) => {
+        dispatch(getAdminSuccess(res.data));
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+};
+
+export const getAdminSuccess = (admin) => {
+  return {
+    type: ADMIN_SUCCESS,
+    payload: admin,
   };
 };
 

@@ -17,7 +17,7 @@ const RouterAdminTemplate = ({ path, exact, Component }) => {
       path={path}
       exact={exact}
       render={() =>
-        isLoginToAdmin === "ADMIN" ? (
+        isLoginToAdmin === 2 ? (
           <AdminTemplate>
             <Component />
           </AdminTemplate>

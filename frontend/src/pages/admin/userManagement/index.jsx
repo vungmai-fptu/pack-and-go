@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { FcSearch, FcHighPriority, FcOk, FcLowPriority } from "react-icons/fc";
+import { FcSearch } from "react-icons/fc";
+import NotificationContainer from "react-notifications/lib/NotificationContainer";
 import { getUser } from "../../../store/actions/user.action";
 import avatar from "../assets/image/21-avatar-flat (1).gif";
 import location from "../assets/image/18-location-pin-flat.gif";
@@ -13,6 +14,7 @@ import Load from "../../../components/Load";
 import Pagination from "./pagination";
 import axios from "axios";
 import UserTrip from "./userTrip";
+import TableAdmin from "./table";
 function UserManagement() {
   const dispatch = useDispatch();
   const [totalPages, setTotalPages] = useState(0);
@@ -163,63 +165,11 @@ function UserManagement() {
                 </form>
               </div>
             </div>
-            <table>
-              <thead>
-                <tr>
-                  <th style={{ borderRadius: "30px 0 0 30px" }}>User Name</th>
-                  <th style={{ width: 120 }}>Country</th>
-                  <th style={{ width: 120 }}>AllTrip</th>
-                  <th style={{ width: 120, borderRadius: "0px 30px 30px 0px" }}>
-                    Actions
-                  </th>
-                </tr>
-              </thead>
-              <tbody>
-                {loadingInfo ? (
-                  <tr>
-                    <td style={{ textAlign: "end" }}>
-                      <Load />
-                    </td>
-                  </tr>
-                ) : (
-                  userList &&
-                  userList.map((listUser, index) => {
-                    return (
-                      <tr key={index}>
-                        <th onClick={() => setUsername(listUser.username)}>
-                          <div className={styles.align_items_center}>
-                            <div style={{ marginRight: "20px" }}>
-                              <img
-                                src={
-                                  listUser.profileImageUrl === "" ||
-                                  listUser.profileImageUrl === null
-                                    ? "https://wrld-se-prod.b-cdn.net/images/user-empty.svg?width=640&height=640"
-                                    : listUser.profileImageUrl
-                                }
-                                alt="img"
-                              />
-                            </div>
-                            <p>{listUser.username}</p>
-                          </div>
-                        </th>
-                        <td>
-                          {listUser.country !== null && listUser.country !== ""
-                            ? listUser.country
-                            : "Việt Nam"}
-                        </td>
-                        <td>
-                          <FcLowPriority />
-                        </td>
-                        <td>
-                          <FcHighPriority />
-                          <FcOk />
-                        </td>
-                      </tr>
-                    );
-                  })
-                )}
-              </tbody>
-            </table>
+            <TableAdmin
+              loadingInfo={loadingInfo}
+              userList={userList}
+              setUsername={setUsername}
+            />
           </div>
           <Pagination value={page} range={totalPages} onChange={setPage} />
         </div>
@@ -247,6 +197,7 @@ function UserManagement() {
           </div>
         </div>
       )}
+      <NotificationContainer />
     </div>
   );
 }

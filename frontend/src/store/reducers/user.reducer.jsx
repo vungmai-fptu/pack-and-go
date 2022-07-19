@@ -9,6 +9,7 @@ import {
   LIST_TRIP_SUCCESS,
   LIST_TRIP_FAILED,
   GET_INFO_SUCCESS,
+  ADMIN_SUCCESS,
 } from "../constants/user.const";
 
 const initialState = {
@@ -24,6 +25,7 @@ const initialState = {
   users: null,
   errors: {},
   getInfo: {},
+  admin: null,
 };
 
 const userReducer = (state = initialState, action) => {
@@ -55,6 +57,9 @@ const userReducer = (state = initialState, action) => {
     }
     case GET_INFO_SUCCESS: {
       return { ...state, getInfo: payload };
+    }
+    case ADMIN_SUCCESS: {
+      return { ...state, admin: payload };
     }
     case ACT_LOGOUT:
       localStorage.removeItem("userLogin");
