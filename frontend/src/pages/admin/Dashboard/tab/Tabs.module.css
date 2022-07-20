@@ -6,7 +6,7 @@
   padding-bottom: 50px;
   position: fixed;
   width: 270px;
-  z-index: 999;
+  z-index: 1;
   overflow: hidden;
   overflow-y: auto;
   transition: .5s;

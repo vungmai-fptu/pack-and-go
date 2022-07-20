@@ -2,11 +2,38 @@ import { useDispatch } from "react-redux";
 import { FcHighPriority } from "react-icons/fc";
 import { ImBin } from "react-icons/im";
 import { MdAdminPanelSettings } from "react-icons/md";
+import { OPEN_MODAL } from "../../../../store/constants/modal.const";
 import Load from "../../../../components/Load";
 import styles from "../../Dashboard/dashboard.module.css";
-import { putGrant, putRevoke } from "../../../../store/actions/admin.action";
-function TableAdmin({ loadingInfo, userList, setUsername }) {
+import GrantUserModal from "../../../../components/Modal/GrantUserModal";
+import BlockUserModal from "../../../../components/Modal/BlockUserModal";
+
+function TableAdmin({ loadingInfo, userList, setUsername, setHandleGrant }) {
   const dispatch = useDispatch();
+  const onGrantUser = (username, role) => {
+    dispatch({
+      type: OPEN_MODAL,
+      payload: (
+        <GrantUserModal
+          id={username}
+          role={role}
+          setHandleGrant={setHandleGrant}
+        />
+      ),
+    });
+  };
+  const onBlockUser = (username, role) => {
+    dispatch({
+      type: OPEN_MODAL,
+      payload: (
+        <BlockUserModal
+          id={username}
+          role={role}
+          setHandleGrant={setHandleGrant}
+        />
+      ),
+    });
+  };
   return (
     <table>
       <thead>
@@ -56,14 +83,18 @@ function TableAdmin({ loadingInfo, userList, setUsername }) {
                 <td>
                   {listUser.roles.length === 2 ? (
                     <button
-                      onClick={() => dispatch(putRevoke(listUser.username))}
+                      onClick={() =>
+                        onGrantUser(listUser.username, listUser.roles.length)
+                      }
                     >
                       <MdAdminPanelSettings color="#1E82C8" />
                     </button>
                   ) : (
                     <button
                       style={{ opacity: "50%" }}
-                      onClick={() => dispatch(putGrant(listUser.username))}
+                      onClick={() =>
+                        onGrantUser(listUser.username, listUser.roles.length)
+                      }
                     >
                       <MdAdminPanelSettings color="#1E82C8" />
                     </button>
@@ -71,11 +102,20 @@ function TableAdmin({ loadingInfo, userList, setUsername }) {
                 </td>
                 <td>
                   {listUser.roles.length === 2 ? (
-                    <button>
+                    <button
+                      onClick={() =>
+                        onBlockUser(listUser.username, listUser.roles.length)
+                      }
+                    >
                       <FcHighPriority />
                     </button>
                   ) : (
-                    <button style={{ opacity: "50%" }}>
+                    <button
+                      style={{ opacity: "50%" }}
+                      onClick={() =>
+                        onBlockUser(listUser.username, listUser.roles.length)
+                      }
+                    >
                       <FcHighPriority />
                     </button>
                   )}

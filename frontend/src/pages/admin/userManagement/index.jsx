@@ -23,6 +23,7 @@ function UserManagement() {
   const [loadingInfo, setLoadingInfo] = useState(false);
   const [text, setText] = useState("");
   const [username, setUsername] = useState(null);
+  const [handleGrant, setHandleGrant] = useState(null);
   const { users } = useSelector((state) => state.user);
   const { loading } = useSelector((state) => state.common);
   useEffect(() => {
@@ -43,7 +44,7 @@ function UserManagement() {
     };
     getAccountInfo();
     // eslint-disable-next-line
-  }, [page]);
+  }, [handleGrant, page]);
   useEffect(() => {
     const fetchData = async () => {
       setPage(0);
@@ -169,6 +170,7 @@ function UserManagement() {
               loadingInfo={loadingInfo}
               userList={userList}
               setUsername={setUsername}
+              setHandleGrant={setHandleGrant}
             />
           </div>
           <Pagination value={page} range={totalPages} onChange={setPage} />
