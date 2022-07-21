@@ -146,6 +146,7 @@
 .align_items_center {
     align-items: center;
     display: flex;
+    width: 160px;
     cursor: pointer;
 }
 

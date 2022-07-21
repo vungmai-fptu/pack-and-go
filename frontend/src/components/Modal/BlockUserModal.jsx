@@ -58,7 +58,7 @@ const Message = styled.div`
   font-size: 1.15rem;
 `;
 
-const BlockUserModal = ({ id, role, setHandleGrant }) => {
+const BlockUserModal = ({ id, status, setHandleGrant }) => {
   const [isLoading, setIsLoading] = useState(false);
   const dispatch = useDispatch();
   const onBlockUser = () => {
@@ -81,11 +81,11 @@ const BlockUserModal = ({ id, role, setHandleGrant }) => {
 
   return (
     <div>
-      {role === 2 ? (
+      {status === "ACTIVE" ? (
         <>
-          <Message>Are you sure to grant this user?</Message>
+          <Message>Are you sure to Block this user?</Message>
           <ModalFooter>
-            <ConfirmButton onClick={onUnBlockUser} disabled={isLoading}>
+            <ConfirmButton onClick={onBlockUser} disabled={isLoading}>
               {isLoading ? "Deleting..." : "Submit"}
             </ConfirmButton>
             <CloseButton onClick={closeModal}> Cancel </CloseButton>
@@ -93,9 +93,9 @@ const BlockUserModal = ({ id, role, setHandleGrant }) => {
         </>
       ) : (
         <>
-          <Message>Are you sure to grant this user?</Message>
+          <Message>Are you sure to unBlock this user?</Message>
           <ModalFooter>
-            <ConfirmButton onClick={onBlockUser} disabled={isLoading}>
+            <ConfirmButton onClick={onUnBlockUser} disabled={isLoading}>
               {isLoading ? "Deleting..." : "Submit"}
             </ConfirmButton>
             <CloseButton onClick={closeModal}> Cancel </CloseButton>

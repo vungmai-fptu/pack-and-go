@@ -22,13 +22,13 @@ function TableAdmin({ loadingInfo, userList, setUsername, setHandleGrant }) {
       ),
     });
   };
-  const onBlockUser = (username, role) => {
+  const onBlockUser = (username, status) => {
     dispatch({
       type: OPEN_MODAL,
       payload: (
         <BlockUserModal
           id={username}
-          role={role}
+          status={status}
           setHandleGrant={setHandleGrant}
         />
       ),
@@ -101,19 +101,19 @@ function TableAdmin({ loadingInfo, userList, setUsername, setHandleGrant }) {
                   )}
                 </td>
                 <td>
-                  {listUser.roles.length === 2 ? (
+                  {listUser.status === "ACTIVE" ? (
                     <button
+                      style={{ opacity: "50%" }}
                       onClick={() =>
-                        onBlockUser(listUser.username, listUser.roles.length)
+                        onBlockUser(listUser.username, listUser.status)
                       }
                     >
                       <FcHighPriority />
                     </button>
                   ) : (
                     <button
-                      style={{ opacity: "50%" }}
                       onClick={() =>
-                        onBlockUser(listUser.username, listUser.roles.length)
+                        onBlockUser(listUser.username, listUser.status)
                       }
                     >
                       <FcHighPriority />
