@@ -1,8 +1,34 @@
-import React from "react";
-import RenderTripItem from "../../../components/RenderTripItem";
+import React, { useState } from "react";
+import classNames from "classnames";
+import styles from "../Dashboard/dashboard.module.css";
+import ImagesForTrip from "./imagesForTrip";
+import AllTrip from "./allTrip";
 
 function TripManagement() {
-  return <RenderTripItem />;
+  const [hidden, setHidden] = useState(false);
+  const [trip, setTrip] = useState(null);
+  return (
+    <div>
+      <div
+        className={classNames(
+          `${styles.formLogin}`,
+          hidden && `${styles.formLoginHidden}`
+        )}
+      >
+        <AllTrip hidden={hidden} setHidden={setHidden} setTrip={setTrip} />
+      </div>
+      <div
+        className={classNames(
+          `${styles.formLoginHidden}`,
+          hidden && `${styles.formLoginEmail}`
+        )}
+      >
+        {trip && (
+          <ImagesForTrip hidden={hidden} setHidden={setHidden} trip={trip} />
+        )}
+      </div>
+    </div>
+  );
 }
 
 export default TripManagement;

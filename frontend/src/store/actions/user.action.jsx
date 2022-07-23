@@ -242,7 +242,57 @@ const getListUserFailed = (err) => {
     payload: err,
   };
 };
-
+export const getListImagesByTrip = (id, setListImages, setLoading) => {
+  return (dispatch) => {
+    setLoading(true);
+    axios({
+      method: "GET",
+      url: `${API_URL}/api/admin/trips/${id}/images`,
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      data: null,
+    })
+      .then((res) => {
+        setListImages(res.data);
+        setLoading(false);
+      })
+      .catch((err) => {
+        console.log(err);
+        setLoading(false);
+      });
+  };
+};
+export const getListTripByAdmin = (
+  page,
+  userList,
+  setUserList,
+  setTotalPages,
+  setLoading
+) => {
+  return (dispatch) => {
+    dispatch(startLoading());
+    axios({
+      method: "GET",
+      url: `${API_URL}/api/admin/trips?page=${page}&size=9`,
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      data: null,
+    })
+      .then((res) => {
+        dispatch(stopLoading());
+        setUserList([...userList, ...res.data.data]);
+        setLoading(false);
+        setTotalPages(res.data.total);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+};
 export const getListTrip = (
   page,
   userList,

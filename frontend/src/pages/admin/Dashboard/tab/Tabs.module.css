@@ -34,7 +34,7 @@
   transition: .5s;
   position: relative;
   min-height: 100vh;
-  padding-bottom: 90px;
+  /* padding-bottom: 90px; */
   overflow: hidden;
   background: #eff1f7;
 }

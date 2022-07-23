@@ -76,19 +76,16 @@ function UserManagement() {
     }
   };
   const chartData = {
-    labels: ["E-3-40/45", "E-3", "B-52", "B-1", "E-6", "KC-135"],
+    labels: ["Users", "Trips", "VisitPlaces", "Photos"],
     datasets: [
       {
         label: "number of aircraft",
-        data: [617594, 181045, 153060, 106519, 105162, 95072], //fake data
+        data: [35, 65, 105, 130], //fake data
         backgroundColor: [
           "rgba(255, 99, 132, 0.6)",
           "rgba(54, 162, 235, 0.6)",
-          "rgba(255, 206, 86, 0.6)",
           "rgba(75, 192, 192, 0.6)",
-          "rgba(153, 102, 255, 0.6)",
           "rgba(255, 159, 64, 0.6)",
-          "rgba(255, 99, 132, 0.6)",
         ],
       },
     ],
@@ -103,7 +100,7 @@ function UserManagement() {
             </div>
             <div className={styles.count_content}>
               <h3>
-                <span>100</span>
+                <span>35</span>
               </h3>
               <p>Users</p>
             </div>
@@ -114,7 +111,7 @@ function UserManagement() {
             </div>
             <div className={styles.count_content}>
               <h3>
-                <span>100</span>
+                <span>65</span>
               </h3>
               <p>Trips</p>
             </div>
@@ -125,7 +122,7 @@ function UserManagement() {
             </div>
             <div className={styles.count_content}>
               <h3>
-                <span>100</span>
+                <span>105</span>
               </h3>
               <p>VisitPlaces</p>
             </div>
@@ -136,7 +133,7 @@ function UserManagement() {
             </div>
             <div className={styles.count_content}>
               <h3>
-                <span>100</span>
+                <span>130</span>
               </h3>
               <p>Photos</p>
             </div>
