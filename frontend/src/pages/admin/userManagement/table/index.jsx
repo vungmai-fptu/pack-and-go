@@ -65,7 +65,7 @@ function TableAdmin({ loadingInfo, userList, setUsername, setHandleGrant }) {
                       <img
                         src={
                           listUser.profileImageUrl === "" ||
-                          listUser.profileImageUrl === null
+                            listUser.profileImageUrl === null
                             ? "https://wrld-se-prod.b-cdn.net/images/user-empty.svg?width=640&height=640"
                             : listUser.profileImageUrl
                         }
@@ -81,7 +81,7 @@ function TableAdmin({ loadingInfo, userList, setUsername, setHandleGrant }) {
                     : "Việt Nam"}
                 </td>
                 <td>
-                  {listUser.roles.length === 2 ? (
+                  {listUser.roles?.length === 2 ? (
                     <button
                       onClick={() =>
                         onGrantUser(listUser.username, listUser.roles.length)

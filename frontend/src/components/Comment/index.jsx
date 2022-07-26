@@ -13,6 +13,7 @@ import InputComment from "./inputComment";
 function Comment({ tripId, comments, setComments, currentUser, loadComments }) {
   const [comment, setComment] = useState("");
   const [loading, setLoading] = useState(false);
+  const [loadingReply, setLoadingReply] = useState(false);
 
   const [updated, setUpdated] = useState();
   const ref = useRef(null);
@@ -64,11 +65,13 @@ function Comment({ tripId, comments, setComments, currentUser, loadComments }) {
     }
 
     const updateCmt = async () => {
+      setLoading(true);
       const res = await updateComment(updated);
       if (res.status === 200) {
         await loadComments();
         setUpdated(null);
       }
+      setLoading(false);
     };
     updateCmt();
   };
@@ -78,10 +81,13 @@ function Comment({ tripId, comments, setComments, currentUser, loadComments }) {
       if (!content || content?.trim().length === 0) {
         return;
       }
+      setLoadingReply(true);
       const res = await replyComment(id, content);
       if (res.status === 200) {
         await loadComments();
       }
+      setLoadingReply(false);
+
     }, // eslint-disable-next-line
     []
   );
@@ -98,6 +104,7 @@ function Comment({ tripId, comments, setComments, currentUser, loadComments }) {
             popup={true}
             updated={updated}
             key={comment.id}
+            loading={loadingReply}
           />
         ))}
       </div>

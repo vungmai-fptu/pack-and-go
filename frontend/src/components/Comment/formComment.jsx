@@ -12,12 +12,11 @@ function FormComment({
   setUpdated,
   popup,
   updated,
+  loading
 }) {
   const [popupReply, setPopupReply] = useState(false);
   const { user } = useSelector((state) => state.user);
   const [replyContent, setReplyContent] = useState("");
-  const [loading, setLoading] = useState(false);
-  console.log("🚀", setLoading);
 
   return (
     <div className={styles.formComment}>

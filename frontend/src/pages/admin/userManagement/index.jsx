@@ -50,7 +50,7 @@ function UserManagement() {
       setPage(0);
       axios({
         method: "GET",
-        url: `${process.env.REACT_APP_API_URL}/api/search?text=${text}`,
+        url: `${process.env.REACT_APP_API_URL}/api/search?text=${text.trim()}`,
       })
         .then((res) => {
           setUserList(res.data.users);

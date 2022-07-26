@@ -3,7 +3,9 @@ import { NotificationManager } from "react-notifications";
 const API_URL = process.env.REACT_APP_API_URL;
 const userLogin = localStorage.getItem("userLogin");
 const token = userLogin ? JSON.parse(userLogin).token : "";
+
 export const putGrant = (username, setHandleGrant) => {
+  const token = userLogin ? JSON.parse(userLogin).token : "";
   return () => {
     axios({
       method: "PUT",
@@ -23,6 +25,7 @@ export const putGrant = (username, setHandleGrant) => {
   };
 };
 export const putRevoke = (username, setHandleGrant) => {
+  const token = userLogin ? JSON.parse(userLogin).token : "";
   return () => {
     axios({
       method: "PUT",
@@ -42,6 +45,7 @@ export const putRevoke = (username, setHandleGrant) => {
   };
 };
 export const putBlock = (username, setHandleGrant) => {
+  const token = userLogin ? JSON.parse(userLogin).token : "";
   return () => {
     axios({
       method: "PUT",
@@ -62,6 +66,7 @@ export const putBlock = (username, setHandleGrant) => {
   };
 };
 export const putUnBlock = (username, setHandleGrant) => {
+  const token = userLogin ? JSON.parse(userLogin).token : "";
   return () => {
     axios({
       method: "PUT",

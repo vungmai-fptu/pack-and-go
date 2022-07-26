@@ -114,7 +114,7 @@ const MapComponent = ({ destination }) => {
               icon={makerIcon}
               position={[p.latitude, p.longitude]}
             >
-              <Popup>{p.address}</Popup>
+              <Popup>{`Place ${index + 1}: ${p.address}`}</Popup>
             </Marker>
           ))}
       </MapContainer>
