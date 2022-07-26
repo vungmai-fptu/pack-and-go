@@ -11,9 +11,9 @@ import 'aos/dist/aos.js';
 
 const CallToAction = () => {
   useEffect(() => {
-    Aos.init({duration: 2000});
+    Aos.init({ duration: 2000 });
     Aos.refresh();
-  },[]
+  }, []
   );
   return (
     <section data-aos={"fade-right"}>
@@ -29,13 +29,13 @@ const CallToAction = () => {
                 <p>Create your FREE and secured account in seconds</p>
 
                 <div className={styles["action-btns"]}>
-                  <Link to="/sign/up" >
+                  <Link to="/signUp" >
                     <div className={`${styles["action-btn"]} ${styles.google}`} >
                       <ImGoogle />
                       <span>With Google</span>
                     </div>
                   </Link>
-                  <Link to="/sign/up" >
+                  <Link to="/signUp" >
                     <div className={`${styles["action-btn"]} ${styles.email}`}>
                       <SiGmail />
                       <span>With Email</span>

@@ -170,7 +170,7 @@ function Login() {
               </div>
             </div>
             <div className={styles.register}>
-              <span>Are you new to Worldee?</span>
+              <span>Are you new to Pack&Go?</span>
               <Link to="/signUp">
                 <span>Register</span>
               </Link>

@@ -11,7 +11,7 @@ const HeroSection = () => {
           Planning trips - Save trips - Edit trips
         </p>
 
-        <Link to="/sign/up" className={styles.button}>
+        <Link to="/signUp" className={styles.button}>
           <div>
             Join us now
           </div>
