@@ -51,7 +51,7 @@ export default function FormLogout() {
           </svg>
         </div>
         <div className={styles.formLogout}>
-          {isLoginToAdmin === "ADMIN" && (
+          {isLoginToAdmin === 2 && (
             <div className={styles.logout}>
               <div className={styles.logoutContent}>
                 <Link to="/admin">

@@ -3,10 +3,8 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import logo from "../../../../assets/images/logos/logo-black-3.png";
 import FormLogout from "../../../../components/Header/formLogout";
-import { useIsLogin } from "../../../../hooks/useIsLogin";
 import styles from "./headerAmin.module.css";
-export default function HeaderAdmin() {
-  const { user } = useIsLogin();
+export default function HeaderAdmin({ user }) {
   const [state, setState] = useState({});
   useEffect(
     () => {

@@ -1,11 +1,15 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import styles from "./TripItem.module.css";
-const TripItem = (props) => {
+const TripItemAdmin = (props) => {
   const place = props.listTrip.visitDays
     .map((visit) => visit.visitPlaces)
     .flat();
   const photo = place.map((photo) => photo.images).flat();
+  const onClick = (id) => {
+    props.setTrip(id);
+    props.setHidden(!props.hidden);
+  };
   return (
     <div className={styles.outer}>
       <div className={styles["item-image"]}>
@@ -53,10 +57,21 @@ const TripItem = (props) => {
               <span>{props.listTrip.owner}</span>
             </div>
           </Link>
-          <div className={styles["destination-info"]}>
-            <span>{props.listTrip.visitDays.length} days</span>
-            <span>{photo.length} photos</span>
-            <span>{place.length} places</span>
+          <div
+            className={styles["destination-info"]}
+            style={{ justifyContent: "space-between" }}
+          >
+            <div className={styles["destination-info"]}>
+              <span>{props.listTrip.visitDays.length} days</span>
+              <span>{photo.length} photos</span>
+              <span>{place.length} places</span>
+            </div>
+            <span
+              style={{ cursor: "pointer" }}
+              onClick={() => onClick(props.listTrip.id)}
+            >
+              All Images
+            </span>
           </div>
         </div>
       </div>
@@ -64,4 +79,4 @@ const TripItem = (props) => {
   );
 };
 
-export default TripItem;
+export default TripItemAdmin;

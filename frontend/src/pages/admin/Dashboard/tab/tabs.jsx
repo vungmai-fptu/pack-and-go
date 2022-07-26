@@ -5,6 +5,12 @@ import styles from "./Tabs.module.css";
 import logo from "../../../../assets/images/logos/logo-black-3.png";
 import HeaderAdmin from "./../header/index";
 import { Link } from "react-router-dom";
+import { useIsLogin } from "../../../../hooks/useIsLogin";
+
+function RenderHeaderAdmin() {
+  const { user } = useIsLogin();
+  return <>{user && <HeaderAdmin user={user} />}</>;
+}
 class Tabs extends Component {
   static propTypes = {
     children: PropTypes.instanceOf(Array).isRequired,
@@ -54,7 +60,7 @@ class Tabs extends Component {
           </ul>
         </nav>
         <section className={styles.dashboard_part}>
-          <HeaderAdmin />
+          <RenderHeaderAdmin />
           <div className={styles.main_content}>
             {children.map((child) => {
               if (child.props.label !== activeTab) return undefined;

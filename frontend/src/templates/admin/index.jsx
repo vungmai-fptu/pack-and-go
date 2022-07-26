@@ -11,13 +11,13 @@ function AdminTemplate(props) {
 }
 
 const RouterAdminTemplate = ({ path, exact, Component }) => {
-  const { isLoginToAdmin } = useIsLogin();
+  const { isLogin, isLoginToAdmin } = useIsLogin();
   return (
     <Route
       path={path}
       exact={exact}
       render={() =>
-        isLoginToAdmin === "ADMIN" ? (
+        isLogin && isLoginToAdmin === 2 ? (
           <AdminTemplate>
             <Component />
           </AdminTemplate>

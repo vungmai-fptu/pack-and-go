@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { FcSearch, FcHighPriority, FcOk, FcLowPriority } from "react-icons/fc";
+import { FcSearch } from "react-icons/fc";
+import NotificationContainer from "react-notifications/lib/NotificationContainer";
 import { getUser } from "../../../store/actions/user.action";
 import avatar from "../assets/image/21-avatar-flat (1).gif";
 import location from "../assets/image/18-location-pin-flat.gif";
@@ -13,6 +14,7 @@ import Load from "../../../components/Load";
 import Pagination from "./pagination";
 import axios from "axios";
 import UserTrip from "./userTrip";
+import TableAdmin from "./table";
 function UserManagement() {
   const dispatch = useDispatch();
   const [totalPages, setTotalPages] = useState(0);
@@ -21,6 +23,7 @@ function UserManagement() {
   const [loadingInfo, setLoadingInfo] = useState(false);
   const [text, setText] = useState("");
   const [username, setUsername] = useState(null);
+  const [handleGrant, setHandleGrant] = useState(null);
   const { users } = useSelector((state) => state.user);
   const { loading } = useSelector((state) => state.common);
   useEffect(() => {
@@ -41,7 +44,7 @@ function UserManagement() {
     };
     getAccountInfo();
     // eslint-disable-next-line
-  }, [page]);
+  }, [handleGrant, page]);
   useEffect(() => {
     const fetchData = async () => {
       setPage(0);
@@ -73,19 +76,16 @@ function UserManagement() {
     }
   };
   const chartData = {
-    labels: ["E-3-40/45", "E-3", "B-52", "B-1", "E-6", "KC-135"],
+    labels: ["Users", "Trips", "VisitPlaces", "Photos"],
     datasets: [
       {
         label: "number of aircraft",
-        data: [617594, 181045, 153060, 106519, 105162, 95072], //fake data
+        data: [35, 65, 105, 130], //fake data
         backgroundColor: [
           "rgba(255, 99, 132, 0.6)",
           "rgba(54, 162, 235, 0.6)",
-          "rgba(255, 206, 86, 0.6)",
           "rgba(75, 192, 192, 0.6)",
-          "rgba(153, 102, 255, 0.6)",
           "rgba(255, 159, 64, 0.6)",
-          "rgba(255, 99, 132, 0.6)",
         ],
       },
     ],
@@ -100,7 +100,7 @@ function UserManagement() {
             </div>
             <div className={styles.count_content}>
               <h3>
-                <span>100</span>
+                <span>35</span>
               </h3>
               <p>Users</p>
             </div>
@@ -111,7 +111,7 @@ function UserManagement() {
             </div>
             <div className={styles.count_content}>
               <h3>
-                <span>100</span>
+                <span>65</span>
               </h3>
               <p>Trips</p>
             </div>
@@ -122,7 +122,7 @@ function UserManagement() {
             </div>
             <div className={styles.count_content}>
               <h3>
-                <span>100</span>
+                <span>105</span>
               </h3>
               <p>VisitPlaces</p>
             </div>
@@ -133,7 +133,7 @@ function UserManagement() {
             </div>
             <div className={styles.count_content}>
               <h3>
-                <span>100</span>
+                <span>130</span>
               </h3>
               <p>Photos</p>
             </div>
@@ -163,63 +163,12 @@ function UserManagement() {
                 </form>
               </div>
             </div>
-            <table>
-              <thead>
-                <tr>
-                  <th style={{ borderRadius: "30px 0 0 30px" }}>User Name</th>
-                  <th style={{ width: 120 }}>Country</th>
-                  <th style={{ width: 120 }}>AllTrip</th>
-                  <th style={{ width: 120, borderRadius: "0px 30px 30px 0px" }}>
-                    Actions
-                  </th>
-                </tr>
-              </thead>
-              <tbody>
-                {loadingInfo ? (
-                  <tr>
-                    <td style={{ textAlign: "end" }}>
-                      <Load />
-                    </td>
-                  </tr>
-                ) : (
-                  userList &&
-                  userList.map((listUser, index) => {
-                    return (
-                      <tr key={index}>
-                        <th onClick={() => setUsername(listUser.username)}>
-                          <div className={styles.align_items_center}>
-                            <div style={{ marginRight: "20px" }}>
-                              <img
-                                src={
-                                  listUser.profileImageUrl === "" ||
-                                  listUser.profileImageUrl === null
-                                    ? "https://wrld-se-prod.b-cdn.net/images/user-empty.svg?width=640&height=640"
-                                    : listUser.profileImageUrl
-                                }
-                                alt="img"
-                              />
-                            </div>
-                            <p>{listUser.username}</p>
-                          </div>
-                        </th>
-                        <td>
-                          {listUser.country !== null && listUser.country !== ""
-                            ? listUser.country
-                            : "Việt Nam"}
-                        </td>
-                        <td>
-                          <FcLowPriority />
-                        </td>
-                        <td>
-                          <FcHighPriority />
-                          <FcOk />
-                        </td>
-                      </tr>
-                    );
-                  })
-                )}
-              </tbody>
-            </table>
+            <TableAdmin
+              loadingInfo={loadingInfo}
+              userList={userList}
+              setUsername={setUsername}
+              setHandleGrant={setHandleGrant}
+            />
           </div>
           <Pagination value={page} range={totalPages} onChange={setPage} />
         </div>
@@ -247,6 +196,7 @@ function UserManagement() {
           </div>
         </div>
       )}
+      <NotificationContainer />
     </div>
   );
 }

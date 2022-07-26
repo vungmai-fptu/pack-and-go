@@ -21,6 +21,7 @@ import {
   UPDATE_INFO_SUCCESS,
   UPDATE_INFO_FAILED,
   GET_INFO_SUCCESS,
+  ADMIN_SUCCESS,
 } from "../constants/user.const";
 import { startLoading, stopLoading } from "../actions/common.action";
 
@@ -241,7 +242,57 @@ const getListUserFailed = (err) => {
     payload: err,
   };
 };
-
+export const getListImagesByTrip = (id, setListImages, setLoading) => {
+  return (dispatch) => {
+    setLoading(true);
+    axios({
+      method: "GET",
+      url: `${API_URL}/api/admin/trips/${id}/images`,
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      data: null,
+    })
+      .then((res) => {
+        setListImages(res.data);
+        setLoading(false);
+      })
+      .catch((err) => {
+        console.log(err);
+        setLoading(false);
+      });
+  };
+};
+export const getListTripByAdmin = (
+  page,
+  userList,
+  setUserList,
+  setTotalPages,
+  setLoading
+) => {
+  return (dispatch) => {
+    dispatch(startLoading());
+    axios({
+      method: "GET",
+      url: `${API_URL}/api/admin/trips?page=${page}&size=9`,
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      data: null,
+    })
+      .then((res) => {
+        dispatch(stopLoading());
+        setUserList([...userList, ...res.data.data]);
+        setLoading(false);
+        setTotalPages(res.data.total);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+};
 export const getListTrip = (
   page,
   userList,
@@ -333,6 +384,28 @@ const getUserFailed = (err) => {
   return {
     type: USER_FAILED,
     payload: err,
+  };
+};
+export const getAdmin = (username) => {
+  return (dispatch) => {
+    axios({
+      method: "GET",
+      url: `${API_URL}/api/users/${username}/trips?target=me`,
+      data: null,
+    })
+      .then((res) => {
+        dispatch(getAdminSuccess(res.data));
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+};
+
+export const getAdminSuccess = (admin) => {
+  return {
+    type: ADMIN_SUCCESS,
+    payload: admin,
   };
 };
 

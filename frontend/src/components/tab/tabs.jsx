@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import Tab from "./tab";
 import styles from "./Tabs.module.css";
 import { FcLikePlaceholder, FcLike, FcComments, FcShare } from "react-icons/fc";
+import { FacebookShareButton } from "react-share";
 import Comment from "../Comment";
 import { useSelector } from "react-redux";
 import { TRIP_MODE } from "../../store/constants/trip.const";
@@ -142,11 +143,22 @@ function Tabs(props) {
                   </div>
                   <span>{countNumOfComments()}</span>
                 </button>
-                <button onClick={shareTrip}>
-                  <div>
-                    <FcShare />
-                  </div>
-                </button>
+                {!user ? (
+                  <button onClick={shareTrip}>
+                    <div>
+                      <FcShare />
+                    </div>
+                  </button>
+                ) : (
+                  <FacebookShareButton
+                    url={`http://localhost:3000/trip/${trip.id}`}
+                    hashtag={"#pack&go"}
+                  >
+                    <div>
+                      <FcShare />
+                    </div>
+                  </FacebookShareButton>
+                )}
               </div>
             </div>
             {user && formComment && (
