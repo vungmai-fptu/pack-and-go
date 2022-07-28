@@ -20,7 +20,7 @@ function ChangePassword() {
   return (
     <div className={styles.accountPageContent}>
       <div className={styles.titleHeader}>
-        <h1> My Account</h1>
+        <h1>Password change</h1>
       </div>
       <div className={styles.content}>
         <form onSubmit={handleSubmit} noValidate>

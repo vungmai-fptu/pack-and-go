@@ -2,7 +2,7 @@ import axios from "axios";
 import { NotificationManager } from "react-notifications";
 const API_URL = process.env.REACT_APP_API_URL;
 const userLogin = localStorage.getItem("userLogin");
-const token = userLogin ? JSON.parse(userLogin).token : "";
+// const token = userLogin ? JSON.parse(userLogin).token : "";
 
 export const putGrant = (username, setHandleGrant) => {
   const token = userLogin ? JSON.parse(userLogin).token : "";
@@ -16,8 +16,9 @@ export const putGrant = (username, setHandleGrant) => {
       },
     })
       .then((res) => {
-        NotificationManager.success(res.data.message);
         setHandleGrant(username);
+        NotificationManager.success(res.data.message);
+        setHandleGrant(null);
       })
       .catch((err) => {
         NotificationManager.error(err.response.data.message);
@@ -36,8 +37,9 @@ export const putRevoke = (username, setHandleGrant) => {
       },
     })
       .then((res) => {
-        NotificationManager.success(res.data.message);
         setHandleGrant(username);
+        NotificationManager.success(res.data.message);
+        setHandleGrant(null);
       })
       .catch((err) => {
         NotificationManager.error(err.response.data.message);
@@ -57,8 +59,9 @@ export const putBlock = (username, setHandleGrant) => {
     })
       .then((res) => {
         const message = res.data.username + " has been blocked";
-        NotificationManager.success(message);
         setHandleGrant(username);
+        NotificationManager.success(message);
+        setHandleGrant(null);
       })
       .catch((err) => {
         NotificationManager.error(err.response.data.message);
@@ -78,8 +81,30 @@ export const putUnBlock = (username, setHandleGrant) => {
     })
       .then((res) => {
         const message = res.data.username + " has been Unblocked";
-        NotificationManager.success(message);
         setHandleGrant(username);
+        NotificationManager.success(message);
+        setHandleGrant(null);
+      })
+      .catch((err) => {
+        NotificationManager.error(err.response.data.message);
+      });
+  };
+};
+export const putDeleteTrip = (id, userList, setUserList) => {
+  const token = userLogin ? JSON.parse(userLogin).token : "";
+  return () => {
+    axios({
+      method: "DELETE",
+      url: `${API_URL}/api/admin/trips/${id}`,
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    })
+      .then((res) => {
+        setUserList(userList.filter((elm) => elm.id !== id));
+        const message = `trip ${res.data.id} has been Delete`;
+        NotificationManager.success(message);
       })
       .catch((err) => {
         NotificationManager.error(err.response.data.message);

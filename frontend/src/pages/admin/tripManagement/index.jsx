@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import classNames from "classnames";
 import styles from "../Dashboard/dashboard.module.css";
 import ImagesForTrip from "./imagesForTrip";
+import NotificationContainer from "react-notifications/lib/NotificationContainer";
 import AllTrip from "./allTrip";
 
 function TripManagement() {
@@ -27,6 +28,7 @@ function TripManagement() {
           <ImagesForTrip hidden={hidden} setHidden={setHidden} trip={trip} />
         )}
       </div>
+      <NotificationContainer />
     </div>
   );
 }

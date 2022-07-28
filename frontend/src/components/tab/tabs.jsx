@@ -151,7 +151,7 @@ function Tabs(props) {
                   </button>
                 ) : (
                   <FacebookShareButton
-                    url={`http://localhost:3000/trip/${trip.id}`}
+                    url={`https://daihoc.fpt.edu.vn/tag/fptu`}
                     hashtag={"#pack&go"}
                   >
                     <div>

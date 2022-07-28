@@ -34560,7 +34560,7 @@
 }
 
 .w_dS em {
-    background: url(../images/4645d7321b9866566754.png) 50% no-repeat;
+    /* background: url(../images/4645d7321b9866566754.png) 50% no-repeat; */
     background-size: contain;
     color: hsla(0, 0%, 100%, 0);
     display: inline-block;
@@ -35598,7 +35598,7 @@
 
 .w_d8 {
     align-items: center;
-    background: url(../images/abe77f333e59bea898b6.jpg) 50%;
+    /* background: url(../images/abe77f333e59bea898b6.jpg) 50%; */
     background-size: cover;
     display: flex;
     flex-direction: column;

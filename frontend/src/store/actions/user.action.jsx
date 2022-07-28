@@ -271,6 +271,7 @@ export const getListTripByAdmin = (
   setTotalPages,
   setLoading
 ) => {
+  const token = userLogin ? JSON.parse(userLogin).token : "";
   return (dispatch) => {
     dispatch(startLoading());
     axios({

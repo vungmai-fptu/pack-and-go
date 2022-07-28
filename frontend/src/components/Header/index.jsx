@@ -16,7 +16,7 @@ import { useDispatch } from "react-redux";
 import { NotificationManager } from "react-notifications";
 import { actLogout } from "../../store/actions/user.action";
 
-const SIZE = 2;
+const SIZE = 5;
 
 export default function Header() {
   const dispatch = useDispatch();

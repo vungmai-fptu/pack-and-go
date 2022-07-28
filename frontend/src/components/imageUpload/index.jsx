@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { storeImageToFireBase } from "../../utils/storeImageToFirebase.";
 import { BsUpload } from "react-icons/bs";
-import landscape from "../../assets/images/landscape.jpg";
+// import landscape from "../../assets/images/landscape.jpg";
 
 export default function ImageUpload({ image, handleChangeImage }) {
   const [selectedFile, setSelectedFile] = useState();

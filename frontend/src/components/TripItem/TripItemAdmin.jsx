@@ -1,6 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import styles from "./TripItem.module.css";
+import { ImBin } from "react-icons/im";
 const TripItemAdmin = (props) => {
   const place = props.listTrip.visitDays
     .map((visit) => visit.visitPlaces)
@@ -23,20 +24,13 @@ const TripItemAdmin = (props) => {
         />
       </div>
       <div className={styles.inner}>
-        <div className={styles.top}>
-          {/* <div className={styles["list-flag"]} width="144" height="32">
-            <div className={styles.flag}>
-              <img
-                src={
-                  props.listTrip.flag == null
-                    ? "https://wrld-se-prod.b-cdn.net/images/user-empty.svg?width=640&height=640"
-                    : props.listTrip.flag
-                }
-                alt="countryFlags/VN"
-                className="w_fu w_fB"
-              />
-            </div>
-          </div> */}
+        <div className={styles.top} style={{ justifyContent: "flex-end" }}>
+          <button
+            style={{ display: "contents", justifyContent: "flex-end" }}
+            onClick={() => props.onDeleteTrip(props.listTrip.id)}
+          >
+            <ImBin color="#F44336" />
+          </button>
         </div>
         <div className={styles.bottom}>
           <Link

@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
+import DeleteTripByAdminModal from "../../../../components/Modal/DeleteTripByAdminModal";
 import SkeletonTripItem from "../../../../components/SkeletonCard/SkeletonTripItem";
 import TripItemAdmin from "../../../../components/TripItem/TripItemAdmin";
 import { useIsLogin } from "../../../../hooks/useIsLogin";
 import { getListTripByAdmin } from "../../../../store/actions/user.action";
+import { OPEN_MODAL } from "../../../../store/constants/modal.const";
 
 function AllTrip({ hidden, setHidden, setTrip }) {
   const dispatch = useDispatch();
@@ -17,6 +19,18 @@ function AllTrip({ hidden, setHidden, setTrip }) {
     );
     // eslint-disable-next-line
   }, [page]);
+  const onDeleteTrip = (id) => {
+    dispatch({
+      type: OPEN_MODAL,
+      payload: (
+        <DeleteTripByAdminModal
+          id={id}
+          userList={userList}
+          setUserList={setUserList}
+        />
+      ),
+    });
+  };
   const { isLogin } = useIsLogin();
   return userList.length === 0 ? (
     <div className="w_cw">
@@ -54,6 +68,7 @@ function AllTrip({ hidden, setHidden, setTrip }) {
               hidden={hidden}
               setHidden={setHidden}
               setTrip={setTrip}
+              onDeleteTrip={onDeleteTrip}
               key={index}
             />
           ))}

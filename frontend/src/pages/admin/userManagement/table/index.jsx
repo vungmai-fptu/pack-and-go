@@ -1,6 +1,6 @@
 import { useDispatch } from "react-redux";
 import { FcHighPriority } from "react-icons/fc";
-import { ImBin } from "react-icons/im";
+// import { ImBin } from "react-icons/im";
 import { MdAdminPanelSettings } from "react-icons/md";
 import { OPEN_MODAL } from "../../../../store/constants/modal.const";
 import Load from "../../../../components/Load";
@@ -38,13 +38,17 @@ function TableAdmin({ loadingInfo, userList, setUsername, setHandleGrant }) {
     <table>
       <thead>
         <tr>
-          <th style={{ borderRadius: "30px 0 0 30px" }}>User Name</th>
+          <th style={{ textAlign: "left", borderRadius: "30px 0 0 30px" }}>
+            User Name
+          </th>
           <th style={{ width: 120 }}>Country</th>
           <th style={{ width: 120 }}>Grant</th>
-          <th style={{ width: 120 }}>Block</th>
           <th style={{ width: 120, borderRadius: "0px 30px 30px 0px" }}>
-            Delete
+            Block
           </th>
+          {/* <th style={{ width: 120, borderRadius: "0px 30px 30px 0px" }}>
+            Delete
+          </th> */}
         </tr>
       </thead>
       <tbody>
@@ -65,7 +69,7 @@ function TableAdmin({ loadingInfo, userList, setUsername, setHandleGrant }) {
                       <img
                         src={
                           listUser.profileImageUrl === "" ||
-                            listUser.profileImageUrl === null
+                          listUser.profileImageUrl === null
                             ? "https://wrld-se-prod.b-cdn.net/images/user-empty.svg?width=640&height=640"
                             : listUser.profileImageUrl
                         }
@@ -120,11 +124,11 @@ function TableAdmin({ loadingInfo, userList, setUsername, setHandleGrant }) {
                     </button>
                   )}
                 </td>
-                <td>
+                {/* <td>
                   <button>
                     <ImBin color="#F44336" />
                   </button>
-                </td>
+                </td> */}
               </tr>
             );
           })

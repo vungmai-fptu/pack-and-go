@@ -133,7 +133,7 @@
     color: #fff;
     background: #2daab8;
     padding: 17px 30px;
-    text-align: left;
+    /* text-align: left; */
 }
 
 .white_box table tbody tr th {
